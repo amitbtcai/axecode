@@ -43,10 +43,12 @@ describe("electron-builder.shared.cjs mirrors src/shared/channel.ts", () => {
     expect(cjs.normalizeChannel("beta")).toBe("stable");
   });
 
-  it("keeps macOS updater ZIPs on the legacy technical executable name", () => {
-    expect(cjs.macExecutableNameFor("stable", "updater")).toBe("Lightcode");
-    expect(cjs.macExecutableNameFor("nightly", "updater")).toBe("Lightcode Nightly");
-    expect(cjs.macExecutableNameFor("stable", "branded")).toBe("Poracode");
-    expect(cjs.macExecutableNameFor("nightly", "branded")).toBe("Poracode Nightly");
+  it("keeps macOS updater ZIPs and DMGs on one stable executable name", () => {
+    // Squirrel.Mac cannot relaunch across an executable rename, so the updater
+    // name and the branded name must stay identical and never change.
+    expect(cjs.macExecutableNameFor("stable", "updater")).toBe("Axe Code");
+    expect(cjs.macExecutableNameFor("nightly", "updater")).toBe("Axe Code Nightly");
+    expect(cjs.macExecutableNameFor("stable", "branded")).toBe("Axe Code");
+    expect(cjs.macExecutableNameFor("nightly", "branded")).toBe("Axe Code Nightly");
   });
 });

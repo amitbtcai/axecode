@@ -54,9 +54,9 @@ describe("complete Lightcode data migration", () => {
   });
 
   const legacyDir = () => join(ctx.home, ".lightcode");
-  const newDir = () => join(ctx.home, ".poracode");
+  const newDir = () => join(ctx.home, ".axecode");
   const legacyElectronDir = () => join(ctx.home, "AppData", "Lightcode");
-  const newElectronDir = () => join(ctx.home, "AppData", "Poracode");
+  const newElectronDir = () => join(ctx.home, "AppData", "Axe Code");
 
   function seedLegacyData(): void {
     mkdirSync(join(legacyDir(), "claude-profiles"), { recursive: true });

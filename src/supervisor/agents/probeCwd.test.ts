@@ -16,7 +16,7 @@ vi.mock("node:fs", async () => {
 
 import { getAgentProbeCwd, resolveProbeSpawnCwd } from "./probeCwd";
 
-const probeDir = join(homedir(), ".poracode", "agent-probe");
+const probeDir = join(homedir(), ".axecode", "agent-probe");
 
 beforeEach(() => {
   mkdirSyncMock.mockReset();

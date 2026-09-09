@@ -13,17 +13,15 @@ export function resolvePoracodeChannel(): PoracodeChannel {
 }
 
 export function productNameFor(channel: PoracodeChannel): string {
-  return channel === "nightly" ? "Poracode Nightly" : "Poracode";
+  return channel === "nightly" ? "Axe Code Nightly" : "Axe Code";
 }
 
 export function appIdFor(channel: PoracodeChannel): string {
-  // Keep the pre-rebrand install identity so Poracode upgrades the existing
-  // Lightcode app and retains OS-owned credentials, permissions, and metadata.
-  return channel === "nightly" ? "com.lightcode.app.nightly" : "com.lightcode.app";
+  return channel === "nightly" ? "com.axecode.app.nightly" : "com.axecode.app";
 }
 
 export function userDataDirNameFor(channel: PoracodeChannel): string {
-  return channel === "nightly" ? ".poracode-nightly" : ".poracode";
+  return channel === "nightly" ? ".axecode-nightly" : ".axecode";
 }
 
 export function updaterChannelFor(channel: PoracodeChannel): string | undefined {
@@ -31,5 +29,5 @@ export function updaterChannelFor(channel: PoracodeChannel): string | undefined 
 }
 
 export function artifactPrefixFor(channel: PoracodeChannel): string {
-  return channel === "nightly" ? "Poracode-Nightly" : "Poracode";
+  return channel === "nightly" ? "AxeCode-Nightly" : "AxeCode";
 }

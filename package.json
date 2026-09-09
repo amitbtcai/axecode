@@ -1,14 +1,14 @@
 {
-  "name": "poracode",
+  "name": "axecode",
   "version": "1.8.0",
   "private": true,
   "description": "The universal desktop orchestrator for AI agents. Run terminal-native and structured chat agents side-by-side.",
-  "homepage": "https://poracode.com/",
+  "homepage": "https://axeai.com/code",
   "license": "Apache-2.0",
-  "author": "Porabuild",
+  "author": "AxeAI",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Porabuild/Poracode"
+    "url": "https://github.com/amitbtcai/axecode"
   },
   "type": "module",
   "main": "dist/main/main.cjs",

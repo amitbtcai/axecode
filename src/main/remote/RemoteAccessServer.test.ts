@@ -851,21 +851,21 @@ describe("RemoteAccessServer", () => {
     const pairingPageResponse = await fetch(info.pairingUrl);
     expect(pairingPageResponse.status).toBe(200);
     const pairingHtml = await pairingPageResponse.text();
-    expect(pairingHtml).toContain("Poracode");
+    expect(pairingHtml).toContain("Axe Code");
     expect(pairingHtml).toContain('rel="manifest"');
 
     const appResponse = await fetch(new URL("/app", info.httpBaseUrl));
     expect(appResponse.status).toBe(200);
-    await expect(appResponse.text()).resolves.toContain("Poracode");
+    await expect(appResponse.text()).resolves.toContain("Axe Code");
 
     const appRouteResponse = await fetch(new URL("/app/settings/appearance", info.httpBaseUrl));
     expect(appRouteResponse.status).toBe(200);
-    await expect(appRouteResponse.text()).resolves.toContain("Poracode");
+    await expect(appRouteResponse.text()).resolves.toContain("Axe Code");
 
     const manifestResponse = await fetch(new URL("/manifest.webmanifest", info.httpBaseUrl));
     expect(manifestResponse.status).toBe(200);
     await expect(manifestResponse.json()).resolves.toMatchObject({
-      name: "Poracode",
+      name: "Axe Code",
       start_url: "/app",
       display: "standalone",
     });

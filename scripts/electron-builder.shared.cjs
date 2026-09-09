@@ -19,15 +19,15 @@ function normalizeChannel(value) {
 }
 
 function productNameFor(channel) {
-  return channel === "nightly" ? "Poracode Nightly" : "Poracode";
+  return channel === "nightly" ? "Axe Code Nightly" : "Axe Code";
 }
 
 function appIdFor(channel) {
-  return channel === "nightly" ? "com.lightcode.app.nightly" : "com.lightcode.app";
+  return channel === "nightly" ? "com.axecode.app.nightly" : "com.axecode.app";
 }
 
 function userDataDirNameFor(channel) {
-  return channel === "nightly" ? ".poracode-nightly" : ".poracode";
+  return channel === "nightly" ? ".axecode-nightly" : ".axecode";
 }
 
 function updaterChannelFor(channel) {
@@ -35,19 +35,19 @@ function updaterChannelFor(channel) {
 }
 
 function artifactPrefixFor(channel) {
-  return channel === "nightly" ? "Poracode-Nightly" : "Poracode";
+  return channel === "nightly" ? "AxeCode-Nightly" : "AxeCode";
 }
 
 /**
  * Squirrel.Mac cannot relaunch when an update changes the outer bundle and
  * executable name: it moves the old bundle away, then tries to spawn its
- * relaunch helper from the path it just removed. Keep updater ZIPs on the
- * pre-rebrand executable name so both Lightcode and already-migrated Poracode
- * installs update in place. DMGs remain fully Poracode-branded.
+ * relaunch helper from the path it just removed. Updater ZIPs and branded DMGs
+ * therefore share one executable name that must NEVER change once shipped —
+ * changing it strands every installed copy on manual reinstall.
  */
 function macExecutableNameFor(channel, artifactKind) {
   if (artifactKind === "updater") {
-    return channel === "nightly" ? "Lightcode Nightly" : "Lightcode";
+    return channel === "nightly" ? "Axe Code Nightly" : "Axe Code";
   }
   return productNameFor(channel);
 }

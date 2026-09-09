@@ -533,8 +533,8 @@ afterPack: build/after-pack.cjs
 
 publish:
   provider: github
-  owner: Porabuild
-  repo: Poracode${publishChannelLine}
+  owner: amitbtcai
+  repo: axecode${publishChannelLine}
 
 win:
   target:
@@ -561,7 +561,7 @@ linux:
         - x64
   icon: build/icon${iconSuffix}.png
   category: Development
-  maintainer: Porabuild <${supportEmail}>
+  maintainer: AxeAI <${supportEmail}>
   artifactName: ${prefix}-\${version}-\${arch}.\${ext}
 
 mac:
