@@ -28,8 +28,8 @@ const remoteMock = vi.hoisted(() => ({
     booted: true,
     connection: "online",
     message: null,
-    desktops: [{ id: "desktop-1", label: "Poracode on Mac" }],
-    activeDesktop: { id: "desktop-1", label: "Poracode on Mac" } as {
+    desktops: [{ id: "desktop-1", label: "Axe Code on Mac" }],
+    activeDesktop: { id: "desktop-1", label: "Axe Code on Mac" } as {
       id: string;
       label: string;
     } | null,
@@ -214,8 +214,8 @@ describe("mobile RootLayout", () => {
     mediaMock.rightPanel = false;
     threadDetailMock.mounts = 0;
     remoteMock.session.connection = "online";
-    remoteMock.session.desktops = [{ id: "desktop-1", label: "Poracode on Mac" }];
-    remoteMock.session.activeDesktop = { id: "desktop-1", label: "Poracode on Mac" };
+    remoteMock.session.desktops = [{ id: "desktop-1", label: "Axe Code on Mac" }];
+    remoteMock.session.activeDesktop = { id: "desktop-1", label: "Axe Code on Mac" };
     remoteMock.session.selectedThread = null;
     usePanelStore.setState({
       gitReviewContext: null,
@@ -359,7 +359,9 @@ describe("mobile RootLayout", () => {
 
     expect(screen.getByTestId("connection-pill")).toHaveAttribute("data-state", "online");
     expect(screen.getByTestId("connection-pill")).toHaveTextContent("Mac");
-    expect(screen.queryByText("Poracode on Mac")).not.toBeInTheDocument();
+    // The brand prefix is stripped for in-app display, so the full paired
+    // label never appears — only the short host name.
+    expect(screen.queryByText("Axe Code on Mac")).not.toBeInTheDocument();
   });
 
   it("hosts shared image previews opened from user messages", () => {
@@ -419,7 +421,7 @@ describe("mobile RootLayout", () => {
 
     render(<RootLayout />);
 
-    const brand = screen.getByRole("button", { name: "Poracode" });
+    const brand = screen.getByRole("button", { name: "Axe Code" });
     const connection = screen.getByTestId("connection-pill");
     const more = screen.getByLabelText("More");
     expect(
@@ -461,7 +463,7 @@ describe("mobile RootLayout", () => {
 
     render(<RootLayout />);
 
-    expect(screen.getByRole("button", { name: "Poracode" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Axe Code" })).toBeInTheDocument();
     expect(screen.queryByTestId("thread-title-row")).not.toBeInTheDocument();
   });
 

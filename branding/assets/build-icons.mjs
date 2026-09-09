@@ -13,6 +13,13 @@ const sh = promisify(execFile);
 const HERE = fileURLToPath(new URL(".", import.meta.url));
 const OUT = `${HERE}out`;
 
+// Icon masters. Forks rebranding this app only need to swap these three files
+// (1024x1024 squircle tile, tile-less glyph, nightly tile); every generated
+// asset derives from them.
+const MASTER_ICON = "axecode-icon.svg";
+const MASTER_ICON_NIGHTLY = "axecode-icon-nightly.svg";
+const MASTER_GLYPH = "axecode-glyph.svg";
+
 async function png(svg, size) {
   return sharp(svg, { density: 512 }).resize(size, size, { fit: "contain" }).png().toBuffer();
 }
@@ -26,14 +33,15 @@ async function macPng(svg, size) {
     .toBuffer();
 }
 
-// Tray glyph colors follow the brand tokens (BRAND.md §6): moon P on dark
-// shells, ink P on light shells. Ice is too faint against a light taskbar, so
-// the nightly accent deepens for the ink variant.
+// Tray glyph colors follow the Axe AI brand tokens: bone mark on dark shells,
+// ink mark on light shells. The Axe mark is monochrome, so `accent` only
+// matters if a master ever reintroduces a second colour (kept for parity with
+// the upstream generator).
 const TRAY_VARIANTS = [
-  { name: "tray-icon", glyph: "#EAF0FB", accent: "#8B7BFF" },
-  { name: "tray-icon-dark", glyph: "#0E0E14", accent: "#8B7BFF" },
-  { name: "tray-icon-nightly", glyph: "#EAF0FB", accent: "#5EE6E0" },
-  { name: "tray-icon-nightly-dark", glyph: "#0E0E14", accent: "#0E9C97" },
+  { name: "tray-icon", glyph: "#FAF9F5", accent: "#8B7BFF" },
+  { name: "tray-icon-dark", glyph: "#212121", accent: "#8B7BFF" },
+  { name: "tray-icon-nightly", glyph: "#FAF9F5", accent: "#5EE6E0" },
+  { name: "tray-icon-nightly-dark", glyph: "#212121", accent: "#0E9C97" },
 ];
 
 async function trayPng(svg, size, { glyph, accent }) {
@@ -152,7 +160,7 @@ async function buildTrayVariant(name, svg, dir, colors) {
 // template-image support, so each channel ships two glyph colors: the default
 // moon glyph for dark shells and the `-dark` ink variant for light ones.
 async function buildTrayIcons(dir) {
-  const svg = `${HERE}poracode-glyph.svg`;
+  const svg = `${HERE}${MASTER_GLYPH}`;
   for (const variant of TRAY_VARIANTS) {
     await buildTrayVariant(variant.name, svg, dir, variant);
   }
@@ -164,8 +172,8 @@ async function buildTrayIcons(dir) {
 // so nightly needs its own art or the two are indistinguishable on a home
 // screen.
 const PWA_VARIANTS = [
-  { suffix: "", svg: "poracode-icon.svg" },
-  { suffix: "-nightly", svg: "poracode-icon-nightly.svg" },
+  { suffix: "", svg: MASTER_ICON },
+  { suffix: "-nightly", svg: MASTER_ICON_NIGHTLY },
 ];
 
 // Maskable and apple-touch icons must be opaque corner to corner: the platform
@@ -223,8 +231,8 @@ async function main() {
 
   if (wants("build")) {
     console.log("build/ (app icons):");
-    await buildVariant("icon", `${HERE}poracode-icon.svg`, `${OUT}/build`);
-    await buildVariant("icon-nightly", `${HERE}poracode-icon-nightly.svg`, `${OUT}/build`);
+    await buildVariant("icon", `${HERE}${MASTER_ICON}`, `${OUT}/build`);
+    await buildVariant("icon-nightly", `${HERE}${MASTER_ICON_NIGHTLY}`, `${OUT}/build`);
     await buildTrayIcons(`${OUT}/build`);
   }
 
@@ -237,7 +245,7 @@ async function main() {
     console.log("website/public (favicons):");
     const web = `${OUT}/website`;
     await mkdir(web, { recursive: true });
-    const svg = `${HERE}poracode-icon.svg`;
+    const svg = `${HERE}${MASTER_ICON}`;
     const map = {
       "favicon-48x48.png": 48,
       "favicon-96x96.png": 96,
