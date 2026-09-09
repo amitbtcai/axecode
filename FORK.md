@@ -110,3 +110,53 @@ Squirrel.Mac cannot relaunch across an executable rename, so the updater ZIP
 and DMG executable names must be identical and must never change once shipped.
 Set to `Axe Code` now — changing it later strands every install on manual
 reinstall.
+
+## Phase 2 — icons & marks (DONE, commit fc5eed25)
+
+`branding/assets/build-icons.mjs` generates every icon from three 1024x1024
+masters, so only the masters had to change:
+
+| Master                     | Purpose                                        |
+| -------------------------- | ---------------------------------------------- |
+| `axecode-icon.svg`         | axe mark on `#212121` squircle tile (62% fill) |
+| `axecode-glyph.svg`        | tile-less `currentColor` glyph for tray icons  |
+| `axecode-icon-nightly.svg` | gradient tile (kept for parity)                |
+
+The generator now references them through `MASTER_ICON` / `MASTER_ICON_NIGHTLY`
+/ `MASTER_GLYPH` constants instead of six scattered literals, so a future
+rebrand or upstream merge touches one place.
+
+Regenerated `build`, `tray`, `website`, `pwa` sections and synced `build/`,
+`public/`, `website/public/`.
+
+Also: `BrandWordmark` renders the axe mark + "Axe Code"; PWA manifest and
+`app-icon*.svg` renamed; `desktopTitle()` strips the new "Axe Code on " prefix
+so paired desktops still show short host titles.
+
+Verified: 10950 tests, bundled `icon.icns` byte-identical to `build/icon.icns`,
+glyph coverage 9.2% (upstream 10.0%) and legible down to 16px.
+
+### Regenerating icons
+
+```bash
+export PATH="$HOME/.cargo/bin:$PATH"
+node branding/assets/build-icons.mjs      # or: build | tray | website | pwa
+# then sync build/ + public/ + website/public/ from branding/assets/out/
+```
+
+## GitHub
+
+- **https://github.com/amitbtcai/axecode** (public, `master`)
+- `origin` -> fork, `upstream` -> Porabuild/Poracode
+- Baseline tag `upstream-baseline` pushed for diffing against upstream
+
+### Syncing with upstream
+
+```bash
+export PATH="$HOME/.cargo/bin:$PATH"
+git fetch upstream && git merge upstream/master
+pnpm install && pnpm run typecheck && pnpm run lint && pnpm test
+```
+
+If upstream touches `branding/assets/build-icons.mjs`, re-check that the
+`MASTER_*` constants still point at the Axe masters.
