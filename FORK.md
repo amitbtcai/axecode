@@ -72,7 +72,41 @@ changes across an update. Set once, never change.
 ## Target brand
 
 - Product: **Axe Code**, domain `axeai.com/code`, org **AxeAI**
-- appId `com.axecode.app`, scheme `axecode://`, userData `.axecode`
+- GitHub: **amitbtcai/axecode** (`gh` authed as `amitbtcai`, ssh, scopes include repo+workflow)
+- appId `com.axecode.app`, userData `.axecode`
 - Unsigned for v1; auto-update via GitHub Releases
 - Logo: Axe AI mark, viewBox `0 0 197 168`, `currentColor`
 - Colors: ink `#212121`, bone `#FAF9F5`
+- Channels: **stable only** for now; nightly left in place (disabled by never
+  packaging it) so it can be enabled later with no code change
+
+## Phase 1 — core identity (DONE, commit 23802b5c)
+
+Edited only the branding seam, so upstream merges stay mechanical:
+
+- `src/shared/channel.ts` + `scripts/electron-builder.shared.cjs`:
+  productName `Axe Code`, appId `com.axecode.app`, userData `.axecode`,
+  artifactPrefix `AxeCode`, macExecutableName `Axe Code`
+- `scripts/build-desktop-artifact.mjs`: publish owner `amitbtcai` / repo `axecode`,
+  linux maintainer `AxeAI`
+- `package.json`: name `axecode`, homepage `axeai.com/code`, author `AxeAI`
+- `branding/contact.json`: `support@axeai.com`
+- Tests updated to the new literals: `RemoteAccessServer` (PWA manifest name),
+  `probeCwd`, `poracodePaths`, `poracodeData.migrate`
+
+Verified: typecheck, lint, 10945 tests, unsigned mac DMG arm64+x64,
+bundle `com.axecode.app`, `app-update.yml` -> `amitbtcai/axecode`,
+`updaterCacheDirName: axecode-updater`.
+
+### Gotcha: updaterCacheDirName
+
+electron-builder derives it from the **staged package.json `name`**, which
+`build-desktop-artifact.mjs:177` copies from root `package.json`. Renaming only
+`productNameFor()` left it as `poracode-updater`; root `name: axecode` fixed it.
+
+### Gotcha: macExecutableNameFor
+
+Squirrel.Mac cannot relaunch across an executable rename, so the updater ZIP
+and DMG executable names must be identical and must never change once shipped.
+Set to `Axe Code` now — changing it later strands every install on manual
+reinstall.
