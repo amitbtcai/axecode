@@ -1,0 +1,145 @@
+name: Build Windows/Linux release artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to write to package.json before building"
+        required: true
+        default: "1.8.1"
+        type: string
+      channel:
+        description: "Axe Code release channel (stable | nightly)"
+        required: true
+        default: stable
+        type: string
+      ref:
+        description: "Commit to check out and build from"
+        required: false
+        default: master
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  PNPM_CONFIG_ENABLE_GLOBAL_VIRTUAL_STORE: "false"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: dist-windows
+            platform: win
+            rust-targets: x86_64-pc-windows-msvc,aarch64-pc-windows-msvc
+            electron-cache: "~/AppData/Local/electron/Cache"
+          - os: ubuntu-latest
+            artifact: dist-linux
+            platform: linux
+            rust-targets: x86_64-unknown-linux-musl
+            electron-cache: "~/.cache/electron"
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref || 'master' }}
+
+      - name: Install Linux helper build tools
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install --yes musl-tools
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.98.1
+          components: rustfmt, clippy
+          targets: ${{ matrix.rust-targets }}
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: native/computer-use-helper
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - name: Set package version
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            p.version = process.env.RELEASE_VERSION;
+            fs.writeFileSync('package.json', JSON.stringify(p, null, 2) + '\n');
+          "
+        shell: bash
+
+      - name: Cache Electron binary
+        uses: actions/cache@v5
+        with:
+          path: ${{ matrix.electron-cache }}
+          key: electron-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            electron-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+
+      - name: Build app
+        run: pnpm run build
+        shell: bash
+        env:
+          PORACODE_CHANNEL: ${{ inputs.channel }}
+          SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+          SENTRY_ENVIRONMENT: production
+          POSTHOG_ENABLED: ${{ vars.POSTHOG_ENABLED || '1' }}
+          POSTHOG_KEY: ${{ vars.POSTHOG_KEY }}
+          POSTHOG_HOST: ${{ vars.POSTHOG_HOST || 'https://us.i.posthog.com' }}
+          POSTHOG_ENABLE_DEV: "0"
+
+      - name: Prepare computer-use helper
+        run: node scripts/prepare-computer-use-helper.mjs --platform "${{ matrix.platform }}" --require
+        shell: bash
+
+      - name: Clean source maps
+        run: pnpm run clean:sourcemaps
+        shell: bash
+
+      - name: Package Windows/Linux
+        run: |
+          pnpm run prepare:package-assets
+          node scripts/build-desktop-artifact.mjs --platform "${{ matrix.platform }}" --skip-build
+        shell: bash
+        env:
+          PORACODE_CHANNEL: ${{ inputs.channel }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            release/AxeCode*.exe
+            release/AxeCode*.AppImage
+            release/AxeCode*.deb
+            release/latest*.yml
+            release/nightly*.yml
+            release/*.blockmap
+          if-no-files-found: error
+          retention-days: 7
