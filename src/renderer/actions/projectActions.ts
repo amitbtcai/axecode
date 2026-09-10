@@ -26,8 +26,7 @@ import { useRemoteServersStore } from "@/renderer/state/remoteServersStore";
 import { discardExperiment } from "./experimentActions";
 
 // The home dir doesn't change at runtime, so cache the single IPC roundtrip
-// and reuse it across callers (MainView mount effect + WelcomeOverlay
-// "Ask Question" path).
+// and reuse it across callers (MainView mount effect + project creation).
 let homeScopeLocationPromise: Promise<ProjectLocation> | null = null;
 
 type RemoteProjectPatch = Extract<RemoteProjectCommand, { kind: "update" }>["patch"];

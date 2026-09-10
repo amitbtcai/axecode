@@ -73,6 +73,11 @@ export interface DesktopsViewProps {
     port: number,
   ) => Promise<{ readonly fingerprint: string; readonly algorithm: string }>;
   readonly onPairSsh: (input: MobileSshPairRequest) => Promise<void>;
+  /** Set by the `/desktops?pair` link / empty-state "Connect" CTA: open the
+      pair drawer, then `onPairDrawerRequestHandled` clears the flag so the
+      CTA can request it again later. */
+  readonly openPairDrawerRequest?: boolean;
+  readonly onPairDrawerRequestHandled?: () => void;
 }
 
 export interface MobileSshPairRequest {
@@ -246,7 +251,7 @@ function SshPairingForm(props: {
     <div className="m-form">
       <p className="m-card__hint">
         <Trans>
-          Poracode will install or reuse its server on the SSH host and keep credentials in this
+          Axe Code will install or reuse its server on the SSH host and keep credentials in this
           device's secure storage.
         </Trans>
       </p>
@@ -420,7 +425,8 @@ export function DesktopsView(props: DesktopsViewProps) {
   const nativeApp = isNativeApp();
   const [scanning, setScanning] = useState(false);
   const [pairingMethod, setPairingMethod] = useState("pairing-link");
-  const { pairing, onScan, showPairingHint } = props;
+  const { pairing, onScan, showPairingHint, openPairDrawerRequest, onPairDrawerRequestHandled } =
+    props;
   // The pairing form lives in a drawer opened from the FAB.
   const pairDrawer = useSheet<true>();
   const { open: openPairDrawer } = pairDrawer;
@@ -433,6 +439,15 @@ export function DesktopsView(props: DesktopsViewProps) {
       openPairDrawer(true);
     }
   }, [showPairingHint, openPairDrawer]);
+  // In-page CTAs (the "Connect" empty state) arrive via /desktops?pair: open
+  // the same drawer the FAB opens, then let the route clear the flag so a
+  // later CTA can request it again.
+  useEffect(() => {
+    if (openPairDrawerRequest === true) {
+      openPairDrawer(true);
+      onPairDrawerRequestHandled?.();
+    }
+  }, [openPairDrawerRequest, openPairDrawer, onPairDrawerRequestHandled]);
 
   function updatePairingField(value: string, updateField: (next: string) => void) {
     const parsed = parsePairingUrl(value);
@@ -448,7 +463,7 @@ export function DesktopsView(props: DesktopsViewProps) {
     <div className="m-form">
       <p className="m-card__hint">
         <Trans>
-          Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here
+          Open Settings → Remote Access in Axe Code on your desktop, then scan the QR code from here
           — or enter the endpoint and pairing token manually.
         </Trans>
       </p>

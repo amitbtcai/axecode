@@ -7,6 +7,7 @@ const electronMock = vi.hoisted(() => {
   return {
     app: {
       isPackaged: true,
+      getAppPath: vi.fn<() => string>(() => "/repo"),
       dock: { setIcon: vi.fn<(image: unknown) => void>() },
     },
     image,
@@ -38,13 +39,23 @@ describe("refreshMacDockIcon", () => {
     expect(electronMock.app.dock.setIcon).toHaveBeenCalledWith(electronMock.image);
   });
 
-  it("does nothing outside packaged macOS apps", () => {
-    refreshMacDockIcon("win32", "/resources");
+  it("does nothing off macOS", () => {
     electronMock.app.isPackaged = false;
-    refreshMacDockIcon("darwin", "/resources");
+    refreshMacDockIcon("win32", "/resources");
 
     expect(electronMock.createFromPath).not.toHaveBeenCalled();
     expect(electronMock.app.dock.setIcon).not.toHaveBeenCalled();
+  });
+
+  it("sets the dev Dock icon from the repo's padded PNG", () => {
+    electronMock.app.isPackaged = false;
+
+    refreshMacDockIcon("darwin", "/resources", "/repo");
+
+    expect(electronMock.createFromPath).toHaveBeenCalledWith(
+      expect.stringMatching(/[\\/]build[\\/]icon-mac\.png$/u),
+    );
+    expect(electronMock.app.dock.setIcon).toHaveBeenCalledWith(electronMock.image);
   });
 
   it("does not set an empty image", () => {

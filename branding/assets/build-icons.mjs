@@ -172,8 +172,11 @@ async function buildTrayIcons(dir) {
 // by side from separate origins (app.poracode.com / app-nightly.poracode.com),
 // so nightly needs its own art or the two are indistinguishable on a home
 // screen.
+// The stable PWA icon follows the flat Axe AI favicon (full-bleed #060AE6
+// tile); the nightly set keeps the squircle app-icon art.
+const MASTER_ICON_PWA = "axecode-icon-pwa.svg";
 const PWA_VARIANTS = [
-  { suffix: "", svg: MASTER_ICON },
+  { suffix: "", svg: MASTER_ICON_PWA },
   { suffix: "-nightly", svg: MASTER_ICON_NIGHTLY },
 ];
 

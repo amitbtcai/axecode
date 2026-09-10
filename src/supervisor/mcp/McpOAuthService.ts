@@ -276,7 +276,7 @@ export class McpOAuthService {
       },
       get clientMetadata(): OAuthClientMetadata {
         return {
-          client_name: "Poracode",
+          client_name: "Axe Code",
           redirect_uris: [redirectUrl],
           grant_types: ["authorization_code", "refresh_token"],
           response_types: ["code"],

@@ -73,23 +73,23 @@ describe("shared message i18n integration", () => {
     await dynamicActivate("es");
     const summary = friendlyError(
       new Error(
-        "Error invoking remote method 'poracode:authenticate-acp-agent': Error: My ACP reported authentication success, but Poracode could not verify it. Configure My ACP directly, then try again.",
+        "Error invoking remote method 'poracode:authenticate-acp-agent': Error: My ACP reported authentication success, but Axe Code could not verify it. Configure My ACP directly, then try again.",
       ),
     );
 
     expect(summary).toBe(
-      "My ACP informó que la autenticación se realizó correctamente, pero Poracode no pudo verificarla. Configura My ACP directamente y vuelve a intentarlo.",
+      "My ACP informó que la autenticación se realizó correctamente, pero Axe Code no pudo verificarla. Configura My ACP directamente y vuelve a intentarlo.",
     );
   });
 
   it("translates main-process SSH manifest errors and preserves their path", async () => {
     await dynamicActivate("es");
-    const path = "C:\\Poracode\\server.ssh-runtime-manifest.json";
+    const path = "C:\\Axe Code\\server.ssh-runtime-manifest.json";
     const summary = friendlyError(
-      new Error(`Poracode SSH runtime manifest is missing or invalid: ${path}`),
+      new Error(`Axe Code SSH runtime manifest is missing or invalid: ${path}`),
     );
 
-    expect(summary).not.toBe(`Poracode SSH runtime manifest is missing or invalid: ${path}`);
+    expect(summary).not.toBe(`Axe Code SSH runtime manifest is missing or invalid: ${path}`);
     expect(summary).toContain(path);
   });
 });

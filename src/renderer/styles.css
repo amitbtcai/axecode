@@ -92,17 +92,6 @@
   }
 }
 
-@keyframes poracode-welcome-reveal {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
 @keyframes poracode-ring-spin-1 {
   from {
     --ring-angle-1: 0deg;
@@ -141,336 +130,6 @@
       0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
       0 0 14px color-mix(in oklab, var(--accent) 24%, transparent),
       0 0 28px color-mix(in oklab, var(--accent) 12%, transparent);
-  }
-}
-
-@keyframes poracode-welcome-orbit {
-  0% {
-    opacity: 0;
-    transform: rotateX(50deg) rotateY(-30deg) rotateZ(-360deg) scale(18);
-  }
-  15% {
-    opacity: 1;
-  }
-  65% {
-    transform: rotateX(20deg) rotateY(-10deg) rotateZ(180deg) scale(2);
-    opacity: 1;
-  }
-  85% {
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(350deg) scale(0.01);
-    opacity: 1;
-  }
-  91%,
-  100% {
-    transform: rotateX(0deg) rotateY(0deg) rotateZ(360deg) scale(0);
-    opacity: 0;
-  }
-}
-
-@keyframes poracode-welcome-splash {
-  0%,
-  85% {
-    opacity: 0;
-    transform: scale(0.01);
-  }
-  90% {
-    opacity: 1;
-    transform: scale(2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(6);
-  }
-}
-
-@keyframes poracode-welcome-light {
-  0%,
-  85% {
-    opacity: 0;
-    transform: scale(0.1);
-  }
-  90% {
-    opacity: 0.6;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 0.2;
-    transform: scale(0.6);
-  }
-}
-
-.poracode-welcome-page {
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--surface-secondary) 70%, transparent) 0%,
-      var(--background) 58%
-    ),
-    var(--background);
-}
-
-.poracode-welcome-stage {
-  transform: translate3d(0, -1.5vh, 0);
-}
-
-.poracode-welcome-reveal {
-  animation: poracode-welcome-reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: 2s;
-}
-
-.poracode-welcome-reveal-1 {
-  animation-delay: 2.2s;
-}
-
-.poracode-welcome-reveal-2 {
-  animation-delay: 2.4s;
-}
-
-.poracode-welcome-ring {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--accent) 38%, transparent),
-    0 0 18px color-mix(in oklab, var(--accent) 22%, transparent);
-  animation:
-    poracode-welcome-reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both,
-    poracode-lightning-glow 4s ease-in-out infinite;
-  animation-delay: 2s, 2.8s;
-  transform: translateZ(0);
-}
-
-.poracode-welcome-ring::before,
-.poracode-welcome-ring::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  border-radius: inherit;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.poracode-welcome-ring::before {
-  background: conic-gradient(
-    from var(--ring-angle-1) at center,
-    transparent 0deg,
-    transparent 180deg,
-    color-mix(in oklab, var(--accent) 15%, transparent) 220deg,
-    var(--accent) 270deg,
-    #ffffff 295deg,
-    var(--accent) 320deg,
-    color-mix(in oklab, var(--accent) 15%, transparent) 350deg,
-    transparent 360deg
-  );
-  filter: blur(0.5px);
-  animation: poracode-ring-spin-1 6s linear infinite;
-  will-change: transform;
-}
-
-.poracode-welcome-ring::after {
-  background: conic-gradient(
-    from var(--ring-angle-2) at center,
-    transparent 0deg,
-    transparent 120deg,
-    color-mix(in oklab, var(--accent) 15%, transparent) 160deg,
-    var(--accent) 220deg,
-    #ffffff 250deg,
-    var(--accent) 280deg,
-    color-mix(in oklab, var(--accent) 15%, transparent) 320deg,
-    transparent 360deg
-  );
-  filter: blur(0.6px);
-  animation: poracode-ring-spin-2 4s linear infinite;
-  will-change: transform;
-}
-
-.poracode-welcome-light {
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.1) 40%,
-    transparent 70%
-  );
-  animation: poracode-welcome-light 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  transform-origin: center;
-  filter: blur(8px);
-}
-
-.poracode-welcome-orbit {
-  animation: poracode-welcome-orbit 2.2s cubic-bezier(0.2, 0.7, 0.3, 1) both;
-  transform-origin: center;
-  transform-style: preserve-3d;
-}
-
-.poracode-welcome-comet {
-  background: rgba(255, 255, 255, 1);
-  box-shadow:
-    0 0 6px 3px rgba(255, 255, 255, 1),
-    0 0 16px 8px rgba(255, 255, 255, 0.5),
-    0 0 32px 16px rgba(255, 255, 255, 0.2);
-  mix-blend-mode: screen;
-  filter: blur(1px);
-}
-
-.poracode-welcome-comet::before,
-.poracode-welcome-comet::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.4) 30%,
-    transparent 80%
-  );
-}
-
-.poracode-welcome-comet::before {
-  width: 56px;
-  height: 2px;
-}
-
-.poracode-welcome-comet::after {
-  width: 2px;
-  height: 56px;
-}
-
-.poracode-welcome-splash {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.1) 40%,
-    transparent 70%
-  );
-  animation: poracode-welcome-splash 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  filter: blur(4px);
-}
-
-.poracode-welcome-icon-glass {
-  background: color-mix(in oklab, var(--surface-secondary) 80%, transparent);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 22px 80px color-mix(in oklab, var(--accent) 18%, transparent);
-}
-
-.poracode-welcome-button {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transform: scale(1);
-  transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  border-radius: 0.75rem;
-}
-
-.poracode-welcome-button:hover,
-.poracode-welcome-button[data-hovered="true"] {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.poracode-welcome-button:active,
-.poracode-welcome-button[data-pressed="true"] {
-  background: rgba(255, 255, 255, 0.02);
-  transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.poracode-welcome-bg-glow {
-  /* Isolate this full-viewport gradient's repaint so it can't invalidate the
-     sibling code wall or the z-10 stage content. */
-  contain: paint;
-  background:
-    radial-gradient(
-      150px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
-      rgba(255, 255, 255, 0.04) 0%,
-      transparent 100%
-    ),
-    radial-gradient(
-      250px circle at var(--comet-x, -1000px) var(--comet-y, -1000px),
-      rgba(255, 255, 255, 0.06) 0%,
-      transparent 100%
-    );
-}
-
-.poracode-welcome-code-wall {
-  /* Scope the masked glyph layer's repaint to itself (paint-only containment,
-     so the multi-column flow is unaffected). */
-  contain: paint;
-  mask-image:
-    radial-gradient(
-      200px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.6) 40%,
-      transparent 100%
-    ),
-    radial-gradient(
-      300px circle at var(--comet-x, -1000px) var(--comet-y, -1000px),
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.4) 40%,
-      transparent 100%
-    );
-  -webkit-mask-image:
-    radial-gradient(
-      200px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.6) 40%,
-      transparent 100%
-    ),
-    radial-gradient(
-      300px circle at var(--comet-x, -1000px) var(--comet-y, -1000px),
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.4) 40%,
-      transparent 100%
-    );
-  color: rgba(255, 255, 255, 0.8);
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  column-width: 500px;
-  column-gap: 3rem;
-  user-select: none;
-}
-
-/* The welcome intro is otherwise unguarded for reduced motion. Hide the
-   decorative movers and stop the always-on ring animations — the reveal
-   elements stay visible (their steady state is opacity 1), and the JS glow
-   sampler already bails out under reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .poracode-welcome-orbit,
-  .poracode-welcome-light,
-  .poracode-welcome-splash {
-    animation: none;
-    opacity: 0;
-  }
-  /* The infinite conic spins (poracode-ring-spin-1/2) live on the ring
-     PSEUDO-elements; `animation: none` on the base element does NOT reach
-     them. The base selector also stops the ring's infinite lightning-glow
-     box-shadow pulse. */
-  .poracode-welcome-ring,
-  .poracode-welcome-ring::before,
-  .poracode-welcome-ring::after {
-    animation: none;
-  }
-  /* Show the wordmark/CTAs immediately: the reveal's `both` fill otherwise
-     holds them hidden through its ~2s delay. */
-  .poracode-welcome-reveal {
-    animation: none;
   }
 }
 
@@ -969,7 +628,7 @@
        is the *wallpaper*, not the theme color, so higher alpha keeps the sidebar
        reading as the theme (less wallpaper/grey showing); lower alpha shows more
        wallpaper blur (more glassy, but tinted by whatever's on the desktop). */
-    --sidebar-glass-tint: color-mix(in oklab, var(--content-background) 35%, transparent);
+    --sidebar-glass-tint: color-mix(in oklab, var(--content-background) 50%, transparent);
     --content-background: var(--background);
     /* Floating chrome that hovers over the conversation — thread tool rail,
        changes bubble, scroll-to-bottom. One shared surface so the three read as
@@ -1111,7 +770,7 @@
     --content-background: #0b0b11;
     /* Dark surfaces read muddier through heavy blur, so lean more on the theme
        color (higher alpha = less transparent) than the light default above. */
-    --sidebar-glass-tint: color-mix(in oklab, var(--content-background) 65%, transparent);
+    --sidebar-glass-tint: color-mix(in oklab, var(--content-background) 50%, transparent);
     --window-header-background: var(--sidebar-background);
     --composer-surface: #17171d;
   }
@@ -1148,6 +807,28 @@
   .no-scrollbar {
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
+  }
+
+  /* Auto-hide scrollbar for content panes (chat transcript): the thumb is
+     transparent while idle and fades in when the pointer is over the
+     scroller — an overlay feel without a JS scroll listener. Keep
+     `scrollbar-gutter: stable` on the element so the layout never shifts. */
+  .autohide-scrollbar {
+    scrollbar-color: transparent transparent;
+  }
+
+  .autohide-scrollbar:hover,
+  .autohide-scrollbar:focus-within {
+    scrollbar-color: var(--scrollbar) transparent;
+  }
+
+  .autohide-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  .autohide-scrollbar:hover::-webkit-scrollbar-thumb,
+  .autohide-scrollbar:focus-within::-webkit-scrollbar-thumb {
+    background: var(--scrollbar);
   }
 }
 
@@ -1195,7 +876,15 @@ body,
 }
 
 body {
-  font-family: "Geist", "Inter", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Text",
+    "Segoe UI",
+    Roboto,
+    "Geist",
+    sans-serif;
   background: var(--background);
   color: var(--foreground);
   overflow: hidden;
@@ -2270,12 +1959,19 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 
 .poracode-composer-shell {
   position: relative;
-  /* Foreground-derived hairline (not --border) so the primary input stays
-     clearly outlined in every theme, including low-contrast light palettes. */
-  border: 1px solid var(--hairline-strong);
+  /* Borderless: the elevated --composer-surface carries the shape; the 1px
+     transparent border is kept so box geometry (and the drop overlay's inset)
+     stays identical to the bordered design. A soft shadow supplies the
+     separation the hairline used to. */
+  border: 1px solid transparent;
   border-radius: var(--radius-4xl);
   background: var(--composer-surface);
-  transition: border-color 0.15s ease;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.24),
+    0 8px 24px -12px rgb(0 0 0 / 0.4);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .poracode-composer-drop-overlay {
@@ -2334,11 +2030,11 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   transform: translate(-50%, -50%);
   background: conic-gradient(
     transparent 0%,
-    var(--foreground) 15%,
-    var(--foreground) 35%,
+    #060ae6 15%,
+    #060ae6 35%,
     transparent 50%,
-    var(--foreground) 65%,
-    var(--foreground) 85%,
+    #060ae6 65%,
+    #060ae6 85%,
     transparent 100%
   );
   will-change: transform;
@@ -2421,16 +2117,10 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 }
 
 .poracode-composer-shell:focus-within {
-  border-color: color-mix(in oklab, var(--focus) 70%, transparent);
+  border-color: transparent;
   outline: none !important;
-  box-shadow: none !important;
   --tw-ring-shadow: 0 0 #0000 !important;
   --tw-ring-offset-shadow: 0 0 #0000 !important;
-  transition: border-color 0.12s ease;
-}
-
-.poracode-composer-shell--draft:focus-within {
-  border-color: transparent;
 }
 
 .poracode-model-menu-listbox:focus-visible,
@@ -2445,7 +2135,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 .poracode-composer-editor.input-group,
 .poracode-composer-editor .textarea,
 .poracode-composer-editor .input-group {
-  min-height: calc(0.95rem + 0.35rem + 0.875rem * 1.5);
+  min-height: calc(0.95rem + 0.35rem + 0.875rem * 3);
   resize: none;
   border: 0;
   border-radius: var(--radius-4xl) var(--radius-4xl) 0 0;
@@ -2455,7 +2145,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 }
 
 .poracode-composer-custom-input {
-  min-height: calc(0.95rem + 0.35rem + 0.875rem * 1.5);
+  min-height: calc(0.95rem + 0.35rem + 0.875rem * 3);
   background: transparent;
 }
 
@@ -2464,12 +2154,12 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 .poracode-composer-editor--compact.input-group,
 .poracode-composer-editor--compact .textarea,
 .poracode-composer-editor--compact .input-group {
-  min-height: calc(0.75rem + 0.1rem + 0.875rem * 1.35) !important;
+  min-height: calc(0.75rem + 0.1rem + 0.875rem * 2.7) !important;
   padding: 0.75rem 0.5rem 0.1rem 0.75rem !important;
 }
 
 .poracode-composer-custom-input--compact {
-  min-height: calc(0.75rem + 0.1rem + 0.875rem * 1.35) !important;
+  min-height: calc(0.75rem + 0.1rem + 0.875rem * 2.7) !important;
 }
 
 .poracode-composer-editor.textarea__input,
@@ -2481,7 +2171,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 
 .poracode-composer-editor--compact.textarea__input,
 .poracode-composer-editor--compact .textarea__input {
-  min-height: calc(0.875rem * 1.35) !important;
+  min-height: calc(0.875rem * 2.7) !important;
   line-height: 1.35;
 }
 
@@ -2513,7 +2203,14 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 }
 
 .poracode-composer-toolbar {
-  padding: 0.25rem 0.85rem 0.85rem;
+  padding: 0.3rem 0.9rem 0.7rem;
+  font-weight: 400;
+}
+
+/* Relaxed regular-weight labels for every composer control — menus, toggles,
+   and static text; HeroUI buttons default heavier. */
+.poracode-composer-toolbar :is(button, [role="button"], .poracode-composer-static) {
+  font-weight: 400;
 }
 
 .poracode-composer-toolbar--compact {
@@ -2550,7 +2247,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   gap: 0.35rem;
   color: var(--foreground);
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
 }
 
@@ -2663,20 +2360,24 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   color: var(--muted);
 }
 
+/* Inverted neutral send — foreground disc with a background-colored arrow,
+   like ChatGPT/Devin; inverts automatically across themes. */
 .poracode-composer-send {
   height: 2.25rem;
   width: 2.25rem;
-  background: color-mix(in oklab, var(--accent) 18%, var(--surface));
-  color: var(--foreground);
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .poracode-composer-send:hover,
 .poracode-composer-send[data-hovered="true"] {
-  background: color-mix(in oklab, var(--accent) 28%, var(--surface));
+  background: color-mix(in oklab, var(--foreground) 86%, transparent);
 }
 
 .poracode-composer-send[aria-disabled="true"] {
   background: color-mix(in oklab, var(--surface) 88%, transparent);
+  color: var(--muted);
 }
 
 .poracode-composer-shell--preserve-disabled-controls
@@ -2699,7 +2400,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 /* ── Mention Input (contentEditable) ──────────────────────── */
 
 .poracode-mention-input {
-  min-height: calc(0.95rem + 0.35rem + 1lh);
+  min-height: calc(0.95rem + 0.35rem + 2lh);
   max-height: 320px;
   overflow-y: auto;
   padding: 0.95rem 1.1rem 0.35rem;
@@ -2713,7 +2414,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 }
 
 .poracode-mention-input--compact {
-  min-height: calc(1lh + 0.75rem + 0.25rem);
+  min-height: calc(2lh + 0.75rem + 0.25rem);
   max-height: calc(6lh + 0.75rem + 0.25rem);
   padding: 0.75rem 0.75rem 0.25rem;
   line-height: 1.35;

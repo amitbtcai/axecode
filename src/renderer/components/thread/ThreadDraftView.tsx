@@ -1208,7 +1208,7 @@ export function ThreadDraftView(props: {
         className={`${compactComposer ? alignClass : "mx-auto"} relative flex ${bodySizeClass} flex-col ${bodyPaddingClass}`}
       >
         {props.quickComposer ? null : props.compact ? (
-          <ThreadDraftHero compact={props.compact} />
+          <ThreadDraftHero />
         ) : (
           // Spacer whose height is driven by useStableComposerAnchor to keep the
           // composer centered initially, then anchored as it grows.

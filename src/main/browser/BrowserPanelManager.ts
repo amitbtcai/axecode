@@ -520,7 +520,7 @@ export class BrowserPanelManager {
     // Agent-created tabs auto-join a group (parity with the external extension)
     // so they're visually distinct from the user's tabs. Tabs carrying a thread
     // get that thread's own group (named after its task); the rest fall back to
-    // the shared "Poracode" group.
+    // the shared "Axe Code" group.
     if (opts.agent) {
       this.tabGroups.assignAgentTab(this.tabs, tabId, opts.threadId, opts.threadTitle);
     }

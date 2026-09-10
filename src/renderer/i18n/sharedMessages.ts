@@ -39,7 +39,7 @@ const SHARED_MESSAGE_DESCRIPTORS: Record<MessageKey, MessageDescriptor> = {
   }),
   "git.pull.reapplyConflicts": msg({ message: "Re-applying local changes has conflicts" }),
   "git.pull.stashPreserved": msg({
-    message: "Pull did not complete. Your local changes remain in a Poracode stash.",
+    message: "Pull did not complete. Your local changes remain in a Axe Code stash.",
   }),
   "git.pull.reapplyAfterMerge": msg({
     message: "Your local changes were stashed and will be re-applied once the merge is resolved.",
@@ -185,23 +185,23 @@ const SHARED_MESSAGE_DESCRIPTORS: Record<MessageKey, MessageDescriptor> = {
   "supervisor.proposedPlan": msg({ message: "Proposed plan" }),
   "supervisor.handoffTranscriptUnavailable": msg({
     message:
-      "This thread switched provider without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
+      "This thread switched provider without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
   }),
   "supervisor.forkTranscriptUnavailable": msg({
     message:
-      "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
+      "This thread was forked without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
   }),
   "opencode.retryFallback": msg({
     message: "OpenCode request failed, retrying...",
   }),
   "acp.authenticationUnverified": msg({
     message:
-      "{agent} reported authentication success, but Poracode could not verify it. Configure {agent} directly, then try again.",
+      "{agent} reported authentication success, but Axe Code could not verify it. Configure {agent} directly, then try again.",
   }),
   "acp.taskNotification.task": msg({ message: "Task {id}" }),
   "kimi.credentialsLocked": msg({
     message:
-      "Kimi Code could not update its credentials because another process is using the credential file. Close other Poracode or Kimi Code processes, then retry.",
+      "Kimi Code could not update its credentials because another process is using the credential file. Close other Axe Code or Kimi Code processes, then retry.",
   }),
   "kimi.emptyResponse": msg({
     message:
@@ -216,23 +216,23 @@ const SHARED_MESSAGE_DESCRIPTORS: Record<MessageKey, MessageDescriptor> = {
     message: "Update checks are not available in development mode.",
   }),
   "remote.helper.invalidResponse": msg({
-    message: "Poracode Helper returned an invalid response.",
+    message: "Axe Code Helper returned an invalid response.",
   }),
   "remote.helper.wrongHost": msg({
-    message: "The SSH tunnel reached an incompatible Poracode server.",
+    message: "The SSH tunnel reached an incompatible Axe Code server.",
   }),
   "remote.helper.probeFailed": msg({
-    message: "Poracode Helper is not ready yet (HTTP {status}).",
+    message: "Axe Code Helper is not ready yet (HTTP {status}).",
   }),
   "remote.helper.timeout": msg({
-    message: "Timed out waiting for Poracode Helper.",
+    message: "Timed out waiting for Axe Code Helper.",
   }),
   "remote.helper.startFailed": msg({
     message:
-      "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
+      "Axe Code Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
   }),
   "ssh.runtimeManifest.invalid": msg({
-    message: "Poracode SSH runtime manifest is missing or invalid: {path}",
+    message: "Axe Code SSH runtime manifest is missing or invalid: {path}",
   }),
   "remote.project.invalidName": msg({ message: "Enter a valid project name." }),
   "remote.project.invalidPath": msg({ message: "Enter a valid absolute project path." }),

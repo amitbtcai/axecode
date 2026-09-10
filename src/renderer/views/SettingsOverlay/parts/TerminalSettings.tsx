@@ -177,7 +177,7 @@ export function TerminalSettings() {
               title={t`Internal commands and agents`}
               description={
                 <Trans>
-                  Used for agents, authentication, installs, and Poracode's internal commands.
+                  Used for agents, authentication, installs, and Axe Code's internal commands.
                 </Trans>
               }
             >

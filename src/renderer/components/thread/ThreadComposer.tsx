@@ -411,8 +411,8 @@ export function ThreadComposer(props: {
     ? "poracode-composer-custom-input poracode-composer-custom-input--compact"
     : "poracode-composer-custom-input";
   const toolbarClassName = compact
-    ? "poracode-composer-toolbar poracode-composer-toolbar--compact relative flex items-end justify-between gap-3"
-    : "poracode-composer-toolbar relative flex items-end justify-between gap-3";
+    ? "poracode-composer-toolbar poracode-composer-toolbar--compact relative flex items-center justify-between gap-3"
+    : "poracode-composer-toolbar relative flex items-center justify-between gap-3";
   const shellClassName = [
     "poracode-composer-shell",
     variant === "draft" && "poracode-composer-shell--draft",
@@ -678,7 +678,7 @@ export function ThreadComposer(props: {
               style={{ position: "absolute", inset: 0 }}
             >
               {leadingControls && (
-                <div className="flex shrink-0 items-end gap-1">
+                <div className="flex shrink-0 items-center gap-1">
                   {typeof leadingControls === "function" ? leadingControls(level) : leadingControls}
                 </div>
               )}
@@ -688,7 +688,7 @@ export function ThreadComposer(props: {
               >
                 {renderProbeControlsList(level)}
               </div>
-              <div className="flex shrink-0 items-end gap-1">
+              <div className="flex shrink-0 items-center gap-1">
                 {typeof afterControls === "function" ? afterControls(level) : afterControls}
                 {!hideSubmitButton && <div className="size-8 shrink-0" />}
               </div>
@@ -840,12 +840,12 @@ export function ThreadComposer(props: {
   const toolbar = (
     <div ref={toolbarRef} className={toolbarClassName} data-wrap-level={wrapLevelRef.current}>
       {leadingControls && (
-        <div className="flex shrink-0 items-end gap-1">
+        <div className="flex shrink-0 items-center gap-1">
           {typeof leadingControls === "function" ? leadingControls(0) : leadingControls}
         </div>
       )}
       {renderControls()}
-      <div className="flex shrink-0 items-end gap-1">
+      <div className="flex shrink-0 items-center gap-1">
         {typeof afterControls === "function" ? afterControls(0) : afterControls}
         {renderSendButton()}
       </div>

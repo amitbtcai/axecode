@@ -369,7 +369,7 @@ export function SchedulesView() {
       title={t`Scheduled tasks`}
       description={
         <Trans>
-          Run standalone tasks on this device. Schedules run while the device is awake and Poracode
+          Run standalone tasks on this device. Schedules run while the device is awake and Axe Code
           is open.
         </Trans>
       }

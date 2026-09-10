@@ -6,7 +6,7 @@ import { ChangelogView } from "@/renderer/components/changelog/ChangelogView";
 import { useChangelogStore } from "@/renderer/state/changelogStore";
 import { SettingsPage } from "./SettingsForm";
 
-const RELEASES_URL = "https://github.com/Porabuild/Poracode/releases";
+const RELEASES_URL = "https://github.com/amitbtcai/axecode/releases";
 
 export function ChangelogSettings() {
   const { t } = useLingui();

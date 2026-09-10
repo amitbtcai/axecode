@@ -78,7 +78,7 @@ export async function issueRemotePairingCredential(
   );
 }
 
-/** Poll the tunneled endpoint until the versioned Poracode Helper answers. */
+/** Poll the tunneled endpoint until the versioned Axe Code Helper answers. */
 export async function waitForRemoteEndpoint(
   fetchImpl: typeof fetch,
   endpoint: string,

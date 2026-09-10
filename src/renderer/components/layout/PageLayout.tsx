@@ -30,7 +30,7 @@ function SidebarHeaderWordmark(props: {
     return <p className="sr-only">{title}</p>;
   }
 
-  // The main window passes the Pora·code brand wordmark; overlays (Settings,
+  // Callers may supply a custom wordmark via `titleNode`; overlays (Settings,
   // Git Review, …) fall back to their uppercase section title.
   const content = titleNode ?? (
     <span className="text-xs font-semibold uppercase tracking-[0.12em]">{title}</span>
@@ -56,12 +56,14 @@ function SidebarHeaderRow(props: {
   title: string;
   titleNode?: ReactNode | undefined;
   onTitleClick?: () => void;
+  hideWordmark?: boolean | undefined;
   children?: ReactNode;
 }) {
   const { isCollapsed, closingOverlay } = useSidebar();
   const ref = useRef<HTMLDivElement>(null);
   const fullContentRef = useRef<HTMLDivElement>(null);
-  const [hideWordmark, setHideWordmark] = useState(false);
+  const [narrowWordmark, setNarrowWordmark] = useState(false);
+  const hideWordmark = props.hideWordmark === true || narrowWordmark;
   const showHeaderActions = !isCollapsed || closingOverlay;
 
   useLayoutEffect(() => {
@@ -70,7 +72,7 @@ function SidebarHeaderRow(props: {
     if (!el || !fullContentEl) return;
 
     const update = () => {
-      setHideWordmark(el.clientWidth < fullContentEl.scrollWidth);
+      setNarrowWordmark(el.clientWidth < fullContentEl.scrollWidth);
     };
 
     update();
@@ -157,6 +159,9 @@ export function PageLayout(props: {
   title: string;
   titleNode?: ReactNode | undefined;
   onTitleClick?: () => void;
+  /** Render no visible wordmark in the sidebar header (title stays sr-only;
+      `onTitleClick` falls back to the Home icon button). */
+  hideWordmark?: boolean | undefined;
   sidebarHeaderChildren?: ReactNode;
   contentHeaderChildren?: ReactNode;
   sidebar: ReactNode;
@@ -174,6 +179,7 @@ export function PageLayout(props: {
     title,
     titleNode,
     onTitleClick,
+    hideWordmark,
     sidebarHeaderChildren,
     contentHeaderChildren,
     sidebar,
@@ -192,6 +198,7 @@ export function PageLayout(props: {
     <SidebarHeaderRow
       title={title}
       titleNode={titleNode}
+      hideWordmark={hideWordmark}
       {...(onTitleClick != null ? { onTitleClick } : {})}
     >
       {sidebarHeaderChildren}

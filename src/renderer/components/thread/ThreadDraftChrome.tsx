@@ -2,7 +2,6 @@ import type { RefCallback } from "react";
 import { TerminalSquare, X } from "lucide-react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { macosTrafficLightPadClass } from "@/renderer/components/layout/sidebarChrome";
-import { BrandWordmark } from "@/renderer/components/common/BrandWordmark";
 import { ProjectSwitchMenu } from "./ProjectSwitchMenu";
 
 export type ThreadDraftDropIndicator =
@@ -108,16 +107,9 @@ export function ThreadDraftDropIndicators(props: {
   );
 }
 
-export function ThreadDraftHero(props: { compact?: boolean | undefined }) {
-  return (
-    <div data-draft-hero="" className="flex flex-1 flex-col items-center justify-center">
-      <div className="w-full max-w-[920px] overflow-visible pb-3 text-center">
-        <h1
-          className={`inline-flex items-baseline gap-3 overflow-visible pb-[0.12em] leading-[1.28] font-semibold tracking-normal ${props.compact ? "text-[clamp(1.375rem,2.75vw,1.875rem)]" : "text-[clamp(1.875rem,4.25vw,3.125rem)]"}`}
-        >
-          <BrandWordmark className="inline-block pr-[0.04em] pb-[0.12em]" />
-        </h1>
-      </div>
-    </div>
-  );
+export function ThreadDraftHero() {
+  // Empty spacer: keeps the compact composer anchored to the bottom of the
+  // draft body. `data-draft-hero` stays so the mobile collapsed-dock CSS keeps
+  // matching.
+  return <div data-draft-hero="" aria-hidden="true" className="flex-1" />;
 }

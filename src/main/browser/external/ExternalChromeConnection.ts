@@ -116,7 +116,7 @@ export class ExternalChromeConnection {
   }
 
   /**
-   * Open (or reuse) a **background** tab inside the "Poracode" tab group (no
+   * Open (or reuse) a **background** tab inside the "Axe Code" tab group (no
    * focus steal) and make it the attached workspace. Runs in the user's real
    * profile, so logins/cookies carry over — it just doesn't hijack their
    * foreground tab. Reuses the existing workspace tab by default (never closes

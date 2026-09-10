@@ -584,7 +584,7 @@ export function McpServersManager(props: {
                 </Trans>
               ) : (
                 <Trans>
-                  Built-in servers are managed by Poracode. They can be disabled globally but cannot
+                  Built-in servers are managed by Axe Code. They can be disabled globally but cannot
                   be edited or removed.
                 </Trans>
               )}

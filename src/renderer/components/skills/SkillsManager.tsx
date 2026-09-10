@@ -388,7 +388,7 @@ export function SkillsManager(props: {
       </p>
       <p className="text-xs text-muted">
         <Trans>
-          Disabling a skill moves it out of active skill folders and removes Poracode-managed
+          Disabling a skill moves it out of active skill folders and removes Axe Code-managed
           provider copies. Its files are preserved so you can enable it again.
         </Trans>
       </p>

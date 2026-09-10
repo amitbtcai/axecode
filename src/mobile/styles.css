@@ -453,7 +453,7 @@ html[data-theme="dark"][data-theme-preset="default"] .m-shell:not(.m-shell--wide
 
 .m-shell--wide {
   display: grid;
-  grid-template-columns: var(--m-sidebar-width, clamp(248px, 20vw, 304px)) minmax(0, 1fr);
+  grid-template-columns: var(--m-sidebar-width, clamp(200px, 15vw, 240px)) minmax(0, 1fr);
   grid-template-rows: 100%;
   background: var(--background, #070709);
 }

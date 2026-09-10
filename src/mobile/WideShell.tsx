@@ -28,7 +28,7 @@ const DesktopWorkspacePanel = lazy(() =>
 );
 
 const SIDEBAR_WIDTH_KEY = "poracode-mobile.sidebar-width";
-const SIDEBAR_MIN_WIDTH = 240;
+const SIDEBAR_MIN_WIDTH = 200;
 const SIDEBAR_MAX_WIDTH = 500;
 const SIDEBAR_MIN_CONTENT_WIDTH = 320;
 const SIDEBAR_RESIZE_STEP = 24;
@@ -45,7 +45,7 @@ function clampSidebarWidth(width: number): number {
 }
 
 function readSidebarWidth(): number {
-  const responsiveDefault = Math.min(304, Math.max(248, window.innerWidth * 0.2));
+  const responsiveDefault = Math.min(240, Math.max(200, window.innerWidth * 0.15));
   try {
     const stored = Number(localStorage.getItem(SIDEBAR_WIDTH_KEY));
     return clampSidebarWidth(Number.isFinite(stored) && stored > 0 ? stored : responsiveDefault);
@@ -276,7 +276,7 @@ export function WideShell(props: {
                   emptyStateOverride: (
                     <MobileSetupEmptyState
                       kind="desktop"
-                      onAction={() => void navigate({ to: "/desktops" })}
+                      onAction={() => void navigate({ to: "/desktops", search: { pair: true } })}
                     />
                   ),
                 }

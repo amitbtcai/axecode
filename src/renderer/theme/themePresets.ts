@@ -38,7 +38,7 @@ export const THEME_SPECS: AppThemeSpec[] = [
   // overrides so styles.css stays the source of truth (see applyAppTheme).
   {
     id: DEFAULT_THEME_ID,
-    label: "Poracode",
+    label: "Axe Code",
     // sRGB hex of the styles.css oklch values (anchors must be hex so muted can
     // be contrast-derived). Preview-only — runtime clears overrides for default.
     light: {
@@ -63,11 +63,11 @@ export const THEME_SPECS: AppThemeSpec[] = [
     },
   },
 
-  // Poracode Legacy — the original pre-Poracode look (neutral graphite +
+  // Axe Code Legacy — the original pre-rebrand look (neutral graphite +
   // blue accent), preserved as a selectable theme so the old style isn't lost.
   {
     id: "poracode-legacy",
-    label: "Poracode Legacy",
+    label: "Axe Code Legacy",
     light: {
       bg: "#f1f1f4",
       surface: "#fafafb",

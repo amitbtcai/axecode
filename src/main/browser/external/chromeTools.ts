@@ -39,7 +39,7 @@ const CHROME_CORE_SKILL = uniqueCoreSkillForBuiltInMcp("chrome");
 export const CHROME_MCP_INSTRUCTIONS = [
   "These tools control the USER'S OWN Chrome browser through the Poracode companion extension —",
   "real tabs, real cookies, real logged-in sessions. Treat every action as if the user performed it themselves.",
-  "By default you work in a BACKGROUND 'Poracode' tab group that does NOT steal the user's foreground tab:",
+  "By default you work in a BACKGROUND 'Axe Code' tab group that does NOT steal the user's foreground tab:",
   "open reuses your single background workspace tab (navigating it in place) and navigate/click/etc. run",
   "there; tabs are never auto-closed. Pass newTab:true only when you truly need a second tab. Use attach",
   "(with a tabId from list_tabs) only when the user asks you to act on a specific tab they already have open.",
@@ -259,7 +259,7 @@ const RAW_CHROME_TOOLS: ToolSpec[] = [
   {
     name: "open",
     description:
-      "Open the BACKGROUND workspace in the 'Poracode' tab group (does not steal the user's foreground). Reuses your existing workspace tab by default (navigating it); tabs are never auto-closed. Pass newTab:true to open an additional tab instead.",
+      "Open the BACKGROUND workspace in the 'Axe Code' tab group (does not steal the user's foreground). Reuses your existing workspace tab by default (navigating it); tabs are never auto-closed. Pass newTab:true to open an additional tab instead.",
     inputSchema: {
       type: "object",
       properties: {

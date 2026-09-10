@@ -12,8 +12,8 @@ import { SettingRow, SettingsPage } from "./SettingsForm";
 import appIconStableUrl from "../../../../../build/icon.png";
 import appIconNightlyUrl from "../../../../../build/icon-nightly.png";
 
-const GITHUB_REPO = "https://github.com/Porabuild/Poracode";
-const WEBSITE_URL = "https://poracode.com/";
+const GITHUB_REPO = "https://github.com/amitbtcai/axecode";
+const WEBSITE_URL = "https://axeai.com/code";
 
 function AboutLink(props: { href: string; children: React.ReactNode }) {
   return (
@@ -199,7 +199,7 @@ export function AboutSettings() {
               title={t`Import Lightcode data`}
               description={
                 <Trans>
-                  Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete
+                  Copy all Lightcode data into Axe Code. Axe Code restarts and keeps a complete
                   backup of its current data.
                 </Trans>
               }
@@ -247,7 +247,7 @@ export function AboutSettings() {
         title={t`Import Lightcode data again?`}
         body={
           <Trans>
-            Poracode will restart, back up its current data, and replace it with a complete copy of
+            Axe Code will restart, back up its current data, and replace it with a complete copy of
             your Lightcode data.
           </Trans>
         }

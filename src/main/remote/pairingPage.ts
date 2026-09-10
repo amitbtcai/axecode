@@ -110,7 +110,7 @@ export function buildLocalPairingPageHtml(input: { readonly httpBaseUrl: string 
     body: `  <div class="app">
     <main>
       <h1>${productNameFor(resolvePoracodeChannel())}</h1>
-      <p>The mobile web app bundle is not available from this desktop build. Rebuild Poracode so <span class="inline-code">mobile.html</span> is included in the renderer output, then open the pairing link again.</p>
+      <p>The mobile web app bundle is not available from this desktop build. Rebuild ${productNameFor(resolvePoracodeChannel())} so <span class="inline-code">mobile.html</span> is included in the renderer output, then open the pairing link again.</p>
       <p>Desktop endpoint</p>
       <code class="endpoint" id="endpoint"></code>
     </main>
@@ -380,18 +380,21 @@ export function buildLocalPairingServiceWorkerJs(
 // Kept in sync with public/app-icon.svg and public/app-icon-nightly.svg (the
 // static/standalone icons). The tile is approximated with a rounded rect rather
 // than the masters' squircle path — at favicon and home-screen sizes the two
-// are indistinguishable, and it keeps this inline copy readable.
-const PAIRING_ICON_GLYPH = `  <path fill-rule="evenodd" fill="__GLYPH__"
-    d="M352,300 H556 A152,152 0 0 1 556,604 H472 V730 H352 Z
-       M472,392 H548 A60,60 0 0 1 548,512 H472 Z"/>
-  <circle cx="636" cy="694" r="46" fill="#8B7BFF"/>`;
+// are indistinguishable, and it keeps this inline copy readable. The glyph is
+// the same Axe mark as branding/assets/axecode-glyph.svg, scaled to the 1024
+// viewBox.
+const PAIRING_ICON_GLYPH = `  <g transform="translate(187 235) scale(3.3)" fill="__GLYPH__">
+    <path d="M97.1923 0.128124L196.375 164.224C196.545 164.505 196.159 164.786 195.947 164.536L97.1036 47.7897C96.9985 47.6655 96.8084 47.6646 96.7021 47.7878L68.7241 80.2122C68.5317 80.4351 68.1757 80.2248 68.2748 79.9469L96.7167 0.176713C96.792 -0.0344117 97.0765 -0.0634694 97.1923 0.128124Z"/>
+    <path d="M196.128 167.965L0.265052 168C-0.0615031 168 -0.0989738 167.521 0.223566 167.469L153.138 143.075C153.305 143.049 153.404 142.874 153.344 142.716L138.868 104.828C138.762 104.553 139.113 104.334 139.311 104.552L196.324 167.518C196.479 167.69 196.358 167.965 196.128 167.965Z"/>
+    <path d="M0.0463391 165.242L94.1125 0.500409C94.2762 0.213784 94.7089 0.423656 94.5886 0.731324L38.778 143.501C38.7144 143.663 38.8206 143.842 38.9929 143.863L83.2019 149.225C83.5024 149.262 83.517 149.695 83.2197 149.752L0.325476 165.638C0.102957 165.68 -0.066612 165.44 0.0463391 165.242Z"/>
+  </g>`;
 
 const PAIRING_ICON_TILE: Record<
   PoracodeChannel,
   { readonly fill: string; readonly glyph: string }
 > = {
-  stable: { fill: "#0E0E14", glyph: "#EAF0FB" },
-  // Matches branding/assets/poracode-icon-nightly.svg's teal gradient tile.
+  stable: { fill: "#060AE6", glyph: "#FFFFFF" },
+  // Matches branding/assets/axecode-icon-nightly's teal gradient tile.
   nightly: { fill: "url(#nightlyTile)", glyph: "#0B1220" },
 };
 

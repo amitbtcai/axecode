@@ -101,6 +101,10 @@ const desktopsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/desktops",
   component: DesktopsRoute,
+  // `?pair` asks the view to open the pair drawer immediately (empty-state
+  // "Connect" CTAs and deep links); the view clears it once opened.
+  validateSearch: (search: Record<string, unknown>): { readonly pair?: true } =>
+    search.pair === true || search.pair === "true" ? { pair: true } : {},
 });
 
 const moreRoute = createRoute({

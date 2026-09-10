@@ -703,7 +703,7 @@ export type SharedSettingsInput = Omit<
 
 export const defaultSharedSettings: SharedSettings = {
   themeMode: "dark",
-  themePreset: "default",
+  themePreset: "poracode-legacy",
   locale: "system",
   gitTextLanguage: "en",
   terminalPosition: "bottom",

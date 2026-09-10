@@ -8,7 +8,6 @@ import { ensureHomeScopeProject } from "@/renderer/actions/projectActions";
 import { useAgentStatusesStore } from "@/renderer/state/agentStatusesStore";
 import { useAppStore } from "@/renderer/state/appStore";
 import { useExperimentStore } from "@/renderer/state/experimentStore";
-import { useWelcomeGateStore } from "@/renderer/state/welcomeGateStore";
 import { buildWslProjectDistrosKey, parseWslProjectDistrosKey } from "@/renderer/state/projectKeys";
 import { useSharedSettings } from "@/renderer/state/sharedSettingsStore";
 import { AppDndProvider } from "@/renderer/dnd";
@@ -46,7 +45,6 @@ export function MainView(props: {
   const wslProjectDistrosKey = useAppStore((state) => buildWslProjectDistrosKey(state.projects));
   const homeScopeEnabled = useSharedSettings((state) => state.homeScopeEnabled);
   const sharedSettingsHydrated = useSharedSettings((state) => state.sharedSettingsHydrated);
-  const backgroundWorkReleased = useWelcomeGateStore((state) => state.backgroundWorkReleased);
 
   useThreadLifecycle(storeHydrated && runtimeSnapshotsReady);
   useKeyboardShortcuts();
@@ -66,15 +64,9 @@ export function MainView(props: {
   }, [storeHydrated, sharedSettingsHydrated, homeScopeEnabled]);
 
   useEffect(() => {
-    // Hold first-launch detection until the welcome animation has settled (or
-    // the user dismissed it). `backgroundWorkReleased` is seeded true for
-    // returning users, so this only defers on a genuine first launch — the
-    // cold detection sweep's process spawns and `agent-detected` re-render
-    // churn would otherwise starve the welcome animation's first paint.
-    if (!storeHydrated || !backgroundWorkReleased) {
+    if (!storeHydrated) {
       return;
     }
-
     // Triggers detection in the supervisor. When cache is available the RPC
     // resolves immediately with the previously-detected statuses so the first
     // ThreadDraft render has real agents instead of the empty initial state.
@@ -115,7 +107,7 @@ export function MainView(props: {
           );
       })
       .catch(() => undefined);
-  }, [storeHydrated, wslProjectDistrosKey, backgroundWorkReleased]);
+  }, [storeHydrated, wslProjectDistrosKey]);
 
   // Startup timing log: impure (Date.now), so it lives in an effect and runs
   // after every commit, matching the render it reports on.

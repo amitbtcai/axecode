@@ -264,7 +264,7 @@ describe("SSH runtime bundle", () => {
     writeFileSync(join(mainBundleDir, "server.cjs"), 'require("electron");', "utf8");
 
     expect(() => ensureSshRuntimeBundle(options)).toThrow(
-      "Poracode Helper cannot include Electron",
+      "Axe Code Helper cannot include Electron",
     );
   });
 });
@@ -404,6 +404,6 @@ describe("SSH helper readiness", () => {
   it("does not mistake a desktop-hosted server for the SSH helper", async () => {
     await expect(
       waitForRemoteEndpoint(endpoint("desktop"), "http://127.0.0.1:49152/", 1),
-    ).rejects.toThrow("Timed out waiting for Poracode Helper");
+    ).rejects.toThrow("Timed out waiting for Axe Code Helper");
   });
 });

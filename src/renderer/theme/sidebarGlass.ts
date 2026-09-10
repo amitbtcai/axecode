@@ -26,7 +26,7 @@ const CSS_VAR = "--sidebar-glass-tint";
  *   - Windows: the `html[data-platform="win32"][data-native-material="on"]`
  *     overrides (65% light / 85% dark).
  *   - macOS: the base `@layer` tokens, since no win32 override applies there —
- *     the `:root` light default (35%) and the `.dark` block default (65%).
+ *     the `:root` light default (50%) and the `.dark` block default (50%).
  * Used to seed the slider when there is no override.
  */
 const WINDOWS_GLASS_TINT_DEFAULT: Record<Appearance, number> = {
@@ -34,8 +34,8 @@ const WINDOWS_GLASS_TINT_DEFAULT: Record<Appearance, number> = {
   dark: 85,
 };
 const MACOS_GLASS_TINT_DEFAULT: Record<Appearance, number> = {
-  light: 35,
-  dark: 65,
+  light: 50,
+  dark: 50,
 };
 
 /** The styles.css default frosting for the current platform and appearance. */

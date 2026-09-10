@@ -75,6 +75,7 @@ const threadRouteApi = getRouteApi("/thread/$threadId");
 const subAgentRouteApi = getRouteApi("/subagent/$threadId/$parentItemId");
 const notesRouteApi = getRouteApi("/notes/$threadId");
 const settingsSectionRouteApi = getRouteApi("/settings/$section");
+const desktopsRouteApi = getRouteApi("/desktops");
 const workspaceRouteApi = getRouteApi("/workspace/$threadId");
 const terminalRouteApi = getRouteApi("/terminal/$projectId");
 
@@ -160,7 +161,9 @@ export function ThreadsRoute() {
       <MobileSetupEmptyState
         kind={setupKind}
         onAction={(kind) =>
-          void navigate(kind === "desktop" ? { to: "/desktops" } : { to: "/projects" })
+          void navigate(
+            kind === "desktop" ? { to: "/desktops", search: { pair: true } } : { to: "/projects" },
+          )
         }
       />
     );
@@ -361,7 +364,9 @@ export function NewThreadRoute() {
       <NewThreadFlow
         onStarted={(threadId) => void navigate({ to: "/thread/$threadId", params: { threadId } })}
         onSetupAction={(kind) =>
-          void navigate(kind === "desktop" ? { to: "/desktops" } : { to: "/projects" })
+          void navigate(
+            kind === "desktop" ? { to: "/desktops", search: { pair: true } } : { to: "/projects" },
+          )
         }
       />
     </LazyRoute>
@@ -372,6 +377,7 @@ export function DesktopsRoute() {
   const remote = useRemote();
   const navigate = useNavigate();
   const { t } = useLingui();
+  const { pair: pairDrawerRequested } = desktopsRouteApi.useSearch();
   // A launch/deep-link pairing offer prefills the form for the user to CONFIRM
   // (see useDeepLinkPairing). Reactive so a warm deep link re-prefills.
   const launch = useSyncExternalStore(
@@ -454,7 +460,7 @@ export function DesktopsRoute() {
   function handleScan(value: string) {
     const parsed = parsePairingUrl(value);
     if (!parsed?.credential) {
-      toast.danger(t`That QR code isn't a Poracode pairing link.`);
+      toast.danger(t`That QR code isn't an Axe Code pairing link.`);
       return;
     }
     void pair(parsed.endpoint, parsed.credential);
@@ -488,6 +494,10 @@ export function DesktopsRoute() {
       onTokenChange={setManualToken}
       onPair={submitManualPairing}
       onScan={handleScan}
+      openPairDrawerRequest={pairDrawerRequested === true}
+      onPairDrawerRequestHandled={() =>
+        void navigate({ to: "/desktops", replace: true, search: {} })
+      }
       {...(blockedHandoffUrl
         ? { onOpenDesktopServedApp: () => window.location.assign(blockedHandoffUrl) }
         : {})}

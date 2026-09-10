@@ -407,7 +407,7 @@ export function ChatPane(props: ChatPaneProps) {
             registerVirtualScrollToBottom={(handler) => {
               virtualScrollToBottomRef.current = handler;
             }}
-            scrollClassName="min-h-0 h-full overflow-y-auto [overflow-anchor:none] [scrollbar-gutter:stable]"
+            scrollClassName="autohide-scrollbar min-h-0 h-full overflow-y-auto [overflow-anchor:none] [scrollbar-gutter:stable]"
             scrollStyle={scrollFadeStyle}
             contentClassName={`min-h-full ${isInitialScrollSettled ? "" : "pointer-events-none opacity-0"}`}
             emptyContent={

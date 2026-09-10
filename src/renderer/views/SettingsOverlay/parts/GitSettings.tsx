@@ -78,7 +78,7 @@ export function GitSettings() {
         title={t`Default PR automation`}
         description={
           <Trans>
-            Choose what Poracode does for new pull requests: nothing, fix merge blockers, or fix and
+            Choose what Axe Code does for new pull requests: nothing, fix merge blockers, or fix and
             merge.
           </Trans>
         }

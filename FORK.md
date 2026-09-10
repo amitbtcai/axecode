@@ -129,7 +129,7 @@ rebrand or upstream merge touches one place.
 Regenerated `build`, `tray`, `website`, `pwa` sections and synced `build/`,
 `public/`, `website/public/`.
 
-Also: `BrandWordmark` renders the axe mark + "Axe Code"; PWA manifest and
+Also: `BrandWordmark` renders the axe mark + "AXE CODE" caps lockup; PWA manifest and
 `app-icon*.svg` renamed; `desktopTitle()` strips the new "Axe Code on " prefix
 so paired desktops still show short host titles.
 

@@ -61,7 +61,7 @@ export function PluginMarketplace(props: {
       </h1>
       <p className="mb-5 mt-1 text-xs text-muted">
         <Trans>
-          Bundles of skills and MCP servers that work across every supported agent. Poracode loads
+          Bundles of skills and MCP servers that work across every supported agent. Axe Code loads
           any package built for the Agent Plugins specification.
         </Trans>
       </p>
@@ -194,7 +194,7 @@ function PluginCard(props: {
               </PluginTag>
             ) : plugin.source === "project" ? (
               // Came with the repository, so say so: it is neither shipped by
-              // Poracode nor something the user put in the app plugin folder.
+              // Axe Code nor something the user put in the app plugin folder.
               <PluginTag>
                 <Trans>Project</Trans>
               </PluginTag>

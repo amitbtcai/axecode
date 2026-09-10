@@ -40,7 +40,7 @@ const messages = {
   "git.pull.localChanges": "Local changes need to be stashed before pulling from {branch}",
   "git.pull.reapplyConflicts": "Re-applying local changes has conflicts",
   "git.pull.stashPreserved":
-    "Pull did not complete. Your local changes remain in a Poracode stash.",
+    "Pull did not complete. Your local changes remain in a Axe Code stash.",
   "git.pull.reapplyAfterMerge":
     "Your local changes were stashed and will be re-applied once the merge is resolved.",
   "git.pull.stashReapplied": "Your stashed local changes were re-applied.",
@@ -124,20 +124,20 @@ const messages = {
   "supervisor.notRunning": "Background process is not running",
   "supervisor.proposedPlan": "Proposed plan",
   "supervisor.handoffTranscriptUnavailable":
-    "This thread switched provider without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
+    "This thread switched provider without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
   "supervisor.forkTranscriptUnavailable":
-    "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
+    "This thread was forked without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs.",
 
   // ── Claude ────────────────────────────────────────────────
 
   // ── ACP ───────────────────────────────────────────────────
   "acp.authenticationUnverified":
-    "{agent} reported authentication success, but Poracode could not verify it. Configure {agent} directly, then try again.",
+    "{agent} reported authentication success, but Axe Code could not verify it. Configure {agent} directly, then try again.",
   "acp.taskNotification.task": "Task {id}",
 
   // ── Kimi Code ─────────────────────────────────────────────
   "kimi.credentialsLocked":
-    "Kimi Code could not update its credentials because another process is using the credential file. Close other Poracode or Kimi Code processes, then retry.",
+    "Kimi Code could not update its credentials because another process is using the credential file. Close other Axe Code or Kimi Code processes, then retry.",
   "kimi.emptyResponse":
     "Kimi Code ended the turn without returning a response. Restart the thread and try again.",
 
@@ -151,13 +151,13 @@ const messages = {
   "update.devUnavailable": "Update checks are not available in development mode.",
 
   // ── Remote hosts ─────────────────────────────────────────
-  "remote.helper.invalidResponse": "Poracode Helper returned an invalid response.",
-  "remote.helper.wrongHost": "The SSH tunnel reached an incompatible Poracode server.",
-  "remote.helper.probeFailed": "Poracode Helper is not ready yet (HTTP {status}).",
-  "remote.helper.timeout": "Timed out waiting for Poracode Helper.",
+  "remote.helper.invalidResponse": "Axe Code Helper returned an invalid response.",
+  "remote.helper.wrongHost": "The SSH tunnel reached an incompatible Axe Code server.",
+  "remote.helper.probeFailed": "Axe Code Helper is not ready yet (HTTP {status}).",
+  "remote.helper.timeout": "Timed out waiting for Axe Code Helper.",
   "remote.helper.startFailed":
-    "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
-  "ssh.runtimeManifest.invalid": "Poracode SSH runtime manifest is missing or invalid: {path}",
+    "Axe Code Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
+  "ssh.runtimeManifest.invalid": "Axe Code SSH runtime manifest is missing or invalid: {path}",
   "remote.project.invalidName": "Enter a valid project name.",
   "remote.project.invalidPath": "Enter a valid absolute project path.",
   "remote.project.invalidCloneUrl":
@@ -248,7 +248,7 @@ export function errorDetail(err: unknown): string {
 const pullDirtyWorktreePattern =
   /(?:\bgit\s+pull\b[\s\S]*(?:local changes|unstaged changes|would be overwritten)|cannot pull\b[\s\S]*(?:changes|stash)|local changes[\s\S]*(?:before|during)[\s\S]*(?:merge|pull)|please commit or stash[\s\S]*(?:merge|pull))/i;
 const acpAuthenticationUnverifiedPattern =
-  /^(.+) reported authentication success, but Poracode could not verify it\. Configure \1 directly, then try again\.$/;
+  /^(.+) reported authentication success, but Axe Code could not verify it\. Configure \1 directly, then try again\.$/;
 
 const errorPatterns: Array<{
   test: RegExp;
@@ -283,31 +283,31 @@ const errorPatterns: Array<{
     key: "git.merge.conflicts",
   },
   {
-    test: /remote Poracode command returned no JSON result|Poracode Helper returned (?:an invalid port|no pairing URL|an invalid environment descriptor)|remote Poracode pairing URL contained no credential/i,
+    test: /remote Axe Code command returned no JSON result|Axe Code Helper returned (?:an invalid port|no pairing URL|an invalid environment descriptor)|remote Axe Code pairing URL contained no credential/i,
     key: "remote.helper.invalidResponse",
   },
   {
-    test: /Expected a Poracode Helper, but the endpoint is hosted by/i,
+    test: /Expected a Axe Code Helper, but the endpoint is hosted by/i,
     key: "remote.helper.wrongHost",
   },
   {
-    test: /Poracode Helper probe returned HTTP \d+/i,
+    test: /Axe Code Helper probe returned HTTP \d+/i,
     key: "remote.helper.probeFailed",
     params: (raw) => ({ status: raw.match(/HTTP (\d+)/i)?.[1] ?? "?" }),
   },
   {
-    test: /^Poracode SSH runtime manifest is missing or invalid: .+$/i,
+    test: /^Axe Code SSH runtime manifest is missing or invalid: .+$/i,
     key: "ssh.runtimeManifest.invalid",
     params: (raw) => ({
-      path: raw.match(/^Poracode SSH runtime manifest is missing or invalid: (.+)$/i)?.[1] ?? "?",
+      path: raw.match(/^Axe Code SSH runtime manifest is missing or invalid: (.+)$/i)?.[1] ?? "?",
     }),
   },
   {
-    test: /Timed out waiting for the SSH tunnel to reach Poracode Helper/i,
+    test: /Timed out waiting for the SSH tunnel to reach Axe Code Helper/i,
     key: "remote.helper.timeout",
   },
   {
-    test: /Poracode Helper failed to start|Poracode SSH requires (?:Node 24\.10 or newer|npm)|Uploaded Poracode runtime archive was not found|No remote loopback port is available for Poracode/i,
+    test: /Axe Code Helper failed to start|Axe Code SSH requires (?:Node 24\.10 or newer|npm)|Uploaded Axe Code runtime archive was not found|No remote loopback port is available for Axe Code/i,
     key: "remote.helper.startFailed",
   },
   {

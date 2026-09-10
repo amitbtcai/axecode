@@ -639,7 +639,7 @@ export const claudeProfileSupport: NativeAgentProfileSupport = {
   RowSubtitle: ClaudeProfileConfigDir,
   removalBody: (profileName) => (
     <Trans>
-      Removing {profileName} drops its Poracode settings — env vars, models, and effort. Its config
+      Removing {profileName} drops its Axe Code settings — env vars, models, and effort. Its config
       directory and the Claude credentials inside it stay on disk.
     </Trans>
   ),

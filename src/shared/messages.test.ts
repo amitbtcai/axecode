@@ -94,13 +94,13 @@ describe("friendlyErrorWithDetail", () => {
   });
 
   it("maps helper bootstrap failures to shared messages", () => {
-    expect(friendlyError(new Error("Poracode Helper probe returned HTTP 503."))).toBe(
-      "Poracode Helper is not ready yet (HTTP 503).",
+    expect(friendlyError(new Error("Axe Code Helper probe returned HTTP 503."))).toBe(
+      "Axe Code Helper is not ready yet (HTTP 503).",
     );
     expect(
-      friendlyError(new Error("Poracode SSH requires Node 24.10 or newer on the remote host.")),
+      friendlyError(new Error("Axe Code SSH requires Node 24.10 or newer on the remote host.")),
     ).toBe(
-      "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
+      "Axe Code Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine.",
     );
   });
 
@@ -108,11 +108,11 @@ describe("friendlyErrorWithDetail", () => {
     expect(
       friendlyError(
         new Error(
-          "Poracode SSH runtime manifest is missing or invalid: C:\\Poracode\\server.ssh-runtime-manifest.json",
+          "Axe Code SSH runtime manifest is missing or invalid: C:\\Axe Code\\server.ssh-runtime-manifest.json",
         ),
       ),
     ).toBe(
-      "Poracode SSH runtime manifest is missing or invalid: C:\\Poracode\\server.ssh-runtime-manifest.json",
+      "Axe Code SSH runtime manifest is missing or invalid: C:\\Axe Code\\server.ssh-runtime-manifest.json",
     );
   });
 

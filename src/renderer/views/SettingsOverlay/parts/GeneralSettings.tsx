@@ -222,7 +222,7 @@ export function GeneralSettings() {
           title={t`Close to tray`}
           description={
             <Trans>
-              When you close the window, keep Poracode running in the system tray. Disable to quit
+              When you close the window, keep Axe Code running in the system tray. Disable to quit
               on close.
             </Trans>
           }

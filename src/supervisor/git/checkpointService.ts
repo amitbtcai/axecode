@@ -23,9 +23,9 @@ type CheckpointMetadata = FileCheckpointRecord | FileCheckpointTurn;
  * missing identity — a configured identity keeps authoring its own snapshots.
  */
 export const CHECKPOINT_FALLBACK_IDENT_ENV: Record<string, string> = {
-  GIT_AUTHOR_NAME: "Poracode",
+  GIT_AUTHOR_NAME: "Axe Code",
   GIT_AUTHOR_EMAIL: "checkpoints@poracode.local",
-  GIT_COMMITTER_NAME: "Poracode",
+  GIT_COMMITTER_NAME: "Axe Code",
   GIT_COMMITTER_EMAIL: "checkpoints@poracode.local",
 };
 
