@@ -1,14 +1,14 @@
-const GITHUB_REPO = "Porabuild/Poracode";
+const GITHUB_REPO = "amitbtcai/axecode";
 const RELEASES_LATEST_URL = `https://github.com/${GITHUB_REPO}/releases/latest`;
 const RELEASES_INDEX_URL = `https://github.com/${GITHUB_REPO}/releases`;
 const NIGHTLY_TAG_PATTERN = /-nightly\./;
 
 export const PLATFORM_PATTERNS: Record<string, RegExp> = {
-  "mac-arm64": /Poracode-.*-arm64\.dmg$/,
-  "mac-x64": /Poracode-.*-x64\.dmg$/,
-  "win-x64": /Poracode-.*Setup-.*-x64\.exe$/,
-  "win-arm64": /Poracode-.*Setup-.*-arm64\.exe$/,
-  "linux-x64": /Poracode-.*-x86_64\.AppImage$/,
+  "mac-arm64": /AxeCode-.*-arm64\.dmg$/,
+  "mac-x64": /AxeCode-.*-x64\.dmg$/,
+  "win-x64": /AxeCode-.*Setup-.*-x64\.exe$/,
+  "win-arm64": /AxeCode-.*Setup-.*-arm64\.exe$/,
+  "linux-x64": /AxeCode-.*-x86_64\.AppImage$/,
 };
 
 export type PlatformSlug = keyof typeof PLATFORM_PATTERNS;
