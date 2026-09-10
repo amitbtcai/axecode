@@ -160,3 +160,42 @@ pnpm install && pnpm run typecheck && pnpm run lint && pnpm test
 
 If upstream touches `branding/assets/build-icons.mjs`, re-check that the
 `MASTER_*` constants still point at the Axe masters.
+
+## Releasing
+
+**Versioning:** the clone inherited every upstream tag, so `v1.8.0` was already
+taken. Always bump past upstream (`1.8.1`, `1.8.2`, …). Do NOT use a
+`-prerelease` suffix — semver sorts `1.8.0-axecode.1` _below_ `1.8.0`, so
+electron-updater would ignore it.
+
+```bash
+export PATH="$HOME/.cargo/bin:$PATH"
+rm -rf release && pnpm run dist:mac      # arm64 + x64 DMG/ZIP + latest-mac.yml
+```
+
+Publish `release/` to GitHub Releases: `AxeCode-<v>-{arm64,x64}.{dmg,zip}` plus
+`latest-mac.yml`. The `latest-mac.yml` sha512 must match the uploaded ZIPs —
+electron-updater verifies it before installing.
+
+`gh release create` fails here with a spurious "workflow scope may be
+required" error even though the scope is granted. Workaround: create the
+release with `gh api --method POST repos/amitbtcai/axecode/releases`, then
+upload each asset with curl to `uploads.github.com`:
+
+```bash
+TOKEN=$(gh auth token)
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/octet-stream" \
+  --data-binary "@release/<file>" \
+  "https://uploads.github.com/repos/amitbtcai/axecode/releases/<id>/assets?name=<file>"
+```
+
+### Signed builds (not yet)
+
+Current releases are unsigned: macOS Gatekeeper blocks first open
+(right-click → Open) and auto-update can download but not self-install.
+Add an Apple Developer ID and set `CSC_LINK` / `APPLE_ID` /
+`APPLE_APP_SPECIFIC_PASSWORD` to enable signing + notarization.
+
+Support contact is `https://x.com/AxeAI_com` (no support mailbox exists) —
+see `branding/contact.json`.
