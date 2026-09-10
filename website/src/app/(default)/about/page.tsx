@@ -40,8 +40,8 @@ const OFFICIAL_LINKS = [
   },
   {
     label: "Support",
-    value: contact.supportEmail,
-    href: `mailto:${contact.supportEmail}`,
+    value: contact.supportLabel,
+    href: `${contact.supportUrl}`,
     icon: Mail,
   },
 ] as const;

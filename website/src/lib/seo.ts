@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import contact from "../../../branding/contact.json";
 import { LANDING_FAQ_ITEMS } from "@/lib/landingFaq";
 import type { ReleaseInfo } from "@/lib/releases";
 import { DEFAULT_LOCALE, LOCALE_CODES, localizedPath, type Locale } from "./i18n/config";
@@ -26,8 +25,8 @@ const OG_LOCALE: Record<Locale, string> = {
 };
 
 export const SITE_NAME = "Poracode";
-export const SITE_URL = "https://poracode.com";
-export const GITHUB_URL = "https://github.com/Porabuild/Poracode";
+export const SITE_URL = "https://axeai.com/code";
+export const GITHUB_URL = "https://github.com/amitbtcai/axecode";
 export const SOCIAL_IMAGE_PATH = "/hero-screenshot.png";
 export const SOCIAL_IMAGE_ALT = "Poracode AI coding agent orchestrator social card";
 const SOCIAL_IMAGE_WIDTH = 1200;
@@ -159,18 +158,16 @@ export function createHomeJsonLd(release: ReleaseInfo, locale: Locale = DEFAULT_
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    email: contact.supportEmail,
     logo: {
       "@type": "ImageObject",
       url: absoluteUrl("/icon-512.png"),
       width: 512,
       height: 512,
     },
-    sameAs: [GITHUB_URL],
+    sameAs: [GITHUB_URL, "https://x.com/AxeAI_com"],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "technical support",
-      email: contact.supportEmail,
       url: absoluteUrl("/support"),
     },
   };
@@ -200,7 +197,7 @@ export function createHomeJsonLd(release: ReleaseInfo, locale: Locale = DEFAULT_
     codeRepository: GITHUB_URL,
     license: "https://www.apache.org/licenses/LICENSE-2.0",
     releaseNotes: absoluteUrl("/changelog"),
-    sameAs: [GITHUB_URL],
+    sameAs: [GITHUB_URL, "https://x.com/AxeAI_com"],
     offers: {
       "@type": "Offer",
       price: "0",

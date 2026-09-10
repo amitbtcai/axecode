@@ -36,7 +36,7 @@ const {
   snapshotMacUpdaterManifests,
   setMacUpdaterMinimumSystemVersion,
 } = requireFromHere("./mac-updater-manifest.cjs");
-const { supportEmail } = requireFromHere("../branding/contact.json");
+const { supportUrl } = requireFromHere("../branding/contact.json");
 
 // Runtime externals — packages tsdown does NOT inline into dist/main/*.cjs.
 // Regenerate with `node scripts/scan-runtime-externals.mjs`.
@@ -561,7 +561,7 @@ linux:
         - x64
   icon: build/icon${iconSuffix}.png
   category: Development
-  maintainer: AxeAI <${supportEmail}>
+  maintainer: AxeAI - ${supportUrl}
   artifactName: ${prefix}-\${version}-\${arch}.\${ext}
 
 mac:

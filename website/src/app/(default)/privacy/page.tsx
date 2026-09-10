@@ -151,10 +151,10 @@ export default function PrivacyPage() {
               We may update this policy as Poracode changes and will publish the new effective date
               here. Questions or privacy requests can be sent to{" "}
               <a
-                href={`mailto:${contact.supportEmail}`}
+                href={`${contact.supportUrl}`}
                 className="text-white underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
               >
-                {contact.supportEmail}
+                {contact.supportLabel}
               </a>
               .
             </p>
