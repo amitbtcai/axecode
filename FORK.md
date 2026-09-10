@@ -90,7 +90,7 @@ Edited only the branding seam, so upstream merges stay mechanical:
 - `scripts/build-desktop-artifact.mjs`: publish owner `amitbtcai` / repo `axecode`,
   linux maintainer `AxeAI`
 - `package.json`: name `axecode`, homepage `axeai.com/code`, author `AxeAI`
-- `branding/contact.json`: `support@axeai.com`
+- `branding/contact.json`: support contact (now `https://x.com/AxeAI_com`)
 - Tests updated to the new literals: `RemoteAccessServer` (PWA manifest name),
   `probeCwd`, `poracodePaths`, `poracodeData.migrate`
 
@@ -150,16 +150,109 @@ node branding/assets/build-icons.mjs      # or: build | tray | website | pwa
 - `origin` -> fork, `upstream` -> Porabuild/Poracode
 - Baseline tag `upstream-baseline` pushed for diffing against upstream
 
-### Syncing with upstream
+## Syncing with upstream
+
+Two unrelated "update" flows — don't confuse them:
+
+| Flow            | Who       | Mechanism                                                                                                 |
+| --------------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| **App update**  | End users | electron-updater polls GitHub Releases, reads `latest-mac.yml`, verifies sha512. Never touches this repo. |
+| **Source sync** | You       | `git merge upstream/master`, then re-release to publish the update.                                       |
+
+Upstream moves at roughly **2 commits/day**. Monthly syncing ≈ 240 commits.
+
+There is no sync automation in the repo (checked all workflows) — this is manual.
+
+### Before you start
 
 ```bash
-export PATH="$HOME/.cargo/bin:$PATH"
-git fetch upstream && git merge upstream/master
-pnpm install && pnpm run typecheck && pnpm run lint && pnpm test
+export PATH="$HOME/.cargo/bin:$PATH"    # rustc 1.98 for the computer-use helper
+git status                              # must be clean
 ```
 
-If upstream touches `branding/assets/build-icons.mjs`, re-check that the
-`MASTER_*` constants still point at the Axe masters.
+### The loop
+
+```bash
+git fetch upstream
+git merge upstream/master               # or: git merge --no-ff upstream/master
+pnpm install
+pnpm run typecheck && pnpm run lint && pnpm test
+```
+
+Then, if anything brand-related moved, re-verify (see below) and re-release.
+
+### Expected conflicts — measured
+
+Simulated a **30-day sync (241 commits)** with all 13 i18n catalogs and 66
+renderer files rebranded:
+
+**16 conflicts, all small.** Roughly 15 minutes to resolve.
+
+| What                                 | Count | Resolution                                                  |
+| ------------------------------------ | ----- | ----------------------------------------------------------- |
+| `src/renderer/locales/*/messages.po` | 13    | `git checkout --theirs` (generated — see rule below)        |
+| Renderer source files                | 3     | 1 hunk each, keep upstream's logic, re-apply the brand name |
+| Icons / binaries                     | 0     | never conflict                                              |
+
+Catalog conflicts are ~8 lines: upstream superseded the string, so theirs wins.
+Source conflicts look like upstream rewriting a `<Trans>` block — take their
+structure, swap "Poracode" back to "Axe Code".
+
+### THE CATALOG RULE (most important thing here)
+
+**Never hand-edit `src/renderer/locales/*/messages.po`.** They are generated:
+192k lines across 13 files, and upstream touches them ~200 times per 90 days.
+Hand-editing them turns every sync into a slog.
+
+Correct cycle:
+
+1. Change the string in the **source** (`.tsx`), wrapped in `<Trans>` / `t` / `msg`
+2. `pnpm i18n:extract`
+3. Fill the new `msgstr` in all 12 non-English catalogs (never ship empty —
+   see the i18n section in `AGENTS.md`)
+4. On merge conflict: `git checkout --theirs src/renderer/locales/*/messages.po`,
+   then re-run `pnpm i18n:extract` to re-apply your strings
+
+Because catalogs are generated, "take upstream" is almost always right.
+
+### Post-merge checks
+
+Run these every time — they are what actually catch drift:
+
+```bash
+pnpm run typecheck
+pnpm run lint
+pnpm test
+```
+
+Specific things upstream changes that can bite:
+
+- **`branding/assets/build-icons.mjs`** — re-check `MASTER_ICON` /
+  `MASTER_ICON_NIGHTLY` / `MASTER_GLYPH` still point at the Axe masters
+- **`channel.config-parity.test.ts`** — fails if `src/shared/channel.ts` and
+  `scripts/electron-builder.shared.cjs` drift apart
+- **New user-facing strings** — upstream adds them constantly; they say
+  "Poracode" and need the same treatment
+- **`.lightcode` / `lightcode-local://`** — if a merge removes or renames these,
+  that is upstream dropping legacy migration; confirm before accepting
+
+### Keeping our footprint small
+
+Everything we change is either a **new file** or a **tiny seam**. Current
+footprint is 7 commits / ~22 source files; the rest are generated icons and
+binaries. To keep merges cheap:
+
+- Prefer editing the seam (`channel.ts`, `electron-builder.shared.cjs`) over
+  touching upstream files
+- Never rename identifiers for cosmetics (`poracode-local://`, `.poracode`
+  paths, MCP client names) — zero user benefit, real breakage risk
+- If you must touch an upstream file, keep the diff to the specific lines
+
+### If upstream rebrands again
+
+They did it 72 days before this fork (commit `015875dc`, 166 files, all 13
+catalogs). If they rebrand again, the seam absorbs it: update `channel.ts` +
+the `.cjs` mirror, re-run `build-icons.mjs`, re-extract catalogs.
 
 ## Releasing
 
