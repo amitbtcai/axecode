@@ -576,7 +576,7 @@ mac:
       arch:
         - x64
         - arm64
-  icon: build/icon${iconSuffix}.icns
+  icon: build/icon${iconSuffix}.icon
   category: public.app-category.developer-tools
   artifactName: ${prefix}-\${version}-\${arch}.\${ext}
   hardenedRuntime: true

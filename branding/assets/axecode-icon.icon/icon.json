@@ -1,0 +1,24 @@
+{
+  "fill": {
+    "linear-gradient": [
+      "extended-srgb:0.16863,0.20000,1.00000,1.00000",
+      "extended-srgb:0.02353,0.03922,0.90196,1.00000"
+    ]
+  },
+  "groups": [
+    {
+      "name": "Axe Mark",
+      "layers": [
+        {
+          "name": "Axe",
+          "image-name": "AxeMark.svg",
+          "glass": true
+        }
+      ],
+      "shadow": { "kind": "neutral", "opacity": 0.4 },
+      "specular": true,
+      "translucency": { "enabled": true, "value": 0.3 }
+    }
+  ],
+  "supported-platforms": { "squares": ["iOS", "macOS"] }
+}

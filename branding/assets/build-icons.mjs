@@ -17,7 +17,8 @@ const OUT = `${HERE}out`;
 // (1024x1024 squircle tile, tile-less glyph, nightly tile); every generated
 // asset derives from them.
 const MASTER_ICON = "axecode-icon.svg";
-const MASTER_ICON_NIGHTLY = "axecode-icon-nightly.svg";
+// Nightly shares the stable blue identity — same master, same look.
+const MASTER_ICON_NIGHTLY = "axecode-icon.svg";
 const MASTER_GLYPH = "axecode-glyph.svg";
 
 async function png(svg, size) {

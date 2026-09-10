@@ -144,6 +144,31 @@ node branding/assets/build-icons.mjs      # or: build | tray | website | pwa
 # then sync build/ + public/ + website/public/ from branding/assets/out/
 ```
 
+### Liquid Glass app icon (macOS 26 `.icon`)
+
+The macOS app ships a modern Liquid Glass icon built as an Icon Composer
+document package: `branding/assets/axecode-icon.icon/` (and the blue
+`axecode-icon-nightly.icon/`, which shares the same master). Each is
+`icon.json` + `Assets/AxeMark.svg`
+(the transparent axe glyph), designed in Icon Composer v1.6 — keep to its
+keys (no `features`/`refractivity`). They are synced to `build/icon.icon`
+and `build/icon-nightly.icon`, and `scripts/build-desktop-artifact.mjs`
+points `mac.icon` at them (line ~579). electron-builder compiles the `.icon`
+into both the Liquid Glass `Assets.car` (sets `CFBundleIconName = "Icon"`)
+and the legacy `icon.icns`, so the app carries both automatically. Render
+previews from the CLI with `ictool`:
+
+```bash
+ICTOOL="$(dirname "$(xcode-select -p)")/Applications/Icon Composer.app/Contents/Executables/ictool"
+"$ICTOOL" branding/assets/axecode-icon.icon --export-image --output-file /tmp/axecode.png \
+  --platform macOS --rendition Default --width 512 --height 512 --scale 1
+```
+
+To change the icon: edit `icon.json` and/or `AxeMark.svg`, re-render to check,
+then copy the package into `build/` and rebuild. The flat PNG/ICNS/ICO set from
+`build-icons.mjs` is unchanged and still used for Linux/Windows, the tray, and
+the PWA/website.
+
 ## GitHub
 
 - **https://github.com/amitbtcai/axecode** (public, `master`)
@@ -161,25 +186,31 @@ Two unrelated "update" flows — don't confuse them:
 
 Upstream moves at roughly **2 commits/day**. Monthly syncing ≈ 240 commits.
 
-There is no sync automation in the repo (checked all workflows) — this is manual.
+There is no sync automation in the repo (checked all workflows) — use the helper below.
 
-### Before you start
+### Semi-automatic sync script
+
+`node scripts/sync-upstream.mjs` does the mechanical parts and stops before any
+decision needs a human. Refuses to run on a dirty tree unless `--force`.
+Never commits.
 
 ```bash
 export PATH="$HOME/.cargo/bin:$PATH"    # rustc 1.98 for the computer-use helper
-git status                              # must be clean
+node scripts/sync-upstream.mjs          # fetch + merge + verify (typecheck/lint)
 ```
 
-### The loop
+Behavior:
 
-```bash
-git fetch upstream
-git merge upstream/master               # or: git merge --no-ff upstream/master
-pnpm install
-pnpm run typecheck && pnpm run lint && pnpm test
-```
+1. Refuses on a dirty working tree (`--force` overrides).
+2. Fetches `upstream`, reports the commit distance, exits if up to date.
+3. Runs `git merge upstream/master`. A clean merge resolves itself; the only
+   conflict it auto-resolves is the i18n catalogs (`--theirs` + re-extract, per
+   the catalog rule below) — every other conflict is left mid-merge for you.
+4. Runs `pnpm run typecheck` + `pnpm run lint` on the merged tree
+   (`--no-verify` skips them). Full `pnpm test` stays manual.
 
-Then, if anything brand-related moved, re-verify (see below) and re-release.
+Then, if anything brand-related moved or the merge touched branding files,
+re-verify (see below), commit, and re-release.
 
 ### Expected conflicts — measured
 
