@@ -190,7 +190,7 @@ export function SkillImportModal(props: SkillImportModalProps) {
   ];
   const availabilityOptions = [
     { id: "shared", label: t`All agent apps` },
-    { id: "poracode", label: t`Poracode only` },
+    { id: "poracode", label: t`Axe Code only` },
   ];
 
   return (

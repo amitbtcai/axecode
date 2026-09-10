@@ -90,7 +90,7 @@ export function StartupRecoveryScreen(props: StartupRecoveryScreenProps) {
           </Button>
           <Button size="sm" variant="secondary" onPress={restart}>
             <RotateCcw className="size-3.5" />
-            <Trans>Restart Poracode</Trans>
+            <Trans>Restart Axe Code</Trans>
           </Button>
           {phase === "downloaded" ? (
             <Button size="sm" variant="primary" onPress={() => void readBridge().installUpdate()}>

@@ -223,7 +223,7 @@ describe("McpServersManager", () => {
       }),
     );
 
-    const dialog = screen.getByRole("dialog", { name: "Poracode" });
+    const dialog = screen.getByRole("dialog", { name: "Axe Code" });
     expect(within(dialog).getByText("list_schedules")).toBeInTheDocument();
     expect(within(dialog).getByText("delete_schedule")).toBeInTheDocument();
     fireEvent.click(within(dialog).getByRole("switch", { name: "Enable delete_schedule" }));
@@ -330,7 +330,7 @@ describe("McpServersManager", () => {
     await waitFor(() => {
       expect(screen.getByRole("status")).toHaveTextContent("Authentication required");
       expect(screen.getByRole("status")).toHaveTextContent(
-        "This server requires authentication before Poracode can check it.",
+        "This server requires authentication before Axe Code can check it.",
       );
     });
     expect(screen.queryByText("0 tools")).not.toBeInTheDocument();
@@ -507,7 +507,7 @@ describe("McpServersManager", () => {
 
   it("identifies a remote project by its host in the scope trigger and menu", async () => {
     useRemoteServersStore.setState({
-      servers: [{ desktopId: "d1", label: "Poracode on MacBook 16" }],
+      servers: [{ desktopId: "d1", label: "Axe Code on MacBook 16" }],
       runtime: { d1: { status: "online", projects: [], threads: [] } },
     } as never);
     render(

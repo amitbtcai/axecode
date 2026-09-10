@@ -54,8 +54,8 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
     let description: string;
     switch (plugin.name) {
       case "app-controls":
-        name = t`Poracode`;
-        description = t`Read and drive Poracode itself: threads, terminal panes, git, pull requests, and schedules.`;
+        name = t`Axe Code`;
+        description = t`Read and drive Axe Code itself: threads, terminal panes, git, pull requests, and schedules.`;
         break;
       case "terminal":
         name = t`Terminal`;
@@ -63,7 +63,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
         break;
       case "browser-tools":
         name = t`Browser`;
-        description = t`Browse, inspect, and test websites in Poracode's isolated in-app browser.`;
+        description = t`Browse, inspect, and test websites in Axe Code's isolated in-app browser.`;
         break;
       case "chrome-tools":
         name = t`Chrome`;
@@ -96,7 +96,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
         case "app-controls:app-controls":
           return {
             id: skill.folder,
-            name: t`Poracode`,
+            name: t`Axe Code`,
             description: t`Inspect threads and terminal panes, and drive git, pull requests, and schedules.`,
           };
         case "terminal:terminal-inspection":
@@ -121,7 +121,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
           return {
             id: skill.folder,
             name: t`Computer Use`,
-            description: t`Operate desktop apps through Poracode's desktop-control tools.`,
+            description: t`Operate desktop apps through Axe Code's desktop-control tools.`,
           };
         case "subagent-delegation:subagent-delegation":
           return {
@@ -147,7 +147,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
           id === "app-controls"
             ? plugin.name === "terminal"
               ? t`Terminal`
-              : t`Poracode`
+              : t`Axe Code`
             : id === "browser"
               ? t`Browser`
               : id === "chrome"
@@ -227,7 +227,7 @@ export function useLocalizedPluginDiagnostic(): (diagnostic: PluginDiagnostic) =
         return t`Ignored an unrecognized field in plugin.json.`;
       case "manifest-extensions-not-object":
       case "extension-invalid":
-        return t`This plugin's Poracode settings were ignored because they are not valid.`;
+        return t`This plugin's Axe Code settings were ignored because they are not valid.`;
       case "extension-unknown-skill":
         return t`This plugin describes a skill it does not actually ship.`;
       case "path-escapes-root":
@@ -259,10 +259,10 @@ export function useLocalizedPluginDiagnostic(): (diagnostic: PluginDiagnostic) =
           : t`This server runs on this computer and is unavailable for WSL projects.`;
       case "mcp-name-unusable":
         return target
-          ? t`Server ${target} has a name Poracode cannot use.`
-          : t`A server has a name Poracode cannot use.`;
+          ? t`Server ${target} has a name Axe Code cannot use.`
+          : t`A server has a name Axe Code cannot use.`;
       case "plugin-data-unavailable":
-        return t`Poracode could not create this plugin's data folder.`;
+        return t`Axe Code could not create this plugin's data folder.`;
       default:
         return diagnostic.message;
     }

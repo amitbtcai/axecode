@@ -278,7 +278,7 @@ export function SchedulesView() {
       const store = useAppStore.getState();
       store.setComposerSeed(
         project.id,
-        t`Help me create a schedule. Ask for any missing details, then use the Poracode schedule controls to create it for me.`,
+        t`Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me.`,
       );
       store.openDraft(project.id);
     } catch (agentError) {

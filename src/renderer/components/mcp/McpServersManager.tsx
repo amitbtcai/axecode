@@ -193,7 +193,7 @@ export function McpServersManager(props: {
       .map((server) => ({ scope, source, server })),
   );
 
-  const builtInDescription = t`Provided and managed by Poracode for supported agents.`;
+  const builtInDescription = t`Provided and managed by Axe Code for supported agents.`;
   const builtIns: BuiltInRow[] = [
     {
       id: "browser",
@@ -234,7 +234,7 @@ export function McpServersManager(props: {
       id: "app-controls",
       name: BUILT_IN_MCP_SERVER_NAMES["app-controls"],
       tools: BUILT_IN_MCP_SERVER_TOOL_NAMES["app-controls"],
-      label: t`Poracode`,
+      label: t`Axe Code`,
       description: builtInDescription,
       icon: <Settings2 className="size-4" />,
     },
@@ -827,7 +827,7 @@ function McpServerProbeStatus(props: {
         <span className="size-2 shrink-0 rounded-full bg-warning" aria-hidden="true" />
         <Trans>Authentication required</Trans>
         <span aria-hidden="true">·</span>
-        <Trans>This server requires authentication before Poracode can check it.</Trans>
+        <Trans>This server requires authentication before Axe Code can check it.</Trans>
       </div>
     );
   }

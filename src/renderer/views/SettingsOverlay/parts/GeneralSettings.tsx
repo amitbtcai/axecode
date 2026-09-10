@@ -52,7 +52,7 @@ export function GeneralSettings() {
       <SettingRow
         anchorId="general.language"
         title={t`Language`}
-        description={<Trans>Choose the display language for Poracode's interface.</Trans>}
+        description={<Trans>Choose the display language for Axe Code's interface.</Trans>}
       >
         <Select
           aria-label={t`Language`}
@@ -110,7 +110,7 @@ export function GeneralSettings() {
         <SettingRow
           anchorId="general.launchAtStartup"
           title={t`Launch at startup`}
-          description={<Trans>Launch Poracode automatically when you sign in to Windows.</Trans>}
+          description={<Trans>Launch Axe Code automatically when you sign in to Windows.</Trans>}
         >
           <ToggleSwitch
             aria-label={t`Launch at startup`}
@@ -128,7 +128,7 @@ export function GeneralSettings() {
         <SettingRow
           anchorId="general.startMinimized"
           title={t`Start minimized`}
-          description={<Trans>Keep Poracode in the system tray when it launches at startup.</Trans>}
+          description={<Trans>Keep Axe Code in the system tray when it launches at startup.</Trans>}
         >
           <ToggleSwitch
             aria-label={t`Start minimized`}

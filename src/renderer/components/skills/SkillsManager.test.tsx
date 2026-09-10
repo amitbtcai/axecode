@@ -204,7 +204,7 @@ describe("SkillsManager", () => {
 
     expect(screen.getByRole("button", { name: "Marketplace" })).toHaveClass("button--tertiary");
     expect(screen.getByRole("button", { name: "Add skill" })).toHaveClass("button--tertiary");
-    expect(screen.getByText("Poracode only")).toBeInTheDocument();
+    expect(screen.getByText("Axe Code only")).toBeInTheDocument();
     expect(screen.queryByText("Global")).not.toBeInTheDocument();
     expect(screen.queryByText("Managed")).not.toBeInTheDocument();
     expect(screen.getByText("Claude Code")).toBeInTheDocument();

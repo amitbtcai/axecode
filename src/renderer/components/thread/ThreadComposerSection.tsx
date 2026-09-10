@@ -302,7 +302,7 @@ function ThreadComposerSectionInner(props: ThreadComposerSectionProps & { thread
       ? [
           {
             id: "app-controls",
-            name: t`Poracode`,
+            name: t`Axe Code`,
             icon: Settings2,
             enabled: true,
           },

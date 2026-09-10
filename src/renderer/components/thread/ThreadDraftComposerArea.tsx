@@ -656,7 +656,7 @@ export function ThreadDraftComposerArea(props: {
       ? [
           {
             id: "app-controls",
-            name: t`Poracode`,
+            name: t`Axe Code`,
             icon: Settings2,
             enabled: true,
           },

@@ -98,7 +98,7 @@ export function GitSettings() {
         anchorId="git.mergeMethod"
         title={t`Merge method`}
         description={
-          <Trans>Choose how Poracode performs manual merges and automatic PR merges.</Trans>
+          <Trans>Choose how Axe Code performs manual merges and automatic PR merges.</Trans>
         }
       >
         <Select

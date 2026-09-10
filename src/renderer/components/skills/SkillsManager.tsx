@@ -579,7 +579,7 @@ function SkillRow(props: {
           ) : null}
           {skill.availability === "poracode" ? (
             <span className="shrink-0 rounded bg-surface-secondary px-1.5 py-0.5 text-[10px] text-muted">
-              <Trans>Poracode only</Trans>
+              <Trans>Axe Code only</Trans>
             </span>
           ) : null}
           {skill.linked ? (
