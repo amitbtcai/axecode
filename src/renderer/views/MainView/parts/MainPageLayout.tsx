@@ -4,6 +4,7 @@ import { getAppName } from "@/shared/appName";
 import { readBridge } from "@/renderer/bridge";
 import { PageLayout } from "@/renderer/components/layout/PageLayout";
 import { Sidebar } from "@/renderer/views/MainView/parts/Sidebar/Sidebar";
+import { AgentTerminalHost } from "@/renderer/components/terminal/AgentTerminalHost";
 import { AppContent } from "@/renderer/views/MainView/parts/AppContent/AppContent";
 import { SidebarHeaderControls } from "@/renderer/views/MainView/parts/SidebarHeaderControls";
 import { MainRightPanel } from "@/renderer/views/MainView/parts/MainRightPanel";
@@ -33,6 +34,7 @@ export function MainPageLayout(props: { onTitleClick: () => void }) {
       content={
         <MainPanelDropZone>
           <AppContent />
+          <AgentTerminalHost />
           <Suspense>
             <DeferredFileEditorPanel />
           </Suspense>

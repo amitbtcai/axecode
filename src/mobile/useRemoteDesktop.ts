@@ -28,12 +28,20 @@ import {
   type RemoteThreadSnapshot,
 } from "@/shared/remote";
 import { performThreadInputSubmit } from "@/renderer/actions/threadRuntimeActions";
-import { buildTranscriptContext } from "@/renderer/actions/handoffTranscript";
-import { DEFAULT_HANDOFF_PROMPT, handoffInlineLabel } from "@/renderer/actions/providerHandoff";
+import {
+  buildTranscriptContext,
+  handoffTranscriptBudget,
+} from "@/renderer/actions/handoffTranscript";
+import {
+  DEFAULT_HANDOFF_PROMPT,
+  handoffInlineLabel,
+  MAX_INLINE_HANDOFF_CONTEXT_CHARS,
+} from "@/renderer/actions/providerHandoff";
 import { continuesInPlace } from "@/shared/continueProviderRanking";
 import { worktreePlacementPayload } from "@/renderer/actions/worktreePlacement";
 import { captureFileCheckpoint } from "@/renderer/state/fileCheckpointActions";
 import { useAppStore } from "@/renderer/state/appStore";
+import { captureThreadFollowUpQueueSnapshot } from "@/renderer/state/threadFollowUpQueueStore";
 import {
   runtimePageOverlapsExistingTranscript,
   seedOlderThreadRuntimeItemsCursor,
@@ -681,6 +689,7 @@ export function useRemoteDesktop() {
         applyThreadSnapshot(cached.snapshot, { fromServer: false });
       }
     }
+    const followUpQueueSnapshotGuard = captureThreadFollowUpQueueSnapshot(threadId);
     try {
       const client = options.client ?? clientFor(desktop);
       const useNarrowPwaPage =
@@ -707,7 +716,14 @@ export function useRemoteDesktop() {
       });
       setThreadSnapshot(next);
       // A fresh server history IS authoritative (fromServer defaults to true).
-      applyThreadSnapshot(next, { fromServer: true });
+      const socket = socketCoordinatorRef.current;
+      applyThreadSnapshot(next, {
+        fromServer: true,
+        ...(socket?.desktopId === desktop.desktopId
+          ? { lastSeenEventSeq: socket.coordinator.getLastSeenSeq() }
+          : {}),
+        followUpQueueSnapshotGuard,
+      });
       // Throttle the full-transcript write while the thread is actively
       // streaming: during a run the blob is re-fetched and rewritten on every
       // ~1s refresh. Non-running statuses (including the final post-run
@@ -1181,7 +1197,14 @@ export function useRemoteDesktop() {
     // The phone has no composer here, so the handoff carries the chat history
     // inline (the attachment-file route is a desktop-owned bridge path) plus
     // the shared default instruction.
-    const context = buildTranscriptContext(thread, thread.agentKind);
+    const context = buildTranscriptContext(
+      thread,
+      thread.agentKind,
+      Math.min(
+        handoffTranscriptBudget(input.targetConfig.contextSize),
+        MAX_INLINE_HANDOFF_CONTEXT_CHARS,
+      ),
+    );
     const handoffPrompt = context
       ? `${handoffInlineLabel(context)}\n\n${context.summary}\n\n${DEFAULT_HANDOFF_PROMPT}`
       : DEFAULT_HANDOFF_PROMPT;

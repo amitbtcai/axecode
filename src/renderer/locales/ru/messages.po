@@ -418,8 +418,8 @@ msgid "{0}mo ago"
 msgstr "{0} мес. назад"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "{agent} reported authentication success, but Axe Code could not verify it. Configure {agent} directly, then try again."
-msgstr "{agent} сообщил об успешной аутентификации, но Axe Code не удалось её проверить. Настройте {agent} напрямую и повторите попытку."
+msgid "{agent} reported authentication success, but Poracode could not verify it. Configure {agent} directly, then try again."
+msgstr "{agent} сообщил об успешной аутентификации, но Poracode не удалось её проверить. Настройте {agent} напрямую и повторите попытку."
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "{agentLabel} install targets"
@@ -766,8 +766,8 @@ msgid "A server could not be started and was skipped."
 msgstr "Не удалось запустить сервер, он пропущен."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "A server has a name Axe Code cannot use."
-msgstr "У сервера имя, которое Axe Code не может использовать."
+msgid "A server has a name Poracode cannot use."
+msgstr "У сервера имя, которое Poracode не может использовать."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "A server is not configured correctly and was skipped."
@@ -776,6 +776,10 @@ msgstr "Сервер настроен неправильно и был проп�
 #: src/renderer/components/thread/threadDraftViewHelpers.ts
 msgid "a supported coding agent"
 msgstr "поддерживаемый агент кодирования"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "A voice conversation is already active."
+msgstr "Голосовой разговор уже активен."
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "A worktree owner requires a frozen branch source"
@@ -1034,8 +1038,8 @@ msgid "Add project"
 msgstr "Добавить проект"
 
 #: src/renderer/views/WelcomeOverlay.tsx
-#~ msgid "Add Project"
-#~ msgstr "Добавить проект"
+msgid "Add Project"
+msgstr "Добавить проект"
 
 #: src/renderer/views/MainView/parts/CreateProject/CreateProjectMenu.tsx
 msgid "Add project options"
@@ -1084,6 +1088,10 @@ msgstr "Добавить на главный экран"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoList.tsx
 msgid "Add to-do"
 msgstr "Добавить задачу"
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Add user MCP servers in MCP Servers settings to install them here."
+msgstr "Добавьте пользовательские MCP-серверы в настройках «MCP-серверы», чтобы установить их здесь."
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Add workspace"
@@ -1567,8 +1575,8 @@ msgid "Ask for approval"
 msgstr "Запрашивать подтверждение"
 
 #: src/renderer/views/WelcomeOverlay.tsx
-#~ msgid "Ask Question"
-#~ msgstr "Задать вопрос"
+msgid "Ask Question"
+msgstr "Задать вопрос"
 
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Associated worktrees with no remaining threads will also be removed."
@@ -1749,8 +1757,8 @@ msgid "Automation is paused: the configured helper agent is unavailable. Check t
 msgstr "Автоматизация приостановлена: настроенный вспомогательный агент недоступен. Проверьте подключение агента и настройки вспомогательного агента."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrWatchControls.tsx
-msgid "Automation is paused: this PR's branch could not be checked out. Axe Code keeps retrying automatically."
-msgstr "Автоматизация приостановлена: не удалось переключиться на ветку этого PR. Axe Code автоматически повторяет попытки."
+msgid "Automation is paused: this PR's branch could not be checked out. Poracode keeps retrying automatically."
+msgstr "Автоматизация приостановлена: не удалось переключиться на ветку этого PR. Poracode автоматически повторяет попытки."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrWatchControls.tsx
 #~ msgid "Automation is paused: this PR's branch could not be checked out. Re-select a mode to retry."
@@ -1785,64 +1793,6 @@ msgstr "Цвет аватара {color}"
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
 msgid "Awaiting review"
 msgstr "Ожидание проверки"
-
-#: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/components/plugins/pluginCopy.ts
-#: src/renderer/components/thread/ContinueInProviderDialog.tsx
-#: src/renderer/components/thread/ThreadComposerSection.tsx
-#: src/renderer/components/thread/ThreadDraftComposerArea.tsx
-msgid "Axe Code"
-msgstr "Axe Code"
-
-#: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
-msgid "Axe Code and your agents run on the remote machine. SSH is used only to start the remote environment and secure its local tunnel."
-msgstr "Axe Code и ваши агенты работают на удалённом компьютере. SSH используется только для запуска удалённой среды и защиты её локального туннеля."
-
-#: src/renderer/components/plugins/pluginCopy.ts
-msgid "Axe Code could not create this plugin's data folder."
-msgstr "Axe Code не смог создать папку данных этого плагина."
-
-#: src/renderer/components/skills/SkillMarketplaceModal.tsx
-#~ msgid "Axe Code does not store marketplace credentials in plain settings. Open the catalog to browse its security-scanned skills."
-#~ msgstr "Axe Code не хранит учётные данные маркетплейса в настройках в открытом виде. Откройте каталог, чтобы просмотреть навыки, прошедшие проверку безопасности."
-
-#: src/renderer/i18n/sharedMessages.ts
-msgid "Axe Code Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine."
-msgstr "Не удалось запустить Axe Code Helper. Убедитесь, что на удалённом компьютере установлены Node 24.10 или новее и npm."
-
-#: src/renderer/i18n/sharedMessages.ts
-msgid "Axe Code Helper is not ready yet (HTTP {status})."
-msgstr "Axe Code Helper ещё не готов (HTTP {status})."
-
-#: src/renderer/i18n/sharedMessages.ts
-msgid "Axe Code Helper returned an invalid response."
-msgstr "Axe Code Helper вернул недопустимый ответ."
-
-#: src/renderer/components/startup/StartupRecoveryScreen.tsx
-msgid "Axe Code may be waiting on saved data or a background service. You can keep waiting, restart, or install an available update."
-msgstr "Возможно, Axe Code ожидает сохранённые данные или фоновую службу. Можно продолжить ожидание, перезапустить приложение или установить доступное обновление."
-
-#: src/renderer/components/skills/SkillImportModal.tsx
-#: src/renderer/components/skills/SkillMarketplaceModal.tsx
-#: src/renderer/components/skills/SkillsManager.tsx
-msgid "Axe Code only"
-msgstr "Только в Axe Code"
-
-#: src/renderer/i18n/sharedMessages.ts
-msgid "Axe Code SSH runtime manifest is missing or invalid: {path}"
-msgstr "Манифест среды выполнения Axe Code SSH отсутствует или недействителен: {path}"
-
-#: src/mobile/views/DesktopsView.tsx
-msgid "Axe Code will install or reuse its server on the SSH host and keep credentials in this device's secure storage."
-msgstr "Axe Code установит или повторно использует свой сервер на SSH-хосте и сохранит учетные данные в защищенном хранилище этого устройства."
-
-#: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
-msgid "Axe Code will restart, back up its current data, and replace it with a complete copy of your Lightcode data."
-msgstr "Axe Code перезапустится, создаст резервную копию текущих данных и заменит их полной копией данных Lightcode."
-
-#: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
-msgid "Axe Code's built-in browser tools."
-msgstr "Встроенные инструменты браузера Axe Code."
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/NotesView.tsx
@@ -2057,8 +2007,8 @@ msgid "Browse your GitHub repositories or paste a clone URL."
 msgstr "Просмотрите свои репозитории GitHub или вставьте URL для клонирования."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Browse, inspect, and test websites in Axe Code's isolated in-app browser."
-msgstr "Просматривайте, изучайте и тестируйте сайты в изолированном встроенном браузере Axe Code."
+msgid "Browse, inspect, and test websites in Poracode's isolated in-app browser."
+msgstr "Просматривайте, изучайте и тестируйте сайты в изолированном встроенном браузере Poracode."
 
 #: src/mobile/chrome.ts
 #: src/mobile/NarrowShell.tsx
@@ -2153,16 +2103,16 @@ msgid "Built-in order"
 msgstr "Встроенный порядок"
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "Built-in servers are managed by Axe Code. They can be disabled globally but cannot be edited or removed."
-msgstr "Встроенные серверы управляются Axe Code. Их можно отключить глобально, но нельзя редактировать или удалять."
+msgid "Built-in servers are managed by Poracode. They can be disabled globally but cannot be edited or removed."
+msgstr "Встроенные серверы управляются Poracode. Их можно отключить глобально, но нельзя редактировать или удалять."
 
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Built-in shortcut — can't be changed"
 msgstr "Встроенное сочетание клавиш — изменить нельзя"
 
 #: src/renderer/components/plugins/PluginMarketplace.tsx
-msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
-msgstr "Наборы навыков и MCP-серверов, работающие с любым поддерживаемым агентом. Axe Code загружает любой пакет, созданный по спецификации Agent Plugins."
+msgid "Bundles of skills and MCP servers that work across every supported agent. Poracode loads any package built for the Agent Plugins specification."
+msgstr "Наборы навыков и MCP-серверов, работающие с любым поддерживаемым агентом. Poracode загружает любой пакет, созданный по спецификации Agent Plugins."
 
 #: src/renderer/utils/projectIcons.ts
 msgid "Business & finance"
@@ -2217,6 +2167,7 @@ msgstr "Не удалось связаться с удалённым серве�
 #: src/renderer/components/thread/AgentDiscoveryScreen.tsx
 #: src/renderer/components/thread/ChatPane/parts/CheckpointRevertControls.tsx
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
+#: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/structuredElicitation.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
@@ -2265,6 +2216,10 @@ msgstr "Отменить выбор"
 #: src/mobile/views/ManageProjectsView.tsx
 msgid "Cancel removing project"
 msgstr "Отменить удаление проекта"
+
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Cancel voice connection"
+msgstr "Отменить голосовое подключение"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
@@ -2505,8 +2460,8 @@ msgstr "Выберите как минимум двух кандидатов и 
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose how Axe Code performs manual merges and automatic PR merges."
-msgstr "Выберите, как Axe Code выполняет ручное и автоматическое слияние PR."
+msgid "Choose how Poracode performs manual merges and automatic PR merges."
+msgstr "Выберите, как Poracode выполняет ручное и автоматическое слияние PR."
 
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/AgentEnvironmentRow.tsx
 #~ msgid "Choose how to sign in for {env}."
@@ -2521,8 +2476,8 @@ msgid "Choose import destination"
 msgstr "Выберите область импорта"
 
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
-msgid "Choose shells for the Terminal panel and Axe Code's internal commands."
-msgstr "Выберите оболочки для панели терминала и внутренних команд Axe Code."
+msgid "Choose shells for the Terminal panel and Poracode's internal commands."
+msgstr "Выберите оболочки для панели терминала и внутренних команд Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
 msgid "Choose SSH identity file"
@@ -2530,8 +2485,8 @@ msgstr "Выбрать файл идентификации SSH"
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose the display language for Axe Code's interface."
-msgstr "Выберите язык интерфейса Axe Code."
+msgid "Choose the display language for Poracode's interface."
+msgstr "Выберите язык интерфейса Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 #~ msgid "Choose the runtime for new Cursor GUI chats. SDK becomes available after its package is detected and its API key is authenticated."
@@ -2547,18 +2502,22 @@ msgstr "Выберите тред для прикрепления"
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose what Axe Code does for new pull requests: nothing, fix merge blockers, or fix and merge."
-msgstr "Выберите, что Axe Code будет делать с новыми pull request: ничего, устранять препятствия для слияния или устранять их и выполнять слияние."
+msgid "Choose what Poracode does for new pull requests: nothing, fix merge blockers, or fix and merge."
+msgstr "Выберите, что Poracode будет делать с новыми pull request: ничего, устранять препятствия для слияния или устранять их и выполнять слияние."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Choose when this machine stays awake."
 msgstr "Выберите, когда этот компьютер остаётся активным."
 
+#: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
+msgid "Choose whether chat messages sent while an agent is working steer the current response or queue for the next response. {followUpShortcut} uses the opposite action."
+msgstr "Выберите, будут ли сообщения чата, отправленные во время работы агента, направлять текущий ответ или помещаться в очередь для следующего ответа. {followUpShortcut} выполняет противоположное действие."
+
 #: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose whether links from Axe Code and browser popups stay in Axe Code or open externally."
-msgstr "Выберите, остаются ли ссылки из Axe Code и всплывающие окна браузера внутри Axe Code или открываются во внешнем приложении."
+msgid "Choose whether links from Poracode and browser popups stay in Poracode or open externally."
+msgstr "Выберите, остаются ли ссылки из Poracode и всплывающие окна браузера внутри Poracode или открываются во внешнем приложении."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -2932,6 +2891,10 @@ msgstr "Закрыть панель рабочих процессов"
 msgid "Closed"
 msgstr "Закрыто"
 
+#: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
+msgid "Cmd+Enter"
+msgstr "Cmd+Enter"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Code copied. "
 msgstr "Код скопирован. "
@@ -3233,8 +3196,8 @@ msgid "Config directory"
 msgstr "Каталог конфигурации"
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
-msgid "Configure the server Axe Code will add when supported agents start."
-msgstr "Настройте сервер, который Axe Code будет добавлять при запуске поддерживаемых агентов."
+msgid "Configure the server Poracode will add when supported agents start."
+msgstr "Настройте сервер, который Poracode будет добавлять при запуске поддерживаемых агентов."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
 #: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
@@ -3285,28 +3248,28 @@ msgid "Connect an agent to create schedules."
 msgstr "Подключите агента, чтобы создавать расписания."
 
 #: src/mobile/setupEmptyState.tsx
-msgid "Connect Axe Code on your desktop before starting a thread."
-msgstr "Подключите Axe Code на компьютере, прежде чем начать тред."
-
-#: src/mobile/setupEmptyState.tsx
 msgid "Connect desktop"
 msgstr "Подключить компьютер"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
-msgid "Connect directly, through a relay, or over SSH. Every transport uses the same Axe Code remote protocol, projects, threads, and agent runtimes."
-msgstr "Подключайтесь напрямую, через ретранслятор или по SSH. Для всех способов подключения используются один удалённый протокол Axe Code, одни проекты, потоки и среды выполнения агентов."
+msgid "Connect directly, through a relay, or over SSH. Every transport uses the same Poracode remote protocol, projects, threads, and agent runtimes."
+msgstr "Подключайтесь напрямую, через ретранслятор или по SSH. Для всех способов подключения используются один удалённый протокол Poracode, одни проекты, потоки и среды выполнения агентов."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 msgid "Connect over SSH"
 msgstr "Подключиться по SSH"
+
+#: src/mobile/setupEmptyState.tsx
+msgid "Connect Poracode on your desktop before starting a thread."
+msgstr "Подключите Poracode на компьютере, прежде чем начать тред."
 
 #: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
 msgid "Connect the AI providers OpenCode can use and sign out of them here."
 msgstr "Подключайте провайдеров ИИ, которые может использовать OpenCode, и выходите из них здесь."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
-#~ msgid "Connect to another Axe Code desktop or a headless server to browse and manage its projects from here. Get its endpoint and pairing token from Settings → Remote Access on that machine."
-#~ msgstr "Подключитесь к другому компьютеру с Axe Code или к серверу без интерфейса, чтобы просматривать проекты и управлять ими отсюда. Адрес и код сопряжения можно получить в разделе «Настройки → Удалённый доступ» на той машине."
+#~ msgid "Connect to another Poracode desktop or a headless server to browse and manage its projects from here. Get its endpoint and pairing token from Settings → Remote Access on that machine."
+#~ msgstr "Подключитесь к другому компьютеру с Poracode или к серверу без интерфейса, чтобы просматривать проекты и управлять ими отсюда. Адрес и код сопряжения можно получить в разделе «Настройки → Удалённый доступ» на той машине."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
 #: src/renderer/components/plugins/PluginDetail.tsx
@@ -3316,6 +3279,10 @@ msgstr "Подключено"
 #: src/mobile/views/BrowserView.tsx
 msgid "Connecting to the desktop browser…"
 msgstr "Подключение к браузеру на десктопе…"
+
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Connecting voice…"
+msgstr "Подключение голосового чата…"
 
 #: src/renderer/components/plugins/PluginDetail.tsx
 msgid "Connecting..."
@@ -3488,8 +3455,8 @@ msgid "Copy {0} device code {1}"
 msgstr "Копировать код устройства {0} {1}"
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
-msgid "Copy all Lightcode data into Axe Code. Axe Code restarts and keeps a complete backup of its current data."
-msgstr "Скопируйте все данные Lightcode в Axe Code. Axe Code перезапустится и сохранит полную резервную копию текущих данных."
+msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
+msgstr "Скопируйте все данные Lightcode в Poracode. Poracode перезапустится и сохранит полную резервную копию текущих данных."
 
 #: src/renderer/components/thread/ChatPane/parts/items/ItemMarkdownInner.tsx
 msgid "Copy code"
@@ -3899,6 +3866,10 @@ msgstr "Выбрать победителя с помощью AI"
 #: src/renderer/views/ExperimentView/parts/ExperimentCandidateCard.tsx
 msgid "Crowned"
 msgstr "Назначен победителем"
+
+#: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
+msgid "Ctrl+Enter"
+msgstr "Ctrl+Enter"
 
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
 #~ msgid "Curated free and premium skills managed by MCP Market."
@@ -4483,9 +4454,13 @@ msgstr "Отключено"
 msgid "Disabled globally"
 msgstr "Отключён глобально"
 
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Disabled server or unsupported native options"
+msgstr "Сервер отключён или его параметры не поддерживаются CLI"
+
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Disabling a skill moves it out of active skill folders and removes Axe Code-managed provider copies. Its files are preserved so you can enable it again."
-msgstr "При отключении навык перемещается из активных папок навыков, а управляемые Axe Code копии для провайдеров удаляются. Файлы сохраняются, поэтому навык можно включить снова."
+msgid "Disabling a skill moves it out of active skill folders and removes Poracode-managed provider copies. Its files are preserved so you can enable it again."
+msgstr "При отключении навык перемещается из активных папок навыков, а управляемые Poracode копии для провайдеров удаляются. Файлы сохраняются, поэтому навык можно включить снова."
 
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Discard"
@@ -4733,6 +4708,11 @@ msgstr "Изменить сервер MCP"
 msgid "Edit profile"
 msgstr "Редактировать профиль"
 
+#: src/renderer/components/thread/ThreadFollowUpEditor.tsx
+#: src/renderer/components/thread/ThreadFollowUpQueueItem.tsx
+msgid "Edit queued follow-up"
+msgstr "Редактировать сообщение в очереди"
+
 #: src/renderer/views/SchedulesView/parts/ScheduleRow.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Edit schedule"
@@ -4872,6 +4852,10 @@ msgstr "Включённые плагины остаются активными 
 #: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
 msgid "Enables <0>cookies</0> and <1>storage</1>. Cookies can contain session tokens and storage often holds auth state — only enable when you trust both the agent and the sites it visits."
 msgstr "Включает <0>cookie</0> и <1>хранилище</1>. Cookie могут содержать токены сессии, а в хранилище часто хранится состояние аутентификации — включайте, только если доверяете и агенту, и сайтам, которые он посещает."
+
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "End voice chat"
+msgstr "Завершить голосовой чат"
 
 #: src/mobile/views/DesktopsView.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
@@ -5033,6 +5017,10 @@ msgstr "Исключить из синхронизации"
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Exclude patterns"
 msgstr "Шаблоны исключения"
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Existing or edited native entry; left unchanged"
+msgstr "Существующая или изменённая запись CLI оставлена без изменений"
 
 #. placeholder {0}: parsed.exitCode
 #: src/renderer/components/providers/antigravity/taskNotificationMarkdown.ts
@@ -5450,76 +5438,76 @@ msgid "Finished · Waiting for your input"
 msgstr "Завершено · Ожидается ваш ввод"
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-#~ msgid "First-class Antigravity CLI integration using Axe Code's native runtime."
-#~ msgstr "Первоклассная интеграция Antigravity CLI с использованием нативной среды выполнения Axe Code."
+#~ msgid "First-class Antigravity CLI integration using Poracode's native runtime."
+#~ msgstr "Первоклассная интеграция Antigravity CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 msgid "First-class Antigravity integration using the agy terminal CLI and Google's official ACP Chat runtime."
 msgstr "Полноценная интеграция Antigravity через терминальный CLI agy и официальную среду выполнения ACP Chat от Google."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Claude Code integration using Axe Code's native SDK runtime."
-msgstr "Первоклассная интеграция Claude Code с использованием нативной среды выполнения SDK Axe Code."
+msgid "First-class Claude Code integration using Poracode's native SDK runtime."
+msgstr "Первоклассная интеграция Claude Code с использованием нативной среды выполнения SDK Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Codex CLI integration using Axe Code's native app-server runtime."
-msgstr "Первоклассная интеграция Codex CLI с использованием нативной среды выполнения app-server Axe Code."
+msgid "First-class Codex CLI integration using Poracode's native app-server runtime."
+msgstr "Первоклассная интеграция Codex CLI с использованием нативной среды выполнения app-server Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Command Code CLI integration using Axe Code's native runtime."
-msgstr "Первоклассная интеграция Command Code CLI с использованием нативной среды выполнения Axe Code."
+msgid "First-class Command Code CLI integration using Poracode's native runtime."
+msgstr "Первоклассная интеграция Command Code CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-#~ msgid "First-class Cursor Agent integration using Axe Code's native runtime."
-#~ msgstr "Первоклассная интеграция Cursor Agent с использованием нативной среды выполнения Axe Code."
+#~ msgid "First-class Cursor Agent integration using Poracode's native runtime."
+#~ msgstr "Первоклассная интеграция Cursor Agent с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 msgid "First-class Cursor integration using ACP or the public SDK runtime."
 msgstr "Полноценная интеграция Cursor через ACP или общедоступную среду выполнения SDK."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Factory Droid integration using Axe Code's ACP runtime."
-msgstr "Полноценная интеграция Factory Droid с использованием среды выполнения ACP от Axe Code."
+msgid "First-class Factory Droid integration using Poracode's ACP runtime."
+msgstr "Полноценная интеграция Factory Droid с использованием среды выполнения ACP от Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Gemini CLI integration using Axe Code's native runtime."
-msgstr "Первоклассная интеграция Gemini CLI с использованием нативной среды выполнения Axe Code."
+msgid "First-class Gemini CLI integration using Poracode's native runtime."
+msgstr "Первоклассная интеграция Gemini CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class GitHub Copilot CLI integration using Axe Code's native runtime."
-msgstr "Первоклассная интеграция GitHub Copilot CLI с использованием нативной среды выполнения Axe Code."
+msgid "First-class GitHub Copilot CLI integration using Poracode's native runtime."
+msgstr "Первоклассная интеграция GitHub Copilot CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Grok Build CLI integration using Axe Code's native runtime."
-msgstr "Первоклассная интеграция Grok Build CLI с использованием нативной среды выполнения Axe Code."
+msgid "First-class Grok Build CLI integration using Poracode's native runtime."
+msgstr "Первоклассная интеграция Grok Build CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Kimi Code CLI integration using Axe Code's native runtime."
-msgstr "Первоклассная интеграция Kimi Code CLI с использованием нативной среды выполнения Axe Code."
+msgid "First-class Kimi Code CLI integration using Poracode's native runtime."
+msgstr "Первоклассная интеграция Kimi Code CLI с использованием нативной среды выполнения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-#~ msgid "First-class Muse Code CLI integration using Axe Code's native terminal runtime."
-#~ msgstr "Первоклассная интеграция Muse Code CLI с использованием нативной среды выполнения терминала Axe Code."
+#~ msgid "First-class Muse Code CLI integration using Poracode's native terminal runtime."
+#~ msgstr "Первоклассная интеграция Muse Code CLI с использованием нативной среды выполнения терминала Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Muse Code integration using Axe Code's native terminal and GUI runtimes."
-msgstr "Первоклассная интеграция Muse Code с нативными средами терминала и графического интерфейса Axe Code."
+msgid "First-class Muse Code integration using Poracode's native terminal and GUI runtimes."
+msgstr "Первоклассная интеграция Muse Code с нативными средами терминала и графического интерфейса Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class OpenCode integration using Axe Code's native SDK runtime."
-msgstr "Первоклассная интеграция OpenCode с использованием нативной среды выполнения SDK Axe Code."
+msgid "First-class OpenCode integration using Poracode's native SDK runtime."
+msgstr "Первоклассная интеграция OpenCode с использованием нативной среды выполнения SDK Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 msgid "First-class Pi integration using a real terminal and Pi's native SDK runtime."
 msgstr "Полноценная интеграция Pi с настоящим терминалом и нативной средой выполнения SDK Pi."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Qoder CLI integration using Axe Code's native terminal and ACP runtimes."
-msgstr "Первоклассная интеграция Qoder CLI с использованием встроенных сред терминала и ACP в Axe Code."
+msgid "First-class Qoder CLI integration using Poracode's native terminal and ACP runtimes."
+msgstr "Первоклассная интеграция Qoder CLI с использованием встроенных сред терминала и ACP в Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Qwen Code integration using Axe Code's native terminal and ACP runtimes."
-msgstr "Первоклассная интеграция Qwen Code с использованием встроенных сред терминала и ACP в Axe Code."
+msgid "First-class Qwen Code integration using Poracode's native terminal and ACP runtimes."
+msgstr "Первоклассная интеграция Qwen Code с использованием встроенных сред терминала и ACP в Poracode."
 
 #: src/renderer/components/pdf/PdfViewer.tsx
 #~ msgid "Fit width"
@@ -5590,6 +5578,11 @@ msgstr "Папка, в которой хранятся worktree этого пр�
 #: src/mobile/views/ThreadView.tsx
 msgid "Follow up..."
 msgstr "Продолжить..."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
+msgid "Follow-up behavior"
+msgstr "Поведение последующих сообщений"
 
 #: src/mobile/settingsSections.ts
 msgid "Fonts and scrolling"
@@ -5989,8 +5982,8 @@ msgid "Headers"
 msgstr "Заголовки"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
-msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
-msgstr "Помоги мне создать расписание. Спроси недостающие детали, а затем создай его с помощью элементов управления расписаниями Axe Code."
+msgid "Help me create a schedule. Ask for any missing details, then use the Poracode schedule controls to create it for me."
+msgstr "Помоги мне создать расписание. Спроси недостающие детали, а затем создай его с помощью элементов управления расписаниями Poracode."
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/ProjectIconSources.tsx
 msgid "Hex color"
@@ -6079,6 +6072,7 @@ msgstr "История"
 #: src/renderer/views/HomeView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/Sidebar.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
+#: src/renderer/views/WelcomeOverlay.tsx
 msgid "Home"
 msgstr "Главная"
 
@@ -6347,6 +6341,7 @@ msgstr "установки"
 #: src/renderer/views/SettingsOverlay/parts/CursorSdkRuntimeSetup.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/AgentEnvironmentRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
 msgid "Install"
 msgstr "Установить"
 
@@ -6534,6 +6529,7 @@ msgstr "Установка, обновление и вход пока недос
 #: src/renderer/views/SettingsOverlay/parts/antigravityRuntimeInstall.ts
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
 msgid "Installed"
 msgstr "Установлено"
 
@@ -6609,11 +6605,6 @@ msgstr "Оставьте хотя бы одну рабочую область"
 msgid "Keep at least one workspace."
 msgstr "Оставьте хотя бы одну рабочую область."
 
-#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
-#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Keep Axe Code in the system tray when it launches at startup."
-msgstr "При запуске вместе с системой оставлять Axe Code в области уведомлений."
-
 #: src/renderer/views/MainView/parts/Sidebar/parts/ForceDeleteBranchDialog.tsx
 msgid "Keep Branch"
 msgstr "Сохранить ветку"
@@ -6626,6 +6617,11 @@ msgstr "Помогай мне не сбиваться с курса"
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Keep one provider order everywhere. Turn off to arrange per machine."
 msgstr "Использовать один порядок провайдеров везде. Отключите, чтобы настраивать его для каждого компьютера."
+
+#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+msgid "Keep Poracode in the system tray when it launches at startup."
+msgstr "При запуске вместе с системой оставлять Poracode в области уведомлений."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -6664,8 +6660,8 @@ msgid "Kimi Code"
 msgstr "Kimi Code"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Kimi Code could not update its credentials because another process is using the credential file. Close other Axe Code or Kimi Code processes, then retry."
-msgstr "Kimi Code не удалось обновить учетные данные, поскольку файл учетных данных используется другим процессом. Закройте другие процессы Axe Code или Kimi Code и повторите попытку."
+msgid "Kimi Code could not update its credentials because another process is using the credential file. Close other Poracode or Kimi Code processes, then retry."
+msgstr "Kimi Code не удалось обновить учетные данные, поскольку файл учетных данных используется другим процессом. Закройте другие процессы Poracode или Kimi Code и повторите попытку."
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Kimi Code ended the turn without returning a response. Restart the thread and try again."
@@ -6702,8 +6698,8 @@ msgstr "Запускать при старте системы"
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Launch Axe Code automatically when you sign in to Windows."
-msgstr "Автоматически запускать Axe Code при входе в Windows."
+msgid "Launch Poracode automatically when you sign in to Windows."
+msgstr "Автоматически запускать Poracode при входе в Windows."
 
 #: src/renderer/components/thread/ThreadDraftComposerArea.tsx
 msgid "Launch thread"
@@ -6802,6 +6798,18 @@ msgstr "Онлайн"
 #: src/mobile/views/DesktopsView.tsx
 msgid "Live {0}"
 msgstr "Онлайн {0}"
+
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Live voice"
+msgstr "Голосовой чат"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Live voice is unavailable for this thread."
+msgstr "Голосовой чат недоступен для этой ветки."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Live voice requires a subscription sign-in for this provider."
+msgstr "Для голосового чата необходимо войти в аккаунт с подпиской этого провайдера."
 
 #: src/renderer/components/common/PixelLoader.tsx
 msgid "Loading"
@@ -7052,12 +7060,12 @@ msgstr "Управляйте общими навыками на глобальн
 
 #: src/renderer/views/SettingsOverlay/parts/McpServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Manage the MCP server configurations Axe Code adds when starting supported agents. Workspace servers can be configured in each project's settings."
-msgstr "Управляйте конфигурациями серверов MCP, которые Axe Code добавляет при запуске поддерживаемых агентов. Серверы рабочей области можно настроить в параметрах каждого проекта."
+msgid "Manage the MCP server configurations Poracode adds when starting supported agents. Workspace servers can be configured in each project's settings."
+msgstr "Управляйте конфигурациями серверов MCP, которые Poracode добавляет при запуске поддерживаемых агентов. Серверы рабочей области можно настроить в параметрах каждого проекта."
 
 #: src/renderer/views/SettingsOverlay/parts/SkillsSettings.tsx
-#~ msgid "Manage the skills Axe Code makes available to supported agents. Project skills can be managed in each project's settings."
-#~ msgstr "Управляйте навыками, которые Axe Code предоставляет поддерживаемым агентам. Навыками проекта можно управлять в настройках каждого проекта."
+#~ msgid "Manage the skills Poracode makes available to supported agents. Project skills can be managed in each project's settings."
+#~ msgstr "Управляйте навыками, которые Poracode предоставляет поддерживаемым агентам. Навыками проекта можно управлять в настройках каждого проекта."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorkspaceSwitcher.tsx
 #~ msgid "Manage workspaces"
@@ -7077,8 +7085,8 @@ msgid "Managed by {pluginName}"
 msgstr "Управляется {pluginName}"
 
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
-msgid "Managed by Axe Code"
-msgstr "Управляется Axe Code"
+msgid "Managed by Poracode"
+msgstr "Управляется Poracode"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Managed by provider"
@@ -7415,6 +7423,10 @@ msgstr "Доступ к микрофону отключён."
 msgid "Microphone input level"
 msgstr "Уровень сигнала микрофона"
 
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Microphone muted"
+msgstr "Микрофон выключен"
+
 #: src/renderer/components/composer/voiceError.ts
 msgid "Microphone permission was denied."
 msgstr "Доступ к микрофону отклонён."
@@ -7672,6 +7684,10 @@ msgstr "Перемещение изменений…"
 msgid "Muse Code"
 msgstr "Muse Code"
 
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Mute microphone"
+msgstr "Выключить микрофон"
+
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "my-mcp-server"
 msgstr "my-mcp-server"
@@ -7699,6 +7715,14 @@ msgstr "Назовите проект и выберите, где его соз�
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "Native"
 msgstr "Нативный"
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Native MCP configuration updated. Start a new CLI session to use it."
+msgstr "Конфигурация MCP для CLI обновлена. Начните новый сеанс CLI, чтобы использовать её."
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Native MCP setup"
+msgstr "Настройка MCP для CLI"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "Native Providers"
@@ -7869,6 +7893,7 @@ msgstr "Новая вкладка в группе"
 #: src/mobile/WideShell.tsx
 #: src/renderer/actions/remoteStartCommandActions.ts
 #: src/renderer/components/thread/ThreadDraftChrome.tsx
+#: src/renderer/state/slices/threadSlice.ts
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/NewThreadButton.tsx
@@ -8455,6 +8480,7 @@ msgstr "не установлено"
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/AgentEnvironmentRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
 msgid "Not installed"
 msgstr "Не установлено"
 
@@ -8836,12 +8862,12 @@ msgid "Open Settings"
 msgstr "Открыть настройки"
 
 #: src/mobile/views/DesktopsView.tsx
-#~ msgid "Open Settings → Remote Access in Axe Code on this computer, then paste its pairing token here."
-#~ msgstr "Откройте Настройки → Удалённый доступ в Axe Code на этом компьютере, затем вставьте сюда токен сопряжения."
+#~ msgid "Open Settings → Remote Access in Poracode on this computer, then paste its pairing token here."
+#~ msgstr "Откройте Настройки → Удалённый доступ в Poracode на этом компьютере, затем вставьте сюда токен сопряжения."
 
 #: src/mobile/views/DesktopsView.tsx
-msgid "Open Settings → Remote Access in Axe Code on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
-msgstr "Откройте «Настройки → Удалённый доступ» в Axe Code на компьютере, затем отсканируйте QR-код отсюда — или введите адрес и код сопряжения вручную."
+msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
+msgstr "Откройте «Настройки → Удалённый доступ» в Poracode на компьютере, затем отсканируйте QR-код отсюда — или введите адрес и код сопряжения вручную."
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -8898,8 +8924,8 @@ msgid "OpenSSH private key"
 msgstr "Закрытый ключ OpenSSH"
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Operate desktop apps through Axe Code's desktop-control tools."
-msgstr "Управляйте настольными приложениями через инструменты Axe Code."
+msgid "Operate desktop apps through Poracode's desktop-control tools."
+msgstr "Управляйте настольными приложениями через инструменты Poracode."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "Optional"
@@ -8912,6 +8938,10 @@ msgstr "Дополнительные хуки статуса. Установле
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchDialog.tsx
 #~ msgid "Optional workflow_dispatch input values."
 #~ msgstr "Необязательные входные значения workflow_dispatch."
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Optional: copy selected user MCP servers into this CLI's native configuration for all its sessions. Commands, arguments, and credentials are copied only when you click Install. Changes are not synced automatically."
+msgstr "Необязательно: скопируйте выбранные пользовательские MCP-серверы в конфигурацию CLI для всех её сеансов. Команды, аргументы и учётные данные копируются только при нажатии «Установить». Изменения не синхронизируются автоматически."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Optional. Enabling this runs tailscale serve for the remote access port, then new pairing codes use your tailnet's HTTPS MagicDNS URL. Leave it off to use the LAN address or Public URL below."
@@ -9018,8 +9048,8 @@ msgid "Pair again"
 msgstr "Связать снова"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
-msgid "Pair with Axe Code"
-msgstr "Связать с Axe Code"
+msgid "Pair with Poracode"
+msgstr "Связать с Poracode"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Paired devices"
@@ -9138,6 +9168,7 @@ msgid "Pause goal"
 msgstr "Приостановить цель"
 
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
+#: src/renderer/components/thread/ThreadFollowUpQueue.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Paused"
@@ -9334,8 +9365,66 @@ msgstr "Направьте этот профиль на провайдера, о
 
 #: src/renderer/views/SettingsOverlay/parts/AppearanceSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Popular editor themes adapted to Axe Code. Each follows the light or dark mode above."
-msgstr "Популярные темы редакторов, адаптированные для Axe Code. Каждая следует светлому или тёмному режиму, выбранному выше."
+msgid "Popular editor themes adapted to Poracode. Each follows the light or dark mode above."
+msgstr "Популярные темы редакторов, адаптированные для Poracode. Каждая следует светлому или тёмному режиму, выбранному выше."
+
+#: src/renderer/components/mcp/McpServersManager.tsx
+#: src/renderer/components/plugins/pluginCopy.ts
+#: src/renderer/components/thread/ContinueInProviderDialog.tsx
+#: src/renderer/components/thread/ThreadComposerSection.tsx
+#: src/renderer/components/thread/ThreadDraftComposerArea.tsx
+msgid "Poracode"
+msgstr "Poracode"
+
+#: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
+msgid "Poracode and your agents run on the remote machine. SSH is used only to start the remote environment and secure its local tunnel."
+msgstr "Poracode и ваши агенты работают на удалённом компьютере. SSH используется только для запуска удалённой среды и защиты её локального туннеля."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+msgid "Poracode could not create this plugin's data folder."
+msgstr "Poracode не смог создать папку данных этого плагина."
+
+#: src/renderer/components/skills/SkillMarketplaceModal.tsx
+#~ msgid "Poracode does not store marketplace credentials in plain settings. Open the catalog to browse its security-scanned skills."
+#~ msgstr "Poracode не хранит учётные данные маркетплейса в настройках в открытом виде. Откройте каталог, чтобы просмотреть навыки, прошедшие проверку безопасности."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine."
+msgstr "Не удалось запустить Poracode Helper. Убедитесь, что на удалённом компьютере установлены Node 24.10 или новее и npm."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Poracode Helper is not ready yet (HTTP {status})."
+msgstr "Poracode Helper ещё не готов (HTTP {status})."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Poracode Helper returned an invalid response."
+msgstr "Poracode Helper вернул недопустимый ответ."
+
+#: src/renderer/components/startup/StartupRecoveryScreen.tsx
+msgid "Poracode may be waiting on saved data or a background service. You can keep waiting, restart, or install an available update."
+msgstr "Возможно, Poracode ожидает сохранённые данные или фоновую службу. Можно продолжить ожидание, перезапустить приложение или установить доступное обновление."
+
+#: src/renderer/components/skills/SkillImportModal.tsx
+#: src/renderer/components/skills/SkillMarketplaceModal.tsx
+#: src/renderer/components/skills/SkillsManager.tsx
+msgid "Poracode only"
+msgstr "Только в Poracode"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Poracode SSH runtime manifest is missing or invalid: {path}"
+msgstr "Манифест среды выполнения Poracode SSH отсутствует или недействителен: {path}"
+
+#: src/mobile/views/DesktopsView.tsx
+msgid "Poracode will install or reuse its server on the SSH host and keep credentials in this device's secure storage."
+msgstr "Poracode установит или повторно использует свой сервер на SSH-хосте и сохранит учетные данные в защищенном хранилище этого устройства."
+
+#: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
+msgid "Poracode will restart, back up its current data, and replace it with a complete copy of your Lightcode data."
+msgstr "Poracode перезапустится, создаст резервную копию текущих данных и заменит их полной копией данных Lightcode."
+
+#: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
+msgid "Poracode's built-in browser tools."
+msgstr "Встроенные инструменты браузера Poracode."
 
 #: src/renderer/components/thread/MoveThreadToWorktreeDialog.tsx
 #~ msgid "poracode/my-branch"
@@ -9677,8 +9766,8 @@ msgid "Proposed plan"
 msgstr "Предложенный план"
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "Provided and managed by Axe Code for supported agents."
-msgstr "Предоставляется и управляется Axe Code для поддерживаемых агентов."
+msgid "Provided and managed by Poracode for supported agents."
+msgstr "Предоставляется и управляется Poracode для поддерживаемых агентов."
 
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/authHelpers.ts
 msgid "provider"
@@ -9750,8 +9839,8 @@ msgid "Pull ↓{behind}"
 msgstr "Pull ↓{behind}"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Pull did not complete. Your local changes remain in a Axe Code stash."
-msgstr "Pull не завершён. Ваши локальные изменения остались в stash Axe Code."
+msgid "Pull did not complete. Your local changes remain in a Poracode stash."
+msgstr "Pull не завершён. Ваши локальные изменения остались в stash Poracode."
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Pull failed: {detail}"
@@ -9859,6 +9948,14 @@ msgstr "Qoder CLI"
 msgid "Questions"
 msgstr "Вопросы"
 
+#: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
+msgid "Queue"
+msgstr "Поставить в очередь"
+
+#: src/renderer/components/thread/ThreadComposerSection.tsx
+msgid "Queue message"
+msgstr "Поставить сообщение в очередь"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "Queued"
 msgstr "В очереди"
@@ -9868,6 +9965,18 @@ msgstr "В очереди"
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
 #~ msgid "Queued {0} for v{1}"
 #~ msgstr "{0} в очереди на обновление до v{1}"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Queued follow-up not found: {id}."
+msgstr "Сообщение в очереди не найдено: {id}."
+
+#: src/renderer/components/thread/ThreadFollowUpQueue.tsx
+msgid "Queued follow-ups"
+msgstr "Сообщения в очереди"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Queued follow-ups are only supported for chat threads."
+msgstr "Сообщения в очереди поддерживаются только в чатах."
 
 #. placeholder {0}: update.targetVersion
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
@@ -9939,8 +10048,8 @@ msgid "Re-run failed jobs"
 msgstr "Перезапустить неудачные задания"
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Read and drive Axe Code itself: threads, terminal panes, git, pull requests, and schedules."
-msgstr "Чтение и управление самим Axe Code: треды, панели терминала, git, пул-реквесты и расписания."
+msgid "Read and drive Poracode itself: threads, terminal panes, git, pull requests, and schedules."
+msgstr "Чтение и управление самим Poracode: треды, панели терминала, git, пул-реквесты и расписания."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "Read the Terminal panel attached to this worktree and report the evidence."
@@ -10037,6 +10146,7 @@ msgstr "Скрывать содержимое уведомлений"
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
 #: src/renderer/views/SettingsOverlay/parts/AgentProfileList.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageSettings.tsx
 msgid "Refresh"
 msgstr "Обновить"
@@ -10308,6 +10418,10 @@ msgstr "Удалить проект"
 msgid "Remove Project"
 msgstr "Удалить проект"
 
+#: src/renderer/components/thread/ThreadFollowUpQueueItem.tsx
+msgid "Remove queued follow-up"
+msgstr "Удалить сообщение из очереди"
+
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Remove shortcut"
 msgstr "Удалить сочетание клавиш"
@@ -10339,8 +10453,8 @@ msgid "Removing {profileName} deletes its saved API key. Threads that use this p
 msgstr "При удалении {profileName} сохранённый API-ключ будет удалён. Треды, использующие этот профиль, больше не найдут своего агента."
 
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
-msgid "Removing {profileName} drops its Axe Code settings — env vars, models, and effort. Its config directory and the Claude credentials inside it stay on disk."
-msgstr "При удалении {profileName} пропадут его настройки Axe Code — переменные окружения, модели и effort. Каталог конфигурации и учётные данные Claude в нём останутся на диске."
+msgid "Removing {profileName} drops its Poracode settings — env vars, models, and effort. Its config directory and the Claude credentials inside it stay on disk."
+msgstr "При удалении {profileName} пропадут его настройки Poracode — переменные окружения, модели и effort. Каталог конфигурации и учётные данные Claude в нём останутся на диске."
 
 #: src/mobile/ThreadTitleRow.tsx
 #: src/mobile/TodoActionsSheet.tsx
@@ -10420,6 +10534,10 @@ msgstr "Изменить порядок {0}"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/parts/UsageProviderCard.tsx
 msgid "Reorder {label}"
 msgstr "Изменить порядок {label}"
+
+#: src/renderer/components/thread/ThreadFollowUpQueueItem.tsx
+msgid "Reorder queued follow-up"
+msgstr "Изменить порядок сообщения в очереди"
 
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Repeat"
@@ -10551,8 +10669,8 @@ msgid "Resolves merge conflicts during rebase or merge."
 msgstr "Разрешает конфликты слияния во время rebase или слияния."
 
 #: src/renderer/components/startup/StartupRecoveryScreen.tsx
-msgid "Restart Axe Code"
-msgstr "Перезапустить Axe Code"
+msgid "Restart Poracode"
+msgstr "Перезапустить Poracode"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Restore"
@@ -10590,6 +10708,10 @@ msgstr "Возобновить"
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 msgid "Resume goal"
 msgstr "Возобновить цель"
+
+#: src/renderer/components/thread/ThreadFollowUpQueue.tsx
+msgid "Resume queued follow-ups"
+msgstr "Возобновить сообщения из очереди"
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/PortsView.tsx
@@ -10834,8 +10956,8 @@ msgstr "Запустите выполнение одного промпта не
 #~ msgstr "Запускайте автономные задачи на этом устройстве без проекта."
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
-msgid "Run standalone tasks on this device. Schedules run while the device is awake and Axe Code is open."
-msgstr "Запускайте автономные задачи на этом устройстве. Расписания выполняются, пока устройство активно и Axe Code открыт."
+msgid "Run standalone tasks on this device. Schedules run while the device is awake and Poracode is open."
+msgstr "Запускайте автономные задачи на этом устройстве. Расписания выполняются, пока устройство активно и Poracode открыт."
 
 #: src/renderer/commands/registry.ts
 msgid "Run Terminal Command"
@@ -10915,6 +11037,7 @@ msgstr "Насыщенность и яркость"
 
 #: src/mobile/views/FilesView.tsx
 #: src/renderer/components/mcp/McpServerEditor.tsx
+#: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
@@ -11032,8 +11155,8 @@ msgid "Scheduled tasks on this desktop"
 msgstr "Запланированные задачи на этом компьютере"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
-#~ msgid "Scheduled tasks run only while this device is awake and Axe Code is open."
-#~ msgstr "Запланированные задачи выполняются только когда устройство активно и Axe Code открыт."
+#~ msgid "Scheduled tasks run only while this device is awake and Poracode is open."
+#~ msgstr "Запланированные задачи выполняются только когда устройство активно и Poracode открыт."
 
 #: src/mobile/settingsSections.ts
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
@@ -11391,8 +11514,8 @@ msgid "Server {target} could not be started and was skipped."
 msgstr "Не удалось запустить сервер {target}, он пропущен."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Server {target} has a name Axe Code cannot use."
-msgstr "У сервера {target} имя, которое Axe Code не может использовать."
+msgid "Server {target} has a name Poracode cannot use."
+msgstr "У сервера {target} имя, которое Poracode не может использовать."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "Server {target} is not configured correctly and was skipped."
@@ -11403,8 +11526,8 @@ msgid "Server {target} runs on this computer and is unavailable for WSL projects
 msgstr "Сервер {target} работает на этом компьютере и недоступен для проектов WSL."
 
 #: src/renderer/components/plugins/PluginDetail.tsx
-msgid "Servers this plugin declares in mcp.json. Axe Code passes them to every supported agent."
-msgstr "Серверы, объявленные этим плагином в mcp.json. Axe Code передаёт их всем поддерживаемым агентам."
+msgid "Servers this plugin declares in mcp.json. Poracode passes them to every supported agent."
+msgstr "Серверы, объявленные этим плагином в mcp.json. Poracode передаёт их всем поддерживаемым агентам."
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Set group color"
@@ -12058,6 +12181,10 @@ msgstr "Начинайте каждый день с приоритетов и с
 msgid "Start from scratch"
 msgstr "Начать с нуля"
 
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Start live voice"
+msgstr "Начать голосовой чат"
+
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Start minimized"
@@ -12171,6 +12298,27 @@ msgstr "Статус:"
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "stdio (local command)"
 msgstr "stdio (локальная команда)"
+
+#: src/renderer/components/thread/ThreadFollowUpQueueItem.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
+msgid "Steer"
+msgstr "Направить"
+
+#: src/renderer/components/thread/ThreadComposerSection.tsx
+msgid "Steer current turn"
+msgstr "Направить текущий ход"
+
+#: src/renderer/components/thread/ThreadFollowUpQueueItem.tsx
+msgid "Steer queued follow-up"
+msgstr "Направить текущий ответ сообщением из очереди"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Steer was cancelled before the message was sent."
+msgstr "Корректировка отменена до отправки сообщения."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Steer was replaced by a newer message."
+msgstr "Корректировка заменена более новым сообщением."
 
 #. Button: stop the microphone level test
 #: src/renderer/views/SettingsOverlay/parts/AudioSettings.tsx
@@ -12497,8 +12645,8 @@ msgstr "Нажмите +, чтобы добавить папку или клон
 #~ msgstr "Нажмите +, чтобы выполнить прямое сопряжение или подключиться к удаленному компьютеру по SSH."
 
 #: src/mobile/views/DesktopsView.tsx
-#~ msgid "Tap + to pair with Axe Code on your desktop."
-#~ msgstr "Нажмите +, чтобы подключиться к Axe Code на компьютере."
+#~ msgid "Tap + to pair with Poracode on your desktop."
+#~ msgstr "Нажмите +, чтобы подключиться к Poracode на компьютере."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/CreatePrModal.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrSection.tsx
@@ -12626,12 +12774,8 @@ msgid "That pairing code is no longer valid. Open Settings → Remote Access on 
 msgstr "Этот код привязки больше не действует. Откройте на десктопе Настройки → Удалённый доступ, нажмите «Новый код» и повторите привязку."
 
 #: src/mobile/routeComponents.tsx
-#~ msgid "That QR code isn't a Axe Code pairing link."
-#~ msgstr "Этот QR-код не является ссылкой для сопряжения Axe Code."
-
-#: src/mobile/routeComponents.tsx
-msgid "That QR code isn't an Axe Code pairing link."
-msgstr "Этот QR-код не является ссылкой для сопряжения Axe Code."
+msgid "That QR code isn't a Poracode pairing link."
+msgstr "Этот QR-код не является ссылкой для сопряжения Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "That remote session was already gone."
@@ -12729,12 +12873,16 @@ msgid "The normal app shell could not render. The diagnostics below are shown be
 msgstr "Обычная оболочка приложения не смогла отрендериться. Диагностика ниже показана перед перезагрузкой, чтобы проблему можно было исследовать."
 
 #: src/mobile/useRemoteDesktop.ts
-msgid "The remote Axe Code server returned no pairing credential."
-msgstr "Удаленный сервер Axe Code не вернул данные для сопряжения."
+msgid "The remote Poracode server returned no pairing credential."
+msgstr "Удаленный сервер Poracode не вернул данные для сопряжения."
 
 #: src/renderer/state/remoteServersStore.ts
 msgid "The remote server returned no pairing credential."
 msgstr "Удалённый сервер не вернул учётные данные для связывания."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "The replacement message could not be sent."
+msgstr "Не удалось отправить заменяющее сообщение."
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/GeneralSection.tsx
 msgid "The repository location on disk. Update it if you moved the folder."
@@ -12805,12 +12953,16 @@ msgid "The skills marketplace couldn't be loaded."
 msgstr "Не удалось загрузить маркетплейс навыков."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "The SSH tunnel reached an incompatible Axe Code server."
-msgstr "SSH-туннель подключился к несовместимому серверу Axe Code."
+msgid "The SSH tunnel reached an incompatible Poracode server."
+msgstr "SSH-туннель подключился к несовместимому серверу Poracode."
 
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "the target provider"
 msgstr "целевой провайдер"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "The thread session is not available for queued follow-ups."
+msgstr "Сессия треда недоступна для сообщений в очереди."
 
 #: src/renderer/components/thread/MoveThreadToWorktreeDialog.tsx
 #~ msgid "The thread will run in a separate worktree on a new branch."
@@ -12827,6 +12979,18 @@ msgstr "Не удалось выполнить операцию обновлен
 #: src/renderer/i18n/sharedMessages.ts
 msgid "The update service is temporarily unavailable."
 msgstr "Служба обновлений временно недоступна."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "The voice connection failed. Try again."
+msgstr "Не удалось установить голосовое подключение. Повторите попытку."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "The voice connection timed out. Try again."
+msgstr "Время ожидания голосового подключения истекло. Повторите попытку."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "The voice connection was cancelled."
+msgstr "Голосовое подключение отменено."
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "the Windows user"
@@ -12932,8 +13096,8 @@ msgstr "Эта HTTPS-страница не смогла обратиться к 
 #~ msgstr "Этот ключ используется Cursor CLI, ACP и SDK для данного профиля."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-#~ msgid "This link opens the app Axe Code serves on your network. The hosted app is served over HTTPS, which browsers block from reaching a plain-HTTP desktop."
-#~ msgstr "Эта ссылка открывает приложение, которое Axe Code раздаёт в вашей сети. Размещённое приложение работает по HTTPS, поэтому браузеры блокируют обращение к десктопу по обычному HTTP."
+#~ msgid "This link opens the app Poracode serves on your network. The hosted app is served over HTTPS, which browsers block from reaching a plain-HTTP desktop."
+#~ msgstr "Эта ссылка открывает приложение, которое Poracode раздаёт в вашей сети. Размещённое приложение работает по HTTPS, поэтому браузеры блокируют обращение к десктопу по обычному HTTP."
 
 #: src/renderer/views/SettingsOverlay/parts/machineScope/MachineScopeHeading.tsx
 msgid "this machine"
@@ -12942,6 +13106,10 @@ msgstr "этот компьютер"
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "This machine"
 msgstr "Этот компьютер"
+
+#: src/renderer/components/thread/ThreadFollowUpQueue.tsx
+msgid "This message is no longer queued. Your edit is still available to copy."
+msgstr "Этого сообщения больше нет в очереди. Вы всё ещё можете скопировать отредактированный текст."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "This name is reserved by a built-in MCP server."
@@ -12971,12 +13139,12 @@ msgid "This plugin describes a skill it does not actually ship."
 msgstr "Этот плагин описывает навык, который на самом деле не поставляет."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "This plugin's Axe Code settings were ignored because they are not valid."
-msgstr "Настройки Axe Code этого плагина проигнорированы, так как они некорректны."
-
-#: src/renderer/components/plugins/pluginCopy.ts
 msgid "This plugin's folder could not be read."
 msgstr "Не удалось прочитать папку этого плагина."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+msgid "This plugin's Poracode settings were ignored because they are not valid."
+msgstr "Настройки Poracode этого плагина проигнорированы, так как они некорректны."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "This plugin's skills could not be read."
@@ -12996,6 +13164,15 @@ msgstr "этот проект"
 #: src/renderer/components/thread/ThreadDraftView.tsx
 msgid "This project's remote server is offline. Reconnect it to start a thread."
 msgstr "Удалённый сервер этого проекта офлайн. Переподключите его, чтобы начать тред."
+
+#: src/renderer/components/thread/ThreadFollowUpQueue.tsx
+#: src/renderer/i18n/sharedMessages.ts
+msgid "This queued follow-up changed. Reopen it before saving."
+msgstr "Это дополнительное сообщение в очереди изменилось. Откройте его заново перед сохранением."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "This queued follow-up is already being sent."
+msgstr "Это сообщение из очереди уже отправляется."
 
 #: src/renderer/views/RemoteProjectModal/RemoteProjectModal.tsx
 #~ msgid "This remote project is unavailable. Reconnect the environment and try again."
@@ -13021,8 +13198,8 @@ msgid "This removes the worktree on \"{0}\", then deletes the branch."
 msgstr "Это удаляет worktree в \"{0}\", а затем удаляет ветку."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "This server requires authentication before Axe Code can check it."
-msgstr "Для проверки этого сервера в Axe Code сначала нужно пройти аутентификацию."
+msgid "This server requires authentication before Poracode can check it."
+msgstr "Для проверки этого сервера в Poracode сначала нужно пройти аутентификацию."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "This server runs on this computer and is unavailable for WSL projects."
@@ -13033,8 +13210,16 @@ msgid "This system-wide shortcut is unavailable. Choose another key combination.
 msgstr "Это общесистемное сочетание клавиш недоступно. Выберите другое сочетание."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "This thread switched provider without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
-msgstr "Этот тред сменил провайдера без передачи контекста: {agent} запущен без инструмента read_thread из Axe Code, поэтому не может прочитать предыдущую переписку. Снова включите инструмент MCP app-controls или кратко изложите нужный контекст."
+msgid "This thread does not support queued follow-ups."
+msgstr "Этот тред не поддерживает сообщения в очереди."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "This thread is not ready for Steer."
+msgstr "Этот поток пока не готов к корректировке."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "This thread switched provider without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+msgstr "Этот тред сменил провайдера без передачи контекста: {agent} запущен без инструмента read_thread из Poracode, поэтому не может прочитать предыдущую переписку. Снова включите инструмент MCP app-controls или кратко изложите нужный контекст."
 
 #. placeholder {0}: props.worktreeBranch
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
@@ -13042,8 +13227,8 @@ msgstr "Этот тред сменил провайдера без переда�
 #~ msgstr "Этот тред использует рабочее дерево <0>{0}</0>. Также удалить каталог рабочего дерева?"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "This thread was forked without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
-msgstr "Этот тред был создан как развилка без передачи контекста: {agent} запущен без инструмента read_thread из Axe Code, поэтому не может прочитать исходную переписку. Снова включите инструмент MCP app-controls или кратко изложите нужный контекст."
+msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+msgstr "Этот тред был создан как развилка без передачи контекста: {agent} запущен без инструмента read_thread из Poracode, поэтому не может прочитать исходную переписку. Снова включите инструмент MCP app-controls или кратко изложите нужный контекст."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
@@ -13064,8 +13249,8 @@ msgstr "Этот workflow нельзя запустить вручную."
 
 #. placeholder {0}: activeDialog.sourceBranch
 #: src/renderer/views/MainView/parts/PullFromSourceDialog.tsx
-msgid "This worktree has local changes. Axe Code can temporarily stash them, pull from {0}, then re-apply your changes."
-msgstr "В этом worktree есть локальные изменения. Axe Code может временно спрятать их, получить изменения из {0}, а затем повторно применить ваши изменения."
+msgid "This worktree has local changes. Poracode can temporarily stash them, pull from {0}, then re-apply your changes."
+msgstr "В этом worktree есть локальные изменения. Poracode может временно спрятать их, получить изменения из {0}, а затем повторно применить ваши изменения."
 
 #: src/renderer/components/thread/ChatPane/parts/items/Reasoning.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/ReasoningInline.tsx
@@ -13181,8 +13366,8 @@ msgid "Timed out"
 msgstr "Время ожидания истекло"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Timed out waiting for Axe Code Helper."
-msgstr "Время ожидания Axe Code Helper истекло."
+msgid "Timed out waiting for Poracode Helper."
+msgstr "Время ожидания Poracode Helper истекло."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "Timeout (ms)"
@@ -13352,8 +13537,8 @@ msgstr "Попробовать"
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-#~ msgid "Turn on Auto-merge automatically for pull requests you create in Axe Code."
-#~ msgstr "Автоматически включать автослияние для pull request, созданных в Axe Code."
+#~ msgid "Turn on Auto-merge automatically for pull requests you create in Poracode."
+#~ msgstr "Автоматически включать автослияние для pull request, созданных в Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Turn on remote access to show a pairing code."
@@ -13361,8 +13546,8 @@ msgstr "Включите удаленный доступ, чтобы показ�
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-#~ msgid "Turn on Watch PR automatically for pull requests you create in Axe Code."
-#~ msgstr "Автоматически включать наблюдение за PR для pull request, созданных в Axe Code."
+#~ msgid "Turn on Watch PR automatically for pull requests you create in Poracode."
+#~ msgstr "Автоматически включать наблюдение за PR для pull request, созданных в Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/UsageSettings.tsx
 msgid "Turn tracking on or off per provider. Disabled providers are skipped by the auto-refresh."
@@ -13501,6 +13686,10 @@ msgstr "Не удалось проверить SSH-хост."
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Unable to read experiment candidate status"
 msgstr "Не удалось прочитать статус кандидата эксперимента"
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Unable to read native MCP configuration."
+msgstr "Не удалось прочитать конфигурацию MCP для CLI."
 
 #. placeholder {0}: friendlyError(error)
 #: src/renderer/actions/experimentDecisionActions.ts
@@ -13654,6 +13843,10 @@ msgstr "Не удалось обновить {0}."
 msgid "Unable to update learned tags."
 msgstr "Не удалось обновить изученные теги."
 
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Unable to update native MCP configuration. Refresh and review the configuration before retrying."
+msgstr "Не удалось обновить конфигурацию MCP для CLI. Обновите и проверьте конфигурацию перед повторной попыткой."
+
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Unable to update remote access."
 msgstr "Не удалось обновить удаленный доступ."
@@ -13732,8 +13925,13 @@ msgstr "Единое представление"
 
 #: src/renderer/components/plugins/PluginDetail.tsx
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
 msgid "Uninstall"
 msgstr "Удалить"
+
+#: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/NativeMcpSettings.tsx
+msgid "Uninstall {name}"
+msgstr "Удалить {name}"
 
 #: src/renderer/components/thread/threadContextUsage.ts
 #: src/renderer/utils/prStatus.ts
@@ -13783,6 +13981,10 @@ msgstr "Снять отметку «готово»"
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
 msgid "Unmark Done"
 msgstr "Снять отметку «готово»"
+
+#: src/renderer/components/composer/LiveVoiceControls.tsx
+msgid "Unmute microphone"
+msgstr "Включить микрофон"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Unnamed device"
@@ -13888,10 +14090,6 @@ msgstr "Обновить все ({outdatedCount})"
 msgid "Update available"
 msgstr "Доступно обновление"
 
-#: src/mobile/views/PortsView.tsx
-msgid "Update Axe Code on your desktop to use port forwarding."
-msgstr "Обновите Axe Code на десктопе, чтобы использовать перенаправление портов."
-
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrSection.tsx
 msgid "Update branch"
 msgstr "Обновить ветку"
@@ -13916,6 +14114,10 @@ msgstr "Ошибка обновления: {detail}"
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrSection.tsx
 msgid "Update method"
 msgstr "Способ обновления"
+
+#: src/mobile/views/PortsView.tsx
+msgid "Update Poracode on your desktop to use port forwarding."
+msgstr "Обновите Poracode на десктопе, чтобы использовать перенаправление портов."
 
 #: src/renderer/views/SettingsOverlay/parts/cursorRuntimeInstall.ts
 msgid "Update SDK"
@@ -14129,8 +14331,8 @@ msgstr "Используется командой {conflict}"
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
-msgid "Used for agents, authentication, installs, and Axe Code's internal commands."
-msgstr "Используется для агентов, аутентификации, установки и внутренних команд Axe Code."
+msgid "Used for agents, authentication, installs, and Poracode's internal commands."
+msgstr "Используется для агентов, аутентификации, установки и внутренних команд Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
@@ -14425,8 +14627,8 @@ msgid "What's New"
 msgstr "Что нового"
 
 #: src/renderer/views/SettingsOverlay/parts/ChangelogSettings.tsx
-msgid "What's new in Axe Code, newest first."
-msgstr "Что нового в Axe Code, сначала новые."
+msgid "What's new in Poracode, newest first."
+msgstr "Что нового в Poracode, сначала новые."
 
 #: src/renderer/views/SettingsOverlay/parts/SearchSettings.tsx
 msgid "When enabled, search respects <0>.gitignore</0> entries."
@@ -14434,8 +14636,8 @@ msgstr "Если включено, поиск учитывает записи <0
 
 #: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "When links open in a Axe Code browser tab, choose where the browser is revealed."
-msgstr "Когда ссылки открываются во вкладке браузера Axe Code, выберите, где появляется браузер."
+msgid "When links open in a Poracode browser tab, choose where the browser is revealed."
+msgstr "Когда ссылки открываются во вкладке браузера Poracode, выберите, где появляется браузер."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 msgid "When off, suppress notifications from terminal threads whose status comes from the OSC fallback (no CLI hook plugin)."
@@ -14448,8 +14650,8 @@ msgstr "Когда показывать всплывающие уведомле�
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "When you close the window, keep Axe Code running in the system tray. Disable to quit on close."
-msgstr "При закрытии окна оставлять Axe Code работать в системном трее. Отключите, чтобы выходить из приложения при закрытии."
+msgid "When you close the window, keep Poracode running in the system tray. Disable to quit on close."
+msgstr "При закрытии окна оставлять Poracode работать в системном трее. Отключите, чтобы выходить из приложения при закрытии."
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
@@ -14461,13 +14663,13 @@ msgstr "Куда направляется выбор элемента брауз
 msgid "Where a thread's goal, plan, agents, and background tasks appear. In the right panel, compact bubbles above the composer open them."
 msgstr "Где отображаются цель, план, агенты и фоновые задачи треда. В правой панели их открывают компактные пузырьки над полем ввода."
 
-#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
-msgid "Where Axe Code creates git worktrees for new branches. Changes apply to worktrees created from now on; existing worktrees stay where they are."
-msgstr "Где Axe Code создаёт git worktree для новых веток. Изменения применяются к worktree, создаваемым с этого момента; существующие worktree остаются на месте."
-
 #: src/renderer/views/WelcomeOverlay.tsx
-#~ msgid "Where do you want to begin?"
-#~ msgstr "С чего вы хотите начать?"
+msgid "Where do you want to begin?"
+msgstr "С чего вы хотите начать?"
+
+#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
+msgid "Where Poracode creates git worktrees for new branches. Changes apply to worktrees created from now on; existing worktrees stay where they are."
+msgstr "Где Poracode создаёт git worktree для новых веток. Изменения применяются к worktree, создаваемым с этого момента; существующие worktree остаются на месте."
 
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Where the run's conversation is created."
@@ -14670,8 +14872,8 @@ msgstr "Место хранения worktree"
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
-msgid "Worktree threads are marked done as soon as Axe Code sees their pull request merge. Threads mid-turn wait until the turn finishes."
-msgstr "Треды worktree отмечаются выполненными, как только Axe Code увидит слияние их pull request. Треды с активным ходом дождутся его завершения."
+msgid "Worktree threads are marked done as soon as Poracode sees their pull request merge. Threads mid-turn wait until the turn finishes."
+msgstr "Треды worktree отмечаются выполненными, как только Poracode увидит слияние их pull request. Треды с активным ходом дождутся его завершения."
 
 #. placeholder {0}: props.projectName
 #. placeholder {0}: props.worktreeBranch

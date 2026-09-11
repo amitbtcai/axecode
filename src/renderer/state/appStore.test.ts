@@ -7,7 +7,10 @@ import {
   writeStoredSizes,
 } from "@/renderer/components/layout/paneSizeStorage";
 import { useAppStore, type AppStoreState } from "./appStore";
+import { MAX_KEEP_ALIVE_PANES } from "./slices/paneCacheSlice";
+import { selectHiddenHostedAgentTerminalIds } from "@/renderer/components/terminal/hostedAgentTerminalIds";
 import { usePanelStore } from "./panelStore";
+import { useThreadFollowUpQueueStore } from "./threadFollowUpQueueStore";
 
 describe("appStore runtime config sync", () => {
   beforeEach(() => {
@@ -21,8 +24,10 @@ describe("appStore runtime config sync", () => {
       provisioningWorktreeThreadIds: {},
       connectingThreadIds: {},
       view: { kind: "home" },
+      keepAlivePaneIds: [],
     }));
     usePanelStore.getState().setGitHubActionsContext(null);
+    useThreadFollowUpQueueStore.getState().reset();
   });
 
   it("keeps a newer reconnect marker when an older launch finishes", () => {
@@ -191,11 +196,16 @@ describe("appStore runtime config sync", () => {
     useAppStore.setState({
       pendingLaunchUserMessageItemIds: { [thread.id]: "user-message" },
     });
+    useThreadFollowUpQueueStore.getState().setQueue(thread.id, {
+      paused: true,
+      items: [{ id: "queued", prompt: "Unsent", stagedAt: 1 }],
+    });
 
     useAppStore.getState().deleteProject(project.id);
 
     expect(useAppStore.getState().provisioningWorktreeThreadIds[thread.id]).toBeUndefined();
     expect(useAppStore.getState().pendingLaunchUserMessageItemIds[thread.id]).toBeUndefined();
+    expect(useThreadFollowUpQueueStore.getState().byThread[thread.id]?.queue).toBeNull();
   });
 
   it("rehydrates the previous v4 shape without provisional launch maps", () => {
@@ -223,6 +233,47 @@ describe("appStore runtime config sync", () => {
     expect(hydrated.view).toEqual({ kind: "thread", panes: [thread.id] });
     expect(hydrated.pendingLaunchUserMessageItemIds).toEqual({});
     expect(hydrated.provisioningWorktreeThreadIds).toEqual({});
+  });
+
+  it.each([
+    ["Home", (state: AppStoreState, _projectId: string, _threadId: string) => state.openHome()],
+    [
+      "Schedules",
+      (state: AppStoreState, _projectId: string, _threadId: string) => state.openSchedules(),
+    ],
+    [
+      "draft",
+      (state: AppStoreState, projectId: string, _threadId: string) => state.openDraft(projectId),
+    ],
+    [
+      "close",
+      (state: AppStoreState, _projectId: string, threadId: string) => state.closePane(threadId),
+    ],
+  ] as const)("keeps a restored selected terminal alive after navigating to %s", (_name, leave) => {
+    const project = useAppStore.getState().addProject({ kind: "posix", path: "/repo" });
+    const thread = useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "terminal-agent",
+      config: { model: "m" },
+      prompt: "hello",
+    });
+    const persisted = {
+      projects: [project],
+      threads: [thread],
+      view: { kind: "thread", panes: [thread.id] },
+      groupLayouts: {},
+    };
+    const merge = useAppStore.persist.getOptions().merge!;
+    const hydrated = merge(persisted, {
+      ...useAppStore.getState(),
+      view: { kind: "home" },
+      keepAlivePaneIds: [],
+    }) as AppStoreState;
+    useAppStore.setState(hydrated);
+
+    leave(useAppStore.getState(), project.id, thread.id);
+
+    expect(selectHiddenHostedAgentTerminalIds(useAppStore.getState())).toEqual([thread.id]);
   });
 
   it("ensures the hidden Home project without replacing its draft config", () => {
@@ -515,6 +566,80 @@ describe("appStore runtime config sync", () => {
 
     const view = useAppStore.getState().view;
     expect(view).toEqual({ kind: "thread", panes: [thread.id] });
+    expect(useAppStore.getState().keepAlivePaneIds).toEqual([thread.id]);
+  });
+
+  it("keeps the outgoing terminal pane alive when switching threads", () => {
+    const project = useAppStore.getState().addProject({
+      kind: "windows",
+      path: "C:\\repo",
+    });
+    const first = useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "codex",
+      config: { model: "m" },
+      prompt: "first",
+    });
+    const second = useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "codex",
+      config: { model: "m" },
+      prompt: "second",
+    });
+
+    expect(useAppStore.getState().keepAlivePaneIds).toEqual([first.id, second.id]);
+
+    useAppStore.getState().openThread(first.id);
+    expect(useAppStore.getState().keepAlivePaneIds).toEqual([second.id, first.id]);
+    const view = useAppStore.getState().view;
+    expect(view.kind).toBe("thread");
+    expect(view.kind === "thread" && view.panes).toEqual([first.id]);
+  });
+
+  it("does not evict parked terminals when creating GUI threads", () => {
+    const project = useAppStore.getState().addProject({ kind: "posix", path: "/repo" });
+    const terminal = useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "terminal-agent",
+      config: { model: "m" },
+      prompt: "terminal",
+    });
+
+    for (let index = 0; index < MAX_KEEP_ALIVE_PANES + 1; index++) {
+      useAppStore.getState().createThread({
+        projectId: project.id,
+        agentKind: "chat-agent",
+        config: { model: "m" },
+        prompt: "chat",
+        presentationMode: "gui",
+      });
+    }
+
+    expect(useAppStore.getState().keepAlivePaneIds).toEqual([terminal.id]);
+    expect(selectHiddenHostedAgentTerminalIds(useAppStore.getState())).toEqual([terminal.id]);
+  });
+
+  it("does not keep-alive a background createThread", () => {
+    const project = useAppStore.getState().addProject({
+      kind: "windows",
+      path: "C:\\repo",
+    });
+    const visible = useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "codex",
+      config: { model: "m" },
+      prompt: "visible",
+    });
+    useAppStore.getState().createThread({
+      projectId: project.id,
+      agentKind: "codex",
+      config: { model: "m" },
+      prompt: "background",
+      focus: false,
+    });
+
+    expect(useAppStore.getState().keepAlivePaneIds).toEqual([visible.id]);
+    expect(useAppStore.getState().view).toEqual({ kind: "thread", panes: [visible.id] });
   });
 
   it("opens schedules as a main view", () => {
@@ -759,8 +884,13 @@ describe("appStore runtime config sync", () => {
       view: { kind: "thread", panes: [t1.id, t2.id] as [string, ...string[]] },
     }));
 
+    const queue = { paused: true, items: [{ id: "queued", prompt: "Unsent", stagedAt: 1 }] };
+    useThreadFollowUpQueueStore.getState().setQueue(t1.id, queue);
+    useThreadFollowUpQueueStore.getState().setQueue(t2.id, queue);
     useAppStore.getState().deleteThread(t1.id);
     expect(useAppStore.getState().view).toEqual({ kind: "thread", panes: [t2.id] });
+    expect(useThreadFollowUpQueueStore.getState().byThread[t1.id]?.queue).toBeNull();
+    expect(useThreadFollowUpQueueStore.getState().byThread[t2.id]?.queue).toEqual(queue);
   });
 
   it("working→idle on non-visible thread sets finished", () => {

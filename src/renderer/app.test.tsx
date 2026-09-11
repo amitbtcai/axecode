@@ -12,6 +12,7 @@ import type {
   UpdateStatus,
 } from "@/shared/ipc";
 import { useAppStore } from "./state/appStore";
+import { useThreadFollowUpQueueStore } from "./state/threadFollowUpQueueStore";
 import { useGitStore } from "./state/gitStore";
 import { usePanelStore } from "./state/panelStore";
 import { useSidebarUiStore } from "./state/sidebarUiStore";
@@ -251,6 +252,8 @@ vi.mock("@/renderer/actions/worktreeLaunchActions", async (importOriginal) => {
 
 vi.mock("./components/ui/provider", () => ({
   AppProvider: (props: { children: ReactNode }) => props.children,
+  // Default matches the AppearanceContext default in the real provider.
+  useResolvedAppearance: () => "dark" as const,
 }));
 
 vi.mock("./views/MainView/parts/AppShell/AppShell", () => ({
@@ -391,6 +394,13 @@ vi.mock("@/renderer/components/thread/ThreadView", () => ({
       {props.thread.title}
     </div>
   ),
+}));
+
+// Hidden keep-alive agent terminals park here off-tree. Rendering real
+// TerminalPane/xterm in jsdom throws (xterm needs live DOM measurements);
+// the host's own suite covers its mounting rules.
+vi.mock("@/renderer/components/terminal/AgentTerminalHost", () => ({
+  AgentTerminalHost: () => null,
 }));
 
 vi.mock("./state/sharedSettingsStore", () => ({
@@ -667,6 +677,18 @@ describe("App", () => {
     expect(useWorkspaceStore.getState().activeWorkspaceId).toBe(threadWorkspace.id);
     await vi.advanceTimersByTimeAsync(16);
     expect(useAppStore.getState().view).toEqual({ kind: "thread", panes: [thread.id] });
+  });
+
+  it("applies supervisor queue updates and clears to the composer state", () => {
+    const listener = supervisorEventListeners.at(-1)!;
+    const queue = {
+      paused: true,
+      items: [{ id: "queued-item", prompt: "Next task", stagedAt: 1 }],
+    };
+    listener({ type: "thread-follow-up-queue", threadId: "queued-thread", queue });
+    expect(useThreadFollowUpQueueStore.getState().byThread["queued-thread"]?.queue).toEqual(queue);
+    listener({ type: "thread-follow-up-queue", threadId: "queued-thread", queue: null });
+    expect(useThreadFollowUpQueueStore.getState().byThread["queued-thread"]?.queue).toBeNull();
   });
 
   it("acknowledges a remotely opened finished thread without navigating the desktop", () => {

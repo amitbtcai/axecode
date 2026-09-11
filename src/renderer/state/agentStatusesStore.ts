@@ -264,9 +264,8 @@ export const useAgentStatusesStore = create<AgentStatusesStore>()(
     }),
     {
       name: "poracode-agent-statuses-v1",
-      version: 24,
-      // v24 mirrors supervisor STATUS_CACHE_VERSION=27: discard duplicate
-      // resolved model aliases in cached catalogs.
+      version: 29,
+      // v29 mirrors supervisor STATUS_CACHE_VERSION=32: discard experimental proxy capabilities.
       migrate: (persisted) => {
         const prev = (persisted ?? {}) as Partial<AgentStatusesStore>;
         return {

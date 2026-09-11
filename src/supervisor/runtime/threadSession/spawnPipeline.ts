@@ -53,6 +53,7 @@ import {
   type AgentLaunchOptions,
   type CommandSpec,
   type StructuredSessionHandle,
+  type StructuredTurnResult,
   createKnownSessionRef,
   defaultFormatPromptSegments,
   injectWslEnv,
@@ -497,7 +498,11 @@ export class SpawnPipeline {
       mcpServers = await this.ctx.options.applyMcpServerAuthorization(mcpServers);
     }
     if (this.ctx.options.prepareMcpToolFilters) {
-      mcpServers = await this.ctx.options.prepareMcpToolFilters(mcpServers, executionLocation);
+      mcpServers = await this.ctx.options.prepareMcpToolFilters(
+        mcpServers,
+        executionLocation,
+        ...(adapter.mcpRequiresStdioCwdProxy ? [{ proxyStdioCwd: true }] : []),
+      );
     }
     const mcpLaunchSnapshot: McpLaunchSnapshot = {
       mcpServers,
@@ -852,7 +857,10 @@ export class SpawnPipeline {
     return { threadId: payload.threadId };
   }
 
-  async restartThread(session: SessionRuntime, turn: QueuedStructuredTurn): Promise<void> {
+  async restartThread(
+    session: SessionRuntime,
+    turn: QueuedStructuredTurn,
+  ): Promise<void | StructuredTurnResult> {
     const ctx = this.ctx;
     const { prompt, config: turnConfig } = turn;
     if (!session.sessionRef) {
@@ -969,7 +977,7 @@ export class SpawnPipeline {
       if (!structuredSession) {
         throw new Error(`Thread ${session.threadId} cannot restart without a structured session.`);
       }
-      const restarted = this.spawnThread({
+      const replacement = this.spawnThread({
         threadId: session.threadId,
         agentKind: session.agentKind,
         adapter: session.adapter,
@@ -1002,14 +1010,24 @@ export class SpawnPipeline {
           userMessageItemId: optimisticItemId,
           ...(turn.inlineInstructions ? { inlineInstructions: turn.inlineInstructions } : {}),
         };
-        void structuredSession
-          .startTurn(prompt, launchConfig, turn.segments, startOptions)
-          .catch((error) => {
-            if (ctx.sessions.get(restarted.threadId)?.instanceId !== restarted.instanceId) {
-              return;
-            }
-            ctx.failStructuredSession(restarted, error);
-          });
+        try {
+          return await structuredSession.startTurn(
+            prompt,
+            launchConfig,
+            turn.segments,
+            startOptions,
+          );
+        } catch (error) {
+          // `spawnThread` has already replaced the old runtime in `sessions`.
+          // Settle a failed replacement here, where its identity is still
+          // available; the outer restart wrapper only knows the old session.
+          // A newer replacement may have won the race, so never mutate a
+          // runtime that is no longer current.
+          if (ctx.isCurrentSession(replacement)) {
+            ctx.failStructuredSession(replacement, error);
+          }
+          throw error;
+        }
       }
       return;
     }
