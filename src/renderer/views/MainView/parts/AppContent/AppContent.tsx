@@ -43,6 +43,7 @@ import type { DraftStartInput } from "@/renderer/components/thread/ThreadDraftCo
 import { useDraftEnvironment } from "@/renderer/hooks/uiSelectors";
 import { HomeView } from "@/renderer/views/HomeView";
 import { ExperimentView } from "@/renderer/views/ExperimentView/ExperimentView";
+import { ContentBoardView } from "@/renderer/views/ContentBoardView/ContentBoardView";
 import { PullRequestsView } from "@/renderer/views/PullRequestsView/PullRequestsView";
 import { SchedulesView } from "@/renderer/views/SchedulesView/SchedulesView";
 import { ThreadPane } from "./parts/ThreadPane";
@@ -247,6 +248,10 @@ export function AppContent() {
         <PullRequestsView />
       </div>
     );
+  }
+
+  if (view.kind === "content") {
+    return <ContentBoardView />;
   }
 
   if (view.kind === "draft") {

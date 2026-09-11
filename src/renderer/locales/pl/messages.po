@@ -1287,6 +1287,10 @@ msgstr "Wszystkie aplikacje agentów"
 msgid "All candidate sessions, worktrees, and branches will be removed."
 msgstr "Wszystkie sesje kandydatów, drzewa robocze i gałęzie zostaną usunięte."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "All channels"
+msgstr "Wszystkie kanały"
+
 #: src/renderer/views/ProfileOverlay/parts/ProfileHeader.tsx
 msgid "All devices"
 msgstr "Wszystkie urządzenia"
@@ -1490,6 +1494,7 @@ msgstr "zatwierdzony"
 msgid "Approved"
 msgstr "Zatwierdzone"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarThreadRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
@@ -1606,6 +1611,10 @@ msgstr "Dołącz"
 #~ msgid "Attach files"
 #~ msgstr "Dołącz pliki"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Attach media"
+msgstr "Załącz multimedia"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Attach to thread"
 msgstr "Dołącz do wątku"
@@ -1617,6 +1626,10 @@ msgstr "Dołącz do wątku"
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Attached browser selection."
 msgstr "Załączono zaznaczenie z przeglądarki."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Attached media"
+msgstr "Załączone multimedia"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Attempt"
@@ -1986,6 +1999,15 @@ msgstr "zablokowane:"
 msgid "Blue"
 msgstr "Niebieski"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Board"
+msgstr "Tablica"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Body"
+#~ msgstr "Treść"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Bold"
 msgstr "Pogrubienie"
@@ -2184,6 +2206,10 @@ msgstr "Wbudowane serwery są zarządzane przez Axe Code. Można je globalnie wy
 msgid "Built-in shortcut — can't be changed"
 msgstr "Skrót wbudowany — nie można go zmienić"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Bullet list"
+msgstr "Lista punktowana"
+
 #: src/renderer/components/plugins/PluginMarketplace.tsx
 msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
 msgstr "Pakiety umiejętności i serwerów MCP działające z każdym obsługiwanym agentem. Axe Code ładuje każdy pakiet zbudowany zgodnie ze specyfikacją Agent Plugins."
@@ -2222,6 +2248,14 @@ msgstr "Omiń reguły ochrony gałęzi (scalanie administracyjne)"
 msgid "Cached only"
 msgstr "Tylko z pamięci podręcznej"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar"
+msgstr "Kalendarz"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar range"
+msgstr "Zakres kalendarza"
+
 #: src/mobile/QrScanner.tsx
 msgid "Camera access blocked"
 msgstr "Dostęp do kamery zablokowany"
@@ -2250,6 +2284,7 @@ msgstr "Nie można połączyć się z serwerem zdalnym. Sprawdź, czy jest onlin
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/structuredElicitation.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -2392,9 +2427,22 @@ msgid "Changes unavailable"
 msgstr "Zmiany są niedostępne"
 
 #. About page label: release channel (stable/nightly)
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Channel"
 msgstr "Kanał"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Channel agents draft posts onto this board on a daily schedule — you review, schedule, and publish them from here."
+#~ msgstr "Agenci kanałów codziennie szkicują posty na tej tablicy — możesz je tu przeglądać, planować i publikować."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel agents draft posts onto this board on a daily schedule — you schedule and publish them from here."
+msgstr "Agenci kanałów codziennie szkicują posty na tej tablicy — możesz je tu planować i publikować."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel filter"
+msgstr "Filtr kanału"
 
 #: src/renderer/components/experiment/ExperimentDraftTargets.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/WorkflowOverlayBody.tsx
@@ -3448,6 +3496,24 @@ msgstr "Konsola"
 msgid "Contains sensitive values; add manually"
 msgstr "Zawiera poufne wartości; dodaj ręcznie"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+msgid "Content"
+msgstr "Treści"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Content body"
+msgstr "Treść"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Content card"
+#~ msgstr "Karta treści"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Content view"
+msgstr "Widok treści"
+
 #: src/mobile/ComposerInfoChips.tsx
 #: src/renderer/components/common/EffortContextMenu/EffortContextMenu.tsx
 #: src/renderer/components/thread/threadContextUsage.ts
@@ -4157,6 +4223,10 @@ msgstr "Codzienne podsumowanie"
 msgid "Dark"
 msgstr "Ciemny"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Day"
+msgstr "Dzień"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Days"
 #~ msgstr "Dni"
@@ -4223,6 +4293,7 @@ msgstr "Deleguj zadania innym agentom AI."
 #: src/renderer/components/skills/SkillsManager.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/FileChange.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/parts/TreeEntryRow.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoRow.tsx
@@ -4736,6 +4807,10 @@ msgstr "Pobieranie… {0}%"
 msgid "Draft"
 msgstr "Wersja robocza"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Drafts"
+msgstr "Szkice"
+
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Drag to reorder how providers appear in the model picker."
@@ -4895,6 +4970,10 @@ msgstr "Poziomy rozumowania dla modelu {modelName}"
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Electron"
 msgstr "Electron"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Empty"
+msgstr "Puste"
 
 #. placeholder {0}: server.name
 #. placeholder {0}: skill.name
@@ -5109,6 +5188,10 @@ msgstr "Błąd · Agent napotkał błąd"
 #: src/mobile/ComposerInfoChips.tsx
 msgid "Errors"
 msgstr "Błędy"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Evening"
+msgstr "Wieczór"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Event"
@@ -6151,6 +6234,10 @@ msgstr "Zawiera niewysłaną wersję roboczą"
 msgid "Headers"
 msgstr "Nagłówki"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Heading"
+msgstr "Nagłówek"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
 msgstr "Pomóż mi utworzyć harmonogram. Zapytaj o brakujące szczegóły, a następnie użyj kontrolek harmonogramu Axe Code, aby go utworzyć."
@@ -6434,6 +6521,10 @@ msgstr "Ulepszono"
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "In progress"
 msgstr "W toku"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "In review"
+#~ msgstr "W przeglądzie"
 
 #: src/mobile/QrScanner.tsx
 msgid "In-app camera scanning only works over HTTPS. Use your phone's camera app to scan the desktop QR code, or enter the endpoint and token below."
@@ -6746,6 +6837,7 @@ msgstr "Przerwano"
 msgid "Interrupted: agent session ended before completion."
 msgstr "Przerwano: sesja agenta zakończyła się przed jej ukończeniem."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Italic"
 msgstr "Kursywa"
@@ -6952,9 +7044,17 @@ msgstr "Jasny"
 msgid "Lightcode data import is unavailable with a custom data folder."
 msgstr "Import danych Lightcode jest niedostępny przy niestandardowym folderze danych."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link"
+msgstr "Link"
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Połącz ze źródłem"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link URL"
+msgstr "Adres linku"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
@@ -6976,6 +7076,11 @@ msgstr "Lista pakietów"
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "List tasks"
 msgstr "Lista zadań"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "live"
+msgstr "na żywo"
 
 #: src/mobile/remoteConnectionState.ts
 msgid "Live"
@@ -7005,6 +7110,10 @@ msgstr "Ładowanie"
 #: src/renderer/views/MainView/parts/CreateProject/CloneProjectModal.tsx
 msgid "Loading accounts…"
 msgstr "Ładuję konta…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Loading content"
+msgstr "Ładowanie treści"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/parts/SingleFileDiff.tsx
 msgid "Loading diff..."
@@ -7346,6 +7455,10 @@ msgstr "Oznacz gotowe"
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Mark done when the pull request merges"
 msgstr "Oznacz jako gotowe po scaleniu pull requesta"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Mark scheduled"
+#~ msgstr "Oznacz jako zaplanowane"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Marketplace"
@@ -7719,6 +7832,10 @@ msgstr "Modele"
 msgid "Modes"
 msgstr "Tryby"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Month"
+msgstr "Miesiąc"
+
 #: src/mobile/NarrowShell.tsx
 #: src/renderer/components/layout/UnifiedRightPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
@@ -7774,6 +7891,10 @@ msgstr "Więcej opcji synchronizacji"
 #: src/renderer/components/providers/UsageOverflowChip.tsx
 msgid "More usage providers — open usage panel"
 msgstr "Więcej dostawców użycia — otwórz panel użycia"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Morning"
+msgstr "Ranek"
 
 #: src/renderer/views/ProfileOverlay/parts/ActivityInsights.tsx
 msgid "Most active hour"
@@ -7984,6 +8105,10 @@ msgstr "Nowa nazwa akcji"
 msgid "New branch name..."
 msgstr "Nowa nazwa gałęzi..."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "New card"
+#~ msgstr "Nowa karta"
+
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
 msgid "New Claude profile config directory"
 msgstr "Nowy katalog konfiguracyjny profilu Claude"
@@ -8049,6 +8174,11 @@ msgstr "nowy model"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "New phones, tablets, and browsers appear here after pairing."
 msgstr "Nowe telefony, tablety i przeglądarki pojawią się tutaj po sparowaniu."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "New post"
+msgstr "Nowy post"
 
 #: src/renderer/views/SettingsOverlay/parts/AgentProfileList.tsx
 msgid "New profile name"
@@ -8139,6 +8269,10 @@ msgstr "Nowy obszar roboczy"
 msgid "New worktree"
 msgstr "Nowe drzewo robocze"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Next"
+msgstr "Dalej"
+
 #: src/renderer/commands/registry.ts
 msgid "Next chat"
 msgstr "Następny czat"
@@ -8167,6 +8301,14 @@ msgstr "Następne uruchomienie: {0}"
 #: src/renderer/commands/registry.ts
 msgid "Next tab"
 msgstr "Następna karta"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Next week"
+#~ msgstr "Następny tydzień"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Night"
+msgstr "Noc"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "No active browser tab"
@@ -8228,6 +8370,10 @@ msgstr "Nie zarejestrowano jeszcze żadnych commitów AI, PR ani rozwiązanych k
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "No archived threads."
 msgstr "Brak zarchiwizowanych wątków."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "No body yet — press Edit to write the draft."
+#~ msgstr "Brak treści — naciśnij Edytuj, aby napisać szkic."
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserBookmarkBar.tsx
 msgid "No bookmarks yet — add the current page with the star."
@@ -8645,6 +8791,10 @@ msgstr "Brak"
 msgid "None of these agents can run the AI comparison."
 msgstr "Żaden z tych agentów nie może przeprowadzić porównania za pomocą AI."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Noon"
+msgstr "Południe"
+
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/GitDiffContent.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/GitReviewSidebar.tsx
 msgid "Not a git repository"
@@ -8735,6 +8885,10 @@ msgstr "Powiadom mnie o"
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "npx"
 msgstr "npx"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Numbered list"
+msgstr "Lista numerowana"
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/SearchSection.tsx
 msgid "off"
@@ -9068,6 +9222,10 @@ msgstr "Otwórz Ustawienia → Dostęp zdalny w Axe Code na komputerze, a nastę
 #: src/mobile/views/DesktopsView.tsx
 #~ msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
 #~ msgstr "Otwórz Ustawienia → Dostęp zdalny w Poracode na komputerze, a następnie zeskanuj kod QR stąd — albo wprowadź adres i token parowania ręcznie."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Open source thread"
+msgstr "Otwórz wątek źródłowy"
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -9775,6 +9933,10 @@ msgstr "Zapobiegaj zasypianiu"
 msgid "Preview {0}"
 msgstr "Podgląd {0}"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Previous"
+msgstr "Wstecz"
+
 #: src/renderer/commands/registry.ts
 msgid "Previous chat"
 msgstr "Poprzedni czat"
@@ -9807,6 +9969,10 @@ msgstr "Poprzednie uruchomienia"
 #: src/renderer/commands/registry.ts
 msgid "Previous tab"
 msgstr "Poprzednia karta"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Previous week"
+#~ msgstr "Poprzedni tydzień"
 
 #: src/mobile/views/MoreView.tsx
 msgid "Privacy Policy"
@@ -10037,6 +10203,54 @@ msgstr "Publiczny URL"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Public URL updated."
 msgstr "Zaktualizowano publiczny URL."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Opublikuj ten post {0} za pomocą mojej zalogowanej przeglądarki (narzędzia MCP browseros-neo, jeśli są podłączone; w przeciwnym razie otwórz stronę tworzenia i wklej go za mnie).\n"
+#~ "\n"
+#~ "Tytuł: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "Po opublikowaniu wywołaj update_content_card na karcie {3} ze statusem \"published\" i publishUrl ustawionym na adres posta. W razie błędu ustaw publishError na przyczynę."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+"\n"
+"Title: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+msgstr "Opublikuj ten post {0} za pomocą mojej zalogowanej przeglądarki (narzędzia MCP browseros-neo, jeśli są podłączone; w przeciwnym razie otwórz stronę tworzenia i wklej go za mnie).\n"
+"\n"
+"Tytuł: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"Po opublikowaniu wywołaj update_content_card na karcie {3} ze statusem \"published\" i publishUrl ustawionym na adres posta. W razie błędu ustaw publishError na przyczynę."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Publish with Browser"
+msgstr "Opublikuj przez przeglądarkę"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Published"
+msgstr "Opublikowane"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/useWorktreeActions.ts
 msgid "Pull"
@@ -10614,6 +10828,10 @@ msgstr "Usuń z grupy"
 msgid "Remove from panel"
 msgstr "Usuń z panelu"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Remove media"
+msgstr "Usuń multimedia"
+
 #. placeholder {0}: providerLabel(entry.agentKind)
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 msgid "Remove memory entry for {0}"
@@ -10925,6 +11143,10 @@ msgstr "Przywróć lub usuń"
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Restore thread"
 msgstr "Przywróć wątek"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Restore to drafts"
+#~ msgstr "Przywróć do szkiców"
 
 #: src/renderer/views/ExperimentView/ExperimentView.tsx
 msgid "Results"
@@ -11277,6 +11499,7 @@ msgstr "Nasycenie i jasność"
 #: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -11375,6 +11598,14 @@ msgstr "Skanowanie systemu Windows i WSL w poszukiwaniu zainstalowanych interfej
 msgid "Scanning your system for installed CLIs. This usually takes a couple of seconds."
 msgstr "Skanowanie systemu w poszukiwaniu zainstalowanych interfejsów CLI. Zwykle zajmuje to kilka sekund."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Schedule"
+msgstr "Zaplanuj"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Schedule for"
+#~ msgstr "Zaplanuj na"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Schedule name"
 msgstr "Nazwa harmonogramu"
@@ -11382,6 +11613,14 @@ msgstr "Nazwa harmonogramu"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Schedule status"
 msgstr "Stan harmonogramu"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Schedule…"
+msgstr "Zaplanuj…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Scheduled"
+msgstr "Zaplanowane"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Scheduled tasks"
@@ -11394,6 +11633,11 @@ msgstr "Zaplanowane zadania na tym komputerze"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Scheduled tasks run only while this device is awake and Poracode is open."
 #~ msgstr "Zaplanowane zadania są uruchamiane tylko wtedy, gdy urządzenie jest aktywne, a Poracode jest otwarty."
+
+#. placeholder {0}: new Date(card.scheduledFor).toLocaleString()
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Scheduled: {0}"
+msgstr "Zaplanowano: {0}"
 
 #: src/mobile/settingsSections.ts
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
@@ -11483,6 +11727,10 @@ msgstr "Wyszukaj agentów..."
 #: src/renderer/components/common/BranchSelector/BranchSelector.tsx
 msgid "Search branches..."
 msgstr "Szukaj gałęzi..."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Search content"
+msgstr "Szukaj treści"
 
 #: src/mobile/views/FilesView.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/ProjectTreeView.tsx
@@ -11733,6 +11981,10 @@ msgstr "Wyślij wiadomość"
 msgid "Send terminal input"
 msgstr "Wyślij dane do terminala"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Send to review"
+#~ msgstr "Wyślij do przeglądu"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Sent selection to terminal."
 msgstr "Wysłano zaznaczenie do terminala."
@@ -11785,6 +12037,18 @@ msgstr "Ustaw lub wyświetl cel eksperymentalny"
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Set shortcut"
 msgstr "Ustaw skrót"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Skonfiguruj moje środowisko marketingowe: utwórz w tym projekcie folder marketing/ z plikami product-info.md, brand-voice.md i content-strategy.md (najpierw zapytaj mnie o podstawy), a następnie utwórz cztery codzienne harmonogramy — po jednym dla każdego agenta kanału (writer, seo, x, linkedin) — które czytają te dokumenty i używają create_content_card do tworzenia szkiców postów na mojej tablicy treści."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up with agent"
+msgstr "Skonfiguruj z agentem"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up your marketing workspace"
+msgstr "Skonfiguruj swoje środowisko marketingowe"
 
 #: src/renderer/components/composer/ComposerMcpServersMenu.tsx
 msgid "Set when this session started — start a new thread to change MCP servers"
@@ -12622,6 +12886,10 @@ msgstr "Przechowywane na tym urządzeniu; komputer zachowuje własne wartości."
 #: src/mobile/views/MoreView.tsx
 #~ msgid "Stored on this phone; the desktop keeps its own values."
 #~ msgstr "Przechowywane na tym telefonie; desktop zachowuje własne wartości."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Strikethrough"
+msgstr "Przekreślenie"
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 msgid "Structured runtime"
@@ -13503,6 +13771,10 @@ msgstr "Ten wątek został sforkowany bez przeniesienia kontekstu: {agent} uruch
 #~ msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
 #~ msgstr "Ten wątek został sforkowany bez przeniesienia kontekstu: {agent} uruchomił się bez narzędzia read_thread Poracode, więc nie może odczytać oryginalnej rozmowy. Włącz ponownie narzędzie MCP app-controls lub podsumuj to, czego potrzebuje."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "This week"
+#~ msgstr "Ten tydzień"
+
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
 #~ msgstr "Spowoduje to trwałe usunięcie wątku i jego drzewa roboczego."
@@ -13630,14 +13902,23 @@ msgstr "Dok zadań wątku"
 msgid "Threads"
 msgstr "Wątki"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "threads for longer"
+msgstr "wątki dla dłuższych"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Threads marked done that have not been touched for this many days are archived automatically on app launch. Set to 0 to disable."
 msgstr "Wątki oznaczone jako zakończone, które nie były poruszane przez tyle dni, są automatycznie archiwizowane po uruchomieniu aplikacji. Ustaw na 0, aby wyłączyć."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Time"
 msgstr "Godzina"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Time zone"
+msgstr "Strefa czasowa"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "Timed out"
@@ -13659,6 +13940,10 @@ msgstr "Limit czasu (ms)"
 msgid "Timeout must be a positive whole number."
 msgstr "Limit czasu musi być dodatnią liczbą całkowitą."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Title"
+msgstr "Tytuł"
+
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Title Generation"
@@ -13672,6 +13957,10 @@ msgstr "Modele tytułów, commitów i konfliktów"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoList.tsx
 msgid "To-dos"
 msgstr "Zadania"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Today"
+msgstr "Dziś"
 
 #: src/renderer/commands/registry.ts
 msgid "Toggle browser panel"
@@ -14310,6 +14599,10 @@ msgstr "wycofane z poczekalni"
 msgid "Unsupported"
 msgstr "Nieobsługiwane"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Untitled"
+msgstr "Bez tytułu"
+
 #: src/mobile/views/HostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 msgid "Up one level"
@@ -14674,6 +14967,14 @@ msgstr "Wersja"
 msgid "via {0}"
 msgstr "przez {0}"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title"
+msgstr "Tytuł wideo"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title and description…"
+msgstr "Tytuł i opis wideo…"
+
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "View"
@@ -14870,6 +15171,10 @@ msgstr "Serwer WWW"
 msgid "Website"
 msgstr "Strona internetowa"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Week"
+msgstr "Tydzień"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Weekdays"
 msgstr "Dni robocze"
@@ -14893,6 +15198,10 @@ msgstr "Przegląd tygodniowy"
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 #~ msgid "What Crossagents learned from explicit selections. Edit the tags or remove entries to reshape routing."
 #~ msgstr "Czego Crossagents nauczyło się z jawnych wyborów. Edytuj tagi lub usuwaj wpisy, aby zmienić routing."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "What do you want to post?"
+msgstr "Co chcesz opublikować?"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "What should the agent do?"
@@ -15226,6 +15535,14 @@ msgstr "Napisz komentarz…"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Write notes for this project…"
 msgstr "Napisz notatki do tego projektu…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Write the article…"
+msgstr "Napisz artykuł…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Write the content…"
+#~ msgstr "Napisz treść…"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

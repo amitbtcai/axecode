@@ -1287,6 +1287,10 @@ msgstr "Tüm ajan uygulamaları"
 msgid "All candidate sessions, worktrees, and branches will be removed."
 msgstr "Adaylara ait tüm oturumlar, çalışma ağaçları ve şubeler kaldırılacak."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "All channels"
+msgstr "Tüm kanallar"
+
 #: src/renderer/views/ProfileOverlay/parts/ProfileHeader.tsx
 msgid "All devices"
 msgstr "Tüm cihazlar"
@@ -1490,6 +1494,7 @@ msgstr "onaylandı"
 msgid "Approved"
 msgstr "Onaylandı"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarThreadRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
@@ -1606,6 +1611,10 @@ msgstr "Ekle"
 #~ msgid "Attach files"
 #~ msgstr "Dosya ekle"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Attach media"
+msgstr "Medya ekle"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Attach to thread"
 msgstr "İleti dizisine ekle"
@@ -1617,6 +1626,10 @@ msgstr "İleti dizisine ekle"
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Attached browser selection."
 msgstr "Ekli tarayıcı seçimi."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Attached media"
+msgstr "Ekli medya"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Attempt"
@@ -1986,6 +1999,15 @@ msgstr "engellendi:"
 msgid "Blue"
 msgstr "Mavi"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Board"
+msgstr "Pano"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Body"
+#~ msgstr "Metin"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Bold"
 msgstr "Kalın"
@@ -2184,6 +2206,10 @@ msgstr "Yerleşik sunucular Axe Code tarafından yönetilir. Genel olarak devre 
 msgid "Built-in shortcut — can't be changed"
 msgstr "Yerleşik kısayol — değiştirilemez"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Bullet list"
+msgstr "Madde listesi"
+
 #: src/renderer/components/plugins/PluginMarketplace.tsx
 msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
 msgstr "Desteklenen her ajanla çalışan beceri ve MCP sunucusu paketleri. Axe Code, Agent Plugins şartnamesine göre hazırlanmış her paketi yükler."
@@ -2222,6 +2248,14 @@ msgstr "Şube koruma kurallarını atla (yönetici birleştirme)"
 msgid "Cached only"
 msgstr "Yalnızca önbellekte"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar"
+msgstr "Takvim"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar range"
+msgstr "Takvim aralığı"
+
 #: src/mobile/QrScanner.tsx
 msgid "Camera access blocked"
 msgstr "Kamera erişimi engellendi"
@@ -2250,6 +2284,7 @@ msgstr "Uzak sunucuya ulaşılamıyor. Çevrimiçi olduğunu doğrulayıp yenide
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/structuredElicitation.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -2392,9 +2427,22 @@ msgid "Changes unavailable"
 msgstr "Değişikliklere erişilemiyor"
 
 #. About page label: release channel (stable/nightly)
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Channel"
 msgstr "Kanal"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Channel agents draft posts onto this board on a daily schedule — you review, schedule, and publish them from here."
+#~ msgstr "Kanal ajanları bu panoya günlük bir programa göre taslak gönderiler yazar — buradan inceleyip zamanlayabilir ve yayınlayabilirsiniz."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel agents draft posts onto this board on a daily schedule — you schedule and publish them from here."
+msgstr "Kanal ajanları bu panoya günlük bir programa göre taslak gönderiler yazar — buradan zamanlayabilir ve yayınlayabilirsiniz."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel filter"
+msgstr "Kanal filtresi"
 
 #: src/renderer/components/experiment/ExperimentDraftTargets.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/WorkflowOverlayBody.tsx
@@ -3448,6 +3496,24 @@ msgstr "Konsol"
 msgid "Contains sensitive values; add manually"
 msgstr "Hassas değerler içeriyor; elle ekleyin"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+msgid "Content"
+msgstr "İçerik"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Content body"
+msgstr "İçerik metni"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Content card"
+#~ msgstr "İçerik kartı"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Content view"
+msgstr "İçerik görünümü"
+
 #: src/mobile/ComposerInfoChips.tsx
 #: src/renderer/components/common/EffortContextMenu/EffortContextMenu.tsx
 #: src/renderer/components/thread/threadContextUsage.ts
@@ -4157,6 +4223,10 @@ msgstr "Günlük özet"
 msgid "Dark"
 msgstr "Karanlık"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Day"
+msgstr "Gün"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Days"
 #~ msgstr "Günler"
@@ -4223,6 +4293,7 @@ msgstr "İşi diğer yapay zeka aracılarına devredin."
 #: src/renderer/components/skills/SkillsManager.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/FileChange.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/parts/TreeEntryRow.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoRow.tsx
@@ -4736,6 +4807,10 @@ msgstr "İndiriliyor… %{0}"
 msgid "Draft"
 msgstr "Taslak"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Drafts"
+msgstr "Taslaklar"
+
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Drag to reorder how providers appear in the model picker."
@@ -4895,6 +4970,10 @@ msgstr "{modelName} için efor düzeyleri"
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Electron"
 msgstr "Electron"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Empty"
+msgstr "Boş"
 
 #. placeholder {0}: server.name
 #. placeholder {0}: skill.name
@@ -5109,6 +5188,10 @@ msgstr "Hata · Temsilci bir hatayla karşılaştı"
 #: src/mobile/ComposerInfoChips.tsx
 msgid "Errors"
 msgstr "Hatalar"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Evening"
+msgstr "Akşam"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Event"
@@ -6151,6 +6234,10 @@ msgstr "Gönderilmemiş taslak var"
 msgid "Headers"
 msgstr "Üstbilgiler"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Heading"
+msgstr "Başlık"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
 msgstr "Bir zamanlama oluşturmama yardım et. Eksik ayrıntıları sor, ardından Axe Code zamanlama kontrollerini kullanarak benim için oluştur."
@@ -6434,6 +6521,10 @@ msgstr "İyileştirildi"
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "In progress"
 msgstr "Devam ediyor"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "In review"
+#~ msgstr "İncelemede"
 
 #: src/mobile/QrScanner.tsx
 msgid "In-app camera scanning only works over HTTPS. Use your phone's camera app to scan the desktop QR code, or enter the endpoint and token below."
@@ -6746,6 +6837,7 @@ msgstr "Kesintiye uğradı"
 msgid "Interrupted: agent session ended before completion."
 msgstr "Kesintiye uğradı: Ajan oturumu tamamlanmadan sona erdi."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Italic"
 msgstr "italik"
@@ -6952,9 +7044,17 @@ msgstr "Açık"
 msgid "Lightcode data import is unavailable with a custom data folder."
 msgstr "Özel veri klasörü kullanılırken Lightcode verileri içe aktarılamaz."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link"
+msgstr "Bağlantı"
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Kaynağa bağla"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link URL"
+msgstr "Bağlantı URL'si"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
@@ -6976,6 +7076,11 @@ msgstr "Paketleri listele"
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "List tasks"
 msgstr "Görevleri listele"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "live"
+msgstr "yayında"
 
 #: src/mobile/remoteConnectionState.ts
 msgid "Live"
@@ -7005,6 +7110,10 @@ msgstr "Yükleniyor"
 #: src/renderer/views/MainView/parts/CreateProject/CloneProjectModal.tsx
 msgid "Loading accounts…"
 msgstr "Hesaplar yükleniyor…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Loading content"
+msgstr "İçerik yükleniyor"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/parts/SingleFileDiff.tsx
 msgid "Loading diff..."
@@ -7346,6 +7455,10 @@ msgstr "Tamamlandı Olarak İşaretle"
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Mark done when the pull request merges"
 msgstr "Pull request birleştirildiğinde tamamlandı olarak işaretle"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Mark scheduled"
+#~ msgstr "Zamanlanmış olarak işaretle"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Marketplace"
@@ -7719,6 +7832,10 @@ msgstr "Modeller"
 msgid "Modes"
 msgstr "Modlar"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Month"
+msgstr "Ay"
+
 #: src/mobile/NarrowShell.tsx
 #: src/renderer/components/layout/UnifiedRightPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
@@ -7774,6 +7891,10 @@ msgstr "Daha fazla senkronizasyon seçeneği"
 #: src/renderer/components/providers/UsageOverflowChip.tsx
 msgid "More usage providers — open usage panel"
 msgstr "Diğer kullanım sağlayıcıları — kullanım panelini aç"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Morning"
+msgstr "Sabah"
 
 #: src/renderer/views/ProfileOverlay/parts/ActivityInsights.tsx
 msgid "Most active hour"
@@ -7984,6 +8105,10 @@ msgstr "Yeni işlem adı"
 msgid "New branch name..."
 msgstr "Yeni şube adı..."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "New card"
+#~ msgstr "Yeni kart"
+
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
 msgid "New Claude profile config directory"
 msgstr "Yeni Claude profili yapılandırma dizini"
@@ -8049,6 +8174,11 @@ msgstr "yeni model"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "New phones, tablets, and browsers appear here after pairing."
 msgstr "Yeni telefonlar, tabletler ve tarayıcılar eşleştirmeden sonra burada görünür."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "New post"
+msgstr "Yeni gönderi"
 
 #: src/renderer/views/SettingsOverlay/parts/AgentProfileList.tsx
 msgid "New profile name"
@@ -8139,6 +8269,10 @@ msgstr "Yeni çalışma alanı"
 msgid "New worktree"
 msgstr "Yeni çalışma ağacı"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Next"
+msgstr "İleri"
+
 #: src/renderer/commands/registry.ts
 msgid "Next chat"
 msgstr "Sonraki sohbet"
@@ -8167,6 +8301,14 @@ msgstr "Sonraki çalıştırma: {0}"
 #: src/renderer/commands/registry.ts
 msgid "Next tab"
 msgstr "Sonraki sekme"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Next week"
+#~ msgstr "Sonraki hafta"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Night"
+msgstr "Gece"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "No active browser tab"
@@ -8228,6 +8370,10 @@ msgstr "Henüz yapay zeka commit'leri, PR'ları veya çakışma çözümleri izl
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "No archived threads."
 msgstr "Arşivlenmiş konu yok."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "No body yet — press Edit to write the draft."
+#~ msgstr "Henüz metin yok — taslağı yazmak için Düzenle'ye basın."
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserBookmarkBar.tsx
 msgid "No bookmarks yet — add the current page with the star."
@@ -8645,6 +8791,10 @@ msgstr "Yok"
 msgid "None of these agents can run the AI comparison."
 msgstr "Bu ajanların hiçbiri yapay zeka karşılaştırmasını çalıştıramıyor."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Noon"
+msgstr "Öğlen"
+
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/GitDiffContent.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/GitReviewSidebar.tsx
 msgid "Not a git repository"
@@ -8735,6 +8885,10 @@ msgstr "Beni bilgilendir"
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "npx"
 msgstr "npx"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Numbered list"
+msgstr "Numaralı liste"
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/SearchSection.tsx
 msgid "off"
@@ -9068,6 +9222,10 @@ msgstr "Masaüstündeki Axe Code'da Ayarlar → Uzaktan Erişim'i aç, ardından
 #: src/mobile/views/DesktopsView.tsx
 #~ msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
 #~ msgstr "Masaüstündeki Poracode'da Ayarlar → Uzaktan Erişim'i aç, ardından QR kodunu buradan tara — ya da uç noktasını ve eşleştirme jetonunu elle gir."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Open source thread"
+msgstr "Kaynak konuyu aç"
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -9775,6 +9933,10 @@ msgstr "Uykuyu önle"
 msgid "Preview {0}"
 msgstr "Önizleme {0}"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Previous"
+msgstr "Geri"
+
 #: src/renderer/commands/registry.ts
 msgid "Previous chat"
 msgstr "Önceki sohbet"
@@ -9807,6 +9969,10 @@ msgstr "Önceki çalıştırmalar"
 #: src/renderer/commands/registry.ts
 msgid "Previous tab"
 msgstr "Önceki sekme"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Previous week"
+#~ msgstr "Önceki hafta"
 
 #: src/mobile/views/MoreView.tsx
 msgid "Privacy Policy"
@@ -10037,6 +10203,54 @@ msgstr "Genel URL"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Public URL updated."
 msgstr "Genel URL güncellendi."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Bu {0} gönderisini oturum açık tarayıcımı kullanarak yayınla (bağlıysa browseros-neo MCP araçlarıyla; değilse sitenin oluşturma sayfasını açıp benim için yapıştır).\n"
+#~ "\n"
+#~ "Başlık: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "Yayınladıktan sonra {3} kartında status \"published\" ve publishUrl'i gönderinin URL'si olacak şekilde update_content_card çağır. Başarısız olursa publishError'a nedeni yaz."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+"\n"
+"Title: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+msgstr "Bu {0} gönderisini oturum açık tarayıcımı kullanarak yayınla (bağlıysa browseros-neo MCP araçlarıyla; değilse sitenin oluşturma sayfasını açıp benim için yapıştır).\n"
+"\n"
+"Başlık: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"Yayınladıktan sonra {3} kartında status \"published\" ve publishUrl'i gönderinin URL'si olacak şekilde update_content_card çağır. Başarısız olursa publishError'a nedeni yaz."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Publish with Browser"
+msgstr "Tarayıcıyla yayınla"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Published"
+msgstr "Yayınlandı"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/useWorktreeActions.ts
 msgid "Pull"
@@ -10614,6 +10828,10 @@ msgstr "Gruptan kaldır"
 msgid "Remove from panel"
 msgstr "Panelden kaldır"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Remove media"
+msgstr "Medyayı kaldır"
+
 #. placeholder {0}: providerLabel(entry.agentKind)
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 msgid "Remove memory entry for {0}"
@@ -10925,6 +11143,10 @@ msgstr "Geri yükle veya sil"
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Restore thread"
 msgstr "Konuyu geri yükle"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Restore to drafts"
+#~ msgstr "Taslaklara geri al"
 
 #: src/renderer/views/ExperimentView/ExperimentView.tsx
 msgid "Results"
@@ -11277,6 +11499,7 @@ msgstr "Doygunluk ve parlaklık"
 #: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -11375,6 +11598,14 @@ msgstr "Yüklü CLI'ler için Windows ve WSL taranıyor. Bu genellikle birkaç s
 msgid "Scanning your system for installed CLIs. This usually takes a couple of seconds."
 msgstr "Kurulu CLI'ler için sisteminiz taranıyor. Bu genellikle birkaç saniye sürer."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Schedule"
+msgstr "Zamanla"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Schedule for"
+#~ msgstr "Şu tarihe zamanla"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Schedule name"
 msgstr "Zamanlama adı"
@@ -11382,6 +11613,14 @@ msgstr "Zamanlama adı"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Schedule status"
 msgstr "Zamanlama durumu"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Schedule…"
+msgstr "Zamanla…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Scheduled"
+msgstr "Zamanlandı"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Scheduled tasks"
@@ -11394,6 +11633,11 @@ msgstr "Bu masaüstündeki zamanlanmış görevler"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Scheduled tasks run only while this device is awake and Poracode is open."
 #~ msgstr "Zamanlanmış görevler yalnızca bu cihaz açıkken ve Poracode çalışırken yürütülür."
+
+#. placeholder {0}: new Date(card.scheduledFor).toLocaleString()
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Scheduled: {0}"
+msgstr "Zamanlandı: {0}"
 
 #: src/mobile/settingsSections.ts
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
@@ -11483,6 +11727,10 @@ msgstr "Aracıları ara..."
 #: src/renderer/components/common/BranchSelector/BranchSelector.tsx
 msgid "Search branches..."
 msgstr "Şube ara..."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Search content"
+msgstr "İçerik ara"
 
 #: src/mobile/views/FilesView.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/ProjectTreeView.tsx
@@ -11733,6 +11981,10 @@ msgstr "Mesaj gönder"
 msgid "Send terminal input"
 msgstr "Terminale girdi gönder"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Send to review"
+#~ msgstr "İncelemeye gönder"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Sent selection to terminal."
 msgstr "Seçim terminale gönderildi."
@@ -11785,6 +12037,18 @@ msgstr "Deneysel bir hedef belirleyin veya görüntüleyin"
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Set shortcut"
 msgstr "Kısayol belirle"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Pazarlama çalışma alanımı kur: bu projede product-info.md, brand-voice.md ve content-strategy.md içeren bir marketing/ klasörü oluştur (önce bana temel bilgileri sor), ardından bu belgeleri okuyan ve create_content_card ile içerik panoma taslak gönderi ekleyen her kanal ajanı (writer, seo, x, linkedin) için birer tane olmak üzere dört günlük zamanlama oluştur."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up with agent"
+msgstr "Ajanla kur"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up your marketing workspace"
+msgstr "Pazarlama çalışma alanınızı kurun"
 
 #: src/renderer/components/composer/ComposerMcpServersMenu.tsx
 msgid "Set when this session started — start a new thread to change MCP servers"
@@ -12622,6 +12886,10 @@ msgstr "Bu cihazda saklanır; masaüstü kendi değerlerini korur."
 #: src/mobile/views/MoreView.tsx
 #~ msgid "Stored on this phone; the desktop keeps its own values."
 #~ msgstr "Bu telefonda saklanır; masaüstü kendi değerlerini korur."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Strikethrough"
+msgstr "Üstü çizili"
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 msgid "Structured runtime"
@@ -13503,6 +13771,10 @@ msgstr "Bu konu bağlam aktarılmadan fork olarak oluşturuldu: {agent}, Axe Cod
 #~ msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
 #~ msgstr "Bu konu bağlam aktarılmadan fork olarak oluşturuldu: {agent}, Poracode'un read_thread aracı olmadan başlatıldığı için özgün konuşmayı okuyamıyor. app-controls MCP aracını yeniden etkinleştirin veya ihtiyaç duyduğu bilgileri özetleyin."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "This week"
+#~ msgstr "Bu hafta"
+
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
 #~ msgstr "Bu işlem iş parçacığını ve çalışma ağacını kalıcı olarak silecek."
@@ -13630,14 +13902,23 @@ msgstr "Konu yapılacaklar yuvası"
 msgid "Threads"
 msgstr "Konular"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "threads for longer"
+msgstr "uzunlar için thread"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Threads marked done that have not been touched for this many days are archived automatically on app launch. Set to 0 to disable."
 msgstr "Bu kadar gün boyunca dokunulmayan ve tamamlandı olarak işaretlenen konular, uygulama başlatıldığında otomatik olarak arşivlenir. Devre dışı bırakmak için 0'a ayarlayın."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Time"
 msgstr "Saat"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Time zone"
+msgstr "Saat dilimi"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "Timed out"
@@ -13659,6 +13940,10 @@ msgstr "Zaman aşımı (ms)"
 msgid "Timeout must be a positive whole number."
 msgstr "Zaman aşımı pozitif bir tam sayı olmalıdır."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Title"
+msgstr "Başlık"
+
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Title Generation"
@@ -13672,6 +13957,10 @@ msgstr "Başlık, commit ve çakışma modelleri"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoList.tsx
 msgid "To-dos"
 msgstr "Yapılacaklar"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Today"
+msgstr "Bugün"
 
 #: src/renderer/commands/registry.ts
 msgid "Toggle browser panel"
@@ -14310,6 +14599,10 @@ msgstr "hazırlanmamış"
 msgid "Unsupported"
 msgstr "Desteklenmiyor"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Untitled"
+msgstr "Başlıksız"
+
 #: src/mobile/views/HostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 msgid "Up one level"
@@ -14674,6 +14967,14 @@ msgstr "Sürüm"
 msgid "via {0}"
 msgstr "{0} aracılığıyla"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title"
+msgstr "Video başlığı"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title and description…"
+msgstr "Video başlığı ve açıklaması…"
+
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "View"
@@ -14870,6 +15171,10 @@ msgstr "Web sunucusu"
 msgid "Website"
 msgstr "Web sitesi"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Week"
+msgstr "Hafta"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Weekdays"
 msgstr "Hafta içi"
@@ -14893,6 +15198,10 @@ msgstr "Haftalık değerlendirme"
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 #~ msgid "What Crossagents learned from explicit selections. Edit the tags or remove entries to reshape routing."
 #~ msgstr "Crossagents'ın açık seçimlerden öğrendikleri. Yönlendirmeyi yeniden şekillendirmek için etiketleri düzenleyin veya girdileri kaldırın."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "What do you want to post?"
+msgstr "Ne yayınlamak istersin?"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "What should the agent do?"
@@ -15226,6 +15535,14 @@ msgstr "Bir yorum yazın…"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Write notes for this project…"
 msgstr "Bu proje için notlar yazın…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Write the article…"
+msgstr "Makaleyi yaz…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Write the content…"
+#~ msgstr "İçeriği yaz…"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

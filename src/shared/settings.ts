@@ -247,7 +247,12 @@ export const DEFAULT_USAGE_DISABLED_PROVIDER_IDS = allUsageProviderDescriptors()
   .map((provider) => provider.id)
   .filter((id) => !DEFAULT_USAGE_ENABLED_PROVIDER_ID_SET.has(id));
 
-export const SIDEBAR_SHORTCUT_IDS = ["pullRequests", "githubActions", "schedules"] as const;
+export const SIDEBAR_SHORTCUT_IDS = [
+  "pullRequests",
+  "githubActions",
+  "schedules",
+  "content",
+] as const;
 export type SidebarShortcutId = (typeof SIDEBAR_SHORTCUT_IDS)[number];
 
 export const THREAD_DOCK_KINDS = ["goal", "plan", "agents", "backgroundTasks", "images"] as const;

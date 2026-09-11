@@ -8,6 +8,7 @@ import type {
 } from "../../mcp/StreamableHttpMcpIngress";
 import { agentTools } from "./tools/agents";
 import { appTools } from "./tools/app";
+import { contentCardTools } from "./tools/contentCards";
 import { fileTools } from "./tools/files";
 import { gitTools } from "./tools/git";
 import { githubTools } from "./tools/github";
@@ -56,7 +57,9 @@ export const APP_CONTROLS_MCP_INSTRUCTIONS =
   "running workspace terminal panes and their scrollback, queue steer guidance, stage composer " +
   "input, or roll back turns; " +
   "read project files (list/read/find); list installed CLI agents; and notify the user or check " +
-  "for app updates. You can also drive a project's git (status/diff/stage/commit/branch/sync and " +
+  "for app updates. Marketing content tasks should record every drafted piece as a content card " +
+  "(create/update/list/delete_content_card) so it appears on the user's Content board for review. " +
+  "You can also drive a project's git (status/diff/stage/commit/branch/sync and " +
   "worktree list/merge/remove), its GitHub pull requests via the gh CLI (list/get/create/comment/" +
   "merge/update), the user's configured MCP servers (list/probe/add/update/remove — MCP servers " +
   "are managed with these dedicated tools, not update_settings), and installed skills (list/" +
@@ -104,6 +107,7 @@ const DOMAINS: readonly ToolDomain[] = [
   githubTools,
   mcpServerTools,
   skillTools,
+  contentCardTools,
 ];
 
 export const TOOLS: readonly StreamableHttpMcpToolSpec[] = DOMAINS.flatMap(

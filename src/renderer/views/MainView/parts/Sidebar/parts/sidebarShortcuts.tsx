@@ -1,13 +1,14 @@
-import { CalendarClock, GitPullRequest, Workflow } from "lucide-react";
+import { CalendarClock, GitPullRequest, KanbanSquare, Workflow } from "lucide-react";
 import { startTransition, type ReactNode } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { useCurrentProjectId } from "@/renderer/hooks/uiSelectors";
 import { useAppStore } from "@/renderer/state/appStore";
 import { usePanelStore } from "@/renderer/state/panelStore";
 import { useSharedSettings } from "@/renderer/state/sharedSettingsStore";
+import type { SidebarShortcutId } from "@/shared/settings";
 
 export interface SidebarShortcutEntry {
-  id: "pullRequests" | "githubActions" | "schedules";
+  id: SidebarShortcutId;
   icon: ReactNode;
   label: string;
   isActive: boolean;
@@ -29,6 +30,7 @@ export function useSidebarShortcuts(): SidebarShortcutEntry[] {
   const openPullRequests = useAppStore((s) => s.openPullRequests);
   const openGitHubActions = useAppStore((s) => s.openGitHubActions);
   const openSchedules = useAppStore((s) => s.openSchedules);
+  const openContent = useAppStore((s) => s.openContent);
   const githubActionsOpen = usePanelStore((s) => s.githubActionsContext !== null);
 
   const sidebarShortcutsById = new Map<
@@ -60,6 +62,15 @@ export function useSidebarShortcuts(): SidebarShortcutEntry[] {
         icon: <CalendarClock className="size-4" />,
         label: t`Schedules`,
         onPress: () => startTransition(() => openSchedules()),
+      },
+    ],
+    [
+      "content",
+      {
+        id: "content",
+        icon: <KanbanSquare className="size-4" />,
+        label: t`Content`,
+        onPress: () => startTransition(() => openContent()),
       },
     ],
   ]);

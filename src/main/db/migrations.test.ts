@@ -46,8 +46,11 @@ describe("database migration registry", () => {
       [39, "adopt Antigravity ACP provider"],
       [40, "normalize Antigravity ACP model variants"],
       [41, "repair Antigravity persisted model variants"],
+      [42, "content cards"],
+      [43, "content card media"],
+      [44, "content card published_at"],
     ]);
-    expect(LATEST_SCHEMA_VERSION).toBe(41);
+    expect(LATEST_SCHEMA_VERSION).toBe(44);
     expect(() => validateMigrationRegistry()).not.toThrow();
   });
 

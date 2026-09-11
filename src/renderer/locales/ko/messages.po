@@ -1287,6 +1287,10 @@ msgstr "모든 에이전트 앱"
 msgid "All candidate sessions, worktrees, and branches will be removed."
 msgstr "모든 후보 세션, 작업 트리 및 브랜치가 제거됩니다."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "All channels"
+msgstr "모든 채널"
+
 #: src/renderer/views/ProfileOverlay/parts/ProfileHeader.tsx
 msgid "All devices"
 msgstr "모든 기기"
@@ -1490,6 +1494,7 @@ msgstr "승인됨"
 msgid "Approved"
 msgstr "승인됨"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarThreadRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
@@ -1606,6 +1611,10 @@ msgstr "첨부"
 #~ msgid "Attach files"
 #~ msgstr "파일 첨부"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Attach media"
+msgstr "미디어 첨부"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Attach to thread"
 msgstr "스레드에 연결"
@@ -1617,6 +1626,10 @@ msgstr "스레드에 연결"
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Attached browser selection."
 msgstr "브라우저 선택 항목을 첨부했습니다."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Attached media"
+msgstr "첨부된 미디어"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Attempt"
@@ -1986,6 +1999,15 @@ msgstr "차단됨:"
 msgid "Blue"
 msgstr "파랑"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Board"
+msgstr "보드"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Body"
+#~ msgstr "본문"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Bold"
 msgstr "굵게"
@@ -2184,6 +2206,10 @@ msgstr "기본 제공 서버는 Axe Code에서 관리합니다. 전역으로 비
 msgid "Built-in shortcut — can't be changed"
 msgstr "기본 제공 단축키 — 변경할 수 없습니다"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Bullet list"
+msgstr "글머리 목록"
+
 #: src/renderer/components/plugins/PluginMarketplace.tsx
 msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
 msgstr "지원되는 모든 에이전트에서 작동하는 스킬과 MCP 서버 번들입니다. Axe Code는 Agent Plugins 사양으로 만든 패키지를 모두 로드합니다."
@@ -2222,6 +2248,14 @@ msgstr "브랜치 보호 규칙 우회(관리자 병합)"
 msgid "Cached only"
 msgstr "캐시만 있음"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar"
+msgstr "캘린더"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar range"
+msgstr "캘린더 범위"
+
 #: src/mobile/QrScanner.tsx
 msgid "Camera access blocked"
 msgstr "카메라 접근이 차단됨"
@@ -2250,6 +2284,7 @@ msgstr "원격 서버에 연결할 수 없습니다. 온라인 상태인지 확�
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/structuredElicitation.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -2392,9 +2427,22 @@ msgid "Changes unavailable"
 msgstr "변경 사항을 확인할 수 없음"
 
 #. About page label: release channel (stable/nightly)
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Channel"
 msgstr "채널"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Channel agents draft posts onto this board on a daily schedule — you review, schedule, and publish them from here."
+#~ msgstr "채널 에이전트가 매일 일정에 따라 이 보드에 게시물 초안을 작성합니다. 여기에서 검토, 예약, 게시할 수 있습니다."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel agents draft posts onto this board on a daily schedule — you schedule and publish them from here."
+msgstr "채널 에이전트가 매일 일정에 따라 이 보드에 게시물 초안을 작성합니다. 여기에서 예약하고 게시할 수 있습니다."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel filter"
+msgstr "채널 필터"
 
 #: src/renderer/components/experiment/ExperimentDraftTargets.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/WorkflowOverlayBody.tsx
@@ -3448,6 +3496,24 @@ msgstr "콘솔"
 msgid "Contains sensitive values; add manually"
 msgstr "민감한 값이 포함되어 있습니다. 직접 추가하세요"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+msgid "Content"
+msgstr "콘텐츠"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Content body"
+msgstr "콘텐츠 본문"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Content card"
+#~ msgstr "콘텐츠 카드"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Content view"
+msgstr "콘텐츠 보기"
+
 #: src/mobile/ComposerInfoChips.tsx
 #: src/renderer/components/common/EffortContextMenu/EffortContextMenu.tsx
 #: src/renderer/components/thread/threadContextUsage.ts
@@ -4157,6 +4223,10 @@ msgstr "일일 브리핑"
 msgid "Dark"
 msgstr "다크"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Day"
+msgstr "날짜"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Days"
 #~ msgstr "요일"
@@ -4223,6 +4293,7 @@ msgstr "다른 AI 에이전트에게 작업을 위임합니다."
 #: src/renderer/components/skills/SkillsManager.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/FileChange.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/parts/TreeEntryRow.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoRow.tsx
@@ -4736,6 +4807,10 @@ msgstr "다운로드 중… {0}%"
 msgid "Draft"
 msgstr "초안"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Drafts"
+msgstr "초안"
+
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Drag to reorder how providers appear in the model picker."
@@ -4895,6 +4970,10 @@ msgstr "{modelName}의 추론 강도 단계"
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Electron"
 msgstr "Electron"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Empty"
+msgstr "비어 있음"
 
 #. placeholder {0}: server.name
 #. placeholder {0}: skill.name
@@ -5109,6 +5188,10 @@ msgstr "오류 · 에이전트에 오류가 발생했습니다."
 #: src/mobile/ComposerInfoChips.tsx
 msgid "Errors"
 msgstr "오류"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Evening"
+msgstr "저녁"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Event"
@@ -6151,6 +6234,10 @@ msgstr "보내지 않은 초안이 있습니다"
 msgid "Headers"
 msgstr "헤더"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Heading"
+msgstr "제목"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
 msgstr "일정 생성을 도와주세요. 누락된 세부 정보를 물어본 다음 Axe Code 일정 제어를 사용하여 만들어 주세요."
@@ -6434,6 +6521,10 @@ msgstr "개선됨"
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "In progress"
 msgstr "진행 중"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "In review"
+#~ msgstr "검토 중"
 
 #: src/mobile/QrScanner.tsx
 msgid "In-app camera scanning only works over HTTPS. Use your phone's camera app to scan the desktop QR code, or enter the endpoint and token below."
@@ -6746,6 +6837,7 @@ msgstr "중단됨"
 msgid "Interrupted: agent session ended before completion."
 msgstr "중단됨: 에이전트 세션이 완료되기 전에 종료되었습니다."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Italic"
 msgstr "이탤릭체"
@@ -6952,9 +7044,17 @@ msgstr "라이트"
 msgid "Lightcode data import is unavailable with a custom data folder."
 msgstr "사용자 지정 데이터 폴더에서는 Lightcode 데이터를 가져올 수 없습니다."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link"
+msgstr "링크"
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "소스에 연결"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link URL"
+msgstr "링크 URL"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
@@ -6976,6 +7076,11 @@ msgstr "패키지 나열"
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "List tasks"
 msgstr "작업 나열"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "live"
+msgstr "게시됨"
 
 #: src/mobile/remoteConnectionState.ts
 msgid "Live"
@@ -7005,6 +7110,10 @@ msgstr "로드 중"
 #: src/renderer/views/MainView/parts/CreateProject/CloneProjectModal.tsx
 msgid "Loading accounts…"
 msgstr "계정 로드 중…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Loading content"
+msgstr "콘텐츠 로드 중"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/parts/SingleFileDiff.tsx
 msgid "Loading diff..."
@@ -7346,6 +7455,10 @@ msgstr "완료로 표시"
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Mark done when the pull request merges"
 msgstr "풀 리퀘스트가 병합되면 완료로 표시"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Mark scheduled"
+#~ msgstr "예약됨으로 표시"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Marketplace"
@@ -7719,6 +7832,10 @@ msgstr "모델"
 msgid "Modes"
 msgstr "모드"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Month"
+msgstr "월"
+
 #: src/mobile/NarrowShell.tsx
 #: src/renderer/components/layout/UnifiedRightPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
@@ -7774,6 +7891,10 @@ msgstr "더 많은 동기화 옵션"
 #: src/renderer/components/providers/UsageOverflowChip.tsx
 msgid "More usage providers — open usage panel"
 msgstr "추가 사용량 공급자 — 사용량 패널 열기"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Morning"
+msgstr "아침"
 
 #: src/renderer/views/ProfileOverlay/parts/ActivityInsights.tsx
 msgid "Most active hour"
@@ -7984,6 +8105,10 @@ msgstr "새 작업 이름"
 msgid "New branch name..."
 msgstr "새 브랜치 이름..."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "New card"
+#~ msgstr "새 카드"
+
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
 msgid "New Claude profile config directory"
 msgstr "새로운 Claude 프로필 구성 디렉터리"
@@ -8049,6 +8174,11 @@ msgstr "새 모델"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "New phones, tablets, and browsers appear here after pairing."
 msgstr "새 휴대폰, 태블릿, 브라우저는 페어링 후 여기에 표시됩니다."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "New post"
+msgstr "새 게시물"
 
 #: src/renderer/views/SettingsOverlay/parts/AgentProfileList.tsx
 msgid "New profile name"
@@ -8139,6 +8269,10 @@ msgstr "새 작업 영역"
 msgid "New worktree"
 msgstr "새 작업 트리"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Next"
+msgstr "다음"
+
 #: src/renderer/commands/registry.ts
 msgid "Next chat"
 msgstr "다음 채팅"
@@ -8167,6 +8301,14 @@ msgstr "다음 실행: {0}"
 #: src/renderer/commands/registry.ts
 msgid "Next tab"
 msgstr "다음 탭"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Next week"
+#~ msgstr "다음 주"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Night"
+msgstr "밤"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "No active browser tab"
@@ -8228,6 +8370,10 @@ msgstr "아직 추적된 AI 커밋, PR, 충돌 해결이 없습니다."
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "No archived threads."
 msgstr "보관된 스레드가 없습니다."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "No body yet — press Edit to write the draft."
+#~ msgstr "아직 본문이 없습니다. 편집을 눌러 초안을 작성하세요."
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserBookmarkBar.tsx
 msgid "No bookmarks yet — add the current page with the star."
@@ -8645,6 +8791,10 @@ msgstr "없음"
 msgid "None of these agents can run the AI comparison."
 msgstr "이 에이전트 중 AI 비교를 실행할 수 있는 에이전트가 없습니다."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Noon"
+msgstr "정오"
+
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/GitDiffContent.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/GitReviewSidebar.tsx
 msgid "Not a git repository"
@@ -8735,6 +8885,10 @@ msgstr "나에게 알림"
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "npx"
 msgstr "npx"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Numbered list"
+msgstr "번호 목록"
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/SearchSection.tsx
 msgid "off"
@@ -9068,6 +9222,10 @@ msgstr "데스크톱의 Axe Code에서 설정 → 원격 액세스를 연 다음
 #: src/mobile/views/DesktopsView.tsx
 #~ msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
 #~ msgstr "데스크톱의 Poracode에서 설정 → 원격 액세스를 연 다음 여기에서 QR 코드를 스캔하세요. 또는 엔드포인트와 페어링 토큰을 직접 입력하세요."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Open source thread"
+msgstr "원본 스레드 열기"
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -9775,6 +9933,10 @@ msgstr "절전 모드 방지"
 msgid "Preview {0}"
 msgstr "미리보기 {0}"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Previous"
+msgstr "이전"
+
 #: src/renderer/commands/registry.ts
 msgid "Previous chat"
 msgstr "이전 채팅"
@@ -9807,6 +9969,10 @@ msgstr "이전 실행"
 #: src/renderer/commands/registry.ts
 msgid "Previous tab"
 msgstr "이전 탭"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Previous week"
+#~ msgstr "이전 주"
 
 #: src/mobile/views/MoreView.tsx
 msgid "Privacy Policy"
@@ -10037,6 +10203,54 @@ msgstr "공개 URL"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Public URL updated."
 msgstr "공개 URL이 업데이트되었습니다."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "로그인된 내 브라우저로 이 {0} 게시물을 게시해 주세요(연결된 경우 browseros-neo MCP 도구 사용, 아니면 사이트의 작성 페이지를 열어 붙여넣기).\n"
+#~ "\n"
+#~ "제목: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "게시 후 카드 {3}에서 status \"published\"와 게시물 URL을 publishUrl로 설정해 update_content_card를 호출하세요. 실패하면 publishError에 원인을 설정하세요."
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+"\n"
+"Title: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+msgstr "로그인된 내 브라우저로 이 {0} 게시물을 게시해 주세요(연결된 경우 browseros-neo MCP 도구 사용, 아니면 사이트의 작성 페이지를 열어 붙여넣기).\n"
+"\n"
+"제목: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"게시 후 카드 {3}에서 status \"published\"와 게시물 URL을 publishUrl로 설정해 update_content_card를 호출하세요. 실패하면 publishError에 원인을 설정하세요."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Publish with Browser"
+msgstr "브라우저로 게시"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Published"
+msgstr "게시됨"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/useWorktreeActions.ts
 msgid "Pull"
@@ -10614,6 +10828,10 @@ msgstr "그룹에서 제거"
 msgid "Remove from panel"
 msgstr "패널에서 제거"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Remove media"
+msgstr "미디어 제거"
+
 #. placeholder {0}: providerLabel(entry.agentKind)
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 msgid "Remove memory entry for {0}"
@@ -10925,6 +11143,10 @@ msgstr "복원 또는 삭제"
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Restore thread"
 msgstr "스레드 복원"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Restore to drafts"
+#~ msgstr "초안으로 복원"
 
 #: src/renderer/views/ExperimentView/ExperimentView.tsx
 msgid "Results"
@@ -11277,6 +11499,7 @@ msgstr "채도와 밝기"
 #: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -11375,6 +11598,14 @@ msgstr "설치된 CLI를 찾기 위해 Windows 및 WSL을 검색합니다. 이 �
 msgid "Scanning your system for installed CLIs. This usually takes a couple of seconds."
 msgstr "설치된 CLI를 찾기 위해 시스템을 검색합니다. 이 작업은 일반적으로 몇 초 정도 걸립니다."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Schedule"
+msgstr "예약"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Schedule for"
+#~ msgstr "예약 시간"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Schedule name"
 msgstr "일정 이름"
@@ -11382,6 +11613,14 @@ msgstr "일정 이름"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Schedule status"
 msgstr "일정 상태"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Schedule…"
+msgstr "예약…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Scheduled"
+msgstr "예약됨"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Scheduled tasks"
@@ -11394,6 +11633,11 @@ msgstr "이 데스크톱의 예약 작업"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Scheduled tasks run only while this device is awake and Poracode is open."
 #~ msgstr "예약 작업은 이 기기가 켜져 있고 Poracode가 열려 있을 때만 실행됩니다."
+
+#. placeholder {0}: new Date(card.scheduledFor).toLocaleString()
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Scheduled: {0}"
+msgstr "예약됨: {0}"
 
 #: src/mobile/settingsSections.ts
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
@@ -11483,6 +11727,10 @@ msgstr "에이전트 검색..."
 #: src/renderer/components/common/BranchSelector/BranchSelector.tsx
 msgid "Search branches..."
 msgstr "브랜치 검색..."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Search content"
+msgstr "콘텐츠 검색"
 
 #: src/mobile/views/FilesView.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/ProjectTreeView.tsx
@@ -11733,6 +11981,10 @@ msgstr "메시지 보내기"
 msgid "Send terminal input"
 msgstr "터미널에 입력 보내기"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Send to review"
+#~ msgstr "검토로 보내기"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Sent selection to terminal."
 msgstr "선택 항목을 터미널로 보냈습니다."
@@ -11785,6 +12037,18 @@ msgstr "실험 목표 설정 또는 보기"
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Set shortcut"
 msgstr "단축키 설정"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "내 마케팅 작업 공간을 설정해 주세요: 이 프로젝트에 product-info.md, brand-voice.md, content-strategy.md가 포함된 marketing/ 폴더를 만들고(먼저 기본 정보를 물어봐 주세요), 그런 다음 각 채널 에이전트(writer, seo, x, linkedin)용으로 하루 1회씩 총 4개의 일정을 만들어 주세요. 이 문서들을 읽고 create_content_card로 내 콘텐츠 보드에 게시물 초안을 작성하도록요."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up with agent"
+msgstr "에이전트로 설정"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up your marketing workspace"
+msgstr "마케팅 작업 공간 설정"
 
 #: src/renderer/components/composer/ComposerMcpServersMenu.tsx
 msgid "Set when this session started — start a new thread to change MCP servers"
@@ -12622,6 +12886,10 @@ msgstr "이 기기에 저장되며 데스크톱은 자체 값을 유지합니다
 #: src/mobile/views/MoreView.tsx
 #~ msgid "Stored on this phone; the desktop keeps its own values."
 #~ msgstr "이 휴대폰에 저장됩니다. 데스크톱은 자체 값을 유지합니다."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Strikethrough"
+msgstr "취소선"
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 msgid "Structured runtime"
@@ -13503,6 +13771,10 @@ msgstr "이 스레드는 컨텍스트를 전달하지 않고 포크되었습니�
 #~ msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
 #~ msgstr "이 스레드는 컨텍스트를 전달하지 않고 포크되었습니다. {agent}이(가) Poracode의 read_thread 도구 없이 시작되어 원본 대화를 읽을 수 없습니다. app-controls MCP 도구를 다시 활성화하거나 필요한 내용을 요약해 주세요."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "This week"
+#~ msgstr "이번 주"
+
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
 #~ msgstr "스레드와 해당 워크트리가 영구적으로 삭제됩니다."
@@ -13630,14 +13902,23 @@ msgstr "스레드 할 일 도크"
 msgid "Threads"
 msgstr "스레드"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "threads for longer"
+msgstr "긴 내용은 스레드로"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Threads marked done that have not been touched for this many days are archived automatically on app launch. Set to 0 to disable."
 msgstr "완료로 표시된 스레드 중 며칠 동안 건드리지 않은 스레드는 앱 실행 시 자동으로 보관됩니다. 비활성화하려면 0으로 설정합니다."
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Time"
 msgstr "시간"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Time zone"
+msgstr "시간대"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "Timed out"
@@ -13659,6 +13940,10 @@ msgstr "제한 시간(ms)"
 msgid "Timeout must be a positive whole number."
 msgstr "제한 시간은 양의 정수여야 합니다."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Title"
+msgstr "제목"
+
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Title Generation"
@@ -13672,6 +13957,10 @@ msgstr "제목, 커밋 및 충돌 모델"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoList.tsx
 msgid "To-dos"
 msgstr "할 일"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Today"
+msgstr "오늘"
 
 #: src/renderer/commands/registry.ts
 msgid "Toggle browser panel"
@@ -14310,6 +14599,10 @@ msgstr "스테이징되지 않음"
 msgid "Unsupported"
 msgstr "지원되지 않음"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Untitled"
+msgstr "제목 없음"
+
 #: src/mobile/views/HostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 msgid "Up one level"
@@ -14674,6 +14967,14 @@ msgstr "버전"
 msgid "via {0}"
 msgstr "{0}을(를) 통해"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title"
+msgstr "동영상 제목"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title and description…"
+msgstr "동영상 제목과 설명…"
+
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "View"
@@ -14870,6 +15171,10 @@ msgstr "웹 서버"
 msgid "Website"
 msgstr "웹사이트"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Week"
+msgstr "주"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Weekdays"
 msgstr "평일"
@@ -14893,6 +15198,10 @@ msgstr "주간 검토"
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 #~ msgid "What Crossagents learned from explicit selections. Edit the tags or remove entries to reshape routing."
 #~ msgstr "Crossagents가 명시적 선택에서 학습한 내용입니다. 태그를 편집하거나 항목을 삭제하여 라우팅을 다시 구성하세요."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "What do you want to post?"
+msgstr "무엇을 게시할까요?"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "What should the agent do?"
@@ -15226,6 +15535,14 @@ msgstr "댓글을 쓰세요…"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Write notes for this project…"
 msgstr "이 프로젝트에 대한 메모를 작성하세요…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Write the article…"
+msgstr "기사 작성…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Write the content…"
+#~ msgstr "콘텐츠 작성…"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

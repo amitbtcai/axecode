@@ -13,6 +13,7 @@ describe("shared settings defaults", () => {
       "schedules",
       "pullRequests",
       "githubActions",
+      "content",
     ]);
   });
 

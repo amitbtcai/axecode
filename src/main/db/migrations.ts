@@ -606,6 +606,50 @@ export const DATABASE_MIGRATIONS = [
     // profiles that already recorded schema 39 in a dev or nightly build.
     migrate: normalizeAntigravityAcpConfigs,
   },
+  {
+    // Fork-owned (Axe Code): marketing content pipeline kanban store.
+    version: 42,
+    name: "content cards",
+    migrate: (sqlite) =>
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS content_cards (
+          id TEXT PRIMARY KEY,
+          project_id TEXT REFERENCES projects(id) ON DELETE CASCADE,
+          channel TEXT NOT NULL,
+          title TEXT NOT NULL,
+          body TEXT NOT NULL DEFAULT '',
+          status TEXT NOT NULL DEFAULT 'draft',
+          scheduled_for TEXT,
+          publish_url TEXT,
+          publish_error TEXT,
+          source_thread_id TEXT,
+          source_run_id TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_content_cards_status
+          ON content_cards (status, updated_at DESC);
+        CREATE INDEX IF NOT EXISTS idx_content_cards_scheduled
+          ON content_cards (scheduled_for);
+      `),
+  },
+  {
+    // Fork-owned (Axe Code): rich editor doc + local media attachments on cards.
+    version: 43,
+    name: "content card media",
+    migrate: (sqlite) => {
+      addColumnIfMissing(sqlite, "content_cards", "media", "TEXT NOT NULL DEFAULT '[]'");
+      addColumnIfMissing(sqlite, "content_cards", "body_doc", "TEXT");
+    },
+  },
+  {
+    // Fork-owned (Axe Code): publish timestamp so posted cards render on the calendar.
+    version: 44,
+    name: "content card published_at",
+    migrate: (sqlite) => {
+      addColumnIfMissing(sqlite, "content_cards", "published_at", "TEXT");
+    },
+  },
 ] as const satisfies readonly DatabaseMigration[];
 
 export const LATEST_SCHEMA_VERSION = DATABASE_MIGRATIONS[DATABASE_MIGRATIONS.length - 1]!.version;

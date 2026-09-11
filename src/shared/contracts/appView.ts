@@ -4,6 +4,7 @@ export type AppView =
   | { kind: "home" }
   | { kind: "pullRequests" }
   | { kind: "schedules" }
+  | { kind: "content" }
   | { kind: "draft"; projectId: string }
   | { kind: "experiment"; experimentId: string; projectId: string }
   | {

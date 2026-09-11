@@ -1,6 +1,6 @@
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { rm } from "node:fs/promises";
-import { join, normalize, resolve } from "node:path";
+import { extname, join, normalize, resolve } from "node:path";
 import { net, protocol } from "electron";
 import type { ProjectLocation } from "@/shared/contracts";
 import type { PoracodePaths } from "@/shared/poracodePaths";
@@ -56,6 +56,35 @@ export function saveHandoffContextFile(
   const stamp = new Date().toISOString().replace(/[:.]/g, "-");
   const filePath = join(threadDir, `handoff-context-${stamp}.md`);
   writeFileSync(filePath, payload.content, "utf-8");
+  return filePath;
+}
+
+/**
+ * Fork-owned (Axe Code): persist a Content-board media file under the data
+ * root's attachments dir. Media stays fully on-device; the returned absolute
+ * path is renderable via `toLocalFileUrl`.
+ */
+export function saveContentCardMediaFile(
+  paths: PoracodePaths,
+  payload: { cardId: string; fileName: string; data: Uint8Array },
+): string {
+  const dir = join(paths.attachmentsDir, `content-${sanitizeAttachmentPathPart(payload.cardId)}`);
+  mkdirSync(dir, { recursive: true });
+  const safeName =
+    Array.from(sanitizeAttachmentPathPart(payload.fileName))
+      .map((c) => (c.charCodeAt(0) < 32 ? "-" : c))
+      .join("")
+      .replace(/[. ]+$/g, "")
+      .slice(0, 160) || "media";
+  let filePath = join(dir, safeName);
+  let suffix = 2;
+  while (existsSync(filePath)) {
+    const ext = extname(safeName);
+    const stem = safeName.slice(0, safeName.length - ext.length);
+    filePath = join(dir, `${stem}-${suffix}${ext}`);
+    suffix += 1;
+  }
+  writeFileSync(filePath, payload.data);
   return filePath;
 }
 

@@ -55,6 +55,7 @@ export interface ViewSlice {
   openPullRequests: () => void;
   openGitHubActions: (projectId?: string, runId?: number) => void;
   openSchedules: () => void;
+  openContent: () => void;
   openExperiment: (experimentId: string, projectId: string) => void;
   openThread: (threadId: string) => void;
   openThreadStandalone: (threadId: string) => void;
@@ -170,6 +171,7 @@ export const createViewSlice: SliceCreator<ViewSlice> = (set) => ({
       ...(runId ? { runId } : {}),
     }),
   openSchedules: () => set({ view: { kind: "schedules" } }),
+  openContent: () => set({ view: { kind: "content" } }),
   openExperiment: (experimentId, projectId) =>
     set((state) => ({
       ...(state.view.kind === "thread" && state.view.activeGroupId

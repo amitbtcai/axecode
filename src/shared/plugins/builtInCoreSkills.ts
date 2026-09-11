@@ -2,6 +2,7 @@ import appControls from "../../../resources/plugins/app-controls/plugin.json";
 import browserTools from "../../../resources/plugins/browser-tools/plugin.json";
 import chromeTools from "../../../resources/plugins/chrome-tools/plugin.json";
 import computerUse from "../../../resources/plugins/computer-use/plugin.json";
+import contentMarketing from "../../../resources/plugins/content-marketing/plugin.json";
 import github from "../../../resources/plugins/github/plugin.json";
 import outlook from "../../../resources/plugins/outlook/plugin.json";
 import subagentDelegation from "../../../resources/plugins/subagent-delegation/plugin.json";
@@ -18,6 +19,7 @@ export const BUNDLED_PLUGIN_MANIFESTS = [
   browserTools,
   chromeTools,
   computerUse,
+  contentMarketing,
   github,
   outlook,
   subagentDelegation,

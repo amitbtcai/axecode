@@ -11,6 +11,7 @@ import { pluginProcedures } from "./procedures/plugins";
 import { profileProcedures } from "./procedures/profile";
 import { prWatchProcedures } from "./procedures/prWatches";
 import { scheduleProcedures } from "./procedures/schedules";
+import { contentCardProcedures } from "./procedures/contentCards";
 import { skillProcedures } from "./procedures/skills";
 import { projectTreeProcedures } from "./procedures/projectTree";
 import { settingsProcedures } from "./procedures/settings";
@@ -40,6 +41,7 @@ export const groupedIpcProcedures = {
   prWatches: prWatchProcedures,
   skills: skillProcedures,
   plugins: pluginProcedures,
+  contentCards: contentCardProcedures,
 } as const;
 
 export const ipcProcedureMap = {
@@ -63,6 +65,7 @@ export const ipcProcedureMap = {
   ...prWatchProcedures,
   ...skillProcedures,
   ...pluginProcedures,
+  ...contentCardProcedures,
 } as const;
 
 export type IpcProcedureMap = typeof ipcProcedureMap;
@@ -197,6 +200,11 @@ export const MAIN_LOCAL_PROCEDURE_NAMES = [
   "deleteSchedule",
   "runScheduleNow",
   "getScheduleRuns",
+  "getContentCards",
+  "createContentCard",
+  "updateContentCard",
+  "deleteContentCard",
+  "saveContentCardMedia",
   "openPluginsFolder",
   "getPrWatch",
   "checkPrWatch",

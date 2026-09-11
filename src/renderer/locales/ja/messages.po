@@ -1286,6 +1286,10 @@ msgstr "すべてのエージェントアプリ"
 msgid "All candidate sessions, worktrees, and branches will be removed."
 msgstr "すべての候補のセッション、ワークツリー、ブランチが削除されます。"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "All channels"
+msgstr "すべてのチャンネル"
+
 #: src/renderer/views/ProfileOverlay/parts/ProfileHeader.tsx
 msgid "All devices"
 msgstr "すべてのデバイス"
@@ -1489,6 +1493,7 @@ msgstr "承認された"
 msgid "Approved"
 msgstr "承認済み"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarThreadRow.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
@@ -1605,6 +1610,10 @@ msgstr "添付する"
 #~ msgid "Attach files"
 #~ msgstr "ファイルを添付する"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Attach media"
+msgstr "メディアを添付"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Attach to thread"
 msgstr "スレッドに添付"
@@ -1616,6 +1625,10 @@ msgstr "スレッドに添付"
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Attached browser selection."
 msgstr "ブラウザの選択範囲を添付しました。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Attached media"
+msgstr "添付メディア"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Attempt"
@@ -1985,6 +1998,15 @@ msgstr "ブロックされました:"
 msgid "Blue"
 msgstr "ブルー"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Board"
+msgstr "ボード"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Body"
+#~ msgstr "本文"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Bold"
 msgstr "太字"
@@ -2183,6 +2205,10 @@ msgstr "組み込みサーバーはAxe Codeによって管理されます。グ�
 msgid "Built-in shortcut — can't be changed"
 msgstr "組み込みのショートカット — 変更できません"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Bullet list"
+msgstr "箇条書き"
+
 #: src/renderer/components/plugins/PluginMarketplace.tsx
 msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
 msgstr "サポートされているすべてのエージェントで動作するスキルとMCPサーバーのバンドルです。Axe Code は Agent Plugins 仕様に基づくパッケージをすべて読み込みます。"
@@ -2221,6 +2247,14 @@ msgstr "ブランチ保護ルールをバイパスする (管理マージ)"
 msgid "Cached only"
 msgstr "キャッシュのみ"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar"
+msgstr "カレンダー"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Calendar range"
+msgstr "カレンダー範囲"
+
 #: src/mobile/QrScanner.tsx
 msgid "Camera access blocked"
 msgstr "カメラアクセスがブロックされています"
@@ -2249,6 +2283,7 @@ msgstr "リモートサーバーに接続できません。オンラインであ
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/structuredElicitation.tsx
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -2391,9 +2426,22 @@ msgid "Changes unavailable"
 msgstr "変更を取得できません"
 
 #. About page label: release channel (stable/nightly)
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Channel"
 msgstr "チャンネル"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Channel agents draft posts onto this board on a daily schedule — you review, schedule, and publish them from here."
+#~ msgstr "チャンネルエージェントが毎日のスケジュールでこのボードに投稿を下書きします。ここで確認・スケジュール・公開できます。"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel agents draft posts onto this board on a daily schedule — you schedule and publish them from here."
+msgstr "チャンネルエージェントが毎日のスケジュールでこのボードに投稿を下書きします。ここでスケジュールと公開ができます。"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Channel filter"
+msgstr "チャンネルフィルター"
 
 #: src/renderer/components/experiment/ExperimentDraftTargets.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/WorkflowOverlayBody.tsx
@@ -3447,6 +3495,24 @@ msgstr "コンソール"
 msgid "Contains sensitive values; add manually"
 msgstr "機密値が含まれています。手動で追加してください"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+msgid "Content"
+msgstr "コンテンツ"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Content body"
+msgstr "コンテンツ本文"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Content card"
+#~ msgstr "コンテンツカード"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Content view"
+msgstr "コンテンツ表示"
+
 #: src/mobile/ComposerInfoChips.tsx
 #: src/renderer/components/common/EffortContextMenu/EffortContextMenu.tsx
 #: src/renderer/components/thread/threadContextUsage.ts
@@ -4156,6 +4222,10 @@ msgstr "デイリーブリーフ"
 msgid "Dark"
 msgstr "ダーク"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Day"
+msgstr "日"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Days"
 #~ msgstr "曜日"
@@ -4222,6 +4292,7 @@ msgstr "他の AI エージェントに作業を委任します。"
 #: src/renderer/components/skills/SkillsManager.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/FileChange.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/parts/TreeEntryRow.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoRow.tsx
@@ -4735,6 +4806,10 @@ msgstr "ダウンロード中… {0}%"
 msgid "Draft"
 msgstr "草案"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Drafts"
+msgstr "下書き"
+
 #: src/renderer/views/SettingsOverlay/parts/ModelOrderSection.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Drag to reorder how providers appear in the model picker."
@@ -4894,6 +4969,10 @@ msgstr "{modelName} の推論レベル"
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "Electron"
 msgstr "Electron"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Empty"
+msgstr "空"
 
 #. placeholder {0}: server.name
 #. placeholder {0}: skill.name
@@ -5108,6 +5187,10 @@ msgstr "エラー · エージェントでエラーが発生しました"
 #: src/mobile/ComposerInfoChips.tsx
 msgid "Errors"
 msgstr "エラー"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Evening"
+msgstr "夕方"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunDetail.tsx
 msgid "Event"
@@ -6150,6 +6233,10 @@ msgstr "未送信の下書きがあります"
 msgid "Headers"
 msgstr "ヘッダー"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Heading"
+msgstr "見出し"
+
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
 msgstr "スケジュール作成を手伝ってください。不足している詳細を確認し、Axe Codeのスケジュール操作を使って作成してください。"
@@ -6433,6 +6520,10 @@ msgstr "改善"
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "In progress"
 msgstr "実行中"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "In review"
+#~ msgstr "レビュー中"
 
 #: src/mobile/QrScanner.tsx
 msgid "In-app camera scanning only works over HTTPS. Use your phone's camera app to scan the desktop QR code, or enter the endpoint and token below."
@@ -6745,6 +6836,7 @@ msgstr "中断"
 msgid "Interrupted: agent session ended before completion."
 msgstr "中断されました: エージェントセッションが完了前に終了しました。"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Italic"
 msgstr "イタリック体"
@@ -6951,9 +7043,17 @@ msgstr "ライト"
 msgid "Lightcode data import is unavailable with a custom data folder."
 msgstr "カスタムデータフォルダーでは Lightcode データをインポートできません。"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link"
+msgstr "リンク"
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "ソースにリンク"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Link URL"
+msgstr "リンクURL"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
@@ -6975,6 +7075,11 @@ msgstr "パッケージを一覧表示"
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "List tasks"
 msgstr "タスクを一覧表示"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "live"
+msgstr "公開中"
 
 #: src/mobile/remoteConnectionState.ts
 msgid "Live"
@@ -7004,6 +7109,10 @@ msgstr "読み込み中"
 #: src/renderer/views/MainView/parts/CreateProject/CloneProjectModal.tsx
 msgid "Loading accounts…"
 msgstr "アカウントを読み込み中…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Loading content"
+msgstr "コンテンツを読み込み中"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/parts/SingleFileDiff.tsx
 msgid "Loading diff..."
@@ -7345,6 +7454,10 @@ msgstr "完了マークを付ける"
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Mark done when the pull request merges"
 msgstr "プルリクエストがマージされたら完了にする"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Mark scheduled"
+#~ msgstr "スケジュール済みにする"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Marketplace"
@@ -7717,6 +7830,10 @@ msgstr "モデル"
 msgid "Modes"
 msgstr "モード"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Month"
+msgstr "月"
+
 #: src/mobile/NarrowShell.tsx
 #: src/renderer/components/layout/UnifiedRightPanel.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
@@ -7772,6 +7889,10 @@ msgstr "その他の同期オプション"
 #: src/renderer/components/providers/UsageOverflowChip.tsx
 msgid "More usage providers — open usage panel"
 msgstr "その他の使用量プロバイダー — 使用量パネルを開く"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Morning"
+msgstr "朝"
 
 #: src/renderer/views/ProfileOverlay/parts/ActivityInsights.tsx
 msgid "Most active hour"
@@ -7982,6 +8103,10 @@ msgstr "新しいアクション名"
 msgid "New branch name..."
 msgstr "新しいブランチ名..."
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "New card"
+#~ msgstr "新しいカード"
+
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
 msgid "New Claude profile config directory"
 msgstr "新しい Claude プロファイル設定ディレクトリ"
@@ -8047,6 +8172,11 @@ msgstr "新しいモデル"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "New phones, tablets, and browsers appear here after pairing."
 msgstr "新しい電話、タブレット、ブラウザーはペアリング後にここに表示されます。"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "New post"
+msgstr "新しい投稿"
 
 #: src/renderer/views/SettingsOverlay/parts/AgentProfileList.tsx
 msgid "New profile name"
@@ -8137,6 +8267,10 @@ msgstr "新しいワークスペース"
 msgid "New worktree"
 msgstr "新しいワークツリー"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Next"
+msgstr "次へ"
+
 #: src/renderer/commands/registry.ts
 msgid "Next chat"
 msgstr "次のチャット"
@@ -8165,6 +8299,14 @@ msgstr "次回の実行: {0}"
 #: src/renderer/commands/registry.ts
 msgid "Next tab"
 msgstr "次のタブ"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Next week"
+#~ msgstr "来週"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Night"
+msgstr "夜"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "No active browser tab"
@@ -8226,6 +8368,10 @@ msgstr "AIによるコミット、PR、競合解決はまだ記録されてい�
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "No archived threads."
 msgstr "アーカイブされたスレッドはありません。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "No body yet — press Edit to write the draft."
+#~ msgstr "本文はまだありません。編集を押して下書きを作成してください。"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserBookmarkBar.tsx
 msgid "No bookmarks yet — add the current page with the star."
@@ -8643,6 +8789,10 @@ msgstr "なし"
 msgid "None of these agents can run the AI comparison."
 msgstr "これらのエージェントはいずれも AI 比較を実行できません。"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Noon"
+msgstr "昼"
+
 #: src/renderer/views/GitReviewOverlay/parts/GitDiffContent/GitDiffContent.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/GitReviewSidebar.tsx
 msgid "Not a git repository"
@@ -8733,6 +8883,10 @@ msgstr "通知する対象"
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "npx"
 msgstr "npx"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Numbered list"
+msgstr "番号付きリスト"
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/SearchSection.tsx
 msgid "off"
@@ -9066,6 +9220,10 @@ msgstr "デスクトップの Axe Code で「設定 → リモートアクセス
 #: src/mobile/views/DesktopsView.tsx
 #~ msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
 #~ msgstr "デスクトップの Poracode で「設定 → リモートアクセス」を開き、ここから QR コードをスキャンしてください。または、エンドポイントとペアリングトークンを手動で入力します。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Open source thread"
+msgstr "元のスレッドを開く"
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -9773,6 +9931,10 @@ msgstr "スリープを防止"
 msgid "Preview {0}"
 msgstr "{0}をプレビューする"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Previous"
+msgstr "前へ"
+
 #: src/renderer/commands/registry.ts
 msgid "Previous chat"
 msgstr "前のチャット"
@@ -9805,6 +9967,10 @@ msgstr "過去の実行"
 #: src/renderer/commands/registry.ts
 msgid "Previous tab"
 msgstr "前のタブ"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Previous week"
+#~ msgstr "先週"
 
 #: src/mobile/views/MoreView.tsx
 msgid "Privacy Policy"
@@ -10035,6 +10201,54 @@ msgstr "公開URL"
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Public URL updated."
 msgstr "公開URLを更新しました。"
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "この {0} 投稿を、ログイン済みのブラウザを使って公開してください（接続されていれば browseros-neo の MCP ツールを使用。なければサイトの作成ページを開いて貼り付けてください）。\n"
+#~ "\n"
+#~ "タイトル: {1}\n"
+#~ "\n"
+#~ "{2}\n"
+#~ "\n"
+#~ "投稿後、カード {3} に対して status \"published\" と投稿の URL を publishUrl に設定して update_content_card を呼び出してください。失敗した場合は publishError に原因を設定してください。"
+
+#. placeholder {0}: CHANNEL_LABELS[card.channel]
+#. placeholder {1}: card.title
+#. placeholder {2}: card.body
+#. placeholder {3}: card.id
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+"\n"
+"Title: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+msgstr "この {0} 投稿を、ログイン済みのブラウザを使って公開してください（接続されていれば browseros-neo の MCP ツールを使用。なければサイトの作成ページを開いて貼り付けてください）。\n"
+"\n"
+"タイトル: {1}\n"
+"\n"
+"{2}{mediaLines}\n"
+"\n"
+"投稿後、カード {3} に対して status \"published\" と投稿の URL を publishUrl に設定して update_content_card を呼び出してください。失敗した場合は publishError に原因を設定してください。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Publish with Browser"
+msgstr "ブラウザで公開"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Published"
+msgstr "公開済み"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/useWorktreeActions.ts
 msgid "Pull"
@@ -10612,6 +10826,10 @@ msgstr "グループから削除"
 msgid "Remove from panel"
 msgstr "パネルから削除"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Remove media"
+msgstr "メディアを削除"
+
 #. placeholder {0}: providerLabel(entry.agentKind)
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 msgid "Remove memory entry for {0}"
@@ -10923,6 +11141,10 @@ msgstr "復元または削除"
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Restore thread"
 msgstr "スレッドを復元する"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Restore to drafts"
+#~ msgstr "下書きに戻す"
 
 #: src/renderer/views/ExperimentView/ExperimentView.tsx
 msgid "Results"
@@ -11275,6 +11497,7 @@ msgstr "彩度と明度"
 #: src/renderer/components/thread/ThreadFollowUpEditor.tsx
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -11373,6 +11596,14 @@ msgstr "Windows と WSL をスキャンして、インストールされてい�
 msgid "Scanning your system for installed CLIs. This usually takes a couple of seconds."
 msgstr "システムをスキャンして、インストールされている CLI を探します。通常、これには数秒かかります。"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Schedule"
+msgstr "スケジュール"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Schedule for"
+#~ msgstr "公開予定"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Schedule name"
 msgstr "スケジュール名"
@@ -11380,6 +11611,14 @@ msgstr "スケジュール名"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Schedule status"
 msgstr "スケジュールの状態"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Schedule…"
+msgstr "スケジュール…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Scheduled"
+msgstr "スケジュール済み"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 msgid "Scheduled tasks"
@@ -11392,6 +11631,11 @@ msgstr "このデスクトップのスケジュールタスク"
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "Scheduled tasks run only while this device is awake and Poracode is open."
 #~ msgstr "スケジュールタスクは、このデバイスが起動中でPoracodeが開いている間のみ実行されます。"
+
+#. placeholder {0}: new Date(card.scheduledFor).toLocaleString()
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Scheduled: {0}"
+msgstr "スケジュール: {0}"
 
 #: src/mobile/settingsSections.ts
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
@@ -11481,6 +11725,10 @@ msgstr "エージェントを検索..."
 #: src/renderer/components/common/BranchSelector/BranchSelector.tsx
 msgid "Search branches..."
 msgstr "ブランチを検索..."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Search content"
+msgstr "コンテンツを検索"
 
 #: src/mobile/views/FilesView.tsx
 #: src/renderer/views/FileEditorOverlay/parts/ProjectTreeView/ProjectTreeView.tsx
@@ -11731,6 +11979,10 @@ msgstr "メッセージを送信する"
 msgid "Send terminal input"
 msgstr "ターミナルに入力を送信"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Send to review"
+#~ msgstr "レビューに送る"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/hooks/useElementPicker.ts
 msgid "Sent selection to terminal."
 msgstr "選択内容を端末に送信しました。"
@@ -11783,6 +12035,18 @@ msgstr "実験目標を設定または表示する"
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Set shortcut"
 msgstr "ショートカットを設定"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "マーケティングワークスペースをセットアップして：このプロジェクトに marketing/ フォルダを作成し、product-info.md、brand-voice.md、content-strategy.md を作って（まず基本事項を聞いて）。それから4つのデイリースケジュールを作成して — 各チャンネルエージェント（writer、seo、x、linkedin）用に1つずつ — これらのドキュメントを読み、create_content_card を使ってコンテンツボードに投稿を下書きするように。"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up with agent"
+msgstr "エージェントでセットアップ"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up your marketing workspace"
+msgstr "マーケティングワークスペースをセットアップ"
 
 #: src/renderer/components/composer/ComposerMcpServersMenu.tsx
 msgid "Set when this session started — start a new thread to change MCP servers"
@@ -12620,6 +12884,10 @@ msgstr "このデバイスに保存されます。デスクトップ側の値は
 #: src/mobile/views/MoreView.tsx
 #~ msgid "Stored on this phone; the desktop keeps its own values."
 #~ msgstr "このスマートフォンに保存されます。デスクトップ側は独自の値を保持します。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Strikethrough"
+msgstr "取り消し線"
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 msgid "Structured runtime"
@@ -13501,6 +13769,10 @@ msgstr "このスレッドはコンテキストを引き継がずにフォーク
 #~ msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
 #~ msgstr "このスレッドはコンテキストを引き継がずにフォークされました。{agent} は Poracode の read_thread ツールなしで起動したため、元の会話を読み取れません。app-controls の MCP ツールを再度有効にするか、必要な内容を要約してください。"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#~ msgid "This week"
+#~ msgstr "今週"
+
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
 #~ msgstr "スレッドとそのワークツリーを完全に削除します。"
@@ -13628,14 +13900,23 @@ msgstr "スレッドのやることドック"
 msgid "Threads"
 msgstr "スレッド"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "threads for longer"
+msgstr "長文はスレッドで"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
 msgid "Threads marked done that have not been touched for this many days are archived automatically on app launch. Set to 0 to disable."
 msgstr "完了とマークされ、この日数タッチされていないスレッドは、アプリの起動時に自動的にアーカイブされます。無効にするには 0 に設定します。"
 
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Time"
 msgstr "時刻"
+
+#: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+msgid "Time zone"
+msgstr "タイムゾーン"
 
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 msgid "Timed out"
@@ -13657,6 +13938,10 @@ msgstr "タイムアウト（ms）"
 msgid "Timeout must be a positive whole number."
 msgstr "タイムアウトは正の整数である必要があります。"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Title"
+msgstr "タイトル"
+
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Title Generation"
@@ -13670,6 +13955,10 @@ msgstr "タイトル、コミット、競合用モデル"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/TodoList.tsx
 msgid "To-dos"
 msgstr "やるべきこと"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Today"
+msgstr "今日"
 
 #: src/renderer/commands/registry.ts
 msgid "Toggle browser panel"
@@ -14308,6 +14597,10 @@ msgstr "未ステージ"
 msgid "Unsupported"
 msgstr "サポートされていません"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Untitled"
+msgstr "無題"
+
 #: src/mobile/views/HostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 msgid "Up one level"
@@ -14672,6 +14965,14 @@ msgstr "バージョン"
 msgid "via {0}"
 msgstr "{0}経由"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title"
+msgstr "動画タイトル"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Video title and description…"
+msgstr "動画のタイトルと説明…"
+
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
 msgid "View"
@@ -14868,6 +15169,10 @@ msgstr "Webサーバー"
 msgid "Website"
 msgstr "ウェブサイト"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Week"
+msgstr "週"
+
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Weekdays"
 msgstr "平日"
@@ -14891,6 +15196,10 @@ msgstr "週次レビュー"
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentMemorySection.tsx
 #~ msgid "What Crossagents learned from explicit selections. Edit the tags or remove entries to reshape routing."
 #~ msgstr "Crossagents が明示的な選択から学習した内容です。タグを編集するかエントリを削除して、ルーティングを再形成します。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "What do you want to post?"
+msgstr "何を投稿しますか？"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
 #~ msgid "What should the agent do?"
@@ -15224,6 +15533,14 @@ msgstr "コメントを書いて…"
 #: src/renderer/views/MainView/parts/RightPanel/parts/NotesPanel/NotesEditor.tsx
 msgid "Write notes for this project…"
 msgstr "このプロジェクトのメモを書いてください…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Write the article…"
+msgstr "記事を書く…"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#~ msgid "Write the content…"
+#~ msgstr "コンテンツを書く…"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

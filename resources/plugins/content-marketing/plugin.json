@@ -1,0 +1,48 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "content-marketing",
+  "version": "1.0.0",
+  "description": "AI CMO channel agents — draft articles, SEO posts, X posts, and LinkedIn posts onto the Content board.",
+  "author": { "name": "Axe Code", "url": "https://axeai.com/code" },
+  "license": "MIT",
+  "keywords": ["marketing", "content", "seo", "social media", "cmo"],
+  "extensions": {
+    "com.poracode.client": {
+      "title": "Content Marketing",
+      "category": "productivity",
+      "featured": true,
+      "coreSkill": "content-marketing",
+      "examplePrompt": "Draft a week of posts onto my Content board",
+      "skills": {
+        "content-marketing": {
+          "name": "Content Marketing",
+          "description": "Read the workspace's strategy docs and coordinate channel agents onto the Content board."
+        },
+        "content-writer": {
+          "name": "Content Writer",
+          "description": "Draft long-form articles and blog posts onto the Content board."
+        },
+        "content-seo": {
+          "name": "SEO",
+          "description": "Draft keyword-targeted posts and briefs onto the Content board."
+        },
+        "content-x": {
+          "name": "X",
+          "description": "Draft X posts and threads onto the Content board."
+        },
+        "content-linkedin": {
+          "name": "LinkedIn",
+          "description": "Draft LinkedIn posts onto the Content board."
+        },
+        "content-facebook": {
+          "name": "Facebook",
+          "description": "Draft Facebook posts onto the Content board."
+        },
+        "content-youtube": {
+          "name": "YouTube",
+          "description": "Draft YouTube video titles, descriptions, and scripts onto the Content board."
+        }
+      }
+    }
+  }
+}

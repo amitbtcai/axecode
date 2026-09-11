@@ -13,9 +13,12 @@ import type { BrowserPanelManager } from "../browser";
 import { openMicrophoneSettings } from "../browser/permissions";
 import {
   dbAppendUsageEvents,
+  dbCreateContentCard,
+  dbDeleteContentCard,
   dbDeleteProject,
   dbDeleteThread,
   dbGetProjectNotes,
+  dbGetContentCards,
   dbGetProjects,
   dbGetState,
   dbGetThreadCompletedTurns,
@@ -33,6 +36,7 @@ import {
   dbSetProjectNotes,
   dbSetState,
   dbSyncAll,
+  dbUpdateContentCard,
   dbUpsertProject,
   dbUpsertThread,
 } from "../db";
@@ -42,6 +46,7 @@ import {
   readLocalImageFile,
   resolveProjectFsPath,
   saveClipboardImageFile,
+  saveContentCardMediaFile,
   saveHandoffContextFile,
   writeImageFile,
 } from "../attachments/localFiles";
@@ -557,6 +562,34 @@ export function createLocalIpcHandlers(
     deleteSchedule: ({ id }) => options.scheduleService.delete(id),
     runScheduleNow: ({ id }) => options.scheduleService.runNow(id),
     getScheduleRuns: ({ id }) => dbListScheduleRuns(id),
+    getContentCards: (filter) =>
+      dbGetContentCards({
+        ...(filter.status !== undefined ? { status: filter.status } : {}),
+        ...(filter.channel !== undefined ? { channel: filter.channel } : {}),
+        ...(filter.projectId !== undefined ? { projectId: filter.projectId } : {}),
+      }),
+    createContentCard: (payload) => dbCreateContentCard(payload),
+    updateContentCard: ({ id, patch }) =>
+      dbUpdateContentCard(id, {
+        ...(patch.channel !== undefined ? { channel: patch.channel } : {}),
+        ...(patch.title !== undefined ? { title: patch.title } : {}),
+        ...(patch.body !== undefined ? { body: patch.body } : {}),
+        ...(patch.bodyDoc !== undefined ? { bodyDoc: patch.bodyDoc } : {}),
+        ...(patch.media !== undefined ? { media: patch.media } : {}),
+        ...(patch.status !== undefined ? { status: patch.status } : {}),
+        ...(patch.scheduledFor !== undefined ? { scheduledFor: patch.scheduledFor } : {}),
+        ...(patch.publishUrl !== undefined ? { publishUrl: patch.publishUrl } : {}),
+        ...(patch.publishError !== undefined ? { publishError: patch.publishError } : {}),
+      }),
+    deleteContentCard: ({ id }) => dbDeleteContentCard(id),
+    saveContentCardMedia: ({ cardId, fileName, kind, dataBase64 }) => {
+      const filePath = saveContentCardMediaFile(options.requirePoracodePaths(), {
+        cardId,
+        fileName,
+        data: new Uint8Array(Buffer.from(dataBase64, "base64")),
+      });
+      return { id: crypto.randomUUID(), kind, name: fileName, path: filePath };
+    },
     getPrWatch: ({ projectId, prNumber }) => options.prWatchService.get(projectId, prNumber),
     checkPrWatch: ({ projectId, prNumber }) =>
       options.prWatchService.requestCheck(projectId, prNumber),
