@@ -5473,6 +5473,7 @@ msgstr "не вдалося"
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentOverlay.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Failed"
@@ -6375,6 +6376,7 @@ msgstr "Приховати навички з {0}"
 msgid "Hide terminal"
 msgstr "Сховати термінал"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "History"
 msgstr "Історія"
@@ -7985,6 +7987,10 @@ msgstr "Найуживаніший рівень міркувань"
 msgid "Move"
 msgstr "Перемістити"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Move back to drafts"
+msgstr "Повернути до чернеток"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Move browser back to main window"
 msgstr "Повернути браузер у головне вікно"
@@ -8919,6 +8925,10 @@ msgstr "Нотатки"
 #: src/mobile/views/NotesView.tsx
 msgid "Notes & to-dos"
 msgstr "Нотатки й завдання"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Nothing published yet"
+msgstr "Поки що нічого не опубліковано"
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Nothing to compact yet — the conversation is still small."
@@ -11242,6 +11252,7 @@ msgstr "Відновити повідомлення з черги"
 #: src/mobile/views/TerminalView.tsx
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/useSourceBranchData.ts
 #: src/renderer/views/GitReviewOverlay/parts/GitStackedDiff.tsx
 #: src/renderer/views/SettingsOverlay/parts/PluginsSettings.tsx
@@ -11264,6 +11275,10 @@ msgstr "Повторити очищення"
 #: src/mobile/components.tsx
 msgid "Retry now"
 msgstr "Повторить сейчас"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Retry publish"
+msgstr "Повторити публікацію"
 
 #: src/renderer/hooks/usePrWriteActions.ts
 msgid "Retry with admin"
@@ -11397,6 +11412,7 @@ msgstr "Клацніть правою кнопкою, щоб перемкнут�
 #: src/mobile/views/threadContextMenus.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorktreeGroup.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
@@ -11511,6 +11527,7 @@ msgid "running"
 msgstr "виконується"
 
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Running"
 msgstr "Виконується"
@@ -15634,6 +15651,10 @@ msgstr "Напишіть статтю…"
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #~ msgid "Write the content…"
 #~ msgstr "Напишіть текст…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Wrong account"
+msgstr "Неправильний обліковий запис"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

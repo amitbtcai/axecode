@@ -8,6 +8,7 @@ import {
   type ContentCard,
   type ContentCardIdPayload,
   type ContentCardMediaItem,
+  type ContentPublishAttempt,
   type ContentSocialAccount,
   type CreateContentCardPayload,
   type GetContentCardsPayload,
@@ -57,5 +58,10 @@ export const contentCardProcedures = {
     "publishContentCard",
     "main-local",
     contentCardIdPayloadSchema,
+  ),
+  /** Append-oriented publish history — survives card edits and deletion. */
+  getContentPublishAttempts: defineNoArgProcedure<ContentPublishAttempt[], "main-local">(
+    "getContentPublishAttempts",
+    "main-local",
   ),
 } as const;

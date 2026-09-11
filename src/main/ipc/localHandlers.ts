@@ -36,6 +36,7 @@ import {
   dbReplaceThreadRuntimeSnapshot,
   dbReplaceThreadRuntimeItems,
   dbSetProjectNotes,
+  dbGetPublishAttempts,
   dbSetContentSocialAccount,
   dbSetState,
   dbSyncAll,
@@ -586,7 +587,9 @@ export function createLocalIpcHandlers(
         ...(patch.scheduledFor !== undefined ? { scheduledFor: patch.scheduledFor } : {}),
         ...(patch.publishUrl !== undefined ? { publishUrl: patch.publishUrl } : {}),
         ...(patch.publishError !== undefined ? { publishError: patch.publishError } : {}),
+        ...(patch.publishIncident !== undefined ? { publishIncident: patch.publishIncident } : {}),
       }),
+    getContentPublishAttempts: () => dbGetPublishAttempts(),
     deleteContentCard: ({ id }) => dbDeleteContentCard(id),
     saveContentCardMedia: ({ cardId, fileName, kind, dataBase64 }) => {
       const filePath = saveContentCardMediaFile(options.requirePoracodePaths(), {

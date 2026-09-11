@@ -5473,6 +5473,7 @@ msgstr "失败了"
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentOverlay.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Failed"
@@ -6375,6 +6376,7 @@ msgstr "隐藏来自 {0} 的技能"
 msgid "Hide terminal"
 msgstr "隐藏终端"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "History"
 msgstr "历史记录"
@@ -7984,6 +7986,10 @@ msgstr "最常用思考级别"
 msgid "Move"
 msgstr "移动"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Move back to drafts"
+msgstr "移回草稿"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Move browser back to main window"
 msgstr "将浏览器移回主窗口"
@@ -8918,6 +8924,10 @@ msgstr "注释"
 #: src/mobile/views/NotesView.tsx
 msgid "Notes & to-dos"
 msgstr "笔记和待办事项"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Nothing published yet"
+msgstr "还没有已发布的内容"
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Nothing to compact yet — the conversation is still small."
@@ -11241,6 +11251,7 @@ msgstr "恢复排队的后续消息"
 #: src/mobile/views/TerminalView.tsx
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/useSourceBranchData.ts
 #: src/renderer/views/GitReviewOverlay/parts/GitStackedDiff.tsx
 #: src/renderer/views/SettingsOverlay/parts/PluginsSettings.tsx
@@ -11263,6 +11274,10 @@ msgstr "重试清理"
 #: src/mobile/components.tsx
 msgid "Retry now"
 msgstr "立即重试"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Retry publish"
+msgstr "重试发布"
 
 #: src/renderer/hooks/usePrWriteActions.ts
 msgid "Retry with admin"
@@ -11396,6 +11411,7 @@ msgstr "右键点击以切换环"
 #: src/mobile/views/threadContextMenus.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorktreeGroup.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
@@ -11510,6 +11526,7 @@ msgid "running"
 msgstr "运行中"
 
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Running"
 msgstr "正在运行"
@@ -15633,6 +15650,10 @@ msgstr "撰写文章…"
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #~ msgid "Write the content…"
 #~ msgstr "撰写内容…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Wrong account"
+msgstr "账号错误"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

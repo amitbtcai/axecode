@@ -5473,6 +5473,7 @@ msgstr "실패"
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentOverlay.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Failed"
@@ -6375,6 +6376,7 @@ msgstr "{0}의 스킬 숨기기"
 msgid "Hide terminal"
 msgstr "터미널 숨기기"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "History"
 msgstr "기록"
@@ -7985,6 +7987,10 @@ msgstr "가장 많이 사용한 추론 강도"
 msgid "Move"
 msgstr "이동"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Move back to drafts"
+msgstr "초안으로 되돌리기"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Move browser back to main window"
 msgstr "브라우저를 메인 창으로 다시 이동"
@@ -8919,6 +8925,10 @@ msgstr "메모"
 #: src/mobile/views/NotesView.tsx
 msgid "Notes & to-dos"
 msgstr "메모 및 할 일"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Nothing published yet"
+msgstr "아직 게시된 항목이 없습니다"
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Nothing to compact yet — the conversation is still small."
@@ -11242,6 +11252,7 @@ msgstr "대기 중인 후속 메시지 재개"
 #: src/mobile/views/TerminalView.tsx
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/useSourceBranchData.ts
 #: src/renderer/views/GitReviewOverlay/parts/GitStackedDiff.tsx
 #: src/renderer/views/SettingsOverlay/parts/PluginsSettings.tsx
@@ -11264,6 +11275,10 @@ msgstr "정리 다시 시도"
 #: src/mobile/components.tsx
 msgid "Retry now"
 msgstr "지금 다시 시도"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Retry publish"
+msgstr "게시 다시 시도"
 
 #: src/renderer/hooks/usePrWriteActions.ts
 msgid "Retry with admin"
@@ -11397,6 +11412,7 @@ msgstr "마우스 오른쪽 버튼을 클릭해 링 전환"
 #: src/mobile/views/threadContextMenus.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorktreeGroup.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
@@ -11511,6 +11527,7 @@ msgid "running"
 msgstr "실행 중"
 
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Running"
 msgstr "실행 중"
@@ -15634,6 +15651,10 @@ msgstr "기사 작성…"
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #~ msgid "Write the content…"
 #~ msgstr "콘텐츠 작성…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Wrong account"
+msgstr "잘못된 계정"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

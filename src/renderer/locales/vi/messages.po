@@ -5473,6 +5473,7 @@ msgstr "thất bại"
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentOverlay.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Failed"
@@ -6375,6 +6376,7 @@ msgstr "Ẩn skill từ {0}"
 msgid "Hide terminal"
 msgstr "Ẩn thiết bị đầu cuối"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "History"
 msgstr "Lịch sử"
@@ -7985,6 +7987,10 @@ msgstr "Mức suy luận dùng nhiều nhất"
 msgid "Move"
 msgstr "Di chuyển"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Move back to drafts"
+msgstr "Chuyển lại về bản nháp"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Move browser back to main window"
 msgstr "Chuyển trình duyệt về cửa sổ chính"
@@ -8919,6 +8925,10 @@ msgstr "Ghi chú"
 #: src/mobile/views/NotesView.tsx
 msgid "Notes & to-dos"
 msgstr "Ghi chú và việc cần làm"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Nothing published yet"
+msgstr "Chưa có gì được đăng"
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Nothing to compact yet — the conversation is still small."
@@ -11242,6 +11252,7 @@ msgstr "Tiếp tục tin nhắn tiếp theo trong hàng đợi"
 #: src/mobile/views/TerminalView.tsx
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/useSourceBranchData.ts
 #: src/renderer/views/GitReviewOverlay/parts/GitStackedDiff.tsx
 #: src/renderer/views/SettingsOverlay/parts/PluginsSettings.tsx
@@ -11264,6 +11275,10 @@ msgstr "Thử dọn dẹp lại"
 #: src/mobile/components.tsx
 msgid "Retry now"
 msgstr "Thử lại ngay"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Retry publish"
+msgstr "Thử đăng lại"
 
 #: src/renderer/hooks/usePrWriteActions.ts
 msgid "Retry with admin"
@@ -11397,6 +11412,7 @@ msgstr "Nhấp chuột phải để đổi vòng"
 #: src/mobile/views/threadContextMenus.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorktreeGroup.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
@@ -11511,6 +11527,7 @@ msgid "running"
 msgstr "đang chạy"
 
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Running"
 msgstr "Đang chạy"
@@ -15634,6 +15651,10 @@ msgstr "Viết bài…"
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #~ msgid "Write the content…"
 #~ msgstr "Viết nội dung…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Wrong account"
+msgstr "Sai tài khoản"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

@@ -15,11 +15,13 @@ import type {
   ContentCardChannel,
   ContentCardMediaItem,
   ContentCardStatus,
+  ContentPublishAttempt,
   ContentSocialAccount,
 } from "@/shared/contracts";
 import { readBridge } from "@/renderer/bridge";
 import { LightballTabs } from "@/renderer/components/common/LightballTabs";
 import { ensureHomeScopeProject } from "@/renderer/actions/projectActions";
+import { openThread } from "@/renderer/actions/threadActions";
 import { useAppStore } from "@/renderer/state/appStore";
 import {
   CHANNELS,
@@ -30,12 +32,12 @@ import {
   monthDays,
   weekDays,
 } from "./contentBoardUtils";
-import { ContentCardTile } from "./parts/ContentCardTile";
+import { ChannelBadge, ContentCardTile } from "./parts/ContentCardTile";
 import { ContentCardModal } from "./parts/ContentCardModal";
 import { ContentAgentPanel } from "./parts/ContentAgentPanel";
 import { SocialAccountsModal } from "./parts/SocialAccountsModal";
 
-type TabId = "board" | "calendar";
+type TabId = "board" | "calendar" | "history";
 type CalendarRange = "week" | "month";
 
 const COLUMN_KEYS = [
@@ -74,6 +76,7 @@ export function ContentBoardView() {
   const [agentProjectId, setAgentProjectId] = useState<string | null>(null);
   const [accounts, setAccounts] = useState<ContentSocialAccount[]>([]);
   const [accountsOpen, setAccountsOpen] = useState(false);
+  const [attempts, setAttempts] = useState<ContentPublishAttempt[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -93,6 +96,12 @@ export function ContentBoardView() {
       .getContentSocialAccounts()
       .then((next) => {
         if (!cancelled) setAccounts(next);
+      })
+      .catch(() => {});
+    void readBridge()
+      .getContentPublishAttempts()
+      .then((next) => {
+        if (!cancelled) setAttempts(next);
       })
       .catch(() => {});
     return () => {
@@ -123,6 +132,8 @@ export function ContentBoardView() {
       media?: ContentCardMediaItem[];
       status?: ContentCardStatus;
       scheduledFor?: string | null;
+      publishUrl?: string | null;
+      publishError?: string | null;
     },
   ) {
     const next = await readBridge().updateContentCard({ id, patch });
@@ -159,6 +170,9 @@ export function ContentBoardView() {
           void readBridge()
             .getContentCards({})
             .then((next) => setCards(next));
+          void readBridge()
+            .getContentPublishAttempts()
+            .then((next) => setAttempts(next));
         }, 1500);
       })
       .catch((publishError: unknown) => {
@@ -205,6 +219,7 @@ export function ContentBoardView() {
               tabs={[
                 { id: "board", label: t`Board` },
                 { id: "calendar", label: t`Calendar` },
+                { id: "history", label: t`History` },
               ]}
               active={tab}
               onChange={setTab}
@@ -326,7 +341,7 @@ export function ContentBoardView() {
               );
             })}
           </div>
-        ) : (
+        ) : tab === "calendar" ? (
           <div className="flex flex-1 flex-col">
             <div className="mb-3 flex items-center justify-between">
               <Button
@@ -436,6 +451,87 @@ export function ContentBoardView() {
                 );
               })}
             </div>
+          </div>
+        ) : (
+          <div className="flex flex-1 flex-col gap-2 overflow-y-auto">
+            {attempts.length === 0 ? (
+              <p className="py-6 text-center text-xs text-muted">
+                <Trans>Nothing published yet</Trans>
+              </p>
+            ) : (
+              attempts.map((attempt) => {
+                const card = cards.find((c) => c.id === attempt.cardId) ?? null;
+                const attemptStatus =
+                  attempt.status === "published"
+                    ? { label: t`Published`, cls: "bg-success/10 text-success" }
+                    : attempt.status === "wrong_account"
+                      ? { label: t`Wrong account`, cls: "bg-danger/10 text-danger" }
+                      : attempt.status === "failed"
+                        ? { label: t`Failed`, cls: "bg-danger/10 text-danger" }
+                        : { label: t`Running`, cls: "bg-accent/10 text-accent" };
+                return (
+                  <div
+                    key={attempt.id}
+                    className="flex items-center gap-3 rounded-xl border border-separator bg-surface px-4 py-3"
+                  >
+                    <ChannelBadge channel={attempt.channel} />
+                    <div className="min-w-0 flex-1">
+                      {card ? (
+                        <button
+                          type="button"
+                          onClick={() => setOpenCard(card)}
+                          className="block max-w-full truncate text-left text-sm font-medium hover:underline"
+                        >
+                          {attempt.title}
+                        </button>
+                      ) : (
+                        <span className="block max-w-full truncate text-sm font-medium">
+                          {attempt.title}
+                        </span>
+                      )}
+                      <div className="truncate text-xs text-muted">
+                        {attempt.error
+                          ? attempt.error
+                          : (attempt.destinationUrl ??
+                            new Date(attempt.startedAt).toLocaleString())}
+                      </div>
+                    </div>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${attemptStatus.cls}`}
+                    >
+                      {attemptStatus.label}
+                    </span>
+                    <span className="shrink-0 text-xs text-muted">
+                      {new Date(attempt.finishedAt ?? attempt.startedAt).toLocaleString()}
+                    </span>
+                    {attempt.publishUrl ? (
+                      <a
+                        href={attempt.publishUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="max-w-56 truncate text-xs text-accent hover:underline"
+                      >
+                        {attempt.publishUrl}
+                      </a>
+                    ) : null}
+                    {attempt.threadId ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onPress={() => openThread(attempt.threadId!)}
+                      >
+                        <Trans>Run</Trans>
+                      </Button>
+                    ) : null}
+                    {card && attempt.status !== "running" ? (
+                      <Button size="sm" variant="tertiary" onPress={() => publish(card)}>
+                        <Trans>Retry</Trans>
+                      </Button>
+                    ) : null}
+                  </div>
+                );
+              })
+            )}
           </div>
         )}
       </div>

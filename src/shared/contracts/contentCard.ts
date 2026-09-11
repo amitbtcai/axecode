@@ -88,6 +88,12 @@ export const updateContentCardPayloadSchema = z.object({
     scheduledFor: z.iso.datetime().nullable().optional(),
     publishUrl: z.string().nullable().optional(),
     publishError: z.string().nullable().optional(),
+    /**
+     * Set by the publish agent when the identity gate tripped or the post
+     * went to the wrong account — records the attempt as a wrong-account
+     * incident instead of a generic failure.
+     */
+    publishIncident: z.enum(["wrong_account"]).optional(),
   }),
 });
 export type UpdateContentCardPayload = z.infer<typeof updateContentCardPayloadSchema>;
@@ -129,3 +135,36 @@ export const setContentSocialAccountPayloadSchema = z.object({
   url: z.string().max(2000).default(""),
 });
 export type SetContentSocialAccountPayload = z.infer<typeof setContentSocialAccountPayloadSchema>;
+
+/* ── Publish attempts: append-oriented history of every publish run ──────
+ * Unlike the mutable fields on a card, attempt rows survive card edits,
+ * archival, and deletion so the user can audit every post the scheduler
+ * (or a manual publish) made — including failures and wrong-account
+ * incidents. */
+
+export const contentPublishAttemptStatusSchema = z.enum([
+  "running",
+  "published",
+  "failed",
+  "wrong_account",
+]);
+export type ContentPublishAttemptStatus = z.infer<typeof contentPublishAttemptStatusSchema>;
+
+export const contentPublishAttemptSchema = z.object({
+  id: z.string().uuid(),
+  /** Card the attempt was for — deliberately not FK-cascaded. */
+  cardId: z.string(),
+  channel: contentCardChannelSchema,
+  /** Title snapshot at publish time. */
+  title: z.string().max(300),
+  /** Configured destination URL at publish time, if any. */
+  destinationUrl: z.string().nullable(),
+  trigger: z.enum(["scheduled", "manual"]),
+  status: contentPublishAttemptStatusSchema,
+  threadId: z.string().nullable(),
+  publishUrl: z.string().nullable(),
+  error: z.string().nullable(),
+  startedAt: z.iso.datetime(),
+  finishedAt: z.iso.datetime().nullable(),
+});
+export type ContentPublishAttempt = z.infer<typeof contentPublishAttemptSchema>;

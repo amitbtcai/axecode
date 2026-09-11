@@ -11,6 +11,7 @@ import {
   dbGetContentCards,
   dbUpdateContentCard,
 } from "./contentCards";
+import { dbGetPublishAttempts, dbStartPublishAttempt } from "./contentPublishAttempts";
 import { dbUpsertProject } from "./projectsThreads";
 
 const serverNativeBinding = join(process.cwd(), "dist", "server-native", "better_sqlite3.node");
@@ -109,6 +110,65 @@ describe.skipIf(!sqliteAvailable)("contentCards (real sqlite round-trip)", () =>
     expect(published?.publishUrl).toBe("https://x.com/acct/status/1");
     const failed = dbUpdateContentCard(card.id, { publishError: "not logged in" });
     expect(failed?.publishError).toBe("not logged in");
+  });
+
+  it("records publish attempts for outcomes and keeps them after card deletion", () => {
+    const card = dbCreateContentCard({ channel: "x", title: "Launch post", body: "text" });
+    dbStartPublishAttempt({
+      card,
+      trigger: "scheduled",
+      threadId: "thread-9",
+      destinationUrl: "https://x.com/AxeAI_com",
+    });
+    let attempts = dbGetPublishAttempts();
+    expect(attempts).toHaveLength(1);
+    expect(attempts[0]!.status).toBe("running");
+    expect(attempts[0]!.trigger).toBe("scheduled");
+
+    dbUpdateContentCard(card.id, {
+      status: "published",
+      publishUrl: "https://x.com/AxeAI_com/status/1",
+    });
+    attempts = dbGetPublishAttempts();
+    expect(attempts[0]!.status).toBe("published");
+    expect(attempts[0]!.publishUrl).toBe("https://x.com/AxeAI_com/status/1");
+    expect(attempts[0]!.finishedAt).not.toBeNull();
+
+    // Deleting the card must not remove the history row.
+    dbDeleteContentCard(card.id);
+    expect(dbGetContentCard(card.id)).toBeNull();
+    expect(dbGetPublishAttempts()).toHaveLength(1);
+  });
+
+  it("marks wrong-account incidents and keeps the posted URL", () => {
+    const card = dbCreateContentCard({ channel: "x", title: "Post", body: "t" });
+    dbStartPublishAttempt({
+      card,
+      trigger: "manual",
+      threadId: "thread-1",
+      destinationUrl: null,
+    });
+    dbUpdateContentCard(card.id, {
+      publishIncident: "wrong_account",
+      publishError: "posted under @personal instead of @AxeAI_com",
+      publishUrl: "https://x.com/personal/status/2",
+    });
+    const attempts = dbGetPublishAttempts();
+    expect(attempts).toHaveLength(1);
+    expect(attempts[0]!.status).toBe("wrong_account");
+    expect(attempts[0]!.publishUrl).toBe("https://x.com/personal/status/2");
+  });
+
+  it("records a finished attempt when a card is marked published without a watcher run", () => {
+    const card = dbCreateContentCard({ channel: "linkedin", title: "Post", body: "t" });
+    dbUpdateContentCard(card.id, {
+      status: "published",
+      publishUrl: "https://linkedin.com/posts/1",
+    });
+    const attempts = dbGetPublishAttempts();
+    expect(attempts).toHaveLength(1);
+    expect(attempts[0]!.status).toBe("published");
+    expect(attempts[0]!.trigger).toBe("manual");
   });
 
   it("cascades when the project row is deleted", () => {

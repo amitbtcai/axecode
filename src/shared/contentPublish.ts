@@ -84,9 +84,11 @@ Before posting, proofread: fix obvious typos, confirm the text fits the channel 
 IDENTITY GATE — do this before touching the composer:
 1. Open the destination URL.
 2. Read the currently active profile/handle — on X open the profile menu or left-nav handle, on LinkedIn/Facebook check the "Post as"/profile indicator, on YouTube check the channel avatar/name in Studio.
-3. Compare it with the configured destination. If it does not match (wrong account signed in, or a personal profile where a company page is expected), STOP — call update_content_card with publishError "wrong account signed in: <what you saw>" and do not post. Do not try to switch accounts yourself.
+3. Compare it with the configured destination. If it does not match (wrong account signed in, or a personal profile where a company page is expected), STOP — call update_content_card with publishError "wrong account signed in: <what you saw>" and publishIncident "wrong_account", and do not post. Do not try to switch accounts yourself.
 
 Then: open the compose surface, enter the content, attach the media files, publish, then copy the public URL of the post. If the account is not signed in, stop and report that.
+
+If you discover AFTER posting that it went to the wrong account/page, call update_content_card with publishIncident "wrong_account", publishError describing it, and still include publishUrl — the link is kept in the publish history so the user can delete the stray post and retry.
 
 When done, call update_content_card on card ${card.id}: on success set status "published" and publishUrl to the post's URL; on failure set publishError to a short description of what went wrong (and status "draft" if it should not retry).`;
 }

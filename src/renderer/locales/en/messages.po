@@ -5477,6 +5477,7 @@ msgstr "failed"
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentOverlay.tsx
 #: src/renderer/components/thread/ThreadGoalDock.tsx
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsRunList.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Failed"
@@ -6379,6 +6380,7 @@ msgstr "Hide skills from {0}"
 msgid "Hide terminal"
 msgstr "Hide terminal"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "History"
 msgstr "History"
@@ -7989,6 +7991,10 @@ msgstr "Most used reasoning"
 msgid "Move"
 msgstr "Move"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Move back to drafts"
+msgstr "Move back to drafts"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Move browser back to main window"
 msgstr "Move browser back to main window"
@@ -8923,6 +8929,10 @@ msgstr "Notes"
 #: src/mobile/views/NotesView.tsx
 msgid "Notes & to-dos"
 msgstr "Notes & to-dos"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Nothing published yet"
+msgstr "Nothing published yet"
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Nothing to compact yet — the conversation is still small."
@@ -11246,6 +11256,7 @@ msgstr "Resume queued follow-ups"
 #: src/mobile/views/TerminalView.tsx
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/useSourceBranchData.ts
 #: src/renderer/views/GitReviewOverlay/parts/GitStackedDiff.tsx
 #: src/renderer/views/SettingsOverlay/parts/PluginsSettings.tsx
@@ -11268,6 +11279,10 @@ msgstr "Retry cleanup"
 #: src/mobile/components.tsx
 msgid "Retry now"
 msgstr "Retry now"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+msgid "Retry publish"
+msgstr "Retry publish"
 
 #: src/renderer/hooks/usePrWriteActions.ts
 msgid "Retry with admin"
@@ -11401,6 +11416,7 @@ msgstr "Right-click to switch ring"
 #: src/mobile/views/threadContextMenus.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarWorktreeGroup.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/ThreadContextMenu.tsx
@@ -11515,6 +11531,7 @@ msgid "running"
 msgstr "running"
 
 #: src/renderer/utils/prStatus.ts
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/SchedulesView/parts/PreviousRunsModal.tsx
 msgid "Running"
 msgstr "Running"
@@ -15642,6 +15659,10 @@ msgstr "Write the article…"
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 #~ msgid "Write the content…"
 #~ msgstr "Write the content…"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Wrong account"
+msgstr "Wrong account"
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/AISettings.tsx

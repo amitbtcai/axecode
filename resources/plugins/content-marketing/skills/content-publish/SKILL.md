@@ -33,8 +33,11 @@ Read `marketing/social-accounts.md` for the channel → account/page map. Defaul
    active profile/handle (X: profile menu / left-nav handle; LinkedIn &
    Facebook: the "Post as" indicator on the Page composer; YouTube: channel
    name/avatar in Studio). It must match the configured account. Mismatch →
-   STOP: set `publishError` "wrong account signed in" and do not post. Never
-   try to switch accounts yourself.
+   STOP: set `publishError` "wrong account signed in" and `publishIncident`
+   "wrong_account", and do not post. Never try to switch accounts yourself.
+   If you only discover the wrong account AFTER posting, still set
+   `publishIncident` "wrong_account" + `publishError` and keep `publishUrl`
+   — the history keeps the link so the user can delete the stray post.
 5. Open the compose surface (X: composer / x.com/compose/post; LinkedIn:
    "Start a post" on the page; Facebook: "Create post" on the Page; YouTube:
    studio.youtube.com → Create → Upload).

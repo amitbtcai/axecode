@@ -12,6 +12,7 @@ import {
   dbGetContentCard,
   dbGetContentCards,
   dbGetContentSocialAccounts,
+  dbGetPublishAttempts,
   dbSetContentSocialAccount,
   dbUpdateContentCard,
   type ContentCardPatch,
@@ -41,6 +42,7 @@ const updateArgsSchema = z.object({
   scheduledFor: z.iso.datetime().nullable().optional(),
   publishUrl: z.string().nullable().optional(),
   publishError: z.string().nullable().optional(),
+  publishIncident: z.enum(["wrong_account"]).optional(),
 });
 
 const listArgsSchema = z.object({
@@ -123,6 +125,12 @@ export const contentCardTools: ToolDomain = {
           scheduledFor: { type: ["string", "null"], format: "date-time" },
           publishUrl: { type: ["string", "null"] },
           publishError: { type: ["string", "null"] },
+          publishIncident: {
+            type: "string",
+            enum: ["wrong_account"],
+            description:
+              "Set to wrong_account when the publish identity gate tripped or the post went to the wrong account — records the attempt as a wrong-account incident.",
+          },
         },
       },
     },
@@ -170,6 +178,17 @@ export const contentCardTools: ToolDomain = {
         additionalProperties: false,
         required: ["id"],
         properties: { id: { type: "string", format: "uuid" } },
+      },
+    },
+    {
+      name: "list_publish_attempts",
+      description:
+        "List publish history — every scheduled or manual publish attempt with its outcome " +
+        "(published/failed/wrong_account), post URL, and error. Survives card deletion.",
+      inputSchema: {
+        type: "object",
+        additionalProperties: false,
+        properties: { cardId: { type: "string", format: "uuid" } },
       },
     },
     {
@@ -237,7 +256,12 @@ export const contentCardTools: ToolDomain = {
       if (parsed.scheduledFor !== undefined) patch.scheduledFor = parsed.scheduledFor;
       if (parsed.publishUrl !== undefined) patch.publishUrl = parsed.publishUrl;
       if (parsed.publishError !== undefined) patch.publishError = parsed.publishError;
+      if (parsed.publishIncident !== undefined) patch.publishIncident = parsed.publishIncident;
       return dbUpdateContentCard(parsed.id, patch);
+    },
+    list_publish_attempts: (args, _ctx) => {
+      const parsed = z.object({ cardId: z.string().uuid().optional() }).parse(args);
+      return dbGetPublishAttempts(parsed.cardId);
     },
     list_content_cards: (args, _ctx) => {
       const parsed = listArgsSchema.parse(args);

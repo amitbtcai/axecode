@@ -50,8 +50,9 @@ describe("database migration registry", () => {
       [43, "content card media"],
       [44, "content card published_at"],
       [45, "content social accounts"],
+      [46, "content publish attempts"],
     ]);
-    expect(LATEST_SCHEMA_VERSION).toBe(45);
+    expect(LATEST_SCHEMA_VERSION).toBe(46);
     expect(() => validateMigrationRegistry()).not.toThrow();
   });
 

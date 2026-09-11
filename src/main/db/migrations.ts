@@ -666,6 +666,33 @@ export const DATABASE_MIGRATIONS = [
       `);
     },
   },
+  {
+    // Fork-owned (Axe Code): append-oriented publish history. card_id is NOT
+    // a foreign key — attempt rows must survive card edits and deletion.
+    version: 46,
+    name: "content publish attempts",
+    migrate: (sqlite) => {
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS content_publish_attempts (
+          id TEXT PRIMARY KEY,
+          card_id TEXT NOT NULL,
+          channel TEXT NOT NULL,
+          title TEXT NOT NULL DEFAULT '',
+          destination_url TEXT,
+          trigger_kind TEXT NOT NULL DEFAULT 'manual',
+          status TEXT NOT NULL DEFAULT 'running',
+          thread_id TEXT,
+          publish_url TEXT,
+          error TEXT,
+          started_at TEXT NOT NULL,
+          finished_at TEXT,
+          created_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_content_publish_attempts_card
+          ON content_publish_attempts (card_id, started_at DESC);
+      `);
+    },
+  },
 ] as const satisfies readonly DatabaseMigration[];
 
 export const LATEST_SCHEMA_VERSION = DATABASE_MIGRATIONS[DATABASE_MIGRATIONS.length - 1]!.version;

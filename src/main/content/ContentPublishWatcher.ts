@@ -17,6 +17,7 @@ import {
   dbGetContentSocialAccounts,
   dbUpdateContentCard,
 } from "../db/contentCards";
+import { dbStartPublishAttempt } from "../db/contentPublishAttempts";
 import { resolveUnrestrictedThreadPermissions } from "../threads/threadLaunchConfig";
 
 /**
@@ -72,7 +73,7 @@ export class ContentPublishWatcher {
       if (this.launching.has(card.id)) continue;
       this.launching.add(card.id);
       this.pending.push(
-        this.launch(card)
+        this.launch(card, "scheduled")
           .catch((error: unknown) => {
             dbUpdateContentCard(card.id, {
               publishError: error instanceof Error ? error.message : String(error),
@@ -96,7 +97,7 @@ export class ContentPublishWatcher {
     if (this.launching.has(card.id)) return;
     this.launching.add(card.id);
     this.pending.push(
-      this.launch(card)
+      this.launch(card, "manual")
         .catch((error: unknown) => {
           dbUpdateContentCard(card.id, {
             publishError: error instanceof Error ? error.message : String(error),
@@ -106,7 +107,7 @@ export class ContentPublishWatcher {
     );
   }
 
-  private async launch(card: ContentCard): Promise<void> {
+  private async launch(card: ContentCard, trigger: "scheduled" | "manual"): Promise<void> {
     const project = card.projectId
       ? this.deps.getProject(card.projectId)
       : this.deps.ensureHomeProject();
@@ -124,6 +125,16 @@ export class ContentPublishWatcher {
       publishError: null,
     });
     if (!claimed) return;
+
+    // Open a history row for this run — completed when the agent reports
+    // back via update_content_card (or by the launch-failure catch above).
+    const accounts = dbGetContentSocialAccounts();
+    dbStartPublishAttempt({
+      card: claimed,
+      trigger,
+      threadId,
+      destinationUrl: accounts.find((a) => a.channel === claimed.channel)?.url ?? null,
+    });
 
     const nowIso = new Date(this.now()).toISOString();
     const title = `Publish: ${card.title || card.id.slice(0, 8)}`;
@@ -155,7 +166,7 @@ export class ContentPublishWatcher {
     };
     this.deps.upsertThread(thread, -Date.now());
 
-    const prompt = buildContentPublishPrompt(claimed, dbGetContentSocialAccounts());
+    const prompt = buildContentPublishPrompt(claimed, accounts);
     this.deps.sendThreadCommand({
       kind: "start",
       threadId,

@@ -8,6 +8,7 @@ import {
   type CreateContentCardPayload,
 } from "@/shared/contracts";
 import { getSqlite } from "./connection";
+import { dbCompletePublishAttempt } from "./contentPublishAttempts";
 
 /**
  * Fork-owned (Axe Code): persistence for the marketing content pipeline. Cards
@@ -164,6 +165,8 @@ export interface ContentCardPatch {
   scheduledFor?: string | null;
   publishUrl?: string | null;
   publishError?: string | null;
+  /** Agent-declared publish incident (wrong account) — feeds attempt status. */
+  publishIncident?: "wrong_account";
   sourceThreadId?: string | null;
 }
 
@@ -220,7 +223,29 @@ export function dbUpdateContentCard(id: string, patch: ContentCardPatch): Conten
   getSqlite()
     .prepare(`UPDATE content_cards SET ${sets.join(", ")} WHERE id = ?`)
     .run(...params);
-  return dbGetContentCard(id);
+  const updated = dbGetContentCard(id);
+  // Record the publish outcome as an attempt row — the history tab reads
+  // attempts, not cards, so links survive card edits/deletion.
+  if (updated && patch.status === "published") {
+    dbCompletePublishAttempt({
+      card: updated,
+      status: "published",
+      publishUrl: updated.publishUrl,
+      destinationUrl:
+        dbGetContentSocialAccounts().find((a) => a.channel === updated.channel)?.url ?? null,
+    });
+  } else if (updated && typeof patch.publishError === "string" && patch.publishError) {
+    dbCompletePublishAttempt({
+      card: updated,
+      status: patch.publishIncident === "wrong_account" ? "wrong_account" : "failed",
+      // Wrong-account incidents keep the stray post's URL so it can be removed.
+      publishUrl: updated.publishUrl,
+      error: patch.publishError,
+      destinationUrl:
+        dbGetContentSocialAccounts().find((a) => a.channel === updated.channel)?.url ?? null,
+    });
+  }
+  return updated;
 }
 
 export function dbDeleteContentCard(id: string): void {

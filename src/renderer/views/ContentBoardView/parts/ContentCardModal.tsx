@@ -36,6 +36,8 @@ export function ContentCardModal(props: {
       media?: ContentCardMediaItem[];
       status?: "draft" | "scheduled" | "published" | "archived";
       scheduledFor?: string | null;
+      publishUrl?: string | null;
+      publishError?: string | null;
     },
   ) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
@@ -366,7 +368,20 @@ export function ContentCardModal(props: {
                     <Trans>Schedule…</Trans>
                   </Button>
                 ) : null}
-                {card.status !== "published" ? (
+                {card.status === "published" ? (
+                  <Button
+                    variant="tertiary"
+                    size="sm"
+                    isDisabled={busy}
+                    onPress={() =>
+                      void save({ status: "draft", publishUrl: null, publishError: null }).then(
+                        onClose,
+                      )
+                    }
+                  >
+                    <Trans>Move back to drafts</Trans>
+                  </Button>
+                ) : (
                   <Button
                     size="sm"
                     isDisabled={busy}
@@ -378,9 +393,13 @@ export function ContentCardModal(props: {
                     }}
                   >
                     <Globe className="size-3.5" />
-                    <Trans>Publish with Browser</Trans>
+                    {card.publishError ? (
+                      <Trans>Retry publish</Trans>
+                    ) : (
+                      <Trans>Publish with Browser</Trans>
+                    )}
                   </Button>
-                ) : null}
+                )}
               </div>
             </Modal.Footer>
           ) : null}
