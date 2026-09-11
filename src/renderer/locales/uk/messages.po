@@ -213,8 +213,8 @@ msgstr "Пристроїв: {0}"
 
 #. placeholder {0}: CHANNEL_LABELS[channel]
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "{0} handle"
-msgstr "нікнейм {0}"
+#~ msgid "{0} handle"
+#~ msgstr "нікнейм {0}"
 
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
@@ -6268,8 +6268,8 @@ msgid "Handle"
 msgstr "Нік"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Handle / page name"
-msgstr "Нікнейм / назва сторінки"
+#~ msgid "Handle / page name"
+#~ msgstr "Нікнейм / назва сторінки"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
@@ -9446,8 +9446,8 @@ msgid "Page"
 msgstr "Сторінка"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Page URL"
-msgstr "URL сторінки"
+#~ msgid "Page URL"
+#~ msgstr "URL сторінки"
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
@@ -9580,6 +9580,10 @@ msgstr "Вставте іменований об’єкт сервера або 
 #: src/renderer/components/terminal/XTermSurface.tsx
 msgid "Paste in input"
 msgstr "Вставити в поле введення"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Paste the account or page URL each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Вставте URL акаунта або сторінки, куди публікує кожен канал — агент публікації переходить сюди у вашому авторизованому браузері."
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Paste the SSH private key."
@@ -13383,8 +13387,8 @@ msgstr "Цієї віддаленої сесії вже не було."
 #~ msgstr "користувача WSL {0}"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
-msgstr "Акаунт або сторінка, куди публікує кожен канал — агент публікації переходить сюди у вашому авторизованому браузері."
+#~ msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+#~ msgstr "Акаунт або сторінка, куди публікує кожен канал — агент публікації переходить сюди у вашому авторизованому браузері."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

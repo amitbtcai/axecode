@@ -9,6 +9,20 @@ import { CHANNELS, CHANNEL_LABELS } from "../contentBoardUtils";
  * playbook. Stored in app settings (content_social_accounts) so publish
  * prompts embed the real destination instead of hunting for a doc file.
  */
+
+/** Pull a display handle out of a pasted URL — last meaningful path segment. */
+export function deriveHandle(url: string): string {
+  try {
+    const { hostname, pathname } = new URL(url.startsWith("http") ? url : `https://${url}`);
+    const parts = pathname.split("/").filter(Boolean);
+    const last = parts[parts.length - 1];
+    if (last) return `@${last}`;
+    return hostname.replace(/^www\./, "");
+  } catch {
+    return "";
+  }
+}
+
 export function SocialAccountsModal(props: {
   open: boolean;
   accounts: ContentSocialAccount[];
@@ -17,16 +31,15 @@ export function SocialAccountsModal(props: {
 }) {
   const { open, accounts, onClose, onSave } = props;
   const { t } = useLingui();
-  const [drafts, setDrafts] = useState<Record<string, { label: string; url: string }>>({});
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [loadedOpen, setLoadedOpen] = useState(false);
   const [busy, setBusy] = useState(false);
 
   if (open && !loadedOpen) {
     setLoadedOpen(true);
-    const next: Record<string, { label: string; url: string }> = {};
+    const next: Record<string, string> = {};
     for (const channel of CHANNELS) {
-      const existing = accounts.find((a) => a.channel === channel);
-      next[channel] = { label: existing?.label ?? "", url: existing?.url ?? "" };
+      next[channel] = accounts.find((a) => a.channel === channel)?.url ?? "";
     }
     setDrafts(next);
   }
@@ -36,9 +49,10 @@ export function SocialAccountsModal(props: {
     setBusy(true);
     try {
       for (const channel of CHANNELS) {
-        const draft = drafts[channel];
-        if (!draft) continue;
-        await onSave(channel, draft.label.trim(), draft.url.trim());
+        const url = (drafts[channel] ?? "").trim();
+        const existing = accounts.find((a) => a.channel === channel);
+        if (url === (existing?.url ?? "")) continue;
+        await onSave(channel, url ? deriveHandle(url) : "", url);
       }
       onClose();
     } finally {
@@ -49,7 +63,7 @@ export function SocialAccountsModal(props: {
   return (
     <Modal.Backdrop isOpen={open} onOpenChange={(next) => !next && onClose()}>
       <Modal.Container size="lg" placement="center" scroll="inside">
-        <Modal.Dialog>
+        <Modal.Dialog className="sm:max-w-[880px]">
           <Modal.CloseTrigger />
           <Modal.Header>
             <Modal.Heading>
@@ -59,43 +73,34 @@ export function SocialAccountsModal(props: {
           <Modal.Body>
             <p className="text-sm text-muted">
               <Trans>
-                The account or page each channel publishes to — the publish agent navigates here in
-                your signed-in browser.
+                Paste the account or page URL each channel publishes to — the publish agent
+                navigates here in your signed-in browser.
               </Trans>
             </p>
-            <div className="mt-4 flex flex-col gap-4">
-              {CHANNELS.map((channel) => {
-                const draft = drafts[channel] ?? { label: "", url: "" };
-                return (
-                  <div key={channel} className="grid grid-cols-[7rem_1fr_1.6fr] items-center gap-3">
-                    <Label className="text-sm font-medium">{CHANNEL_LABELS[channel]}</Label>
-                    <TextField
-                      aria-label={t`${CHANNEL_LABELS[channel]} handle`}
-                      value={draft.label}
-                      onChange={(value) =>
-                        setDrafts((prev) => ({
-                          ...prev,
-                          [channel]: { ...draft, label: value },
-                        }))
+            <div className="mt-5 flex flex-col gap-4">
+              {CHANNELS.map((channel) => (
+                <div key={channel} className="grid grid-cols-[7rem_1fr] items-center gap-4">
+                  <Label className="text-sm font-medium">{CHANNEL_LABELS[channel]}</Label>
+                  <TextField
+                    aria-label={t`${CHANNEL_LABELS[channel]} URL`}
+                    value={drafts[channel] ?? ""}
+                    onChange={(value) => setDrafts((prev) => ({ ...prev, [channel]: value }))}
+                  >
+                    <Input
+                      placeholder={
+                        channel === "linkedin"
+                          ? "linkedin.com/company/…"
+                          : channel === "youtube"
+                            ? "studio.youtube.com"
+                            : channel === "x"
+                              ? "x.com/yourhandle"
+                              : "https://…"
                       }
-                    >
-                      <Input placeholder={t`Handle / page name`} variant="secondary" />
-                    </TextField>
-                    <TextField
-                      aria-label={t`${CHANNEL_LABELS[channel]} URL`}
-                      value={draft.url}
-                      onChange={(value) =>
-                        setDrafts((prev) => ({
-                          ...prev,
-                          [channel]: { ...draft, url: value },
-                        }))
-                      }
-                    >
-                      <Input placeholder={t`Page URL`} variant="secondary" />
-                    </TextField>
-                  </div>
-                );
-              })}
+                      variant="secondary"
+                    />
+                  </TextField>
+                </div>
+              ))}
             </div>
           </Modal.Body>
           <Modal.Footer>

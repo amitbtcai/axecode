@@ -213,8 +213,8 @@ msgstr "{0} thiết bị"
 
 #. placeholder {0}: CHANNEL_LABELS[channel]
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "{0} handle"
-msgstr "tên {0}"
+#~ msgid "{0} handle"
+#~ msgstr "tên {0}"
 
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
@@ -6268,8 +6268,8 @@ msgid "Handle"
 msgstr "Handle"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Handle / page name"
-msgstr "Tên tài khoản / tên trang"
+#~ msgid "Handle / page name"
+#~ msgstr "Tên tài khoản / tên trang"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
@@ -9446,8 +9446,8 @@ msgid "Page"
 msgstr "Trang"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Page URL"
-msgstr "URL trang"
+#~ msgid "Page URL"
+#~ msgstr "URL trang"
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
@@ -9580,6 +9580,10 @@ msgstr "Dán đối tượng máy chủ có tên hoặc đối tượng được
 #: src/renderer/components/terminal/XTermSurface.tsx
 msgid "Paste in input"
 msgstr "Dán vào đầu vào"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Paste the account or page URL each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Dán URL tài khoản hoặc trang mà mỗi kênh đăng lên — tác tử đăng bài điều hướng đến đây trong trình duyệt đã đăng nhập của bạn."
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Paste the SSH private key."
@@ -13383,8 +13387,8 @@ msgstr "Phiên từ xa đó đã không còn."
 #~ msgstr "người dùng WSL {0}"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
-msgstr "Tài khoản hoặc trang mà mỗi kênh đăng lên — tác tử đăng bài điều hướng đến đây trong trình duyệt đã đăng nhập của bạn."
+#~ msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+#~ msgstr "Tài khoản hoặc trang mà mỗi kênh đăng lên — tác tử đăng bài điều hướng đến đây trong trình duyệt đã đăng nhập của bạn."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

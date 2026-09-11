@@ -213,8 +213,8 @@ msgstr "{0}台设备"
 
 #. placeholder {0}: CHANNEL_LABELS[channel]
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "{0} handle"
-msgstr "{0} 账号"
+#~ msgid "{0} handle"
+#~ msgstr "{0} 账号"
 
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
@@ -6268,8 +6268,8 @@ msgid "Handle"
 msgstr "用户名"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Handle / page name"
-msgstr "账号名 / 页面名称"
+#~ msgid "Handle / page name"
+#~ msgstr "账号名 / 页面名称"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
@@ -9445,8 +9445,8 @@ msgid "Page"
 msgstr "页面"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Page URL"
-msgstr "页面 URL"
+#~ msgid "Page URL"
+#~ msgstr "页面 URL"
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
@@ -9579,6 +9579,10 @@ msgstr "粘贴具名服务器对象，或以 mcpServers 键封装的对象。"
 #: src/renderer/components/terminal/XTermSurface.tsx
 msgid "Paste in input"
 msgstr "粘贴到输入中"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Paste the account or page URL each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "粘贴每个渠道发布到的账号或页面 URL —— 发布代理会在你已登录的浏览器中导航到这里。"
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Paste the SSH private key."
@@ -13382,8 +13386,8 @@ msgstr "该远程会话已不存在。"
 #~ msgstr "{0} WSL 用户"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
-msgstr "每个渠道发布到的账号或页面——发布代理会在你已登录的浏览器中导航到这里。"
+#~ msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+#~ msgstr "每个渠道发布到的账号或页面——发布代理会在你已登录的浏览器中导航到这里。"
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

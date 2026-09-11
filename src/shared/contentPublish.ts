@@ -33,6 +33,24 @@ const CHANNEL_RULES: Record<ContentCardChannel, string> = {
     "Title + description + video file upload. The description goes in the YouTube description field, not the title.",
 };
 
+/**
+ * Concrete compose-surface hints per channel — live-site selectors drift, so
+ * these describe the flow, not exact DOM. They also push the agent to confirm
+ * the posting identity before touching the composer.
+ */
+const CHANNEL_STEPS: Record<ContentCardChannel, string> = {
+  writer:
+    "Navigate to the blog/CMS new-post URL, create a post, paste the markdown body, save/publish.",
+  seo: "Navigate to the blog/CMS new-post URL, create a post, paste the content, publish.",
+  x: "Navigate to x.com (or the account URL), confirm the signed-in handle in the left nav matches the configured account, open the composer (or x.com/compose/post), type the post, attach media via the media button, post.",
+  linkedin:
+    "Navigate to the company page URL — posting as the page happens from the page itself; the 'Post as' selector near the composer should already show the company name. Click 'Start a post', enter the text, attach media via the image/video icon, post.",
+  facebook:
+    "Navigate to the Page URL — on the Page, use the 'Create post' / composer box at the top of the feed (posting there is already as the Page). Enter text, attach media via Photo/Video, post.",
+  youtube:
+    "Navigate to studio.youtube.com, click Create (camera icon) → Upload videos, select the video file, fill title and description in the Details step, proceed to Visibility → Public → Publish. Copy the video URL.",
+};
+
 function destinationFor(card: ContentCard, accounts: readonly ContentSocialAccount[]): string {
   const account = accounts.find((a) => a.channel === card.channel);
   if (account?.url) {
@@ -55,6 +73,7 @@ export function buildContentPublishPrompt(
 
 Destination: ${destinationFor(card, accounts)}
 Channel rules: ${CHANNEL_RULES[card.channel]}
+Compose flow: ${CHANNEL_STEPS[card.channel]}
 
 Title: ${card.title}
 
@@ -62,7 +81,12 @@ ${card.body}${mediaLines}
 
 Before posting, proofread: fix obvious typos, confirm the text fits the channel rules, and check any links. If the content has a substantive problem (off-brand claims, wrong facts, missing required media for this channel), do NOT post — report it instead.
 
-Steps: open a browser tab, navigate to the destination, open the compose surface, enter the content, attach the media files, publish, then copy the public URL of the post. If the account is not signed in, stop and report that.
+IDENTITY GATE — do this before touching the composer:
+1. Open the destination URL.
+2. Read the currently active profile/handle — on X open the profile menu or left-nav handle, on LinkedIn/Facebook check the "Post as"/profile indicator, on YouTube check the channel avatar/name in Studio.
+3. Compare it with the configured destination. If it does not match (wrong account signed in, or a personal profile where a company page is expected), STOP — call update_content_card with publishError "wrong account signed in: <what you saw>" and do not post. Do not try to switch accounts yourself.
+
+Then: open the compose surface, enter the content, attach the media files, publish, then copy the public URL of the post. If the account is not signed in, stop and report that.
 
 When done, call update_content_card on card ${card.id}: on success set status "published" and publishUrl to the post's URL; on failure set publishError to a short description of what went wrong (and status "draft" if it should not retry).`;
 }

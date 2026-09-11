@@ -213,8 +213,8 @@ msgstr "{0} cihaz"
 
 #. placeholder {0}: CHANNEL_LABELS[channel]
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "{0} handle"
-msgstr "{0} kullanıcı adı"
+#~ msgid "{0} handle"
+#~ msgstr "{0} kullanıcı adı"
 
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
@@ -6268,8 +6268,8 @@ msgid "Handle"
 msgstr "Kullanıcı adı"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Handle / page name"
-msgstr "Kullanıcı adı / sayfa adı"
+#~ msgid "Handle / page name"
+#~ msgstr "Kullanıcı adı / sayfa adı"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
@@ -9446,8 +9446,8 @@ msgid "Page"
 msgstr "Sayfa"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "Page URL"
-msgstr "Sayfa URL'si"
+#~ msgid "Page URL"
+#~ msgstr "Sayfa URL'si"
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
@@ -9580,6 +9580,10 @@ msgstr "Adlandırılmış bir sunucu nesnesi veya mcpServers anahtarı içine al
 #: src/renderer/components/terminal/XTermSurface.tsx
 msgid "Paste in input"
 msgstr "Girişe yapıştır"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Paste the account or page URL each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Her kanalın yayın yaptığı hesap veya sayfa URL'sini yapıştırın — yayınlama aracısı oturum açık tarayıcınızda buraya gider."
 
 #: src/mobile/views/DesktopsView.tsx
 msgid "Paste the SSH private key."
@@ -13383,8 +13387,8 @@ msgstr "Bu uzak oturum zaten yoktu."
 #~ msgstr "{0} WSL kullanıcısı"
 
 #: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
-msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
-msgstr "Her kanalın yayın yaptığı hesap veya sayfa — yayınlama aracısı oturum açık tarayıcınızda buraya gider."
+#~ msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+#~ msgstr "Her kanalın yayın yaptığı hesap veya sayfa — yayınlama aracısı oturum açık tarayıcınızda buraya gider."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"
