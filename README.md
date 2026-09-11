@@ -1,35 +1,33 @@
 <p align="center">
-  <img src="build/icon.png" width="128" height="128" alt="Poracode" />
+  <img src="https://axeai.com/profile/axe-ai-logo-4k-horizontal.png" width="480" alt="Axe AI" />
 </p>
 
-<h1 align="center">Poracode</h1>
+<h1 align="center">Axe Code</h1>
 
 <p align="center">
   <strong>One window for all your AI coding agents.</strong><br />
-  Run Claude, Codex, OpenCode, Gemini, Grok, Kimi Code, Qwen Code, Pi, Qoder, Factory Droid, Antigravity, Cursor, Command Code, and Copilot side-by-side. Terminal and chat, any layout — with built-in MCP so agents can orchestrate each other and the app itself.
+  Run Claude, Codex, OpenCode, Gemini, Grok, Kimi Code, Qwen Code, Pi, Qoder, Factory Droid, Antigravity, Cursor, Command Code, and Copilot side-by-side. Terminal and chat, any layout, with built-in MCP so agents can orchestrate each other and the app itself.
 </p>
 
 <p align="center">
-  <a href="https://poracode.com">Website</a> · <a href="https://github.com/Porabuild/Poracode/releases">Download</a> · <a href="https://github.com/Porabuild/Poracode/issues">Report a Bug</a> · <a href="https://github.com/Porabuild/Poracode/issues">Request Feature</a>
+  <a href="https://axeai.com">Website</a> | <a href="https://axeai.com/code">Download</a> | <a href="https://github.com/amitbtcai/axecode/issues">Report a Bug</a> | <a href="https://github.com/amitbtcai/axecode/issues">Request a Feature</a>
 </p>
 
 <p align="center">
-  <em>Bring your own agent subscriptions & API keys</em>
+  <em>Bring your own agent subscriptions and API keys</em>
 </p>
 
----
-
 <p align="center">
-  <img src="website/public/hero-screenshot.png" alt="Poracode — AI agents running side-by-side" width="960" />
+  <a href="https://axeai.com/code"><img src="https://axeai.com/social/axe-ai-og.png" alt="Axe Code desktop app" width="960" /></a>
 </p>
 
 ## Supported Agents
 
-**Claude** · **Codex** · **OpenCode** · **Gemini** · **Grok** · **Kimi Code** · **Qwen Code** · **Pi** · **Qoder** · **Factory Droid** · **Antigravity** · **Cursor** · **Command Code** · **Copilot** and any agent from the [ACP registry](https://agentclientprotocol.com).
+**Claude** | **Codex** | **OpenCode** | **Gemini** | **Grok** | **Kimi Code** | **Qwen Code** | **Pi** | **Qoder** | **Factory Droid** | **Antigravity** | **Cursor** | **Command Code** | **Copilot** and any agent from the [ACP registry](https://agentclientprotocol.com).
 
-## Why Poracode?
+## Why Axe Code?
 
-If you use more than one AI coding agent, you know the pain: separate terminals, separate apps, no shared context. Poracode puts them all in one place.
+If you use more than one AI coding agent, you know the pain: separate terminals, separate apps, no shared context. Axe Code puts them all in one place.
 
 ### Infinite Threads & Layouts
 
@@ -45,7 +43,7 @@ Let one agent delegate work to another across providers. Subagent output streams
 
 ### Built-in MCP & App Controls
 
-Poracode ships its own MCP servers. Point any agent at them to create and steer threads, organize projects, list and merge Git worktrees, commit and sync, open and merge pull requests, schedule runs, manage skills, and change settings — or add your own MCP servers over stdio, HTTP, or SSE.
+Axe Code ships its own MCP servers. Point any agent at them to create and steer threads, organize projects, list and merge Git worktrees, commit and sync, open and merge pull requests, schedule runs, manage skills, and change settings — or add your own MCP servers over stdio, HTTP, or SSE.
 
 ### Agent Experiments
 
@@ -53,7 +51,7 @@ Run one prompt across several agents in parallel worktrees, then let an AI judge
 
 ### Scheduled Runs
 
-Put recurring work on a schedule — nightly reviews, dependency sweeps, changelog drafts — and let Poracode start the thread for you.
+Put recurring work on a schedule — nightly reviews, dependency sweeps, changelog drafts — and let Axe Code start the thread for you.
 
 ### Skills & Marketplace
 
@@ -89,7 +87,7 @@ Optimized to stay fast and responsive, even when you have lots of agent sessions
 
 ### Session Persistence
 
-Sessions are saved automatically, so you can close Poracode and pick up right where you left off.
+Sessions are saved automatically, so you can close Axe Code and pick up right where you left off.
 
 ### Built-in Browser
 
@@ -97,11 +95,11 @@ Open web pages, attach browser context to agents, and keep research in the same 
 
 ### Remote Access
 
-Pair the Poracode web app with your desktop to follow live threads, read terminal output, send messages, and receive notifications from your phone or browser.
+Pair the Axe AI web app with your desktop to follow live threads, read terminal output, send messages, and receive notifications from your phone or browser.
 
 ### Remote Machines over SSH
 
-Connect a server from your SSH config and Poracode installs its runtime there, then runs agents on that machine — clone repos, open threads, and drive projects that never leave the box.
+Connect a server from your SSH config and Axe Code installs its runtime there, then runs agents on that machine — clone repos, open threads, and drive projects that never leave the box.
 
 ### In-App PRs
 
@@ -113,7 +111,7 @@ Monaco-based editor with LSP support for quick edits without switching to your I
 
 ### Cross-Platform Desktop
 
-Run Poracode on macOS, Windows, and Linux, with a polished interface that feels at home on both Mac and Windows.
+Run Axe Code on macOS, Windows, and Linux, with a polished interface that feels at home on both Mac and Windows.
 
 ### WSL Support
 
@@ -125,7 +123,7 @@ Install and run any agent from the [Agent Client Protocol](https://agentclientpr
 
 ## Install
 
-Download the latest release for your platform from the [releases page](https://github.com/Porabuild/Poracode/releases) or visit [poracode.com](https://poracode.com).
+Download the latest release for your platform from the [releases page](https://github.com/amitbtcai/axecode/releases) or visit [axeai.com/code](https://axeai.com/code).
 
 | Platform | Format                        |
 | -------- | ----------------------------- |
@@ -135,13 +133,23 @@ Download the latest release for your platform from the [releases page](https://g
 
 ### Getting Started
 
-1. Install Poracode for your platform.
+1. Install Axe Code for your platform.
 2. Install the AI agent CLIs you want to use (e.g., [Claude Code](https://docs.anthropic.com/en/docs/claude-code), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Codex](https://github.com/openai/codex)).
-3. Open Poracode, add your project, and start orchestrating.
+3. Open Axe Code, add your project, and start orchestrating.
+
+## Community
+
+- [X](https://x.com/AxeAI_com)
+- [LinkedIn](https://www.linkedin.com/company/axe-ai-com/)
+- [YouTube](https://www.youtube.com/@axeai-com)
+- [Facebook](https://www.facebook.com/axeai)
+- [Axe AI on Dune](https://dune.com/axeai0075/axe-ai)
 
 ## Contributing
 
-Contributions are welcome! Please open an [issue](https://github.com/Porabuild/Poracode/issues) first to discuss what you'd like to change.
+Contributions are welcome! Please open an [issue](https://github.com/amitbtcai/axecode/issues) first to discuss what you'd like to change.
+
+Axe Code is a fork of [Poracode](https://github.com/Porabuild/Poracode). Huge thanks to the Poracode authors and contributors for the foundation this project builds on. If your fix or feature benefits upstream, we encourage you to contribute to Poracode as well — improvements are welcome in either project.
 
 ## License
 
