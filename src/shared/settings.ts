@@ -762,7 +762,7 @@ export const defaultSharedSettings: SharedSettings = {
   acpRegistryAutoInstallOptOuts: [],
   agentInstances: {},
   collapseTerminalComposer: true,
-  followUpBehavior: "steer",
+  followUpBehavior: "queue",
   threadDocksPlacement: "right",
   threadDocksOrder: [...THREAD_DOCK_KINDS],
   cliPickerTarget: "ask",

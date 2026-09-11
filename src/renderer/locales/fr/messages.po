@@ -418,8 +418,12 @@ msgid "{0}mo ago"
 msgstr "il y a {0} mois"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "{agent} reported authentication success, but Poracode could not verify it. Configure {agent} directly, then try again."
-msgstr "{agent} a signalé que l’authentification avait réussi, mais Poracode n’a pas pu la vérifier. Configurez directement {agent}, puis réessayez."
+msgid "{agent} reported authentication success, but Axe Code could not verify it. Configure {agent} directly, then try again."
+msgstr "{agent} a signalé que l’authentification avait réussi, mais Axe Code n’a pas pu la vérifier. Configurez directement {agent}, puis réessayez."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "{agent} reported authentication success, but Poracode could not verify it. Configure {agent} directly, then try again."
+#~ msgstr "{agent} a signalé que l’authentification avait réussi, mais Poracode n’a pas pu la vérifier. Configurez directement {agent}, puis réessayez."
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "{agentLabel} install targets"
@@ -766,8 +770,12 @@ msgid "A server could not be started and was skipped."
 msgstr "Un serveur n'a pas pu démarrer et a été ignoré."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "A server has a name Poracode cannot use."
-msgstr "Un serveur porte un nom que Poracode ne peut pas utiliser."
+msgid "A server has a name Axe Code cannot use."
+msgstr "Un serveur porte un nom que Axe Code ne peut pas utiliser."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+#~ msgid "A server has a name Poracode cannot use."
+#~ msgstr "Un serveur porte un nom que Poracode ne peut pas utiliser."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "A server is not configured correctly and was skipped."
@@ -1038,8 +1046,8 @@ msgid "Add project"
 msgstr "Ajouter un projet"
 
 #: src/renderer/views/WelcomeOverlay.tsx
-msgid "Add Project"
-msgstr "Ajouter un projet"
+#~ msgid "Add Project"
+#~ msgstr "Ajouter un projet"
 
 #: src/renderer/views/MainView/parts/CreateProject/CreateProjectMenu.tsx
 msgid "Add project options"
@@ -1575,8 +1583,8 @@ msgid "Ask for approval"
 msgstr "Demander une approbation"
 
 #: src/renderer/views/WelcomeOverlay.tsx
-msgid "Ask Question"
-msgstr "Poser une question"
+#~ msgid "Ask Question"
+#~ msgstr "Poser une question"
 
 #: src/renderer/views/SettingsOverlay/parts/ArchivedThreadsSettings.tsx
 msgid "Associated worktrees with no remaining threads will also be removed."
@@ -1757,8 +1765,12 @@ msgid "Automation is paused: the configured helper agent is unavailable. Check t
 msgstr "L’automatisation est en pause : l’agent assistant configuré est indisponible. Vérifiez la connexion de l’agent et les paramètres de l’agent assistant."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrWatchControls.tsx
-msgid "Automation is paused: this PR's branch could not be checked out. Poracode keeps retrying automatically."
-msgstr "L'automatisation est en pause : la branche de cette PR n'a pas pu être extraite. Poracode réessaie automatiquement."
+msgid "Automation is paused: this PR's branch could not be checked out. Axe Code keeps retrying automatically."
+msgstr "L'automatisation est en pause : la branche de cette PR n'a pas pu être extraite. Axe Code réessaie automatiquement."
+
+#: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrWatchControls.tsx
+#~ msgid "Automation is paused: this PR's branch could not be checked out. Poracode keeps retrying automatically."
+#~ msgstr "L'automatisation est en pause : la branche de cette PR n'a pas pu être extraite. Poracode réessaie automatiquement."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrWatchControls.tsx
 #~ msgid "Automation is paused: this PR's branch could not be checked out. Re-select a mode to retry."
@@ -1793,6 +1805,60 @@ msgstr "Couleur de l'avatar {color}"
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
 msgid "Awaiting review"
 msgstr "Examen en attente"
+
+#: src/renderer/components/mcp/McpServersManager.tsx
+#: src/renderer/components/plugins/pluginCopy.ts
+#: src/renderer/components/thread/ContinueInProviderDialog.tsx
+#: src/renderer/components/thread/ThreadComposerSection.tsx
+#: src/renderer/components/thread/ThreadDraftComposerArea.tsx
+msgid "Axe Code"
+msgstr "Axe Code"
+
+#: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
+msgid "Axe Code and your agents run on the remote machine. SSH is used only to start the remote environment and secure its local tunnel."
+msgstr "Axe Code et vos agents s’exécutent sur la machine distante. SSH sert uniquement à démarrer l’environnement distant et à sécuriser son tunnel local."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+msgid "Axe Code could not create this plugin's data folder."
+msgstr "Axe Code n'a pas pu créer le dossier de données de ce plugin."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Axe Code Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine."
+msgstr "Axe Code Helper n’a pas pu démarrer. Vérifiez que Node 24.10 ou une version ultérieure et npm sont installés sur la machine distante."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Axe Code Helper is not ready yet (HTTP {status})."
+msgstr "Axe Code Helper n'est pas encore prêt (HTTP {status})."
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Axe Code Helper returned an invalid response."
+msgstr "Axe Code Helper a renvoyé une réponse non valide."
+
+#: src/renderer/components/startup/StartupRecoveryScreen.tsx
+msgid "Axe Code may be waiting on saved data or a background service. You can keep waiting, restart, or install an available update."
+msgstr "Axe Code attend peut-être des données enregistrées ou un service en arrière-plan. Vous pouvez continuer à attendre, redémarrer ou installer une mise à jour disponible."
+
+#: src/renderer/components/skills/SkillImportModal.tsx
+#: src/renderer/components/skills/SkillMarketplaceModal.tsx
+#: src/renderer/components/skills/SkillsManager.tsx
+msgid "Axe Code only"
+msgstr "Axe Code uniquement"
+
+#: src/renderer/i18n/sharedMessages.ts
+msgid "Axe Code SSH runtime manifest is missing or invalid: {path}"
+msgstr "Le manifeste d’exécution SSH de Axe Code est manquant ou non valide : {path}"
+
+#: src/mobile/views/DesktopsView.tsx
+msgid "Axe Code will install or reuse its server on the SSH host and keep credentials in this device's secure storage."
+msgstr "Axe Code installera ou réutilisera son serveur sur l’hôte SSH et conservera les identifiants dans le stockage sécurisé de cet appareil."
+
+#: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
+msgid "Axe Code will restart, back up its current data, and replace it with a complete copy of your Lightcode data."
+msgstr "Axe Code va redémarrer, sauvegarder ses données actuelles et les remplacer par une copie complète de vos données Lightcode."
+
+#: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
+msgid "Axe Code's built-in browser tools."
+msgstr "Les outils de navigateur intégrés de Axe Code."
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/NotesView.tsx
@@ -2007,8 +2073,12 @@ msgid "Browse your GitHub repositories or paste a clone URL."
 msgstr "Parcourez vos référentiels GitHub ou collez une URL de clonage."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Browse, inspect, and test websites in Poracode's isolated in-app browser."
-msgstr "Naviguez, inspectez et testez des sites web dans le navigateur intégré isolé de Poracode."
+msgid "Browse, inspect, and test websites in Axe Code's isolated in-app browser."
+msgstr "Naviguez, inspectez et testez des sites web dans le navigateur intégré isolé de Axe Code."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+#~ msgid "Browse, inspect, and test websites in Poracode's isolated in-app browser."
+#~ msgstr "Naviguez, inspectez et testez des sites web dans le navigateur intégré isolé de Poracode."
 
 #: src/mobile/chrome.ts
 #: src/mobile/NarrowShell.tsx
@@ -2103,16 +2173,24 @@ msgid "Built-in order"
 msgstr "Ordre intégré"
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "Built-in servers are managed by Poracode. They can be disabled globally but cannot be edited or removed."
-msgstr "Les serveurs intégrés sont gérés par Poracode. Ils peuvent être désactivés globalement, mais ne peuvent être ni modifiés ni supprimés."
+msgid "Built-in servers are managed by Axe Code. They can be disabled globally but cannot be edited or removed."
+msgstr "Les serveurs intégrés sont gérés par Axe Code. Ils peuvent être désactivés globalement, mais ne peuvent être ni modifiés ni supprimés."
+
+#: src/renderer/components/mcp/McpServersManager.tsx
+#~ msgid "Built-in servers are managed by Poracode. They can be disabled globally but cannot be edited or removed."
+#~ msgstr "Les serveurs intégrés sont gérés par Poracode. Ils peuvent être désactivés globalement, mais ne peuvent être ni modifiés ni supprimés."
 
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Built-in shortcut — can't be changed"
 msgstr "Raccourci intégré — non modifiable"
 
 #: src/renderer/components/plugins/PluginMarketplace.tsx
-msgid "Bundles of skills and MCP servers that work across every supported agent. Poracode loads any package built for the Agent Plugins specification."
-msgstr "Ensembles de compétences et de serveurs MCP qui fonctionnent avec tous les agents pris en charge. Poracode charge tout paquet conçu selon la spécification Agent Plugins."
+msgid "Bundles of skills and MCP servers that work across every supported agent. Axe Code loads any package built for the Agent Plugins specification."
+msgstr "Ensembles de compétences et de serveurs MCP qui fonctionnent avec tous les agents pris en charge. Axe Code charge tout paquet conçu selon la spécification Agent Plugins."
+
+#: src/renderer/components/plugins/PluginMarketplace.tsx
+#~ msgid "Bundles of skills and MCP servers that work across every supported agent. Poracode loads any package built for the Agent Plugins specification."
+#~ msgstr "Ensembles de compétences et de serveurs MCP qui fonctionnent avec tous les agents pris en charge. Poracode charge tout paquet conçu selon la spécification Agent Plugins."
 
 #: src/renderer/utils/projectIcons.ts
 msgid "Business & finance"
@@ -2460,8 +2538,13 @@ msgstr "Choisissez au moins deux candidats et saisissez une invite."
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose how Poracode performs manual merges and automatic PR merges."
-msgstr "Choisissez comment Poracode effectue les fusions manuelles et automatiques des PR."
+msgid "Choose how Axe Code performs manual merges and automatic PR merges."
+msgstr "Choisissez comment Axe Code effectue les fusions manuelles et automatiques des PR."
+
+#: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Choose how Poracode performs manual merges and automatic PR merges."
+#~ msgstr "Choisissez comment Poracode effectue les fusions manuelles et automatiques des PR."
 
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/AgentEnvironmentRow.tsx
 #~ msgid "Choose how to sign in for {env}."
@@ -2476,8 +2559,12 @@ msgid "Choose import destination"
 msgstr "Choisir la destination de l’importation"
 
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
-msgid "Choose shells for the Terminal panel and Poracode's internal commands."
-msgstr "Choisissez les shells du panneau de terminal et des commandes internes de Poracode."
+msgid "Choose shells for the Terminal panel and Axe Code's internal commands."
+msgstr "Choisissez les shells du panneau de terminal et des commandes internes de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
+#~ msgid "Choose shells for the Terminal panel and Poracode's internal commands."
+#~ msgstr "Choisissez les shells du panneau de terminal et des commandes internes de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
 msgid "Choose SSH identity file"
@@ -2485,8 +2572,13 @@ msgstr "Choisir le fichier d’identité SSH"
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose the display language for Poracode's interface."
-msgstr "Choisissez la langue d'affichage de l'interface de Poracode."
+msgid "Choose the display language for Axe Code's interface."
+msgstr "Choisissez la langue d'affichage de l'interface de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Choose the display language for Poracode's interface."
+#~ msgstr "Choisissez la langue d'affichage de l'interface de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/CursorProviderSettings.tsx
 #~ msgid "Choose the runtime for new Cursor GUI chats. SDK becomes available after its package is detected and its API key is authenticated."
@@ -2502,8 +2594,13 @@ msgstr "Choisissez le fil auquel attacher"
 
 #: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose what Poracode does for new pull requests: nothing, fix merge blockers, or fix and merge."
-msgstr "Choisissez ce que Poracode fait pour les nouvelles pull requests : ne rien faire, corriger les blocages de fusion, ou les corriger puis fusionner."
+msgid "Choose what Axe Code does for new pull requests: nothing, fix merge blockers, or fix and merge."
+msgstr "Choisissez ce que Axe Code fait pour les nouvelles pull requests : ne rien faire, corriger les blocages de fusion, ou les corriger puis fusionner."
+
+#: src/renderer/views/SettingsOverlay/parts/GitSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Choose what Poracode does for new pull requests: nothing, fix merge blockers, or fix and merge."
+#~ msgstr "Choisissez ce que Poracode fait pour les nouvelles pull requests : ne rien faire, corriger les blocages de fusion, ou les corriger puis fusionner."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -2516,8 +2613,13 @@ msgstr "Choisissez si les messages de chat envoyés pendant qu’un agent travai
 
 #: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Choose whether links from Poracode and browser popups stay in Poracode or open externally."
-msgstr "Choisissez si les liens de Poracode et les fenêtres contextuelles du navigateur restent dans Poracode ou s'ouvrent en externe."
+msgid "Choose whether links from Axe Code and browser popups stay in Axe Code or open externally."
+msgstr "Choisissez si les liens de Axe Code et les fenêtres contextuelles du navigateur restent dans Axe Code ou s'ouvrent en externe."
+
+#: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Choose whether links from Poracode and browser popups stay in Poracode or open externally."
+#~ msgstr "Choisissez si les liens de Poracode et les fenêtres contextuelles du navigateur restent dans Poracode ou s'ouvrent en externe."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -3196,8 +3298,12 @@ msgid "Config directory"
 msgstr "Dossier de configuration"
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
-msgid "Configure the server Poracode will add when supported agents start."
-msgstr "Configurez le serveur que Poracode ajoutera au démarrage des agents compatibles."
+msgid "Configure the server Axe Code will add when supported agents start."
+msgstr "Configurez le serveur que Axe Code ajoutera au démarrage des agents compatibles."
+
+#: src/renderer/components/mcp/McpServerEditor.tsx
+#~ msgid "Configure the server Poracode will add when supported agents start."
+#~ msgstr "Configurez le serveur que Poracode ajoutera au démarrage des agents compatibles."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
 #: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
@@ -3248,20 +3354,28 @@ msgid "Connect an agent to create schedules."
 msgstr "Connectez un agent pour créer des planifications."
 
 #: src/mobile/setupEmptyState.tsx
+msgid "Connect Axe Code on your desktop before starting a thread."
+msgstr "Connectez Axe Code sur votre bureau avant de démarrer un fil."
+
+#: src/mobile/setupEmptyState.tsx
 msgid "Connect desktop"
 msgstr "Connecter le bureau"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
-msgid "Connect directly, through a relay, or over SSH. Every transport uses the same Poracode remote protocol, projects, threads, and agent runtimes."
-msgstr "Connectez-vous directement, via un relais ou par SSH. Chaque transport utilise le même protocole distant Poracode, les mêmes projets, fils et environnements d’exécution d’agents."
+msgid "Connect directly, through a relay, or over SSH. Every transport uses the same Axe Code remote protocol, projects, threads, and agent runtimes."
+msgstr "Connectez-vous directement, via un relais ou par SSH. Chaque transport utilise le même protocole distant Axe Code, les mêmes projets, fils et environnements d’exécution d’agents."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
+#~ msgid "Connect directly, through a relay, or over SSH. Every transport uses the same Poracode remote protocol, projects, threads, and agent runtimes."
+#~ msgstr "Connectez-vous directement, via un relais ou par SSH. Chaque transport utilise le même protocole distant Poracode, les mêmes projets, fils et environnements d’exécution d’agents."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 msgid "Connect over SSH"
 msgstr "Se connecter via SSH"
 
 #: src/mobile/setupEmptyState.tsx
-msgid "Connect Poracode on your desktop before starting a thread."
-msgstr "Connectez Poracode sur votre bureau avant de démarrer un fil."
+#~ msgid "Connect Poracode on your desktop before starting a thread."
+#~ msgstr "Connectez Poracode sur votre bureau avant de démarrer un fil."
 
 #: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
 msgid "Connect the AI providers OpenCode can use and sign out of them here."
@@ -3455,8 +3569,12 @@ msgid "Copy {0} device code {1}"
 msgstr "Copier {0} le code de l'appareil {1}"
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
-msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
-msgstr "Copiez toutes les données Lightcode dans Poracode. Poracode redémarrera et conservera une sauvegarde complète de ses données actuelles."
+msgid "Copy all Lightcode data into Axe Code. Axe Code restarts and keeps a complete backup of its current data."
+msgstr "Copiez toutes les données Lightcode dans Axe Code. Axe Code redémarrera et conservera une sauvegarde complète de ses données actuelles."
+
+#: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
+#~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
+#~ msgstr "Copiez toutes les données Lightcode dans Poracode. Poracode redémarrera et conservera une sauvegarde complète de ses données actuelles."
 
 #: src/renderer/components/thread/ChatPane/parts/items/ItemMarkdownInner.tsx
 msgid "Copy code"
@@ -4459,8 +4577,12 @@ msgid "Disabled server or unsupported native options"
 msgstr "Serveur désactivé ou options natives non prises en charge"
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Disabling a skill moves it out of active skill folders and removes Poracode-managed provider copies. Its files are preserved so you can enable it again."
-msgstr "La désactivation d’une compétence la déplace hors des dossiers de compétences actives et supprime les copies de fournisseurs gérées par Poracode. Ses fichiers sont conservés afin que vous puissiez la réactiver."
+msgid "Disabling a skill moves it out of active skill folders and removes Axe Code-managed provider copies. Its files are preserved so you can enable it again."
+msgstr "La désactivation d’une compétence la déplace hors des dossiers de compétences actives et supprime les copies de fournisseurs gérées par Axe Code. Ses fichiers sont conservés afin que vous puissiez la réactiver."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "Disabling a skill moves it out of active skill folders and removes Poracode-managed provider copies. Its files are preserved so you can enable it again."
+#~ msgstr "La désactivation d’une compétence la déplace hors des dossiers de compétences actives et supprime les copies de fournisseurs gérées par Poracode. Ses fichiers sont conservés afin que vous puissiez la réactiver."
 
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
 msgid "Discard"
@@ -5446,16 +5568,28 @@ msgid "First-class Antigravity integration using the agy terminal CLI and Google
 msgstr "Intégration Antigravity de première classe utilisant la CLI de terminal agy et le runtime ACP Chat officiel de Google."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Claude Code integration using Poracode's native SDK runtime."
-msgstr "Intégration Claude Code de première classe à l'aide du runtime SDK natif de Poracode."
+msgid "First-class Claude Code integration using Axe Code's native SDK runtime."
+msgstr "Intégration Claude Code de première classe à l'aide du runtime SDK natif de Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Codex CLI integration using Poracode's native app-server runtime."
-msgstr "Intégration CLI Codex de première classe à l'aide du runtime de serveur d'applications natif de Poracode."
+#~ msgid "First-class Claude Code integration using Poracode's native SDK runtime."
+#~ msgstr "Intégration Claude Code de première classe à l'aide du runtime SDK natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Command Code CLI integration using Poracode's native runtime."
-msgstr "Intégration CLI Command Code de première classe à l’aide du runtime natif de Poracode."
+msgid "First-class Codex CLI integration using Axe Code's native app-server runtime."
+msgstr "Intégration CLI Codex de première classe à l'aide du runtime de serveur d'applications natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class Codex CLI integration using Poracode's native app-server runtime."
+#~ msgstr "Intégration CLI Codex de première classe à l'aide du runtime de serveur d'applications natif de Poracode."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+msgid "First-class Command Code CLI integration using Axe Code's native runtime."
+msgstr "Intégration CLI Command Code de première classe à l’aide du runtime natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class Command Code CLI integration using Poracode's native runtime."
+#~ msgstr "Intégration CLI Command Code de première classe à l’aide du runtime natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 #~ msgid "First-class Cursor Agent integration using Poracode's native runtime."
@@ -5466,48 +5600,84 @@ msgid "First-class Cursor integration using ACP or the public SDK runtime."
 msgstr "Intégration Cursor complète utilisant ACP ou l’environnement d’exécution public du SDK."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Factory Droid integration using Poracode's ACP runtime."
-msgstr "Intégration native de Factory Droid avec l’environnement d’exécution ACP de Poracode."
+msgid "First-class Factory Droid integration using Axe Code's ACP runtime."
+msgstr "Intégration native de Factory Droid avec l’environnement d’exécution ACP de Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Gemini CLI integration using Poracode's native runtime."
-msgstr "Intégration de première classe de Gemini CLI utilisant le runtime natif de Poracode."
+#~ msgid "First-class Factory Droid integration using Poracode's ACP runtime."
+#~ msgstr "Intégration native de Factory Droid avec l’environnement d’exécution ACP de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class GitHub Copilot CLI integration using Poracode's native runtime."
-msgstr "Intégration de première classe de GitHub Copilot CLI utilisant le runtime natif de Poracode."
+msgid "First-class Gemini CLI integration using Axe Code's native runtime."
+msgstr "Intégration de première classe de Gemini CLI utilisant le runtime natif de Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Grok Build CLI integration using Poracode's native runtime."
-msgstr "Intégration CLI Grok Build de première classe à l'aide du runtime natif de Poracode."
+#~ msgid "First-class Gemini CLI integration using Poracode's native runtime."
+#~ msgstr "Intégration de première classe de Gemini CLI utilisant le runtime natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Kimi Code CLI integration using Poracode's native runtime."
-msgstr "Intégration CLI Kimi Code de première classe à l'aide du runtime natif de Poracode."
+msgid "First-class GitHub Copilot CLI integration using Axe Code's native runtime."
+msgstr "Intégration de première classe de GitHub Copilot CLI utilisant le runtime natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class GitHub Copilot CLI integration using Poracode's native runtime."
+#~ msgstr "Intégration de première classe de GitHub Copilot CLI utilisant le runtime natif de Poracode."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+msgid "First-class Grok Build CLI integration using Axe Code's native runtime."
+msgstr "Intégration CLI Grok Build de première classe à l'aide du runtime natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class Grok Build CLI integration using Poracode's native runtime."
+#~ msgstr "Intégration CLI Grok Build de première classe à l'aide du runtime natif de Poracode."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+msgid "First-class Kimi Code CLI integration using Axe Code's native runtime."
+msgstr "Intégration CLI Kimi Code de première classe à l'aide du runtime natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class Kimi Code CLI integration using Poracode's native runtime."
+#~ msgstr "Intégration CLI Kimi Code de première classe à l'aide du runtime natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 #~ msgid "First-class Muse Code CLI integration using Poracode's native terminal runtime."
 #~ msgstr "Intégration CLI Muse Code de première classe à l'aide du runtime de terminal natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Muse Code integration using Poracode's native terminal and GUI runtimes."
-msgstr "Intégration Muse Code de première classe avec les runtimes natifs de terminal et d'interface graphique de Poracode."
+msgid "First-class Muse Code integration using Axe Code's native terminal and GUI runtimes."
+msgstr "Intégration Muse Code de première classe avec les runtimes natifs de terminal et d'interface graphique de Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class OpenCode integration using Poracode's native SDK runtime."
-msgstr "Intégration OpenCode de première classe à l'aide du runtime SDK natif de Poracode."
+#~ msgid "First-class Muse Code integration using Poracode's native terminal and GUI runtimes."
+#~ msgstr "Intégration Muse Code de première classe avec les runtimes natifs de terminal et d'interface graphique de Poracode."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+msgid "First-class OpenCode integration using Axe Code's native SDK runtime."
+msgstr "Intégration OpenCode de première classe à l'aide du runtime SDK natif de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class OpenCode integration using Poracode's native SDK runtime."
+#~ msgstr "Intégration OpenCode de première classe à l'aide du runtime SDK natif de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
 msgid "First-class Pi integration using a real terminal and Pi's native SDK runtime."
 msgstr "Intégration Pi de premier ordre avec un véritable terminal et l’environnement d’exécution SDK natif de Pi."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Qoder CLI integration using Poracode's native terminal and ACP runtimes."
-msgstr "Intégration de premier ordre de Qoder CLI utilisant les environnements d’exécution natifs de terminal et ACP de Poracode."
+msgid "First-class Qoder CLI integration using Axe Code's native terminal and ACP runtimes."
+msgstr "Intégration de premier ordre de Qoder CLI utilisant les environnements d’exécution natifs de terminal et ACP de Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
-msgid "First-class Qwen Code integration using Poracode's native terminal and ACP runtimes."
-msgstr "Intégration de premier ordre de Qwen Code utilisant les environnements d’exécution natifs de terminal et ACP de Poracode."
+#~ msgid "First-class Qoder CLI integration using Poracode's native terminal and ACP runtimes."
+#~ msgstr "Intégration de premier ordre de Qoder CLI utilisant les environnements d’exécution natifs de terminal et ACP de Poracode."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+msgid "First-class Qwen Code integration using Axe Code's native terminal and ACP runtimes."
+msgstr "Intégration de premier ordre de Qwen Code utilisant les environnements d’exécution natifs de terminal et ACP de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/agentRegistryNative.ts
+#~ msgid "First-class Qwen Code integration using Poracode's native terminal and ACP runtimes."
+#~ msgstr "Intégration de premier ordre de Qwen Code utilisant les environnements d’exécution natifs de terminal et ACP de Poracode."
 
 #: src/renderer/components/pdf/PdfViewer.tsx
 #~ msgid "Fit width"
@@ -5982,8 +6152,12 @@ msgid "Headers"
 msgstr "En-têtes"
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
-msgid "Help me create a schedule. Ask for any missing details, then use the Poracode schedule controls to create it for me."
-msgstr "Aide-moi à créer une planification. Demande les détails manquants, puis utilise les contrôles de planification Poracode pour la créer."
+msgid "Help me create a schedule. Ask for any missing details, then use the Axe Code schedule controls to create it for me."
+msgstr "Aide-moi à créer une planification. Demande les détails manquants, puis utilise les contrôles de planification Axe Code pour la créer."
+
+#: src/renderer/views/SchedulesView/SchedulesView.tsx
+#~ msgid "Help me create a schedule. Ask for any missing details, then use the Poracode schedule controls to create it for me."
+#~ msgstr "Aide-moi à créer une planification. Demande les détails manquants, puis utilise les contrôles de planification Poracode pour la créer."
 
 #: src/renderer/views/ProjectSettingsOverlay/parts/ProjectIconSources.tsx
 msgid "Hex color"
@@ -6072,7 +6246,6 @@ msgstr "Historique"
 #: src/renderer/views/HomeView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/Sidebar.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/WelcomeOverlay.tsx
 msgid "Home"
 msgstr "Accueil"
 
@@ -6605,6 +6778,11 @@ msgstr "Conservez au moins un espace de travail"
 msgid "Keep at least one workspace."
 msgstr "Conservez au moins un espace de travail."
 
+#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+msgid "Keep Axe Code in the system tray when it launches at startup."
+msgstr "Garder Axe Code dans la zone de notification lors de son lancement au démarrage."
+
 #: src/renderer/views/MainView/parts/Sidebar/parts/ForceDeleteBranchDialog.tsx
 msgid "Keep Branch"
 msgstr "Garder la branche"
@@ -6620,8 +6798,8 @@ msgstr "Conserver un seul ordre de fournisseurs partout. Désactivez pour l'orga
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Keep Poracode in the system tray when it launches at startup."
-msgstr "Garder Poracode dans la zone de notification lors de son lancement au démarrage."
+#~ msgid "Keep Poracode in the system tray when it launches at startup."
+#~ msgstr "Garder Poracode dans la zone de notification lors de son lancement au démarrage."
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -6660,8 +6838,12 @@ msgid "Kimi Code"
 msgstr "Kimi Code"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Kimi Code could not update its credentials because another process is using the credential file. Close other Poracode or Kimi Code processes, then retry."
-msgstr "Kimi Code n’a pas pu mettre à jour ses identifiants, car un autre processus utilise le fichier d’identifiants. Fermez les autres processus Poracode ou Kimi Code, puis réessayez."
+msgid "Kimi Code could not update its credentials because another process is using the credential file. Close other Axe Code or Kimi Code processes, then retry."
+msgstr "Kimi Code n’a pas pu mettre à jour ses identifiants, car un autre processus utilise le fichier d’identifiants. Fermez les autres processus Axe Code ou Kimi Code, puis réessayez."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "Kimi Code could not update its credentials because another process is using the credential file. Close other Poracode or Kimi Code processes, then retry."
+#~ msgstr "Kimi Code n’a pas pu mettre à jour ses identifiants, car un autre processus utilise le fichier d’identifiants. Fermez les autres processus Poracode ou Kimi Code, puis réessayez."
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Kimi Code ended the turn without returning a response. Restart the thread and try again."
@@ -6698,8 +6880,13 @@ msgstr "Lancer au démarrage"
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Launch Poracode automatically when you sign in to Windows."
-msgstr "Lancer automatiquement Poracode lors de la connexion à Windows."
+msgid "Launch Axe Code automatically when you sign in to Windows."
+msgstr "Lancer automatiquement Axe Code lors de la connexion à Windows."
+
+#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Launch Poracode automatically when you sign in to Windows."
+#~ msgstr "Lancer automatiquement Poracode lors de la connexion à Windows."
 
 #: src/renderer/components/thread/ThreadDraftComposerArea.tsx
 msgid "Launch thread"
@@ -7060,8 +7247,13 @@ msgstr "Gérez les compétences partagées dans les portées globales et de proj
 
 #: src/renderer/views/SettingsOverlay/parts/McpServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Manage the MCP server configurations Poracode adds when starting supported agents. Workspace servers can be configured in each project's settings."
-msgstr "Gérez les configurations de serveurs MCP que Poracode ajoute au démarrage des agents compatibles. Les serveurs de l’espace de travail peuvent être configurés dans les paramètres de chaque projet."
+msgid "Manage the MCP server configurations Axe Code adds when starting supported agents. Workspace servers can be configured in each project's settings."
+msgstr "Gérez les configurations de serveurs MCP que Axe Code ajoute au démarrage des agents compatibles. Les serveurs de l’espace de travail peuvent être configurés dans les paramètres de chaque projet."
+
+#: src/renderer/views/SettingsOverlay/parts/McpServersSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Manage the MCP server configurations Poracode adds when starting supported agents. Workspace servers can be configured in each project's settings."
+#~ msgstr "Gérez les configurations de serveurs MCP que Poracode ajoute au démarrage des agents compatibles. Les serveurs de l’espace de travail peuvent être configurés dans les paramètres de chaque projet."
 
 #: src/renderer/views/SettingsOverlay/parts/SkillsSettings.tsx
 #~ msgid "Manage the skills Poracode makes available to supported agents. Project skills can be managed in each project's settings."
@@ -7085,8 +7277,12 @@ msgid "Managed by {pluginName}"
 msgstr "Géré par {pluginName}"
 
 #: src/renderer/components/mcp/McpExternalImportModal.tsx
-msgid "Managed by Poracode"
-msgstr "Géré par Poracode"
+msgid "Managed by Axe Code"
+msgstr "Géré par Axe Code"
+
+#: src/renderer/components/mcp/McpExternalImportModal.tsx
+#~ msgid "Managed by Poracode"
+#~ msgstr "Géré par Poracode"
 
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Managed by provider"
@@ -8861,12 +9057,16 @@ msgid "Open Settings"
 msgstr "Ouvrir les paramètres"
 
 #: src/mobile/views/DesktopsView.tsx
+msgid "Open Settings → Remote Access in Axe Code on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
+msgstr "Ouvrez Paramètres → Accès distant dans Axe Code sur votre ordinateur, puis scannez le code QR depuis ici — ou saisissez le point d'accès et le jeton d'appairage manuellement."
+
+#: src/mobile/views/DesktopsView.tsx
 #~ msgid "Open Settings → Remote Access in Poracode on this computer, then paste its pairing token here."
 #~ msgstr "Ouvrez Paramètres → Accès à distance dans Poracode sur cet ordinateur, puis collez ici son jeton d’appairage."
 
 #: src/mobile/views/DesktopsView.tsx
-msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
-msgstr "Ouvrez Paramètres → Accès distant dans Poracode sur votre ordinateur, puis scannez le code QR depuis ici — ou saisissez le point d'accès et le jeton d'appairage manuellement."
+#~ msgid "Open Settings → Remote Access in Poracode on your desktop, then scan the QR code from here — or enter the endpoint and pairing token manually."
+#~ msgstr "Ouvrez Paramètres → Accès distant dans Poracode sur votre ordinateur, puis scannez le code QR depuis ici — ou saisissez le point d'accès et le jeton d'appairage manuellement."
 
 #. placeholder {0}: display.title
 #: src/renderer/components/thread/ChatPane/parts/items/SubAgentToolCall.tsx
@@ -8923,8 +9123,12 @@ msgid "OpenSSH private key"
 msgstr "Clé privée OpenSSH"
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Operate desktop apps through Poracode's desktop-control tools."
-msgstr "Pilotez les applications de bureau via les outils de contrôle de Poracode."
+msgid "Operate desktop apps through Axe Code's desktop-control tools."
+msgstr "Pilotez les applications de bureau via les outils de contrôle de Axe Code."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+#~ msgid "Operate desktop apps through Poracode's desktop-control tools."
+#~ msgstr "Pilotez les applications de bureau via les outils de contrôle de Poracode."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "Optional"
@@ -9047,8 +9251,12 @@ msgid "Pair again"
 msgstr "Associer à nouveau"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
-msgid "Pair with Poracode"
-msgstr "Associer à Poracode"
+msgid "Pair with Axe Code"
+msgstr "Associer à Axe Code"
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
+#~ msgid "Pair with Poracode"
+#~ msgstr "Associer à Poracode"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "Paired devices"
@@ -9364,66 +9572,71 @@ msgstr "Dirigez ce profil vers un fournisseur non-Anthropic (z.ai, …) avec des
 
 #: src/renderer/views/SettingsOverlay/parts/AppearanceSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "Popular editor themes adapted to Poracode. Each follows the light or dark mode above."
-msgstr "Thèmes d'éditeur populaires adaptés à Poracode. Chacun suit le mode clair ou sombre ci-dessus."
+msgid "Popular editor themes adapted to Axe Code. Each follows the light or dark mode above."
+msgstr "Thèmes d'éditeur populaires adaptés à Axe Code. Chacun suit le mode clair ou sombre ci-dessus."
+
+#: src/renderer/views/SettingsOverlay/parts/AppearanceSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "Popular editor themes adapted to Poracode. Each follows the light or dark mode above."
+#~ msgstr "Thèmes d'éditeur populaires adaptés à Poracode. Chacun suit le mode clair ou sombre ci-dessus."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
 #: src/renderer/components/plugins/pluginCopy.ts
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 #: src/renderer/components/thread/ThreadDraftComposerArea.tsx
-msgid "Poracode"
-msgstr "Poracode"
+#~ msgid "Poracode"
+#~ msgstr "Poracode"
 
 #: src/renderer/views/SettingsOverlay/parts/SshConnectionForm.tsx
-msgid "Poracode and your agents run on the remote machine. SSH is used only to start the remote environment and secure its local tunnel."
-msgstr "Poracode et vos agents s’exécutent sur la machine distante. SSH sert uniquement à démarrer l’environnement distant et à sécuriser son tunnel local."
+#~ msgid "Poracode and your agents run on the remote machine. SSH is used only to start the remote environment and secure its local tunnel."
+#~ msgstr "Poracode et vos agents s’exécutent sur la machine distante. SSH sert uniquement à démarrer l’environnement distant et à sécuriser son tunnel local."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Poracode could not create this plugin's data folder."
-msgstr "Poracode n'a pas pu créer le dossier de données de ce plugin."
+#~ msgid "Poracode could not create this plugin's data folder."
+#~ msgstr "Poracode n'a pas pu créer le dossier de données de ce plugin."
 
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
 #~ msgid "Poracode does not store marketplace credentials in plain settings. Open the catalog to browse its security-scanned skills."
 #~ msgstr "Poracode ne stocke pas les identifiants de marketplace en clair dans les paramètres. Ouvrez le catalogue pour parcourir ses skills analysées sur le plan de la sécurité."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine."
-msgstr "Poracode Helper n’a pas pu démarrer. Vérifiez que Node 24.10 ou une version ultérieure et npm sont installés sur la machine distante."
+#~ msgid "Poracode Helper failed to start. Check that Node 24.10 or newer and npm are installed on the remote machine."
+#~ msgstr "Poracode Helper n’a pas pu démarrer. Vérifiez que Node 24.10 ou une version ultérieure et npm sont installés sur la machine distante."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Poracode Helper is not ready yet (HTTP {status})."
-msgstr "Poracode Helper n'est pas encore prêt (HTTP {status})."
+#~ msgid "Poracode Helper is not ready yet (HTTP {status})."
+#~ msgstr "Poracode Helper n'est pas encore prêt (HTTP {status})."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Poracode Helper returned an invalid response."
-msgstr "Poracode Helper a renvoyé une réponse non valide."
+#~ msgid "Poracode Helper returned an invalid response."
+#~ msgstr "Poracode Helper a renvoyé une réponse non valide."
 
 #: src/renderer/components/startup/StartupRecoveryScreen.tsx
-msgid "Poracode may be waiting on saved data or a background service. You can keep waiting, restart, or install an available update."
-msgstr "Poracode attend peut-être des données enregistrées ou un service en arrière-plan. Vous pouvez continuer à attendre, redémarrer ou installer une mise à jour disponible."
+#~ msgid "Poracode may be waiting on saved data or a background service. You can keep waiting, restart, or install an available update."
+#~ msgstr "Poracode attend peut-être des données enregistrées ou un service en arrière-plan. Vous pouvez continuer à attendre, redémarrer ou installer une mise à jour disponible."
 
 #: src/renderer/components/skills/SkillImportModal.tsx
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Poracode only"
-msgstr "Poracode uniquement"
+#~ msgid "Poracode only"
+#~ msgstr "Poracode uniquement"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Poracode SSH runtime manifest is missing or invalid: {path}"
-msgstr "Le manifeste d’exécution SSH de Poracode est manquant ou non valide : {path}"
+#~ msgid "Poracode SSH runtime manifest is missing or invalid: {path}"
+#~ msgstr "Le manifeste d’exécution SSH de Poracode est manquant ou non valide : {path}"
 
 #: src/mobile/views/DesktopsView.tsx
-msgid "Poracode will install or reuse its server on the SSH host and keep credentials in this device's secure storage."
-msgstr "Poracode installera ou réutilisera son serveur sur l’hôte SSH et conservera les identifiants dans le stockage sécurisé de cet appareil."
+#~ msgid "Poracode will install or reuse its server on the SSH host and keep credentials in this device's secure storage."
+#~ msgstr "Poracode installera ou réutilisera son serveur sur l’hôte SSH et conservera les identifiants dans le stockage sécurisé de cet appareil."
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
-msgid "Poracode will restart, back up its current data, and replace it with a complete copy of your Lightcode data."
-msgstr "Poracode va redémarrer, sauvegarder ses données actuelles et les remplacer par une copie complète de vos données Lightcode."
+#~ msgid "Poracode will restart, back up its current data, and replace it with a complete copy of your Lightcode data."
+#~ msgstr "Poracode va redémarrer, sauvegarder ses données actuelles et les remplacer par une copie complète de vos données Lightcode."
 
 #: src/renderer/views/SettingsOverlay/parts/OpenCodeProviderSettings.tsx
-msgid "Poracode's built-in browser tools."
-msgstr "Les outils de navigateur intégrés de Poracode."
+#~ msgid "Poracode's built-in browser tools."
+#~ msgstr "Les outils de navigateur intégrés de Poracode."
 
 #: src/renderer/components/thread/MoveThreadToWorktreeDialog.tsx
 #~ msgid "poracode/my-branch"
@@ -9765,8 +9978,12 @@ msgid "Proposed plan"
 msgstr "Plan proposé"
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "Provided and managed by Poracode for supported agents."
-msgstr "Fourni et géré par Poracode pour les agents compatibles."
+msgid "Provided and managed by Axe Code for supported agents."
+msgstr "Fourni et géré par Axe Code pour les agents compatibles."
+
+#: src/renderer/components/mcp/McpServersManager.tsx
+#~ msgid "Provided and managed by Poracode for supported agents."
+#~ msgstr "Fourni et géré par Poracode pour les agents compatibles."
 
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/authHelpers.ts
 msgid "provider"
@@ -9838,8 +10055,12 @@ msgid "Pull ↓{behind}"
 msgstr "Tirer ↓{behind}"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Pull did not complete. Your local changes remain in a Poracode stash."
-msgstr "Le pull n'a pas été effectué. Vos modifications locales restent dans un stash Poracode."
+msgid "Pull did not complete. Your local changes remain in a Axe Code stash."
+msgstr "Le pull n'a pas été effectué. Vos modifications locales restent dans un stash Axe Code."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "Pull did not complete. Your local changes remain in a Poracode stash."
+#~ msgstr "Le pull n'a pas été effectué. Vos modifications locales restent dans un stash Poracode."
 
 #: src/renderer/i18n/sharedMessages.ts
 msgid "Pull failed: {detail}"
@@ -10047,8 +10268,12 @@ msgid "Re-run failed jobs"
 msgstr "Réexécuter les tâches en échec"
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Read and drive Poracode itself: threads, terminal panes, git, pull requests, and schedules."
-msgstr "Lire et piloter Poracode lui-même : fils, panneaux de terminal, git, pull requests et planifications."
+msgid "Read and drive Axe Code itself: threads, terminal panes, git, pull requests, and schedules."
+msgstr "Lire et piloter Axe Code lui-même : fils, panneaux de terminal, git, pull requests et planifications."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+#~ msgid "Read and drive Poracode itself: threads, terminal panes, git, pull requests, and schedules."
+#~ msgstr "Lire et piloter Poracode lui-même : fils, panneaux de terminal, git, pull requests et planifications."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "Read the Terminal panel attached to this worktree and report the evidence."
@@ -10452,8 +10677,12 @@ msgid "Removing {profileName} deletes its saved API key. Threads that use this p
 msgstr "Supprimer {profileName} efface sa clé API enregistrée. Les fils de discussion qui utilisent ce profil ne trouveront plus leur agent."
 
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
-msgid "Removing {profileName} drops its Poracode settings — env vars, models, and effort. Its config directory and the Claude credentials inside it stay on disk."
-msgstr "Supprimer {profileName} abandonne ses réglages Poracode — variables d'environnement, modèles et effort. Son répertoire de configuration et les identifiants Claude qu'il contient restent sur le disque."
+msgid "Removing {profileName} drops its Axe Code settings — env vars, models, and effort. Its config directory and the Claude credentials inside it stay on disk."
+msgstr "Supprimer {profileName} abandonne ses réglages Axe Code — variables d'environnement, modèles et effort. Son répertoire de configuration et les identifiants Claude qu'il contient restent sur le disque."
+
+#: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
+#~ msgid "Removing {profileName} drops its Poracode settings — env vars, models, and effort. Its config directory and the Claude credentials inside it stay on disk."
+#~ msgstr "Supprimer {profileName} abandonne ses réglages Poracode — variables d'environnement, modèles et effort. Son répertoire de configuration et les identifiants Claude qu'il contient restent sur le disque."
 
 #: src/mobile/ThreadTitleRow.tsx
 #: src/mobile/TodoActionsSheet.tsx
@@ -10668,8 +10897,12 @@ msgid "Resolves merge conflicts during rebase or merge."
 msgstr "Résout les conflits de fusion lors du rebase ou de la fusion."
 
 #: src/renderer/components/startup/StartupRecoveryScreen.tsx
-msgid "Restart Poracode"
-msgstr "Redémarrer Poracode"
+msgid "Restart Axe Code"
+msgstr "Redémarrer Axe Code"
+
+#: src/renderer/components/startup/StartupRecoveryScreen.tsx
+#~ msgid "Restart Poracode"
+#~ msgstr "Redémarrer Poracode"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/BrowserPanel.tsx
 msgid "Restore"
@@ -10955,8 +11188,12 @@ msgstr "Exécutez une invite avec plusieurs agents, puis comparez leur travail."
 #~ msgstr "Exécutez des tâches autonomes sur cet appareil sans projet."
 
 #: src/renderer/views/SchedulesView/SchedulesView.tsx
-msgid "Run standalone tasks on this device. Schedules run while the device is awake and Poracode is open."
-msgstr "Exécutez des tâches autonomes sur cet appareil. Les planifications s'exécutent tant que l'appareil est actif et que Poracode est ouvert."
+msgid "Run standalone tasks on this device. Schedules run while the device is awake and Axe Code is open."
+msgstr "Exécutez des tâches autonomes sur cet appareil. Les planifications s'exécutent tant que l'appareil est actif et que Axe Code est ouvert."
+
+#: src/renderer/views/SchedulesView/SchedulesView.tsx
+#~ msgid "Run standalone tasks on this device. Schedules run while the device is awake and Poracode is open."
+#~ msgstr "Exécutez des tâches autonomes sur cet appareil. Les planifications s'exécutent tant que l'appareil est actif et que Poracode est ouvert."
 
 #: src/renderer/commands/registry.ts
 msgid "Run Terminal Command"
@@ -11513,8 +11750,12 @@ msgid "Server {target} could not be started and was skipped."
 msgstr "Le serveur {target} n'a pas pu démarrer et a été ignoré."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "Server {target} has a name Poracode cannot use."
-msgstr "Le serveur {target} porte un nom que Poracode ne peut pas utiliser."
+msgid "Server {target} has a name Axe Code cannot use."
+msgstr "Le serveur {target} porte un nom que Axe Code ne peut pas utiliser."
+
+#: src/renderer/components/plugins/pluginCopy.ts
+#~ msgid "Server {target} has a name Poracode cannot use."
+#~ msgstr "Le serveur {target} porte un nom que Poracode ne peut pas utiliser."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "Server {target} is not configured correctly and was skipped."
@@ -11525,8 +11766,12 @@ msgid "Server {target} runs on this computer and is unavailable for WSL projects
 msgstr "Le serveur {target} s'exécute sur cet ordinateur et n'est pas disponible pour les projets WSL."
 
 #: src/renderer/components/plugins/PluginDetail.tsx
-msgid "Servers this plugin declares in mcp.json. Poracode passes them to every supported agent."
-msgstr "Serveurs déclarés par ce plugin dans mcp.json. Poracode les transmet à tous les agents pris en charge."
+msgid "Servers this plugin declares in mcp.json. Axe Code passes them to every supported agent."
+msgstr "Serveurs déclarés par ce plugin dans mcp.json. Axe Code les transmet à tous les agents pris en charge."
+
+#: src/renderer/components/plugins/PluginDetail.tsx
+#~ msgid "Servers this plugin declares in mcp.json. Poracode passes them to every supported agent."
+#~ msgstr "Serveurs déclarés par ce plugin dans mcp.json. Poracode les transmet à tous les agents pris en charge."
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Set group color"
@@ -12773,8 +13018,12 @@ msgid "That pairing code is no longer valid. Open Settings → Remote Access on 
 msgstr "Ce code d'association n'est plus valide. Ouvrez Paramètres → Accès distant sur l'ordinateur, appuyez sur « Nouveau code », puis réessayez l'association."
 
 #: src/mobile/routeComponents.tsx
-msgid "That QR code isn't a Poracode pairing link."
-msgstr "Ce code QR n'est pas un lien d'appairage Poracode."
+#~ msgid "That QR code isn't a Poracode pairing link."
+#~ msgstr "Ce code QR n'est pas un lien d'appairage Poracode."
+
+#: src/mobile/routeComponents.tsx
+msgid "That QR code isn't an Axe Code pairing link."
+msgstr "Ce code QR n'est pas un lien d'appairage Axe Code."
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 msgid "That remote session was already gone."
@@ -12872,8 +13121,12 @@ msgid "The normal app shell could not render. The diagnostics below are shown be
 msgstr "Le shell d'application normal n'a pas pu être rendu. Les diagnostics ci-dessous sont affichés avant le rechargement afin que la panne puisse être étudiée."
 
 #: src/mobile/useRemoteDesktop.ts
-msgid "The remote Poracode server returned no pairing credential."
-msgstr "Le serveur Poracode distant n’a renvoyé aucun identifiant de jumelage."
+msgid "The remote Axe Code server returned no pairing credential."
+msgstr "Le serveur Axe Code distant n’a renvoyé aucun identifiant de jumelage."
+
+#: src/mobile/useRemoteDesktop.ts
+#~ msgid "The remote Poracode server returned no pairing credential."
+#~ msgstr "Le serveur Poracode distant n’a renvoyé aucun identifiant de jumelage."
 
 #: src/renderer/state/remoteServersStore.ts
 msgid "The remote server returned no pairing credential."
@@ -12952,8 +13205,12 @@ msgid "The skills marketplace couldn't be loaded."
 msgstr "Impossible de charger la place de marché des compétences."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "The SSH tunnel reached an incompatible Poracode server."
-msgstr "Le tunnel SSH a atteint un serveur Poracode incompatible."
+msgid "The SSH tunnel reached an incompatible Axe Code server."
+msgstr "Le tunnel SSH a atteint un serveur Axe Code incompatible."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "The SSH tunnel reached an incompatible Poracode server."
+#~ msgstr "Le tunnel SSH a atteint un serveur Poracode incompatible."
 
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "the target provider"
@@ -13138,12 +13395,16 @@ msgid "This plugin describes a skill it does not actually ship."
 msgstr "Ce plugin décrit une compétence qu'il ne fournit pas réellement."
 
 #: src/renderer/components/plugins/pluginCopy.ts
+msgid "This plugin's Axe Code settings were ignored because they are not valid."
+msgstr "Les réglages Axe Code de ce plugin ont été ignorés car ils ne sont pas valides."
+
+#: src/renderer/components/plugins/pluginCopy.ts
 msgid "This plugin's folder could not be read."
 msgstr "Le dossier de ce plugin n'a pas pu être lu."
 
 #: src/renderer/components/plugins/pluginCopy.ts
-msgid "This plugin's Poracode settings were ignored because they are not valid."
-msgstr "Les réglages Poracode de ce plugin ont été ignorés car ils ne sont pas valides."
+#~ msgid "This plugin's Poracode settings were ignored because they are not valid."
+#~ msgstr "Les réglages Poracode de ce plugin ont été ignorés car ils ne sont pas valides."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "This plugin's skills could not be read."
@@ -13197,8 +13458,12 @@ msgid "This removes the worktree on \"{0}\", then deletes the branch."
 msgstr "Cela supprime l'arbre de travail sur \"{0}\", puis supprime la branche."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-msgid "This server requires authentication before Poracode can check it."
-msgstr "Ce serveur nécessite une authentification avant que Poracode puisse le vérifier."
+msgid "This server requires authentication before Axe Code can check it."
+msgstr "Ce serveur nécessite une authentification avant que Axe Code puisse le vérifier."
+
+#: src/renderer/components/mcp/McpServersManager.tsx
+#~ msgid "This server requires authentication before Poracode can check it."
+#~ msgstr "Ce serveur nécessite une authentification avant que Poracode puisse le vérifier."
 
 #: src/renderer/components/plugins/pluginCopy.ts
 msgid "This server runs on this computer and is unavailable for WSL projects."
@@ -13217,8 +13482,12 @@ msgid "This thread is not ready for Steer."
 msgstr "Ce fil n’est pas prêt pour le guidage."
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "This thread switched provider without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
-msgstr "Ce fil de discussion a changé de fournisseur sans transférer de contexte : {agent} a démarré sans l'outil read_thread de Poracode et ne peut donc pas lire la conversation précédente. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
+msgid "This thread switched provider without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+msgstr "Ce fil de discussion a changé de fournisseur sans transférer de contexte : {agent} a démarré sans l'outil read_thread de Axe Code et ne peut donc pas lire la conversation précédente. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "This thread switched provider without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the earlier conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+#~ msgstr "Ce fil de discussion a changé de fournisseur sans transférer de contexte : {agent} a démarré sans l'outil read_thread de Poracode et ne peut donc pas lire la conversation précédente. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
 
 #. placeholder {0}: props.worktreeBranch
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
@@ -13226,8 +13495,12 @@ msgstr "Ce fil de discussion a changé de fournisseur sans transférer de contex
 #~ msgstr "Ce fil de discussion utilise l'arbre de travail <0>{0}</0>. Supprimer également le répertoire de l'arbre de travail ?"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
-msgstr "Ce fil de discussion a été forké sans transfert de contexte : {agent} a démarré sans l'outil read_thread de Poracode et ne peut donc pas lire la conversation d'origine. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
+msgid "This thread was forked without transferring context: {agent} started without Axe Code's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+msgstr "Ce fil de discussion a été forké sans transfert de contexte : {agent} a démarré sans l'outil read_thread de Axe Code et ne peut donc pas lire la conversation d'origine. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "This thread was forked without transferring context: {agent} started without Poracode's read_thread tool, so it cannot read the original conversation. Re-enable the app-controls MCP tool, or summarize what it needs."
+#~ msgstr "Ce fil de discussion a été forké sans transfert de contexte : {agent} a démarré sans l'outil read_thread de Poracode et ne peut donc pas lire la conversation d'origine. Réactivez l'outil MCP app-controls ou résumez ce dont il a besoin."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/DeleteWorktreePopover.tsx
 #~ msgid "This will permanently delete the thread and its worktree."
@@ -13248,8 +13521,13 @@ msgstr "Ce workflow ne peut pas être démarré manuellement."
 
 #. placeholder {0}: activeDialog.sourceBranch
 #: src/renderer/views/MainView/parts/PullFromSourceDialog.tsx
-msgid "This worktree has local changes. Poracode can temporarily stash them, pull from {0}, then re-apply your changes."
-msgstr "Cet arbre de travail a des modifications locales. Poracode peut les remiser temporairement, récupérer depuis {0}, puis réappliquer vos modifications."
+msgid "This worktree has local changes. Axe Code can temporarily stash them, pull from {0}, then re-apply your changes."
+msgstr "Cet arbre de travail a des modifications locales. Axe Code peut les remiser temporairement, récupérer depuis {0}, puis réappliquer vos modifications."
+
+#. placeholder {0}: activeDialog.sourceBranch
+#: src/renderer/views/MainView/parts/PullFromSourceDialog.tsx
+#~ msgid "This worktree has local changes. Poracode can temporarily stash them, pull from {0}, then re-apply your changes."
+#~ msgstr "Cet arbre de travail a des modifications locales. Poracode peut les remiser temporairement, récupérer depuis {0}, puis réappliquer vos modifications."
 
 #: src/renderer/components/thread/ChatPane/parts/items/Reasoning.tsx
 #: src/renderer/components/thread/ChatPane/parts/items/ReasoningInline.tsx
@@ -13365,8 +13643,12 @@ msgid "Timed out"
 msgstr "Délai dépassé"
 
 #: src/renderer/i18n/sharedMessages.ts
-msgid "Timed out waiting for Poracode Helper."
-msgstr "Délai d'attente de Poracode Helper dépassé."
+msgid "Timed out waiting for Axe Code Helper."
+msgstr "Délai d'attente de Axe Code Helper dépassé."
+
+#: src/renderer/i18n/sharedMessages.ts
+#~ msgid "Timed out waiting for Poracode Helper."
+#~ msgstr "Délai d'attente de Poracode Helper dépassé."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 msgid "Timeout (ms)"
@@ -14089,6 +14371,10 @@ msgstr "Tout mettre à jour ({outdatedCount})"
 msgid "Update available"
 msgstr "Mise à jour disponible"
 
+#: src/mobile/views/PortsView.tsx
+msgid "Update Axe Code on your desktop to use port forwarding."
+msgstr "Mettez à jour Axe Code sur votre bureau pour utiliser le transfert de port."
+
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewSidebar/parts/PrSection.tsx
 msgid "Update branch"
 msgstr "Mettre à jour la branche"
@@ -14115,8 +14401,8 @@ msgid "Update method"
 msgstr "Méthode de mise à jour"
 
 #: src/mobile/views/PortsView.tsx
-msgid "Update Poracode on your desktop to use port forwarding."
-msgstr "Mettez à jour Poracode sur votre bureau pour utiliser le transfert de port."
+#~ msgid "Update Poracode on your desktop to use port forwarding."
+#~ msgstr "Mettez à jour Poracode sur votre bureau pour utiliser le transfert de port."
 
 #: src/renderer/views/SettingsOverlay/parts/cursorRuntimeInstall.ts
 msgid "Update SDK"
@@ -14330,8 +14616,13 @@ msgstr "Utilisé par {conflict}"
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
-msgid "Used for agents, authentication, installs, and Poracode's internal commands."
-msgstr "Utilisé pour les agents, l’authentification, les installations et les commandes internes de Poracode."
+msgid "Used for agents, authentication, installs, and Axe Code's internal commands."
+msgstr "Utilisé pour les agents, l’authentification, les installations et les commandes internes de Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
+#~ msgid "Used for agents, authentication, installs, and Poracode's internal commands."
+#~ msgstr "Utilisé pour les agents, l’authentification, les installations et les commandes internes de Poracode."
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
@@ -14626,8 +14917,12 @@ msgid "What's New"
 msgstr "Nouveautés"
 
 #: src/renderer/views/SettingsOverlay/parts/ChangelogSettings.tsx
-msgid "What's new in Poracode, newest first."
-msgstr "Nouveautés de Poracode, les plus récentes en premier."
+msgid "What's new in Axe Code, newest first."
+msgstr "Nouveautés de Axe Code, les plus récentes en premier."
+
+#: src/renderer/views/SettingsOverlay/parts/ChangelogSettings.tsx
+#~ msgid "What's new in Poracode, newest first."
+#~ msgstr "Nouveautés de Poracode, les plus récentes en premier."
 
 #: src/renderer/views/SettingsOverlay/parts/SearchSettings.tsx
 msgid "When enabled, search respects <0>.gitignore</0> entries."
@@ -14635,8 +14930,13 @@ msgstr "Lorsqu'elle est activée, la recherche respecte les entrées <0>.gitigno
 
 #: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "When links open in a Poracode browser tab, choose where the browser is revealed."
-msgstr "Lorsque les liens s'ouvrent dans un onglet du navigateur Poracode, choisissez l'endroit où le navigateur est révélé."
+msgid "When links open in a Axe Code browser tab, choose where the browser is revealed."
+msgstr "Lorsque les liens s'ouvrent dans un onglet du navigateur Axe Code, choisissez l'endroit où le navigateur est révélé."
+
+#: src/renderer/views/SettingsOverlay/parts/BrowserSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "When links open in a Poracode browser tab, choose where the browser is revealed."
+#~ msgstr "Lorsque les liens s'ouvrent dans un onglet du navigateur Poracode, choisissez l'endroit où le navigateur est révélé."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 msgid "When off, suppress notifications from terminal threads whose status comes from the OSC fallback (no CLI hook plugin)."
@@ -14649,8 +14949,13 @@ msgstr "Quand afficher les toasts dans l’application pour les fils de discussi
 
 #: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
-msgid "When you close the window, keep Poracode running in the system tray. Disable to quit on close."
-msgstr "Lorsque vous fermez la fenêtre, laissez Poracode s'exécuter dans la barre d'état système. Désactivez pour quitter à la fermeture."
+msgid "When you close the window, keep Axe Code running in the system tray. Disable to quit on close."
+msgstr "Lorsque vous fermez la fenêtre, laissez Axe Code s'exécuter dans la barre d'état système. Désactivez pour quitter à la fermeture."
+
+#: src/renderer/views/SettingsOverlay/parts/GeneralSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#~ msgid "When you close the window, keep Poracode running in the system tray. Disable to quit on close."
+#~ msgstr "Lorsque vous fermez la fenêtre, laissez Poracode s'exécuter dans la barre d'état système. Désactivez pour quitter à la fermeture."
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/TerminalSettings.tsx
@@ -14662,13 +14967,17 @@ msgstr "Où aboutit une sélection du sélecteur d'éléments du navigateur dans
 msgid "Where a thread's goal, plan, agents, and background tasks appear. In the right panel, compact bubbles above the composer open them."
 msgstr "Où apparaissent l'objectif, le plan, les agents et les tâches en arrière-plan d'un fil. Dans le panneau droit, des bulles compactes au-dessus du composeur les ouvrent."
 
+#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
+msgid "Where Axe Code creates git worktrees for new branches. Changes apply to worktrees created from now on; existing worktrees stay where they are."
+msgstr "Emplacement où Axe Code crée les arbres de travail git pour les nouvelles branches. Les changements s'appliquent aux arbres de travail créés à partir de maintenant ; les arbres de travail existants restent à leur place."
+
 #: src/renderer/views/WelcomeOverlay.tsx
-msgid "Where do you want to begin?"
-msgstr "Par où voulez-vous commencer ?"
+#~ msgid "Where do you want to begin?"
+#~ msgstr "Par où voulez-vous commencer ?"
 
 #: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
-msgid "Where Poracode creates git worktrees for new branches. Changes apply to worktrees created from now on; existing worktrees stay where they are."
-msgstr "Emplacement où Poracode crée les arbres de travail git pour les nouvelles branches. Les changements s'appliquent aux arbres de travail créés à partir de maintenant ; les arbres de travail existants restent à leur place."
+#~ msgid "Where Poracode creates git worktrees for new branches. Changes apply to worktrees created from now on; existing worktrees stay where they are."
+#~ msgstr "Emplacement où Poracode crée les arbres de travail git pour les nouvelles branches. Les changements s'appliquent aux arbres de travail créés à partir de maintenant ; les arbres de travail existants restent à leur place."
 
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Where the run's conversation is created."
@@ -14871,8 +15180,13 @@ msgstr "Emplacement de stockage des arbres de travail"
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
-msgid "Worktree threads are marked done as soon as Poracode sees their pull request merge. Threads mid-turn wait until the turn finishes."
-msgstr "Les fils d'arbre de travail sont marqués comme terminés dès que Poracode voit leur pull request fusionnée. Les fils dont un tour est en cours attendent la fin du tour."
+msgid "Worktree threads are marked done as soon as Axe Code sees their pull request merge. Threads mid-turn wait until the turn finishes."
+msgstr "Les fils d'arbre de travail sont marqués comme terminés dès que Axe Code voit leur pull request fusionnée. Les fils dont un tour est en cours attendent la fin du tour."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/ThreadSettings.tsx
+#~ msgid "Worktree threads are marked done as soon as Poracode sees their pull request merge. Threads mid-turn wait until the turn finishes."
+#~ msgstr "Les fils d'arbre de travail sont marqués comme terminés dès que Poracode voit leur pull request fusionnée. Les fils dont un tour est en cours attendent la fin du tour."
 
 #. placeholder {0}: props.projectName
 #. placeholder {0}: props.worktreeBranch
