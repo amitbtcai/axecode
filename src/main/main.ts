@@ -107,6 +107,7 @@ import {
   ensureHomeProjectRow,
   ScheduleRunCoordinator,
 } from "./schedules";
+import { ContentPublishWatcher } from "./content/ContentPublishWatcher";
 import {
   AppControlsMcpIngress,
   buildSharedAppControlsIngressDeps,
@@ -872,6 +873,17 @@ if (!hasSingleInstanceLock) {
         onStartupInterrupted: (scheduleId) =>
           dbInterruptScheduleRuns(scheduleId, new Date().toISOString()),
       });
+      // Fork-owned (Axe Code): fires scheduled content cards as publish threads.
+      const contentPublishWatcher = new ContentPublishWatcher({
+        startThread: (payload) => supervisorClient.call("startThread", payload),
+        getAgentStatuses: (wslDistros) => supervisorClient.call("getAgentStatuses", { wslDistros }),
+        sendThreadCommand: (command) => emitRemoteThreadCommand(command),
+        ensureHomeProject: ensureHomeProjectRow,
+        getProject: dbGetProject,
+        getSharedSettings: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+        upsertThread: dbUpsertThread,
+        threadExists: (threadId) => dbGetThread(threadId) != null,
+      });
       const emitRemoteThreadCommand = (command: RemoteThreadCommand): boolean => {
         if (!mainWindow) return false;
         mainWindow.webContents.send(IPC_EVENT_CHANNELS.remoteThreadCommand, command);
@@ -1273,6 +1285,7 @@ if (!hasSingleInstanceLock) {
       ]);
       supervisorClient.start(paths.baseDir);
       scheduleService.start();
+      contentPublishWatcher.start();
       prWatchService.start();
       gitStateService.start();
       // The remote controller performs one bounded warm-up when enabled.
@@ -1324,6 +1337,7 @@ if (!hasSingleInstanceLock) {
         quickComposerDismissTimer = null;
         pendingQuickComposerSubmissions.length = 0;
         scheduleService.dispose();
+        contentPublishWatcher.dispose();
         prWatchService.dispose();
         gitStateService.dispose();
         supervisorClient.dispose();

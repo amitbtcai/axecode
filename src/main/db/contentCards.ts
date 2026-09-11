@@ -162,6 +162,7 @@ export interface ContentCardPatch {
   scheduledFor?: string | null;
   publishUrl?: string | null;
   publishError?: string | null;
+  sourceThreadId?: string | null;
 }
 
 export function dbUpdateContentCard(id: string, patch: ContentCardPatch): ContentCard | null {
@@ -208,6 +209,10 @@ export function dbUpdateContentCard(id: string, patch: ContentCardPatch): Conten
   if (patch.publishError !== undefined) {
     sets.push("publish_error = ?");
     params.push(patch.publishError);
+  }
+  if (patch.sourceThreadId !== undefined) {
+    sets.push("source_thread_id = ?");
+    params.push(patch.sourceThreadId);
   }
   params.push(id);
   getSqlite()

@@ -9,6 +9,7 @@ import type {
   ContentCardStatus,
 } from "@/shared/contracts";
 import { readBridge } from "@/renderer/bridge";
+import { buildContentPublishPrompt } from "@/shared/contentPublish";
 import { LightballTabs } from "@/renderer/components/common/LightballTabs";
 import { ensureHomeScopeProject } from "@/renderer/actions/projectActions";
 import { useAppStore } from "@/renderer/state/appStore";
@@ -133,14 +134,8 @@ export function ContentBoardView() {
     // Publish via a seeded draft thread: the agent drives the user's signed-in
     // browser (BrowserOS neo MCP or equivalent) to post the content.
     void ensureHomeScopeProject().then((project) => {
-      const mediaLines = card.media.length
-        ? `\n\nMedia files to upload (local paths):\n${card.media.map((item) => `- ${item.path}`).join("\n")}`
-        : "";
       const store = useAppStore.getState();
-      store.setComposerSeed(
-        project.id,
-        t`Publish this ${CHANNEL_LABELS[card.channel]} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n\nTitle: ${card.title}\n\n${card.body}${mediaLines}\n\nAfter posting, call update_content_card on card ${card.id} with status "published" and publishUrl set to the post's URL. On failure, set publishError to what went wrong.`,
-      );
+      store.setComposerSeed(project.id, buildContentPublishPrompt(card));
       store.openDraft(project.id);
     });
   }
@@ -161,7 +156,7 @@ export function ContentBoardView() {
       const store = useAppStore.getState();
       store.setComposerSeed(
         project.id,
-        t`Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board.`,
+        t`Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board.`,
       );
       store.openDraft(project.id);
     });

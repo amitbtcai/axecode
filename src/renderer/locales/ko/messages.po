@@ -10275,20 +10275,20 @@ msgstr "공개 URL이 업데이트되었습니다."
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "로그인된 내 브라우저로 이 {0} 게시물을 게시해 주세요(연결된 경우 browseros-neo MCP 도구 사용, 아니면 사이트의 작성 페이지를 열어 붙여넣기).\n"
-"\n"
-"제목: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"게시 후 카드 {3}에서 status \"published\"와 게시물 URL을 publishUrl로 설정해 update_content_card를 호출하세요. 실패하면 publishError에 원인을 설정하세요."
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "로그인된 내 브라우저로 이 {0} 게시물을 게시해 주세요(연결된 경우 browseros-neo MCP 도구 사용, 아니면 사이트의 작성 페이지를 열어 붙여넣기).\n"
+#~ "\n"
+#~ "제목: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "게시 후 카드 {3}에서 status \"published\"와 게시물 URL을 publishUrl로 설정해 update_content_card를 호출하세요. 실패하면 publishError에 원인을 설정하세요."
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12085,8 +12085,12 @@ msgid "Set shortcut"
 msgstr "단축키 설정"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "내 마케팅 작업 공간을 설정해 주세요: 이 프로젝트에 product-info.md, brand-voice.md, content-strategy.md가 포함된 marketing/ 폴더를 만들고(먼저 기본 정보를 물어봐 주세요), 그런 다음 각 채널 에이전트(writer, seo, x, linkedin)용으로 하루 1회씩 총 4개의 일정을 만들어 주세요. 이 문서들을 읽고 create_content_card로 내 콘텐츠 보드에 게시물 초안을 작성하도록요."
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "내 마케팅 작업 공간을 설정해 주세요: 이 프로젝트에 product-info.md, brand-voice.md, content-strategy.md가 포함된 marketing/ 폴더를 만들고(먼저 기본 정보를 물어봐 주세요), 그런 다음 각 채널 에이전트(writer, seo, x, linkedin)용으로 하루 1회씩 총 4개의 일정을 만들어 주세요. 이 문서들을 읽고 create_content_card로 내 콘텐츠 보드에 게시물 초안을 작성하도록요."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "마케팅 작업 공간을 설정해 주세요: 이 프로젝트에 marketing/ 폴더를 만들고 product-info.md, brand-voice.md, content-strategy.md, social-accounts.md(채널 → 계정/페이지 URL 매핑, 핸들은 먼저 물어보세요)를 작성한 다음, 각 채널 에이전트(writer, seo, x, linkedin)별로 4개의 일일 스케줄을 만들어 주세요. 이 문서들을 읽고 create_content_card로 콘텐츠 보드에 게시물 초안을 작성합니다."
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"

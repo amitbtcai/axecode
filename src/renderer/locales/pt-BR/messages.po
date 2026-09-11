@@ -10275,20 +10275,20 @@ msgstr "URL pública atualizada."
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "Publique este post de {0} usando meu navegador conectado (as ferramentas MCP browseros-neo se estiverem conectadas; caso contrário, abra a página de composição do site e cole para mim).\n"
-"\n"
-"Título: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"Após publicar, chame update_content_card no cartão {3} com status \"published\" e publishUrl definido como a URL do post. Em caso de falha, defina publishError com a causa."
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Publique este post de {0} usando meu navegador conectado (as ferramentas MCP browseros-neo se estiverem conectadas; caso contrário, abra a página de composição do site e cole para mim).\n"
+#~ "\n"
+#~ "Título: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "Após publicar, chame update_content_card no cartão {3} com status \"published\" e publishUrl definido como a URL do post. Em caso de falha, defina publishError com a causa."
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12085,8 +12085,12 @@ msgid "Set shortcut"
 msgstr "Definir atalho"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "Configure meu espaço de marketing: crie uma pasta marketing/ neste projeto com product-info.md, brand-voice.md e content-strategy.md (pergunte-me o básico primeiro) e depois crie quatro agendamentos diários — um para cada agente de canal (writer, seo, x, linkedin) — que leiam esses documentos e usem create_content_card para redigir posts no meu quadro de conteúdo."
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "Configure meu espaço de marketing: crie uma pasta marketing/ neste projeto com product-info.md, brand-voice.md e content-strategy.md (pergunte-me o básico primeiro) e depois crie quatro agendamentos diários — um para cada agente de canal (writer, seo, x, linkedin) — que leiam esses documentos e usem create_content_card para redigir posts no meu quadro de conteúdo."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Configure meu espaço de marketing: crie uma pasta marketing/ neste projeto com product-info.md, brand-voice.md, content-strategy.md e social-accounts.md (o mapa canal → URL da conta/página; pergunte-me os handles primeiro), depois crie quatro agendamentos diários — um para cada agente de canal (writer, seo, x, linkedin) — que leiam esses documentos e usem create_content_card para redigir publicações no meu quadro de conteúdo."
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"

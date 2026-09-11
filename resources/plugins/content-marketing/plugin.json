@@ -41,6 +41,14 @@
         "content-youtube": {
           "name": "YouTube",
           "description": "Draft YouTube video titles, descriptions, and scripts onto the Content board."
+        },
+        "content-cmo": {
+          "name": "CMO Review",
+          "description": "Proofread and audit Content board cards for brand voice, English, platform fit, and claims before they publish."
+        },
+        "content-publish": {
+          "name": "Publish",
+          "description": "Publish a content card through the user's signed-in browser via browseros-neo."
         }
       }
     }

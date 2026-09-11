@@ -10275,20 +10275,20 @@ msgstr "Đã cập nhật URL công khai."
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "Đăng bài {0} này bằng trình duyệt đã đăng nhập của tôi (dùng công cụ MCP browseros-neo nếu đã kết nối; nếu không, mở trang soạn bài của trang web và dán giúp tôi).\n"
-"\n"
-"Tiêu đề: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"Sau khi đăng, gọi update_content_card trên thẻ {3} với status \"published\" và publishUrl là URL của bài đăng. Nếu thất bại, đặt publishError thành nguyên nhân lỗi."
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Đăng bài {0} này bằng trình duyệt đã đăng nhập của tôi (dùng công cụ MCP browseros-neo nếu đã kết nối; nếu không, mở trang soạn bài của trang web và dán giúp tôi).\n"
+#~ "\n"
+#~ "Tiêu đề: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "Sau khi đăng, gọi update_content_card trên thẻ {3} với status \"published\" và publishUrl là URL của bài đăng. Nếu thất bại, đặt publishError thành nguyên nhân lỗi."
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12085,8 +12085,12 @@ msgid "Set shortcut"
 msgstr "Đặt phím tắt"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "Thiết lập không gian marketing của tôi: tạo thư mục marketing/ trong dự án này với product-info.md, brand-voice.md và content-strategy.md (hỏi tôi những điều cơ bản trước), rồi tạo bốn lịch trình hằng ngày — một cho mỗi tác tử kênh (writer, seo, x, linkedin) — đọc các tài liệu đó và dùng create_content_card để soạn bài đăng lên bảng nội dung của tôi."
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "Thiết lập không gian marketing của tôi: tạo thư mục marketing/ trong dự án này với product-info.md, brand-voice.md và content-strategy.md (hỏi tôi những điều cơ bản trước), rồi tạo bốn lịch trình hằng ngày — một cho mỗi tác tử kênh (writer, seo, x, linkedin) — đọc các tài liệu đó và dùng create_content_card để soạn bài đăng lên bảng nội dung của tôi."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Thiết lập không gian marketing của tôi: tạo thư mục marketing/ trong dự án này với product-info.md, brand-voice.md, content-strategy.md và social-accounts.md (bản đồ kênh → URL tài khoản/trang; hãy hỏi tôi tên tài khoản trước), sau đó tạo bốn lịch hằng ngày — một cho mỗi tác tử kênh (writer, seo, x, linkedin) — đọc các tài liệu đó và dùng create_content_card để soạn bài đăng lên bảng Nội dung của tôi."
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"

@@ -10274,20 +10274,20 @@ msgstr "公共 URL 已更新。"
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "使用我已登录的浏览器发布这条 {0} 帖子（如果已连接，使用 browseros-neo MCP 工具；否则打开网站的撰写页面并替我粘贴）。\n"
-"\n"
-"标题：{1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"发布后，对卡片 {3} 调用 update_content_card，status 设为 \"published\"，publishUrl 设为帖子的 URL。如果失败，将 publishError 设为出错原因。"
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "使用我已登录的浏览器发布这条 {0} 帖子（如果已连接，使用 browseros-neo MCP 工具；否则打开网站的撰写页面并替我粘贴）。\n"
+#~ "\n"
+#~ "标题：{1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "发布后，对卡片 {3} 调用 update_content_card，status 设为 \"published\"，publishUrl 设为帖子的 URL。如果失败，将 publishError 设为出错原因。"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12084,8 +12084,12 @@ msgid "Set shortcut"
 msgstr "设置快捷键"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "帮我搭建营销工作区：在此项目中创建一个 marketing/ 文件夹，包含 product-info.md、brand-voice.md 和 content-strategy.md（先问我基本信息），然后创建四个每日计划——每个频道代理（writer、seo、x、linkedin）各一个——让它们读取这些文档并使用 create_content_card 在我的内容看板上起草帖子。"
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "帮我搭建营销工作区：在此项目中创建一个 marketing/ 文件夹，包含 product-info.md、brand-voice.md 和 content-strategy.md（先问我基本信息），然后创建四个每日计划——每个频道代理（writer、seo、x、linkedin）各一个——让它们读取这些文档并使用 create_content_card 在我的内容看板上起草帖子。"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "设置我的营销工作区：在此项目中创建 marketing/ 文件夹，包含 product-info.md、brand-voice.md、content-strategy.md 和 social-accounts.md（渠道 → 账号/页面 URL 映射；先问我账号名），然后为每个渠道代理（writer、seo、x、linkedin）创建四个每日计划——它们读取这些文档并使用 create_content_card 在我的内容看板上起草帖子。"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"

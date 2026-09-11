@@ -10275,20 +10275,20 @@ msgstr "Genel URL güncellendi."
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "Bu {0} gönderisini oturum açık tarayıcımı kullanarak yayınla (bağlıysa browseros-neo MCP araçlarıyla; değilse sitenin oluşturma sayfasını açıp benim için yapıştır).\n"
-"\n"
-"Başlık: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"Yayınladıktan sonra {3} kartında status \"published\" ve publishUrl'i gönderinin URL'si olacak şekilde update_content_card çağır. Başarısız olursa publishError'a nedeni yaz."
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Bu {0} gönderisini oturum açık tarayıcımı kullanarak yayınla (bağlıysa browseros-neo MCP araçlarıyla; değilse sitenin oluşturma sayfasını açıp benim için yapıştır).\n"
+#~ "\n"
+#~ "Başlık: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "Yayınladıktan sonra {3} kartında status \"published\" ve publishUrl'i gönderinin URL'si olacak şekilde update_content_card çağır. Başarısız olursa publishError'a nedeni yaz."
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12085,8 +12085,12 @@ msgid "Set shortcut"
 msgstr "Kısayol belirle"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "Pazarlama çalışma alanımı kur: bu projede product-info.md, brand-voice.md ve content-strategy.md içeren bir marketing/ klasörü oluştur (önce bana temel bilgileri sor), ardından bu belgeleri okuyan ve create_content_card ile içerik panoma taslak gönderi ekleyen her kanal ajanı (writer, seo, x, linkedin) için birer tane olmak üzere dört günlük zamanlama oluştur."
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "Pazarlama çalışma alanımı kur: bu projede product-info.md, brand-voice.md ve content-strategy.md içeren bir marketing/ klasörü oluştur (önce bana temel bilgileri sor), ardından bu belgeleri okuyan ve create_content_card ile içerik panoma taslak gönderi ekleyen her kanal ajanı (writer, seo, x, linkedin) için birer tane olmak üzere dört günlük zamanlama oluştur."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Pazarlama çalışma alanımı kur: bu projede marketing/ klasörü oluştur ve içine product-info.md, brand-voice.md, content-strategy.md ve social-accounts.md (kanal → hesap/sayfa URL eşlemesi; önce benden hesap adlarını sor) dosyalarını koy, ardından her kanal ajanı (writer, seo, x, linkedin) için birer günlük program oluştur — bu belgeleri okuyup create_content_card ile İçerik panoma taslak gönderiler yazsınlar."
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"

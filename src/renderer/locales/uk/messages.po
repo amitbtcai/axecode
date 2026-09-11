@@ -10275,20 +10275,20 @@ msgstr "Публічний URL оновлено."
 #. placeholder {2}: card.body
 #. placeholder {3}: card.id
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
-"\n"
-"Title: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
-msgstr "Опублікуй цей допис {0} через мій авторизований браузер (інструменти MCP browseros-neo, якщо підключені; інакше відкрий сторінку створення допису на сайті та встав його за мене).\n"
-"\n"
-"Заголовок: {1}\n"
-"\n"
-"{2}{mediaLines}\n"
-"\n"
-"Після публікації виклич update_content_card для картки {3} зі статусом \"published\" і publishUrl, що дорівнює URL допису. У разі помилки запиши причину в publishError."
+#~ msgid "Publish this {0} post using my signed-in browser (the browseros-neo MCP tools if connected; otherwise open the site's compose page and paste it for me).\n"
+#~ "\n"
+#~ "Title: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "After posting, call update_content_card on card {3} with status \"published\" and publishUrl set to the post's URL. On failure, set publishError to what went wrong."
+#~ msgstr "Опублікуй цей допис {0} через мій авторизований браузер (інструменти MCP browseros-neo, якщо підключені; інакше відкрий сторінку створення допису на сайті та встав його за мене).\n"
+#~ "\n"
+#~ "Заголовок: {1}\n"
+#~ "\n"
+#~ "{2}{mediaLines}\n"
+#~ "\n"
+#~ "Після публікації виклич update_content_card для картки {3} зі статусом \"published\" і publishUrl, що дорівнює URL допису. У разі помилки запиши причину в publishError."
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
 msgid "Publish with Browser"
@@ -12085,8 +12085,12 @@ msgid "Set shortcut"
 msgstr "Призначити комбінацію клавіш"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
-msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
-msgstr "Налаштуй мій маркетинговий простір: створи в цьому проєкті папку marketing/ з файлами product-info.md, brand-voice.md і content-strategy.md (спочатку запитай мене про основи), потім створи чотири щоденні розклади — по одному для кожного канального агента (writer, seo, x, linkedin) — які читають ці документи та через create_content_card додають чернетки дописів на мою дошку контенту."
+#~ msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, and content-strategy.md (ask me the basics first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+#~ msgstr "Налаштуй мій маркетинговий простір: створи в цьому проєкті папку marketing/ з файлами product-info.md, brand-voice.md і content-strategy.md (спочатку запитай мене про основи), потім створи чотири щоденні розклади — по одному для кожного канального агента (writer, seo, x, linkedin) — які читають ці документи та через create_content_card додають чернетки дописів на мою дошку контенту."
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "Set up my marketing workspace: create a marketing/ folder in this project with product-info.md, brand-voice.md, content-strategy.md, and social-accounts.md (the channel → account/page URL map; ask me for the handles first), then create four daily schedules — one for each channel agent (writer, seo, x, linkedin) — that read those docs and use create_content_card to draft posts onto my Content board."
+msgstr "Налаштуй мій маркетинговий простір: створи папку marketing/ у цьому проєкті з файлами product-info.md, brand-voice.md, content-strategy.md та social-accounts.md (відповідність канал → URL акаунта/сторінки; спочатку запитай у мене нікнейми), потім створи чотири щоденні розклади — по одному для кожного канального агента (writer, seo, x, linkedin) — які читатимуть ці документи та використовуватимуть create_content_card для чернеток дописів на моїй дошці контенту."
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 msgid "Set up with agent"
