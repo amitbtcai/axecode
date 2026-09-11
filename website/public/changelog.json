@@ -1,6 +1,30 @@
 {
   "releases": [
     {
+      "version": "1.8.2",
+      "tagline": "Axe Code",
+      "date": "2026-09-11",
+      "title": "The Axe Code rebrand",
+      "summary": "Poracode becomes Axe Code: new name, brand-blue icon set, and refreshed visuals across the desktop app, mobile PWA, pairing flow, and website downloads.",
+      "changes": [
+        {
+          "kind": "improved",
+          "label": "Branding",
+          "text": "The app is now Axe Code \u2014 name, dock and app icons, boot screens, and user-facing strings updated throughout the desktop app and remote/mobile experience."
+        },
+        {
+          "kind": "improved",
+          "label": "Icons",
+          "text": "New brand-blue icon set for the app icon, PWA icons, maskable icons, and Apple touch icons."
+        },
+        {
+          "kind": "fixed",
+          "label": "Downloads",
+          "text": "Website download links now point at the Axe Code release assets."
+        }
+      ]
+    },
+    {
       "version": "1.8.0",
       "tagline": "Agents Everywhere",
       "date": "2026-09-07",
@@ -20,7 +44,7 @@
         {
           "kind": "added",
           "label": "Computer Use",
-          "text": "Agents can now search and launch installed apps, find elements by role and name, invoke controls and set values semantically, and run short deterministic action sequences with a single final observation, with a badge overlay for background work — including an exit button on the badge itself — and a takeover border plus Escape to interrupt when the desktop is taken over."
+          "text": "Agents can now search and launch installed apps, find elements by role and name, invoke controls and set values semantically, and run short deterministic action sequences with a single final observation, with a badge overlay for background work \u2014 including an exit button on the badge itself \u2014 and a takeover border plus Escape to interrupt when the desktop is taken over."
         },
         {
           "kind": "added",
@@ -110,7 +134,7 @@
         {
           "kind": "improved",
           "label": "Computer Use",
-          "text": "Desktop actions now report what the helper could actually observe — confirmed, unchanged, or unverified — instead of implying success, refusals name only background recovery routes, and Windows and Linux match macOS on focus reporting, Chromium synthetic-input caveats, and waiting for a page's accessibility tree before reporting it as thin. A new setting keeps the Mac awake for the length of a session, since a locked screen stops all desktop control."
+          "text": "Desktop actions now report what the helper could actually observe \u2014 confirmed, unchanged, or unverified \u2014 instead of implying success, refusals name only background recovery routes, and Windows and Linux match macOS on focus reporting, Chromium synthetic-input caveats, and waiting for a page's accessibility tree before reporting it as thin. A new setting keeps the Mac awake for the length of a session, since a locked screen stops all desktop control."
         },
         {
           "kind": "improved",
@@ -298,7 +322,7 @@
         {
           "kind": "added",
           "label": "Windows",
-          "text": "You can now choose which shell the Terminal panel opens — PowerShell 7, Windows PowerShell 5.1, or Command Prompt — pick a separate PowerShell host for agents, logins, installs, and Poracode's internal commands, and pass extra arguments such as -NoProfile to every new terminal session."
+          "text": "You can now choose which shell the Terminal panel opens \u2014 PowerShell 7, Windows PowerShell 5.1, or Command Prompt \u2014 pick a separate PowerShell host for agents, logins, installs, and Poracode's internal commands, and pass extra arguments such as -NoProfile to every new terminal session."
         },
         {
           "kind": "improved",
@@ -385,17 +409,17 @@
         {
           "kind": "added",
           "label": "Muse Code",
-          "text": "You can now run Meta's Muse Code CLI as a terminal session in Poracode — pick Muse Spark models and reasoning effort, sign in from Settings, and resume where you left off. On Windows, install it through WSL."
+          "text": "You can now run Meta's Muse Code CLI as a terminal session in Poracode \u2014 pick Muse Spark models and reasoning effort, sign in from Settings, and resume where you left off. On Windows, install it through WSL."
         },
         {
           "kind": "improved",
           "label": "Claude",
-          "text": "Claude's own skills — the ones the CLI ships, not just files on disk — now appear in the composer slash menu and run as streaming skills instead of silent local commands."
+          "text": "Claude's own skills \u2014 the ones the CLI ships, not just files on disk \u2014 now appear in the composer slash menu and run as streaming skills instead of silent local commands."
         },
         {
           "kind": "improved",
           "label": "Threads",
-          "text": "Threads show a Connecting… state in the header and chat while the session is starting, so a launch no longer looks idle."
+          "text": "Threads show a Connecting\u2026 state in the header and chat while the session is starting, so a launch no longer looks idle."
         },
         {
           "kind": "fixed",
@@ -403,7 +427,7 @@
         },
         {
           "kind": "fixed",
-          "text": "If a session is gone when you send a message — after a restart or unload — Poracode relaunches it and delivers the prompt instead of dropping it, including from the send_to_thread MCP tool. Interrupting a thread whose session already died now settles it to Inactive instead of leaving it stuck Working."
+          "text": "If a session is gone when you send a message \u2014 after a restart or unload \u2014 Poracode relaunches it and delivers the prompt instead of dropping it, including from the send_to_thread MCP tool. Interrupting a thread whose session already died now settles it to Inactive instead of leaving it stuck Working."
         },
         {
           "kind": "fixed",
@@ -432,7 +456,7 @@
         {
           "kind": "added",
           "label": "Worktrees",
-          "text": "Worktree threads launch more responsively: your message appears instantly with a live \"Creating worktree…\" indicator while Poracode sets everything up."
+          "text": "Worktree threads launch more responsively: your message appears instantly with a live \"Creating worktree\u2026\" indicator while Poracode sets everything up."
         },
         {
           "kind": "added",
@@ -543,7 +567,7 @@
         {
           "kind": "fixed",
           "label": "Crossagents",
-          "text": "Crossagents only spawn subagents after you explicitly ask in that thread — for example with an @Crossagents mention — and that ask covers later turns in the same thread."
+          "text": "Crossagents only spawn subagents after you explicitly ask in that thread \u2014 for example with an @Crossagents mention \u2014 and that ask covers later turns in the same thread."
         },
         {
           "kind": "fixed",
@@ -612,7 +636,7 @@
         {
           "kind": "improved",
           "label": "Settings",
-          "text": "A single Prevent sleep policy in General settings replaces the old scattered toggles — keep the machine awake while agents are working, while remote access is enabled, or always."
+          "text": "A single Prevent sleep policy in General settings replaces the old scattered toggles \u2014 keep the machine awake while agents are working, while remote access is enabled, or always."
         },
         {
           "kind": "improved",
@@ -786,7 +810,7 @@
       "tagline": "Mobile Workspace",
       "date": "2026-07-24",
       "title": "Pi & Qoder agents, Opus 5, a mobile workspace & synced notes",
-      "summary": "Poracode gains two new coding agents — Pi and Qoder — defaults new Claude threads to Opus 5, and turns the mobile web app into a real workspace with a dockable side panel and notes and to-dos that sync with your desktop. Subagents get their own views, provider token usage finally survives restarts, and a wide round of mobile and notification fixes completes the release.",
+      "summary": "Poracode gains two new coding agents \u2014 Pi and Qoder \u2014 defaults new Claude threads to Opus 5, and turns the mobile web app into a real workspace with a dockable side panel and notes and to-dos that sync with your desktop. Subagents get their own views, provider token usage finally survives restarts, and a wide round of mobile and notification fixes completes the release.",
       "changes": [
         {
           "kind": "added",
@@ -801,7 +825,7 @@
         {
           "kind": "added",
           "label": "Subagents",
-          "text": "Delegated work opens in a view of its own — a dedicated panel beside the parent thread on desktop, a full page with real back navigation on mobile — so you can follow a subagent's live transcript without losing your place."
+          "text": "Delegated work opens in a view of its own \u2014 a dedicated panel beside the parent thread on desktop, a full page with real back navigation on mobile \u2014 so you can follow a subagent's live transcript without losing your place."
         },
         {
           "kind": "added",
@@ -811,7 +835,7 @@
         {
           "kind": "added",
           "label": "Remote",
-          "text": "On a widescreen browser, the web app now docks a resizable workspace beside your threads with Git, Files, Terminal, Usage, Notes, and Ports tabs — no more full-screen hopping between tools."
+          "text": "On a widescreen browser, the web app now docks a resizable workspace beside your threads with Git, Files, Terminal, Usage, Notes, and Ports tabs \u2014 no more full-screen hopping between tools."
         },
         {
           "kind": "added",
@@ -820,7 +844,7 @@
         },
         {
           "kind": "added",
-          "text": "Agents connected to the built-in Poracode MCP server can now orchestrate the whole app — managing threads, projects, files, Git, GitHub pull requests, MCP servers, skills, and settings."
+          "text": "Agents connected to the built-in Poracode MCP server can now orchestrate the whole app \u2014 managing threads, projects, files, Git, GitHub pull requests, MCP servers, skills, and settings."
         },
         {
           "kind": "improved",
@@ -830,7 +854,7 @@
         {
           "kind": "improved",
           "label": "ACP agents",
-          "text": "Delegation is tracked more faithfully — goal progress shows paused states and elapsed time, concurrent subagents are attributed to the right parent, and a turn no longer flashes idle while its background subagents are still running."
+          "text": "Delegation is tracked more faithfully \u2014 goal progress shows paused states and elapsed time, concurrent subagents are attributed to the right parent, and a turn no longer flashes idle while its background subagents are still running."
         },
         {
           "kind": "improved",
@@ -848,7 +872,7 @@
         },
         {
           "kind": "improved",
-          "text": "New threads now start in each provider's recommended autonomy preset, so Antigravity, Grok, Kimi Code, and Factory approve more actions automatically by default — switch a thread back to a supervised mode if you prefer to confirm each step."
+          "text": "New threads now start in each provider's recommended autonomy preset, so Antigravity, Grok, Kimi Code, and Factory approve more actions automatically by default \u2014 switch a thread back to a supervised mode if you prefer to confirm each step."
         },
         {
           "kind": "improved",
@@ -890,7 +914,7 @@
         {
           "kind": "added",
           "label": "Remote",
-          "text": "Installed Poracode web apps can now receive push notifications from a paired desktop—even while suspended—when an agent finishes or needs input."
+          "text": "Installed Poracode web apps can now receive push notifications from a paired desktop\u2014even while suspended\u2014when an agent finishes or needs input."
         },
         {
           "kind": "added",
@@ -913,7 +937,7 @@
         },
         {
           "kind": "improved",
-          "text": "Markdown images now share preview, copy, and download controls—including local project images—while long chats stay anchored during streaming and iOS can leave a long thread without stalling on a history snapshot."
+          "text": "Markdown images now share preview, copy, and download controls\u2014including local project images\u2014while long chats stay anchored during streaming and iOS can leave a long thread without stalling on a history snapshot."
         },
         {
           "kind": "improved",
@@ -969,17 +993,17 @@
         {
           "kind": "added",
           "label": "Poracode",
-          "text": "Lightcode becomes Poracode — a new name and a fresh visual identity with the indigo Pora-dot wordmark, Geist type, and refreshed dark and moonlight themes, all with a new home at poracode.com; your projects, settings, and automatic updates carry over."
+          "text": "Lightcode becomes Poracode \u2014 a new name and a fresh visual identity with the indigo Pora-dot wordmark, Geist type, and refreshed dark and moonlight themes, all with a new home at poracode.com; your projects, settings, and automatic updates carry over."
         },
         {
           "kind": "added",
           "label": "PWA",
-          "text": "Take your work anywhere with the Poracode PWA at app.poracode.com — pair it with your desktop over your local network or an SSH connection to follow live threads, read terminal output, and send messages from a phone or any browser, with dynamic port forwarding and native iOS and Android betas on the way."
+          "text": "Take your work anywhere with the Poracode PWA at app.poracode.com \u2014 pair it with your desktop over your local network or an SSH connection to follow live threads, read terminal output, and send messages from a phone or any browser, with dynamic port forwarding and native iOS and Android betas on the way."
         },
         {
           "kind": "added",
           "label": "Crossagents",
-          "text": "Your agents can now delegate to one another: a thread can spawn subagents on any agent you have installed — Claude, Codex, Grok, Kimi Code, Cursor, OpenCode, and more — through a built-in orchestration layer, and you can watch every subagent and workflow chat unfold live from the parent thread, approving child actions when they need it."
+          "text": "Your agents can now delegate to one another: a thread can spawn subagents on any agent you have installed \u2014 Claude, Codex, Grok, Kimi Code, Cursor, OpenCode, and more \u2014 through a built-in orchestration layer, and you can watch every subagent and workflow chat unfold live from the parent thread, approving child actions when they need it."
         },
         {
           "kind": "added",
@@ -1072,7 +1096,7 @@
         },
         {
           "kind": "fixed",
-          "text": "Claude usage keeps loading after your sign-in token expires — Poracode now renews it automatically instead of showing a misleading “Not signed in”."
+          "text": "Claude usage keeps loading after your sign-in token expires \u2014 Poracode now renews it automatically instead of showing a misleading \u201cNot signed in\u201d."
         }
       ]
     },
@@ -1111,7 +1135,7 @@
       "changes": [
         {
           "kind": "added",
-          "text": "Poracode is now available in 13 languages — English, Spanish, Russian, Ukrainian, Simplified Chinese, Japanese, Brazilian Portuguese, German, French, Korean, Polish, Vietnamese, and Turkish — with a new Language setting to choose your display language or follow your operating system, and a separate language for AI-generated commit messages and pull request summaries."
+          "text": "Poracode is now available in 13 languages \u2014 English, Spanish, Russian, Ukrainian, Simplified Chinese, Japanese, Brazilian Portuguese, German, French, Korean, Polish, Vietnamese, and Turkish \u2014 with a new Language setting to choose your display language or follow your operating system, and a separate language for AI-generated commit messages and pull request summaries."
         },
         {
           "kind": "added",
@@ -1119,7 +1143,7 @@
         },
         {
           "kind": "added",
-          "text": "A new Shortcuts page lets you browse every keyboard shortcut and rebind it — record a new key, add extra bindings, or reset to the default — with conflicts flagged as you go."
+          "text": "A new Shortcuts page lets you browse every keyboard shortcut and rebind it \u2014 record a new key, add extra bindings, or reset to the default \u2014 with conflicts flagged as you go."
         },
         {
           "kind": "added",
@@ -1131,7 +1155,7 @@
         },
         {
           "kind": "added",
-          "text": "Choose where Poracode creates git worktrees — in one shared folder or nested inside each project under .poracode/worktrees — with per-project overrides for native and WSL paths, and point a project at its new location if you move its folder on disk."
+          "text": "Choose where Poracode creates git worktrees \u2014 in one shared folder or nested inside each project under .poracode/worktrees \u2014 with per-project overrides for native and WSL paths, and point a project at its new location if you move its folder on disk."
         },
         {
           "kind": "added",
@@ -1171,7 +1195,7 @@
         },
         {
           "kind": "fixed",
-          "text": "Chat is smoother and more faithful — scroll jumps, spacer flashes, and image flicker are gone, streamed agent text keeps every character, a thread that resumes on its own shows as working again, and Codex tool activity renders MCP, skill, and subagent calls with the right details."
+          "text": "Chat is smoother and more faithful \u2014 scroll jumps, spacer flashes, and image flicker are gone, streamed agent text keeps every character, a thread that resumes on its own shows as working again, and Codex tool activity renders MCP, skill, and subagent calls with the right details."
         }
       ]
     },
