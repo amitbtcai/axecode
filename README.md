@@ -1,24 +1,21 @@
-<p align="center">
-  <img src="https://axeai.com/profile/axe-ai-logo-4k-horizontal.png" width="480" alt="Axe AI" />
-</p>
 
-<h1 align="center">Axe Code</h1>
+<h1 align="left">Axe Code</h1>
 
-<p align="center">
+<p align="left">
   <strong>One window for all your AI coding agents.</strong><br />
   Run Claude, Codex, OpenCode, Gemini, Grok, Kimi Code, Qwen Code, Pi, Qoder, Factory Droid, Antigravity, Cursor, Command Code, and Copilot side-by-side. Terminal and chat, any layout, with built-in MCP so agents can orchestrate each other and the app itself.
 </p>
 
-<p align="center">
+<p align="left">
   <a href="https://axeai.com">Website</a> | <a href="https://axeai.com/code">Download</a> | <a href="https://github.com/amitbtcai/axecode/issues">Report a Bug</a> | <a href="https://github.com/amitbtcai/axecode/issues">Request a Feature</a>
 </p>
 
-<p align="center">
+<p align="left">
   <em>Bring your own agent subscriptions and API keys</em>
 </p>
 
-<p align="center">
-  <a href="https://axeai.com/code"><img src="https://axeai.com/social/axe-ai-og.png" alt="Axe Code desktop app" width="960" /></a>
+<p align="left">
+  <a href="https://axeai.com/code"><img src="https://axeai.com/profile/axe-ai-logo-4k-horizontal-electric-blue.png" alt="Axe Code desktop app" /></a>
 </p>
 
 ## Supported Agents
