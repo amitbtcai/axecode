@@ -1,5 +1,7 @@
 name: Release (stable)
 
+# Registered on default branch; triggered via workflow_dispatch.
+
 on:
   workflow_dispatch:
     inputs:
