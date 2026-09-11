@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, Input, Label, TextField } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { CalendarDays, ChevronDown, Loader2, Sparkles, SquarePen } from "lucide-react";
+import { CalendarDays, ChevronDown, Loader2, PanelRight, Sparkles, SquarePen } from "lucide-react";
 import type {
   ContentCard,
   ContentCardChannel,
@@ -23,6 +23,7 @@ import {
 } from "./contentBoardUtils";
 import { ContentCardTile } from "./parts/ContentCardTile";
 import { ContentCardModal } from "./parts/ContentCardModal";
+import { ContentAgentPanel } from "./parts/ContentAgentPanel";
 
 type TabId = "board" | "calendar";
 type CalendarRange = "week" | "month";
@@ -57,6 +58,10 @@ export function ContentBoardView() {
   const [openCard, setOpenCard] = useState<ContentCard | null>(null);
   const [weekAnchor, setWeekAnchor] = useState(() => new Date());
   const [calendarRange, setCalendarRange] = useState<CalendarRange>("week");
+  /** Day key ("yyyy-mm-dd") whose calendar cell is expanded to show all cards. */
+  const [expandedDay, setExpandedDay] = useState<string | null>(null);
+  const [agentOpen, setAgentOpen] = useState(false);
+  const [agentProjectId, setAgentProjectId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -140,6 +145,17 @@ export function ContentBoardView() {
     });
   }
 
+  function toggleAgentPanel() {
+    if (agentOpen) {
+      setAgentOpen(false);
+      return;
+    }
+    setAgentOpen(true);
+    if (!agentProjectId) {
+      void ensureHomeScopeProject().then((project) => setAgentProjectId(project.id));
+    }
+  }
+
   function setupMarketing() {
     void ensureHomeScopeProject().then((project) => {
       const store = useAppStore.getState();
@@ -152,216 +168,245 @@ export function ContentBoardView() {
   }
 
   return (
-    <div className="flex h-full flex-col px-6 pb-6 pt-4">
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <h1 className="text-lg font-semibold text-foreground">
-          <Trans>Content</Trans>
-        </h1>
-        <div className="flex items-center gap-2">
-          <LightballTabs<TabId>
-            tabs={[
-              { id: "board", label: t`Board` },
-              { id: "calendar", label: t`Calendar` },
-            ]}
-            active={tab}
-            onChange={setTab}
-            ariaLabel={t`Content view`}
-          />
-          <Button variant="tertiary" size="sm" onPress={() => void newCard()}>
-            <SquarePen className="size-4" />
-            <Trans>New post</Trans>
-          </Button>
-        </div>
-      </div>
-
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <TextField
-          aria-label={t`Search content`}
-          className="min-w-56 flex-1"
-          value={query}
-          onChange={setQuery}
-        >
-          <Input placeholder={t`Search content`} />
-        </TextField>
-        <Dropdown>
-          <Button variant="tertiary" size="sm">
-            {channelFilter === "all" ? t`All channels` : CHANNEL_LABELS[channelFilter]}
-            <ChevronDown className="size-3.5" />
-          </Button>
-          <Dropdown.Popover>
-            <Dropdown.Menu
-              aria-label={t`Channel filter`}
-              onAction={(key) => setChannelFilter(key as ContentCardChannel | "all")}
-            >
-              <Dropdown.Item id="all" textValue={t`All channels`}>
-                <Label>
-                  <Trans>All channels</Trans>
-                </Label>
-              </Dropdown.Item>
-              {CHANNELS.map((c) => (
-                <Dropdown.Item key={c} id={c} textValue={CHANNEL_LABELS[c]}>
-                  <Label>{CHANNEL_LABELS[c]}</Label>
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown.Popover>
-        </Dropdown>
-      </div>
-
-      {error ? <p className="mb-3 text-sm whitespace-pre-wrap text-danger">{error}</p> : null}
-
-      {loading ? (
-        <div className="flex justify-center py-12 text-muted">
-          <Loader2 className="size-5 animate-spin" aria-label={t`Loading content`} />
-        </div>
-      ) : cards.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 py-16 text-center">
-          <Sparkles className="size-9 text-muted" />
-          <p className="text-sm font-medium text-foreground">
-            <Trans>Set up your marketing workspace</Trans>
-          </p>
-          <p className="max-w-md text-xs text-muted">
-            <Trans>
-              Channel agents draft posts onto this board on a daily schedule — you schedule and
-              publish them from here.
-            </Trans>
-          </p>
-          <div className="mt-1 flex gap-2">
-            <Button size="sm" onPress={setupMarketing}>
-              <Sparkles className="size-4" />
-              <Trans>Set up with agent</Trans>
-            </Button>
+    <div className="flex h-full">
+      <div className="flex min-w-0 flex-1 flex-col px-6 pb-6 pt-4">
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <h1 className="text-lg font-semibold text-foreground">
+            <Trans>Content</Trans>
+          </h1>
+          <div className="flex items-center gap-2">
+            <LightballTabs<TabId>
+              tabs={[
+                { id: "board", label: t`Board` },
+                { id: "calendar", label: t`Calendar` },
+              ]}
+              active={tab}
+              onChange={setTab}
+              ariaLabel={t`Content view`}
+            />
             <Button variant="tertiary" size="sm" onPress={() => void newCard()}>
               <SquarePen className="size-4" />
               <Trans>New post</Trans>
             </Button>
+            <Button
+              variant={agentOpen ? "secondary" : "tertiary"}
+              size="sm"
+              onPress={toggleAgentPanel}
+              aria-label={t`Content agent`}
+            >
+              <PanelRight className="size-4" />
+            </Button>
           </div>
         </div>
-      ) : tab === "board" ? (
-        <div className="grid flex-1 grid-cols-3 gap-3 overflow-x-auto">
-          {COLUMN_KEYS.map((status) => {
-            const columnCards = grouped.get(status) ?? [];
-            return (
-              <div key={status} className="flex min-w-[180px] flex-col">
-                <div className="mb-2 flex items-center justify-between px-1">
-                  <span className="text-xs font-medium text-muted">{columnLabels[status]}</span>
-                  <span className="text-[11px] text-muted">{columnCards.length}</span>
-                </div>
-                <div className="flex flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-surface-secondary/40 p-2">
-                  {columnCards.map((card) => (
-                    <ContentCardTile key={card.id} card={card} onOpen={setOpenCard} />
-                  ))}
-                  {columnCards.length === 0 ? (
-                    <div className="flex flex-1 items-center justify-center py-6 text-[11px] text-muted/60">
-                      <Trans>Empty</Trans>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="flex flex-1 flex-col">
-          <div className="mb-3 flex items-center justify-between">
-            <Button
-              variant="tertiary"
-              size="sm"
-              onPress={() =>
-                setWeekAnchor((d) => {
-                  const prev = new Date(d);
-                  if (calendarRange === "week") prev.setDate(prev.getDate() - 7);
-                  else prev.setMonth(prev.getMonth() - 1);
-                  return prev;
-                })
-              }
-            >
-              <Trans>Previous</Trans>
+
+        <div className="mb-4 flex flex-wrap items-center gap-3">
+          <TextField
+            aria-label={t`Search content`}
+            className="min-w-56 flex-1"
+            value={query}
+            onChange={setQuery}
+          >
+            <Input placeholder={t`Search content`} />
+          </TextField>
+          <Dropdown>
+            <Button variant="tertiary" size="sm">
+              {channelFilter === "all" ? t`All channels` : CHANNEL_LABELS[channelFilter]}
+              <ChevronDown className="size-3.5" />
             </Button>
-            <div className="flex items-center gap-2">
-              <LightballTabs<CalendarRange>
-                tabs={[
-                  { id: "week", label: t`Week` },
-                  { id: "month", label: t`Month` },
-                ]}
-                active={calendarRange}
-                onChange={setCalendarRange}
-                ariaLabel={t`Calendar range`}
-              />
-              <Button variant="tertiary" size="sm" onPress={() => setWeekAnchor(new Date())}>
-                <CalendarDays className="size-4" />
-                <Trans>Today</Trans>
+            <Dropdown.Popover>
+              <Dropdown.Menu
+                aria-label={t`Channel filter`}
+                onAction={(key) => setChannelFilter(key as ContentCardChannel | "all")}
+              >
+                <Dropdown.Item id="all" textValue={t`All channels`}>
+                  <Label>
+                    <Trans>All channels</Trans>
+                  </Label>
+                </Dropdown.Item>
+                {CHANNELS.map((c) => (
+                  <Dropdown.Item key={c} id={c} textValue={CHANNEL_LABELS[c]}>
+                    <Label>{CHANNEL_LABELS[c]}</Label>
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown.Popover>
+          </Dropdown>
+        </div>
+
+        {error ? <p className="mb-3 text-sm whitespace-pre-wrap text-danger">{error}</p> : null}
+
+        {loading ? (
+          <div className="flex justify-center py-12 text-muted">
+            <Loader2 className="size-5 animate-spin" aria-label={t`Loading content`} />
+          </div>
+        ) : cards.length === 0 ? (
+          <div className="flex flex-col items-center gap-3 py-16 text-center">
+            <Sparkles className="size-9 text-muted" />
+            <p className="text-sm font-medium text-foreground">
+              <Trans>Set up your marketing workspace</Trans>
+            </p>
+            <p className="max-w-md text-xs text-muted">
+              <Trans>
+                Channel agents draft posts onto this board on a daily schedule — you schedule and
+                publish them from here.
+              </Trans>
+            </p>
+            <div className="mt-1 flex gap-2">
+              <Button size="sm" onPress={setupMarketing}>
+                <Sparkles className="size-4" />
+                <Trans>Set up with agent</Trans>
+              </Button>
+              <Button variant="tertiary" size="sm" onPress={() => void newCard()}>
+                <SquarePen className="size-4" />
+                <Trans>New post</Trans>
               </Button>
             </div>
-            <Button
-              variant="tertiary"
-              size="sm"
-              onPress={() =>
-                setWeekAnchor((d) => {
-                  const next = new Date(d);
-                  if (calendarRange === "week") next.setDate(next.getDate() + 7);
-                  else next.setMonth(next.getMonth() + 1);
-                  return next;
-                })
-              }
-            >
-              <Trans>Next</Trans>
-            </Button>
           </div>
-          <div
-            className={`grid flex-1 grid-cols-7 gap-2 ${calendarRange === "month" ? "auto-rows-fr" : ""}`}
-          >
-            {days.map((day) => {
-              const dayCards = cardsForDay(onCalendar, day);
-              const isToday = day.toDateString() === new Date().toDateString();
-              const inMonth = calendarRange === "week" || day.getMonth() === weekAnchor.getMonth();
+        ) : tab === "board" ? (
+          <div className="grid flex-1 grid-cols-3 gap-3 overflow-x-auto">
+            {COLUMN_KEYS.map((status) => {
+              const columnCards = grouped.get(status) ?? [];
               return (
-                <div
-                  key={day.toISOString()}
-                  className={`flex flex-col rounded-xl border border-[var(--hairline)] p-2 ${
-                    isToday ? "bg-surface-secondary/50" : ""
-                  } ${inMonth ? "" : "opacity-40"} ${
-                    calendarRange === "month" ? "min-h-[90px]" : ""
-                  }`}
-                >
-                  <div className="mb-2 px-1 text-[11px] font-medium text-muted">
-                    {day.toLocaleDateString(
-                      undefined,
-                      calendarRange === "week"
-                        ? { weekday: "short", day: "numeric" }
-                        : { day: "numeric" },
-                    )}
+                <div key={status} className="flex min-w-[180px] flex-col">
+                  <div className="mb-2 flex items-center justify-between px-1">
+                    <span className="text-xs font-medium text-muted">{columnLabels[status]}</span>
+                    <span className="text-[11px] text-muted">{columnCards.length}</span>
                   </div>
-                  <div className="flex flex-col gap-1.5 overflow-y-auto">
-                    {dayCards.map((card) => (
-                      <button
+                  <div className="flex flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-surface-secondary/40 p-2">
+                    {columnCards.map((card) => (
+                      <ContentCardTile
                         key={card.id}
-                        type="button"
-                        onClick={() => setOpenCard(card)}
-                        className="rounded-lg border border-[var(--hairline)] bg-surface px-2 py-1.5 text-left text-xs text-foreground transition hover:bg-surface-secondary"
-                      >
-                        <span className="mb-0.5 block text-[10px] text-muted">
-                          {card.status === "published" ? <Trans>live</Trans> : null}
-                          {card.status === "published" ? " · " : ""}
-                          {CHANNEL_LABELS[card.channel]} ·{" "}
-                          {new Date(
-                            card.scheduledFor ?? card.publishedAt ?? card.updatedAt,
-                          ).toLocaleTimeString(undefined, {
-                            hour: "numeric",
-                            minute: "2-digit",
-                          })}
-                        </span>
-                        <span className="line-clamp-2">{card.title}</span>
-                      </button>
+                        card={card}
+                        onOpen={setOpenCard}
+                        onDelete={(c) => void deleteCard(c.id)}
+                      />
                     ))}
+                    {columnCards.length === 0 ? (
+                      <div className="flex flex-1 items-center justify-center py-6 text-[11px] text-muted/60">
+                        <Trans>Empty</Trans>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               );
             })}
           </div>
-        </div>
-      )}
-
+        ) : (
+          <div className="flex flex-1 flex-col">
+            <div className="mb-3 flex items-center justify-between">
+              <Button
+                variant="tertiary"
+                size="sm"
+                onPress={() =>
+                  setWeekAnchor((d) => {
+                    const prev = new Date(d);
+                    if (calendarRange === "week") prev.setDate(prev.getDate() - 7);
+                    else prev.setMonth(prev.getMonth() - 1);
+                    return prev;
+                  })
+                }
+              >
+                <Trans>Previous</Trans>
+              </Button>
+              <div className="flex items-center gap-2">
+                <LightballTabs<CalendarRange>
+                  tabs={[
+                    { id: "week", label: t`Week` },
+                    { id: "month", label: t`Month` },
+                  ]}
+                  active={calendarRange}
+                  onChange={setCalendarRange}
+                  ariaLabel={t`Calendar range`}
+                />
+                <Button variant="tertiary" size="sm" onPress={() => setWeekAnchor(new Date())}>
+                  <CalendarDays className="size-4" />
+                  <Trans>Today</Trans>
+                </Button>
+              </div>
+              <Button
+                variant="tertiary"
+                size="sm"
+                onPress={() =>
+                  setWeekAnchor((d) => {
+                    const next = new Date(d);
+                    if (calendarRange === "week") next.setDate(next.getDate() + 7);
+                    else next.setMonth(next.getMonth() + 1);
+                    return next;
+                  })
+                }
+              >
+                <Trans>Next</Trans>
+              </Button>
+            </div>
+            <div
+              className={`grid flex-1 grid-cols-7 gap-2 ${calendarRange === "month" ? "auto-rows-fr" : ""}`}
+            >
+              {days.map((day) => {
+                const dayCards = cardsForDay(onCalendar, day);
+                const isToday = day.toDateString() === new Date().toDateString();
+                const inMonth =
+                  calendarRange === "week" || day.getMonth() === weekAnchor.getMonth();
+                return (
+                  <div
+                    key={day.toISOString()}
+                    className={`flex flex-col rounded-xl border border-[var(--hairline)] p-2 ${
+                      isToday ? "bg-surface-secondary/50" : ""
+                    } ${inMonth ? "" : "opacity-40"} ${
+                      calendarRange === "month" ? "min-h-[90px]" : ""
+                    }`}
+                  >
+                    <div className="mb-2 px-1 text-[11px] font-medium text-muted">
+                      {day.toLocaleDateString(
+                        undefined,
+                        calendarRange === "week"
+                          ? { weekday: "short", day: "numeric" }
+                          : { day: "numeric" },
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-1.5 overflow-y-auto">
+                      {(expandedDay === day.toDateString() ? dayCards : dayCards.slice(0, 3)).map(
+                        (card) => (
+                          <button
+                            key={card.id}
+                            type="button"
+                            onClick={() => setOpenCard(card)}
+                            className="rounded-lg border border-[var(--hairline)] bg-surface px-2 py-1.5 text-left text-xs text-foreground transition hover:bg-surface-secondary"
+                          >
+                            <span className="mb-0.5 block text-[10px] text-muted">
+                              {card.status === "published" ? <Trans>live</Trans> : null}
+                              {card.status === "published" ? " · " : ""}
+                              {CHANNEL_LABELS[card.channel]} ·{" "}
+                              {new Date(
+                                card.scheduledFor ?? card.publishedAt ?? card.updatedAt,
+                              ).toLocaleTimeString(undefined, {
+                                hour: "numeric",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                            <span className="line-clamp-2">{card.title}</span>
+                          </button>
+                        ),
+                      )}
+                      {dayCards.length > 3 && expandedDay !== day.toDateString() ? (
+                        <button
+                          type="button"
+                          onClick={() => setExpandedDay(day.toDateString())}
+                          className="rounded-lg px-2 py-1 text-left text-[11px] font-medium text-accent hover:bg-surface-secondary"
+                        >
+                          <Trans>+{dayCards.length - 3} more</Trans>
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </div>
+      {agentOpen && agentProjectId ? (
+        <ContentAgentPanel projectId={agentProjectId} onClose={() => setAgentOpen(false)} />
+      ) : null}
       <ContentCardModal
         card={openCard}
         onClose={() => setOpenCard(null)}

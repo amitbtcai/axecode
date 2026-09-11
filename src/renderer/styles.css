@@ -3740,6 +3740,17 @@ html[data-poracode-drag-active="true"] [data-poracode-chat-scroller="true"] {
   border-top: 1px solid var(--border);
   margin: 0.6em 0;
 }
+.lc-notes-prose img,
+.lc-notes-prose video {
+  max-width: 100%;
+  max-height: 320px;
+  border-radius: 8px;
+  margin: 0.3em 0;
+}
+.lc-notes-prose video {
+  display: block;
+  background: #000;
+}
 /* TipTap Placeholder extension: shown when the document is empty. */
 .lc-notes-prose p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);

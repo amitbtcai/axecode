@@ -688,6 +688,11 @@ msgstr "/skill-creator-poracode Створіть нову керовану на�
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "© {currentYear} Serhii Vecherenko. Усі права захищено."
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "+{0} ще"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> з {matchCount}"
@@ -1264,6 +1269,18 @@ msgstr "Постачальники AI"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "Сповіщення, коли потокам потрібна ваша увага"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "По центру"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "По лівому краю"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "По правому краю"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2845,6 +2862,10 @@ msgstr "Закрити термінал {purposeNoun}"
 msgid "Close add project"
 msgstr "Закрити додавання проєкту"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "Закрити панель агента"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "Закрити фонові завдання"
@@ -3500,6 +3521,11 @@ msgstr "Містить конфіденційні значення; додайт
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "Контент"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "Контент-агент"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4367,6 +4393,10 @@ msgstr "Видалити файл"
 #~ msgid "Delete permanently"
 #~ msgstr "Видалити назавжди"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "Видалити допис"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "Видалити запуск"
@@ -4464,6 +4494,10 @@ msgstr "Заборонити й сказати агенту, що зробити
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "Опишіть, що має зробити агент"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "Опишіть, що опублікувати — агент створить картки на цій дошці. Тред відкриється, щоб ви могли ним керувати; картки з'являться в Чернетках."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6577,6 +6611,14 @@ msgstr "Рівень вхідного сигналу"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "Вхідні дані мають бути об’єктом JSON."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "Вставити зображення"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "Вставити відео"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "Усередині кожного проєкту"
@@ -6861,6 +6903,10 @@ msgstr "Перейти до розділу"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "щойно"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "По ширині"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13203,6 +13249,10 @@ msgstr "Бірюзовий"
 msgid "Tell {0} what to do next..."
 msgstr "Укажіть {0}, що робити далі..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "Скажіть агенту, що опублікувати…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "Укажіть цільовому провайдеру, що робити далі..."
@@ -14479,6 +14529,10 @@ msgstr "Постачальники й моделі без позначки ви�
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "Непозначені провайдери та моделі пропускаються лише Crossagents."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "Підкреслення"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"

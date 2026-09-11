@@ -688,6 +688,11 @@ msgstr "/skill-creator-poracode Utwórz nową zarządzaną umiejętność dla {d
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "© {currentYear} Serhii Vecherenko. Wszelkie prawa zastrzeżone."
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "+{0} więcej"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> z {matchCount}"
@@ -1264,6 +1269,18 @@ msgstr "Dostawcy AI"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "Alerty, gdy wątki wymagają Twojej uwagi"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "Wyśrodkuj"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "Do lewej"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "Do prawej"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2845,6 +2862,10 @@ msgstr "Zamknij terminal {purposeNoun}"
 msgid "Close add project"
 msgstr "Zamknij dodawanie projektu"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "Zamknij panel agenta"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "Zamknij zadania w tle"
@@ -3500,6 +3521,11 @@ msgstr "Zawiera poufne wartości; dodaj ręcznie"
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "Treści"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "Agent treści"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4367,6 +4393,10 @@ msgstr "Usuń plik"
 #~ msgid "Delete permanently"
 #~ msgstr "Usuń trwale"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "Usuń post"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "Usuń uruchomienie"
@@ -4464,6 +4494,10 @@ msgstr "Odmów i powiedz agentowi, co ma zrobić inaczej…"
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "Opisz, co agent powinien zrobić"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "Opisz, co opublikować — agent utworzy karty na tej tablicy. Wątek otworzy się, byś mógł nim sterować; karty pojawią się w Szkicach."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6577,6 +6611,14 @@ msgstr "Poziom wejściowy"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "Dane wejściowe muszą być obiektem JSON."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "Wstaw obraz"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "Wstaw wideo"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "Wewnątrz każdego projektu"
@@ -6861,6 +6903,10 @@ msgstr "Przejdź do sekcji"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "właśnie teraz"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "Wyjustuj"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13203,6 +13249,10 @@ msgstr "Morski"
 msgid "Tell {0} what to do next..."
 msgstr "Powiedz {0}, co ma dalej robić..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "Powiedz agentowi, co opublikować…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "Powiedz dostawcy docelowemu, co ma dalej robić..."
@@ -14479,6 +14529,10 @@ msgstr "Odznaczeni dostawcy i modele są wykluczani z automatycznego routingu Cr
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "Niezaznaczeni dostawcy i modele są pomijani tylko przez Crossagents."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "Podkreślenie"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"

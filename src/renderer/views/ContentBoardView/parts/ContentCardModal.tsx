@@ -96,27 +96,30 @@ export function ContentCardModal(props: {
     });
   }
 
+  /** Persist one picked file under the card's local media dir. */
+  async function saveMediaFile(file: File): Promise<ContentCardMediaItem> {
+    const kind = file.type.startsWith("video/") ? "video" : "image";
+    const dataBase64 = await new Promise<string>((resolvePromise, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolvePromise(String(reader.result).split(",")[1] ?? "");
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+    return readBridge().saveContentCardMedia({
+      cardId: card!.id,
+      fileName: file.name,
+      kind,
+      dataBase64,
+    });
+  }
+
   async function attachMedia(files: FileList | null) {
     if (!card || !files?.length) return;
     setBusy(true);
     try {
       const added: ContentCardMediaItem[] = [];
       for (const file of Array.from(files)) {
-        const kind = file.type.startsWith("video/") ? "video" : "image";
-        const dataBase64 = await new Promise<string>((resolvePromise, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolvePromise(String(reader.result).split(",")[1] ?? "");
-          reader.onerror = () => reject(reader.error);
-          reader.readAsDataURL(file);
-        });
-        added.push(
-          await readBridge().saveContentCardMedia({
-            cardId: card.id,
-            fileName: file.name,
-            kind,
-            dataBase64,
-          }),
-        );
+        added.push(await saveMediaFile(file));
       }
       const next = [...media, ...added];
       setMedia(next);
@@ -124,6 +127,16 @@ export function ContentCardModal(props: {
     } finally {
       setBusy(false);
     }
+  }
+
+  /** Editor inline insert: save the file, track it in media, return its local URL. */
+  async function insertMedia(file: File): Promise<{ url: string; name: string } | null> {
+    if (!card) return null;
+    const item = await saveMediaFile(file);
+    const next = [...media, item];
+    setMedia(next);
+    void save({ media: next });
+    return { url: toLocalFileUrl(item.path), name: item.name };
   }
 
   async function removeMedia(item: ContentCardMediaItem) {
@@ -144,8 +157,8 @@ export function ContentCardModal(props: {
 
   return (
     <Modal.Backdrop isOpen={card !== null} onOpenChange={(open) => !open && onClose()}>
-      <Modal.Container size="lg">
-        <Modal.Dialog className="sm:max-w-[720px]">
+      <Modal.Container size="lg" placement="center" scroll="inside">
+        <Modal.Dialog className="sm:max-w-[920px]">
           <Modal.CloseTrigger />
           <Modal.Header>
             <div className="flex items-center gap-2 pr-8">
@@ -168,6 +181,7 @@ export function ContentCardModal(props: {
                     onReady={(editor) => {
                       editorRef.current = editor;
                     }}
+                    onInsertMedia={insertMedia}
                   />
                 ) : (
                   <TextArea

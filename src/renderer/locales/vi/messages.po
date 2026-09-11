@@ -688,6 +688,11 @@ msgstr "/skill-creator-poracode Tạo một skill được quản lý mới cho 
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "© {currentYear} Serhii Vecherenko. Mọi quyền được bảo lưu."
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "+{0} nữa"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> trên {matchCount}"
@@ -1264,6 +1269,18 @@ msgstr "Nhà cung cấp AI"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "Cảnh báo khi luồng cần bạn"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "Căn giữa"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "Căn trái"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "Căn phải"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2845,6 +2862,10 @@ msgstr "Đóng terminal {purposeNoun}"
 msgid "Close add project"
 msgstr "Đóng thêm dự án"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "Đóng bảng tác tử"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "Đóng tác vụ nền"
@@ -3500,6 +3521,11 @@ msgstr "Có chứa giá trị nhạy cảm; hãy thêm thủ công"
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "Nội dung"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "Tác tử nội dung"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4367,6 +4393,10 @@ msgstr "Xóa tập tin"
 #~ msgid "Delete permanently"
 #~ msgstr "Xóa vĩnh viễn"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "Xóa bài đăng"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "Xóa lượt chạy"
@@ -4464,6 +4494,10 @@ msgstr "Từ chối và cho tác nhân biết cần làm gì khác đi…"
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "Mô tả việc tác nhân cần làm"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "Mô tả nội dung cần đăng — tác tử sẽ tạo thẻ trên bảng này. Luồng sẽ mở để bạn điều hướng; thẻ xuất hiện trong Nháp."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6577,6 +6611,14 @@ msgstr "Mức đầu vào"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "Đầu vào phải là một đối tượng JSON."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "Chèn hình ảnh"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "Chèn video"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "Bên trong mỗi dự án"
@@ -6861,6 +6903,10 @@ msgstr "Chuyển đến phần"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "ngay bây giờ"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "Căn đều"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13203,6 +13249,10 @@ msgstr "Xanh mòng kỹ"
 msgid "Tell {0} what to do next..."
 msgstr "Hãy cho {0} biết phải làm gì tiếp theo..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "Cho tác tử biết cần đăng gì…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "Cho nhà cung cấp mục tiêu biết phải làm gì tiếp theo..."
@@ -14479,6 +14529,10 @@ msgstr "Nhà cung cấp và mô hình bị bỏ chọn sẽ không được dùn
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "Nhà cung cấp và mô hình không được chọn chỉ bị Crossagents bỏ qua."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "Gạch chân"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"

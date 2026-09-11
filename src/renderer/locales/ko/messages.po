@@ -688,6 +688,11 @@ msgstr "/skill-creator-poracode {destinationLabel}에 사용할 새 관리 스�
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "© {currentYear} Serhii Vecherenko. 모든 권리 보유."
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "+{0}개 더"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> / {matchCount}"
@@ -1264,6 +1269,18 @@ msgstr "AI 공급자"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "스레드에 응답이 필요할 때 알림"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "가운데 정렬"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "왼쪽 정렬"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "오른쪽 정렬"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2845,6 +2862,10 @@ msgstr "{purposeNoun} 터미널 닫기"
 msgid "Close add project"
 msgstr "프로젝트 추가 닫기"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "에이전트 패널 닫기"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "백그라운드 작업 닫기"
@@ -3500,6 +3521,11 @@ msgstr "민감한 값이 포함되어 있습니다. 직접 추가하세요"
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "콘텐츠"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "콘텐츠 에이전트"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4367,6 +4393,10 @@ msgstr "파일 삭제"
 #~ msgid "Delete permanently"
 #~ msgstr "영구 삭제"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "게시물 삭제"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "실행 삭제"
@@ -4464,6 +4494,10 @@ msgstr "거부하고 에이전트에게 다르게 해야 할 일을 알려주세
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "에이전트가 수행할 작업을 설명하세요"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "게시할 내용을 입력하면 에이전트가 이 보드에 카드를 작성합니다. 스레드가 열려 조정할 수 있고, 카드는 초안에 표시됩니다."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6577,6 +6611,14 @@ msgstr "입력 레벨"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "입력은 JSON 객체여야 합니다."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "이미지 삽입"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "동영상 삽입"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "각 프로젝트 내부"
@@ -6861,6 +6903,10 @@ msgstr "섹션으로 이동"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "지금 막"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "양쪽 정렬"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13203,6 +13249,10 @@ msgstr "직상"
 msgid "Tell {0} what to do next..."
 msgstr "{0}에게 다음에 무엇을 해야 할지 알려주세요..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "에이전트에게 게시할 내용 알려주기…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "대상 공급자에게 다음에 무엇을 해야 할지 알려주세요..."
@@ -14479,6 +14529,10 @@ msgstr "선택 해제한 공급자와 모델은 Crossagents 자동 라우팅에�
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "선택 해제된 제공자와 모델은 Crossagents에서만 건너뜁니다."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "밑줄"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"

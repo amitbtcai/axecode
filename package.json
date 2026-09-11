@@ -114,6 +114,8 @@
     "@sindresorhus/slugify": "2.2.1",
     "@tanstack/react-router": "^1.170.32",
     "@tanstack/react-virtual": "^3.14.10",
+    "@tiptap/extension-image": "3.30.5",
+    "@tiptap/extension-text-align": "3.30.5",
     "@tiptap/extensions": "3.30.5",
     "@tiptap/pm": "3.30.5",
     "@tiptap/react": "3.30.5",

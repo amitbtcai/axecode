@@ -687,6 +687,11 @@ msgstr "/skill-creator-poracode {destinationLabel} 用の新しい管理対象�
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "©{currentYear}セルヒイ・ヴェチェレンコ。無断転載を禁じます。"
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "ほか {0} 件"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> / {matchCount}"
@@ -1263,6 +1268,18 @@ msgstr "AI プロバイダー"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "スレッドが対応を必要としたら通知"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "中央揃え"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "左揃え"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "右揃え"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2844,6 +2861,10 @@ msgstr "{purposeNoun}ターミナルを閉じる"
 msgid "Close add project"
 msgstr "プロジェクトの追加を閉じる"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "エージェントパネルを閉じる"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "バックグラウンドタスクを閉じる"
@@ -3499,6 +3520,11 @@ msgstr "機密値が含まれています。手動で追加してください"
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "コンテンツ"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "コンテンツエージェント"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4366,6 +4392,10 @@ msgstr "ファイルの削除"
 #~ msgid "Delete permanently"
 #~ msgstr "完全に削除"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "投稿を削除"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "実行を削除"
@@ -4463,6 +4493,10 @@ msgstr "拒否し、エージェントに別の対処法を伝えます..."
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "エージェントに実行してほしい内容を説明してください"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "投稿内容を入力すると、エージェントがこのボードにカードを下書きします。スレッドが開くので指示できます。カードは下書きに表示されます。"
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6576,6 +6610,14 @@ msgstr "入力レベル"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "入力は JSON オブジェクトである必要があります。"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "画像を挿入"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "動画を挿入"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "各プロジェクト内"
@@ -6860,6 +6902,10 @@ msgstr "セクションへ移動"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "たった今"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "両端揃え"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13201,6 +13247,10 @@ msgstr "ティール"
 msgid "Tell {0} what to do next..."
 msgstr "{0}に次に何をすべきかを伝えてください..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "投稿内容をエージェントに指示…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "ターゲットプロバイダーに次に何をすべきかを伝えます..."
@@ -14477,6 +14527,10 @@ msgstr "選択を解除したプロバイダーとモデルは Crossagents の�
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "チェックを外したプロバイダーとモデルはCrossagentsでのみスキップされます。"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "下線"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"

@@ -688,6 +688,11 @@ msgstr "/skill-creator-poracode {destinationLabel} için yeni bir yönetilen bec
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
 msgstr "© {currentYear} Serhii Vecherenko. Tüm hakları saklıdır."
 
+#. placeholder {0}: dayCards.length - 3
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+msgid "+{0} more"
+msgstr "+{0} tane daha"
+
 #: src/renderer/components/find/FindBar.tsx
 msgid "<0/> of {matchCount}"
 msgstr "<0/> / {matchCount}"
@@ -1264,6 +1269,18 @@ msgstr "Yapay zeka sağlayıcıları"
 #: src/mobile/settingsSections.ts
 msgid "Alerts when threads need you"
 msgstr "İş parçacıkları size ihtiyaç duyduğunda uyarılar"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align center"
+msgstr "Ortala"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align left"
+msgstr "Sola hizala"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Align right"
+msgstr "Sağa hizala"
 
 #: src/renderer/commands/shortcutCatalog.ts
 #: src/renderer/components/skills/SkillsManager.tsx
@@ -2845,6 +2862,10 @@ msgstr "{purposeNoun} terminalini kapat"
 msgid "Close add project"
 msgstr "Proje eklemeyi kapat"
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Close agent panel"
+msgstr "Ajan panelini kapat"
+
 #: src/renderer/components/thread/ThreadBackgroundTasksDock.tsx
 msgid "Close background tasks"
 msgstr "Arka plan görevlerini kapat"
@@ -3500,6 +3521,11 @@ msgstr "Hassas değerler içeriyor; elle ekleyin"
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 msgid "Content"
 msgstr "İçerik"
+
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Content agent"
+msgstr "İçerik ajanı"
 
 #: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
@@ -4367,6 +4393,10 @@ msgstr "Dosyayı sil"
 #~ msgid "Delete permanently"
 #~ msgstr "Kalıcı olarak sil"
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardTile.tsx
+msgid "Delete post"
+msgstr "Gönderiyi sil"
+
 #: src/renderer/views/GitHubActionsView/GitHubActionsView.tsx
 msgid "Delete run"
 msgstr "Çalıştırmayı sil"
@@ -4464,6 +4494,10 @@ msgstr "Reddet ve aracıya neyi farklı yapması gerektiğini söyle…"
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
 msgid "Describe what the agent should do"
 msgstr "Ajanın ne yapması gerektiğini açıklayın"
+
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Describe what to post — the agent drafts cards onto this board. The thread opens so you can steer it; cards appear in Drafts as it works."
+msgstr "Ne paylaşılacağını açıkla — ajan bu panoda kartlar oluşturur. Konu açılır, yönlendirebilirsin; kartlar Taslaklar'da görünür."
 
 #: src/renderer/components/mcp/McpServerEditor.tsx
 #: src/renderer/views/PrReviewOverlay/parts/PrHeaderCard.tsx
@@ -6577,6 +6611,14 @@ msgstr "Giriş seviyesi"
 #~ msgid "Inputs must be a JSON object."
 #~ msgstr "Girişler bir JSON nesnesi olmalıdır."
 
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert image"
+msgstr "Resim ekle"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Insert video"
+msgstr "Video ekle"
+
 #: src/renderer/views/SettingsOverlay/parts/settingsOptions.ts
 msgid "Inside each project"
 msgstr "Her projenin içinde"
@@ -6861,6 +6903,10 @@ msgstr "Bölüme git"
 #: src/renderer/views/MainView/parts/RightPanel/parts/UsagePanel/UsagePanel.tsx
 msgid "just now"
 msgstr "şimdi"
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Justify"
+msgstr "İki yana yasla"
 
 #: src/renderer/views/SettingsOverlay/parts/WorkspacesSettings.tsx
 msgid "Keep at least one workspace"
@@ -13203,6 +13249,10 @@ msgstr "Deniz mavisi"
 msgid "Tell {0} what to do next..."
 msgstr "{0}'a bundan sonra ne yapacağını söyle..."
 
+#: src/renderer/views/ContentBoardView/parts/ContentAgentPanel.tsx
+msgid "Tell the agent what to post…"
+msgstr "Ajana ne paylaşacağını söyle…"
+
 #: src/renderer/components/thread/ContinueInProviderDialog.tsx
 msgid "Tell the target provider what to do next..."
 msgstr "Hedef sağlayıcıya bundan sonra ne yapacağını söyleyin..."
@@ -14479,6 +14529,10 @@ msgstr "İşareti kaldırılan sağlayıcılar ve modeller, otomatik Crossagents
 #: src/renderer/views/SettingsOverlay/parts/crossagent/CrossagentProviderModelFilter.tsx
 #~ msgid "Unchecked providers and models are skipped by Crossagents only."
 #~ msgstr "İşaretlenmemiş sağlayıcılar ve modeller yalnızca Crossagents tarafından atlanır."
+
+#: src/renderer/views/ContentBoardView/parts/ContentCardEditor.tsx
+msgid "Underline"
+msgstr "Altı çizili"
 
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserTabGroupMenu.tsx
 msgid "Ungroup"
