@@ -11,6 +11,8 @@ import {
   dbDeleteContentCard,
   dbGetContentCard,
   dbGetContentCards,
+  dbGetContentSocialAccounts,
+  dbSetContentSocialAccount,
   dbUpdateContentCard,
   type ContentCardPatch,
 } from "../../../db";
@@ -47,6 +49,12 @@ const listArgsSchema = z.object({
 });
 
 const idArgsSchema = z.object({ id: z.string().uuid() });
+
+const setSocialAccountArgsSchema = z.object({
+  channel: contentCardChannelSchema,
+  label: z.string().max(200).optional(),
+  url: z.string().max(2000).optional(),
+});
 
 const attachMediaArgsSchema = z.object({
   id: z.string().uuid(),
@@ -164,6 +172,36 @@ export const contentCardTools: ToolDomain = {
         properties: { id: { type: "string", format: "uuid" } },
       },
     },
+    {
+      name: "list_content_social_accounts",
+      description:
+        "List the configured channel → account/page publish destinations (the social " +
+        "accounts map used when publishing cards through the browser).",
+      inputSchema: { type: "object", additionalProperties: false, properties: {} },
+    },
+    {
+      name: "set_content_social_account",
+      description:
+        "Set the publish destination for a channel — the account/page the browser agent " +
+        "posts from (e.g. a LinkedIn Company Page URL, an X handle, a YouTube channel).",
+      inputSchema: {
+        type: "object",
+        additionalProperties: false,
+        required: ["channel"],
+        properties: {
+          channel: {
+            type: "string",
+            enum: ["writer", "seo", "x", "linkedin", "facebook", "youtube"],
+          },
+          label: { type: "string", maxLength: 200, description: "Handle or page name." },
+          url: {
+            type: "string",
+            maxLength: 2000,
+            description: "Destination URL the agent navigates to.",
+          },
+        },
+      },
+    },
   ],
   handlers: {
     create_content_card: (args, ctx) => {
@@ -227,6 +265,12 @@ export const contentCardTools: ToolDomain = {
       requireCard(parsed.id);
       dbDeleteContentCard(parsed.id);
       return { deleted: parsed.id };
+    },
+    list_content_social_accounts: (_args, _ctx) => dbGetContentSocialAccounts(),
+    set_content_social_account: (args, _ctx) => {
+      const parsed = setSocialAccountArgsSchema.parse(args);
+      dbSetContentSocialAccount(parsed.channel, parsed.label ?? "", parsed.url ?? "");
+      return { saved: parsed.channel };
     },
   },
 };

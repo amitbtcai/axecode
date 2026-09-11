@@ -110,3 +110,22 @@ export const saveContentCardMediaPayloadSchema = z.object({
   dataBase64: z.string().min(1),
 });
 export type SaveContentCardMediaPayload = z.infer<typeof saveContentCardMediaPayloadSchema>;
+
+/**
+ * Where a channel publishes — the account/page the browser agent should post
+ * from. `label` is a display name (handle or page name); `url` is the
+ * destination the agent navigates to.
+ */
+export const contentSocialAccountSchema = z.object({
+  channel: contentCardChannelSchema,
+  label: z.string().max(200),
+  url: z.string().max(2000),
+});
+export type ContentSocialAccount = z.infer<typeof contentSocialAccountSchema>;
+
+export const setContentSocialAccountPayloadSchema = z.object({
+  channel: contentCardChannelSchema,
+  label: z.string().max(200).default(""),
+  url: z.string().max(2000).default(""),
+});
+export type SetContentSocialAccountPayload = z.infer<typeof setContentSocialAccountPayloadSchema>;

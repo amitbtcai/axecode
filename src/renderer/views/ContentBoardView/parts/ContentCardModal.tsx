@@ -39,7 +39,7 @@ export function ContentCardModal(props: {
     },
   ) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
-  /** Launch a publish task for this card (opens a seeded draft thread). */
+  /** Launch a background publish thread for this card (stays on the board). */
   onPublish: (card: ContentCard) => void;
 }) {
   const { card, onClose, onSave, onDelete, onPublish } = props;

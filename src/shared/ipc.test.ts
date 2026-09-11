@@ -104,6 +104,7 @@ describe("ipcProcedureMap", () => {
       requestRelaunch: vi.fn<() => void>(),
       scheduleService: {} as never,
       prWatchService: {} as never,
+      publishContentCard: () => {},
     });
 
     expect(Object.keys(handlers).sort()).toEqual([...MAIN_LOCAL_PROCEDURE_NAMES].sort());

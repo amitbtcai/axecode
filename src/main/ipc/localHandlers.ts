@@ -18,7 +18,9 @@ import {
   dbDeleteProject,
   dbDeleteThread,
   dbGetProjectNotes,
+  dbGetContentCard,
   dbGetContentCards,
+  dbGetContentSocialAccounts,
   dbGetProjects,
   dbGetState,
   dbGetThreadCompletedTurns,
@@ -34,6 +36,7 @@ import {
   dbReplaceThreadRuntimeSnapshot,
   dbReplaceThreadRuntimeItems,
   dbSetProjectNotes,
+  dbSetContentSocialAccount,
   dbSetState,
   dbSyncAll,
   dbUpdateContentCard,
@@ -101,6 +104,7 @@ import { UsageLoginManager } from "../usageLogin/UsageLoginManager";
 import type { SshConnectionManager } from "../ssh/SshConnectionManager";
 import type { ScheduleService } from "../schedules/ScheduleService";
 import type { PrWatchService } from "../prWatch";
+import type { ContentCard } from "@/shared/contracts";
 import { homeScopeLocation } from "../schedules";
 import { resolvePoracodeChannel } from "@/shared/channel";
 import {
@@ -135,6 +139,8 @@ interface CreateLocalIpcHandlersOptions {
   requestRelaunch(): void;
   scheduleService: ScheduleService;
   prWatchService: PrWatchService;
+  /** Launch a background publish thread for a content card (Content board). */
+  publishContentCard(card: ContentCard): void;
 }
 
 function requireBrowserPanel(getter: () => BrowserPanelManager | null): BrowserPanelManager {
@@ -589,6 +595,14 @@ export function createLocalIpcHandlers(
         data: new Uint8Array(Buffer.from(dataBase64, "base64")),
       });
       return { id: crypto.randomUUID(), kind, name: fileName, path: filePath };
+    },
+    getContentSocialAccounts: () => dbGetContentSocialAccounts(),
+    setContentSocialAccount: ({ channel, label, url }) =>
+      dbSetContentSocialAccount(channel, label, url),
+    publishContentCard: ({ id }) => {
+      const card = dbGetContentCard(id);
+      if (!card) throw new Error("Content card not found.");
+      options.publishContentCard(card);
     },
     getPrWatch: ({ projectId, prNumber }) => options.prWatchService.get(projectId, prNumber),
     checkPrWatch: ({ projectId, prNumber }) =>

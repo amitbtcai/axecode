@@ -211,6 +211,11 @@ msgstr "Đã lưu thông tin đăng nhập của {0}."
 msgid "{0} devices"
 msgstr "{0} thiết bị"
 
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} handle"
+msgstr "tên {0}"
+
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
 msgid "{0} hooks installed for {envName}."
@@ -370,6 +375,11 @@ msgstr "{0} đã cập nhật lên v{resolvedLatest}."
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "{0} updated."
 msgstr "{0} đã cập nhật."
+
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} URL"
+msgstr "URL {0}"
 
 #. placeholder {0}: summary.usedLabel
 #: src/renderer/components/thread/ThreadContextDock.tsx
@@ -2302,6 +2312,7 @@ msgstr "Không thể kết nối tới máy chủ từ xa. Hãy kiểm tra máy 
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -6256,6 +6267,10 @@ msgstr "handle"
 msgid "Handle"
 msgstr "Handle"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Handle / page name"
+msgstr "Tên tài khoản / tên trang"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
 msgstr "Tải lại cứng"
@@ -9430,6 +9445,10 @@ msgstr "Trình quản lý gói"
 msgid "Page"
 msgstr "Trang"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Page URL"
+msgstr "URL trang"
+
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
 msgstr "Ghép đôi"
@@ -11546,6 +11565,7 @@ msgstr "Độ bão hòa và độ sáng"
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -12544,6 +12564,11 @@ msgstr "Bị Crossagents bỏ qua: {0}"
 msgid "Slash commands"
 msgstr "Lệnh gạch chéo"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Social accounts"
+msgstr "Tài khoản mạng xã hội"
+
 #. placeholder {0}: index + 1
 #. placeholder {0}: winnerOrdinal + 1
 #: src/renderer/views/ExperimentView/parts/useExperimentJudgeRun.ts
@@ -13356,6 +13381,10 @@ msgstr "Phiên từ xa đó đã không còn."
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "the {0} WSL user"
 #~ msgstr "người dùng WSL {0}"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Tài khoản hoặc trang mà mỗi kênh đăng lên — tác tử đăng bài điều hướng đến đây trong trình duyệt đã đăng nhập của bạn."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

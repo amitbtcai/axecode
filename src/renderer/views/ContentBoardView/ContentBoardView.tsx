@@ -1,15 +1,23 @@
 import { useEffect, useState } from "react";
 import { Button, Dropdown, Input, Label, TextField } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { CalendarDays, ChevronDown, Loader2, PanelRight, Sparkles, SquarePen } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronDown,
+  Globe,
+  Loader2,
+  PanelRight,
+  Sparkles,
+  SquarePen,
+} from "lucide-react";
 import type {
   ContentCard,
   ContentCardChannel,
   ContentCardMediaItem,
   ContentCardStatus,
+  ContentSocialAccount,
 } from "@/shared/contracts";
 import { readBridge } from "@/renderer/bridge";
-import { buildContentPublishPrompt } from "@/shared/contentPublish";
 import { LightballTabs } from "@/renderer/components/common/LightballTabs";
 import { ensureHomeScopeProject } from "@/renderer/actions/projectActions";
 import { useAppStore } from "@/renderer/state/appStore";
@@ -25,6 +33,7 @@ import {
 import { ContentCardTile } from "./parts/ContentCardTile";
 import { ContentCardModal } from "./parts/ContentCardModal";
 import { ContentAgentPanel } from "./parts/ContentAgentPanel";
+import { SocialAccountsModal } from "./parts/SocialAccountsModal";
 
 type TabId = "board" | "calendar";
 type CalendarRange = "week" | "month";
@@ -63,6 +72,8 @@ export function ContentBoardView() {
   const [expandedDay, setExpandedDay] = useState<string | null>(null);
   const [agentOpen, setAgentOpen] = useState(false);
   const [agentProjectId, setAgentProjectId] = useState<string | null>(null);
+  const [accounts, setAccounts] = useState<ContentSocialAccount[]>([]);
+  const [accountsOpen, setAccountsOpen] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,6 +89,12 @@ export function ContentBoardView() {
       .finally(() => {
         if (!cancelled) setLoading(false);
       });
+    void readBridge()
+      .getContentSocialAccounts()
+      .then((next) => {
+        if (!cancelled) setAccounts(next);
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
@@ -131,13 +148,27 @@ export function ContentBoardView() {
   }
 
   function publish(card: ContentCard) {
-    // Publish via a seeded draft thread: the agent drives the user's signed-in
-    // browser (BrowserOS neo MCP or equivalent) to post the content.
-    void ensureHomeScopeProject().then((project) => {
-      const store = useAppStore.getState();
-      store.setComposerSeed(project.id, buildContentPublishPrompt(card));
-      store.openDraft(project.id);
-    });
+    // Launch a background publish thread in main — the agent posts via the
+    // signed-in browser without leaving the Content view.
+    void readBridge()
+      .publishContentCard({ id: card.id })
+      .then(() => {
+        // The claim (scheduledFor cleared, sourceThreadId set) lands after the
+        // agent pick resolves — refetch on a short delay to catch it.
+        setTimeout(() => {
+          void readBridge()
+            .getContentCards({})
+            .then((next) => setCards(next));
+        }, 1500);
+      })
+      .catch((publishError: unknown) => {
+        setError(publishError instanceof Error ? publishError.message : String(publishError));
+      });
+  }
+
+  async function saveAccount(channel: ContentCardChannel, label: string, url: string) {
+    await readBridge().setContentSocialAccount({ channel, label, url });
+    setAccounts(await readBridge().getContentSocialAccounts());
   }
 
   function toggleAgentPanel() {
@@ -179,6 +210,15 @@ export function ContentBoardView() {
               onChange={setTab}
               ariaLabel={t`Content view`}
             />
+            <Button
+              variant="tertiary"
+              size="sm"
+              onPress={() => setAccountsOpen(true)}
+              aria-label={t`Social accounts`}
+            >
+              <Globe className="size-4" />
+              <Trans>Social accounts</Trans>
+            </Button>
             <Button variant="tertiary" size="sm" onPress={() => void newCard()}>
               <SquarePen className="size-4" />
               <Trans>New post</Trans>
@@ -408,6 +448,12 @@ export function ContentBoardView() {
         onSave={saveCard}
         onDelete={deleteCard}
         onPublish={publish}
+      />
+      <SocialAccountsModal
+        open={accountsOpen}
+        accounts={accounts}
+        onClose={() => setAccountsOpen(false)}
+        onSave={saveAccount}
       />
     </div>
   );

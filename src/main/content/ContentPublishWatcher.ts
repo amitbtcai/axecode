@@ -12,7 +12,11 @@ import { DEFAULT_TERMINAL_SIZE, resolveMcpLaunchSnapshot } from "@/shared/contra
 import type { SharedSettings } from "@/shared/settings";
 import { getProjectAgentStatuses } from "@/shared/agentStatus";
 import { buildContentPublishPrompt } from "@/shared/contentPublish";
-import { dbGetContentCards, dbUpdateContentCard } from "../db/contentCards";
+import {
+  dbGetContentCards,
+  dbGetContentSocialAccounts,
+  dbUpdateContentCard,
+} from "../db/contentCards";
 import { resolveUnrestrictedThreadPermissions } from "../threads/threadLaunchConfig";
 
 /**
@@ -84,6 +88,24 @@ export class ContentPublishWatcher {
     await Promise.allSettled([...this.pending]);
   }
 
+  /**
+   * Manual publish — same path as the due-card tick, invoked by the
+   * `publishContentCard` IPC so the Content board posts without opening a chat.
+   */
+  publishCard(card: ContentCard): void {
+    if (this.launching.has(card.id)) return;
+    this.launching.add(card.id);
+    this.pending.push(
+      this.launch(card)
+        .catch((error: unknown) => {
+          dbUpdateContentCard(card.id, {
+            publishError: error instanceof Error ? error.message : String(error),
+          });
+        })
+        .finally(() => this.launching.delete(card.id)),
+    );
+  }
+
   private async launch(card: ContentCard): Promise<void> {
     const project = card.projectId
       ? this.deps.getProject(card.projectId)
@@ -133,7 +155,7 @@ export class ContentPublishWatcher {
     };
     this.deps.upsertThread(thread, -Date.now());
 
-    const prompt = buildContentPublishPrompt(claimed);
+    const prompt = buildContentPublishPrompt(claimed, dbGetContentSocialAccounts());
     this.deps.sendThreadCommand({
       kind: "start",
       threadId,

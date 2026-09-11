@@ -650,6 +650,22 @@ export const DATABASE_MIGRATIONS = [
       addColumnIfMissing(sqlite, "content_cards", "published_at", "TEXT");
     },
   },
+  {
+    // Fork-owned (Axe Code): channel → account/page destination map used by the
+    // publish playbook (replaces the marketing/social-accounts.md file lookup).
+    version: 45,
+    name: "content social accounts",
+    migrate: (sqlite) => {
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS content_social_accounts (
+          channel TEXT PRIMARY KEY,
+          label TEXT NOT NULL DEFAULT '',
+          url TEXT NOT NULL DEFAULT '',
+          updated_at TEXT NOT NULL
+        )
+      `);
+    },
+  },
 ] as const satisfies readonly DatabaseMigration[];
 
 export const LATEST_SCHEMA_VERSION = DATABASE_MIGRATIONS[DATABASE_MIGRATIONS.length - 1]!.version;

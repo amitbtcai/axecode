@@ -1206,6 +1206,7 @@ if (!hasSingleInstanceLock) {
           },
           scheduleService,
           prWatchService,
+          publishContentCard: (card) => contentPublishWatcher.publishCard(card),
         }),
         callSupervisor: (name, payload) => supervisorClient.call(name, payload),
       });

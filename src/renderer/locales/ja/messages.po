@@ -211,6 +211,11 @@ msgstr "{0}資格情報が保存されました。"
 msgid "{0} devices"
 msgstr "{0}台のデバイス"
 
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} handle"
+msgstr "{0} ハンドル"
+
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
 msgid "{0} hooks installed for {envName}."
@@ -370,6 +375,11 @@ msgstr "{0}が v{resolvedLatest}に更新されました。"
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "{0} updated."
 msgstr "{0}が更新されました。"
+
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} URL"
+msgstr "{0} の URL"
 
 #. placeholder {0}: summary.usedLabel
 #: src/renderer/components/thread/ThreadContextDock.tsx
@@ -2301,6 +2311,7 @@ msgstr "リモートサーバーに接続できません。オンラインであ
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -6255,6 +6266,10 @@ msgstr "ハンドル"
 msgid "Handle"
 msgstr "ハンドル"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Handle / page name"
+msgstr "ハンドル / ページ名"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
 msgstr "ハードリロード"
@@ -9428,6 +9443,10 @@ msgstr "パッケージマネージャー"
 msgid "Page"
 msgstr "ページ"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Page URL"
+msgstr "ページ URL"
+
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
 msgstr "ペアリング"
@@ -11544,6 +11563,7 @@ msgstr "彩度と明度"
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -12542,6 +12562,11 @@ msgstr "Crossagentsがスキップ: {0}"
 msgid "Slash commands"
 msgstr "スラッシュコマンド"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Social accounts"
+msgstr "ソーシャルアカウント"
+
 #. placeholder {0}: index + 1
 #. placeholder {0}: winnerOrdinal + 1
 #: src/renderer/views/ExperimentView/parts/useExperimentJudgeRun.ts
@@ -13354,6 +13379,10 @@ msgstr "そのリモートセッションはすでに存在しません。"
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "the {0} WSL user"
 #~ msgstr "{0} WSL ユーザー"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "各チャンネルの投稿先アカウントまたはページ — 公開エージェントがサインイン済みブラウザーでここに移動します。"
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

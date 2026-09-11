@@ -1,8 +1,10 @@
 import {
   contentCardSchema,
+  contentSocialAccountSchema,
   type ContentCard,
   type ContentCardChannel,
   type ContentCardStatus,
+  type ContentSocialAccount,
   type CreateContentCardPayload,
 } from "@/shared/contracts";
 import { getSqlite } from "./connection";
@@ -223,4 +225,27 @@ export function dbUpdateContentCard(id: string, patch: ContentCardPatch): Conten
 
 export function dbDeleteContentCard(id: string): void {
   getSqlite().prepare("DELETE FROM content_cards WHERE id = ?").run(id);
+}
+
+// --- Social accounts: channel → publish destination ---
+
+export function dbGetContentSocialAccounts(): ContentSocialAccount[] {
+  const rows = getSqlite()
+    .prepare("SELECT channel, label, url FROM content_social_accounts ORDER BY channel")
+    .all() as { channel: string; label: string; url: string }[];
+  return rows.map((row) => contentSocialAccountSchema.parse(row));
+}
+
+export function dbSetContentSocialAccount(
+  channel: ContentCardChannel,
+  label: string,
+  url: string,
+): void {
+  getSqlite()
+    .prepare(
+      `INSERT INTO content_social_accounts (channel, label, url, updated_at)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT(channel) DO UPDATE SET label = excluded.label, url = excluded.url, updated_at = excluded.updated_at`,
+    )
+    .run(channel, label, url, new Date().toISOString());
 }

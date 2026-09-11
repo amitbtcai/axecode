@@ -211,6 +211,11 @@ msgstr "{0} – dane uwierzytelniające zostały zapisane."
 msgid "{0} devices"
 msgstr "Urządzenia: {0}"
 
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} handle"
+msgstr "nazwa {0}"
+
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
 msgid "{0} hooks installed for {envName}."
@@ -370,6 +375,11 @@ msgstr "{0} zaktualizowano do wersji {resolvedLatest}."
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "{0} updated."
 msgstr "{0} zaktualizowano."
+
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} URL"
+msgstr "URL {0}"
 
 #. placeholder {0}: summary.usedLabel
 #: src/renderer/components/thread/ThreadContextDock.tsx
@@ -2302,6 +2312,7 @@ msgstr "Nie można połączyć się z serwerem zdalnym. Sprawdź, czy jest onlin
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -6256,6 +6267,10 @@ msgstr "identyfikator"
 msgid "Handle"
 msgstr "Identyfikator"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Handle / page name"
+msgstr "Nazwa / nazwa strony"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
 msgstr "Twarde przeładowanie"
@@ -9430,6 +9445,10 @@ msgstr "Menedżer pakietów"
 msgid "Page"
 msgstr "Strona"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Page URL"
+msgstr "URL strony"
+
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
 msgstr "Sparuj"
@@ -11546,6 +11565,7 @@ msgstr "Nasycenie i jasność"
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -12544,6 +12564,11 @@ msgstr "Pomijane przez Crossagents: {0}"
 msgid "Slash commands"
 msgstr "Polecenia z ukośnikiem"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Social accounts"
+msgstr "Konta społecznościowe"
+
 #. placeholder {0}: index + 1
 #. placeholder {0}: winnerOrdinal + 1
 #: src/renderer/views/ExperimentView/parts/useExperimentJudgeRun.ts
@@ -13356,6 +13381,10 @@ msgstr "Ta sesja zdalna już nie istnieje."
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "the {0} WSL user"
 #~ msgstr "użytkownika WSL {0}"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Konto lub strona, na której publikuje każdy kanał — agent publikujący nawiguje tutaj w Twojej zalogowanej przeglądarce."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

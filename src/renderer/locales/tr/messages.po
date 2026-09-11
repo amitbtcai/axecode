@@ -211,6 +211,11 @@ msgstr "{0} kimlik bilgileri kaydedildi."
 msgid "{0} devices"
 msgstr "{0} cihaz"
 
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} handle"
+msgstr "{0} kullanıcı adı"
+
 #. placeholder {0}: props.agentLabel
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/parts/HookPluginSettings.tsx
 msgid "{0} hooks installed for {envName}."
@@ -370,6 +375,11 @@ msgstr "{0} v{resolvedLatest} sürümüne güncellendi."
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "{0} updated."
 msgstr "{0} güncellendi."
+
+#. placeholder {0}: CHANNEL_LABELS[channel]
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "{0} URL"
+msgstr "{0} URL'si"
 
 #. placeholder {0}: summary.usedLabel
 #: src/renderer/components/thread/ThreadContextDock.tsx
@@ -2302,6 +2312,7 @@ msgstr "Uzak sunucuya ulaşılamıyor. Çevrimiçi olduğunu doğrulayıp yenide
 #: src/renderer/components/thread/ThreadRuntimeRequestPanel/ThreadRuntimeRequestPanel.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/SchedulePicker.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeDialog.tsx
 #: src/renderer/views/ExperimentView/parts/ExperimentJudgeRunDialog.tsx
 #: src/renderer/views/GitHubActionsView/GitHubActionsDispatchPopover.tsx
@@ -6256,6 +6267,10 @@ msgstr "kullanıcı adı"
 msgid "Handle"
 msgstr "Kullanıcı adı"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Handle / page name"
+msgstr "Kullanıcı adı / sayfa adı"
+
 #: src/renderer/views/MainView/parts/RightPanel/parts/BrowserPanel/parts/BrowserToolbar.tsx
 msgid "Hard Reload"
 msgstr "Sert Yeniden Yükleme"
@@ -9430,6 +9445,10 @@ msgstr "Paket yöneticisi"
 msgid "Page"
 msgstr "Sayfa"
 
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Page URL"
+msgstr "Sayfa URL'si"
+
 #: src/mobile/views/DesktopsView.tsx
 msgid "Pair"
 msgstr "Eşleştir"
@@ -11546,6 +11565,7 @@ msgstr "Doygunluk ve parlaklık"
 #: src/renderer/components/thread/ThreadGoalControls.tsx
 #: src/renderer/components/workspace/WorkspaceNameDialog.tsx
 #: src/renderer/views/ContentBoardView/parts/ContentCardModal.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
 #: src/renderer/views/FileEditorOverlay/parts/FileEditorPane/parts/EditorToolbar.tsx
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/SettingsOverlay/parts/ClaudeProfileSettings.tsx
@@ -12544,6 +12564,11 @@ msgstr "Crossagents tarafından atlananlar: {0}"
 msgid "Slash commands"
 msgstr "Eğik çizgi komutları"
 
+#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "Social accounts"
+msgstr "Sosyal hesaplar"
+
 #. placeholder {0}: index + 1
 #. placeholder {0}: winnerOrdinal + 1
 #: src/renderer/views/ExperimentView/parts/useExperimentJudgeRun.ts
@@ -13356,6 +13381,10 @@ msgstr "Bu uzak oturum zaten yoktu."
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "the {0} WSL user"
 #~ msgstr "{0} WSL kullanıcısı"
+
+#: src/renderer/views/ContentBoardView/parts/SocialAccountsModal.tsx
+msgid "The account or page each channel publishes to — the publish agent navigates here in your signed-in browser."
+msgstr "Her kanalın yayın yaptığı hesap veya sayfa — yayınlama aracısı oturum açık tarayıcınızda buraya gider."
 
 #: src/renderer/components/thread/ThreadComposerSection.tsx
 msgid "the agent"

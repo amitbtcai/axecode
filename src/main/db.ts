@@ -81,5 +81,7 @@ export {
   dbCreateContentCard,
   dbUpdateContentCard,
   dbDeleteContentCard,
+  dbGetContentSocialAccounts,
+  dbSetContentSocialAccount,
   type ContentCardPatch,
 } from "./db/contentCards";

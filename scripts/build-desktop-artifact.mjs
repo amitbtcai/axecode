@@ -466,7 +466,7 @@ function buildElectronBuilderConfig(macArtifactKind = "branded") {
 
   return `appId: ${appId}
 productName: ${productName}
-copyright: Copyright (C) 2026 Poracode
+copyright: Copyright (C) 2026 Axe Code
 
 directories:
   output: release
@@ -582,7 +582,7 @@ mac:
   hardenedRuntime: true
   gatekeeperAssess: false
   extendInfo:
-    NSMicrophoneUsageDescription: Poracode uses the microphone for local voice input in the composer.
+    NSMicrophoneUsageDescription: ${productName} uses the microphone for local voice input in the composer.
   entitlements: ${macEntitlements}
   entitlementsInherit: ${macEntitlementsInherit}
   notarize: true

@@ -1,4 +1,4 @@
-import type { ContentCard, ContentCardChannel } from "./contracts";
+import type { ContentCard, ContentCardChannel, ContentSocialAccount } from "./contracts";
 
 /**
  * Fork-owned (Axe Code): the publish playbook shared by the manual
@@ -6,16 +6,19 @@ import type { ContentCard, ContentCardChannel } from "./contracts";
  * Both launch a thread with this prompt — the agent reviews, drives the
  * signed-in browser via the browseros-neo MCP tools, posts, and reports the
  * result back onto the card.
+ *
+ * Destinations come from the configured social accounts (Content view →
+ * Social accounts); when a channel has no configured URL the prompt falls
+ * back to the channel's default surface.
  */
 
-const CHANNEL_DESTINATION: Record<ContentCardChannel, string> = {
-  writer: "the Axe AI blog / company site (see marketing/social-accounts.md for the CMS path)",
-  seo: "the Axe AI blog / company site (see marketing/social-accounts.md)",
-  x: "x.com — the company account (see marketing/social-accounts.md for the handle)",
-  linkedin:
-    "linkedin.com — the Axe AI Company Page, not a personal profile (URL in marketing/social-accounts.md)",
-  facebook: "facebook.com — the Axe AI Facebook Page (URL in marketing/social-accounts.md)",
-  youtube: "studio.youtube.com — upload flow for the Axe AI channel",
+const DEFAULT_DESTINATION: Record<ContentCardChannel, string> = {
+  writer: "the company blog / site CMS",
+  seo: "the company blog / site CMS",
+  x: "x.com — the company account",
+  linkedin: "linkedin.com — the Company Page, not a personal profile",
+  facebook: "facebook.com — the Facebook Page",
+  youtube: "studio.youtube.com — upload flow",
 };
 
 /** Per-channel compose notes the agent must respect while posting. */
@@ -30,7 +33,19 @@ const CHANNEL_RULES: Record<ContentCardChannel, string> = {
     "Title + description + video file upload. The description goes in the YouTube description field, not the title.",
 };
 
-export function buildContentPublishPrompt(card: ContentCard): string {
+function destinationFor(card: ContentCard, accounts: readonly ContentSocialAccount[]): string {
+  const account = accounts.find((a) => a.channel === card.channel);
+  if (account?.url) {
+    const label = account.label ? ` ("${account.label}")` : "";
+    return `${account.url}${label} — this exact account/page is already signed in in the browser`;
+  }
+  return `${DEFAULT_DESTINATION[card.channel]} — no URL is configured for this channel; ask which account to use before posting`;
+}
+
+export function buildContentPublishPrompt(
+  card: ContentCard,
+  accounts: readonly ContentSocialAccount[] = [],
+): string {
   const mediaLines = card.media.length
     ? `\n\nMedia files to attach (local paths — upload these in the site's composer):\n${card.media
         .map((item) => `- ${item.path}`)
@@ -38,7 +53,7 @@ export function buildContentPublishPrompt(card: ContentCard): string {
     : "";
   return `Publish this ${card.channel} post using my signed-in browser via the browseros-neo MCP tools.
 
-Destination: ${CHANNEL_DESTINATION[card.channel]}
+Destination: ${destinationFor(card, accounts)}
 Channel rules: ${CHANNEL_RULES[card.channel]}
 
 Title: ${card.title}

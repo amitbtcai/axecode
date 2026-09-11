@@ -50,6 +50,7 @@ function makeHandlers() {
     requestRelaunch: vi.fn<() => void>(),
     scheduleService: {} as never,
     prWatchService: {} as never,
+    publishContentCard: () => {},
   });
 }
 
