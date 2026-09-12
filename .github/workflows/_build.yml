@@ -75,6 +75,26 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      # electron-builder 26 requires actool 26+ for asset catalogs, but the
+      # macos-15 image still defaults to Xcode 16.4. The Xcode 26 toolchain is
+      # installed on the image — select it without moving off the pinned
+      # runner OS (macos-26 breaks `security set-key-partition-list`).
+      - name: Select Xcode 26 toolchain
+        if: matrix.platform == 'mac'
+        run: |
+          # BSD sort has no -V; order by numeric dotted fields and take the
+          # newest Xcode 26+ bundle (Xcode_26.x.0.app entries are symlinks).
+          XCODE_VER="$(find /Applications -maxdepth 1 -name 'Xcode_2[6-9]*.app' -type d \
+            -exec basename {} .app \; | sed 's/^Xcode_//' | sort -t. -k1,1n -k2,2n -k3,3n | tail -1)"
+          if [ -z "$XCODE_VER" ]; then
+            echo "::error::No Xcode 26+ app bundle found on this runner image."
+            exit 1
+          fi
+          sudo xcode-select -s "/Applications/Xcode_${XCODE_VER}.app/Contents/Developer"
+          xcodebuild -version
+          actool --version
+        shell: bash
+
       - name: Install Linux helper build tools
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update && sudo apt-get install --yes musl-tools
