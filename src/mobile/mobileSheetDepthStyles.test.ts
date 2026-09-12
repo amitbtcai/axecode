@@ -80,7 +80,7 @@ describe("mobile sheet depth styles", () => {
     // Standalone PWAs paint the bottom safe-area band with the theme-color, so
     // the static meta stays opaque; browser mode flips it to transparent at
     // boot so Safari's floating toolbar blends with the app paint.
-    expect(mobileHtml).toContain('<meta name="theme-color" content="#000000" />');
+    expect(mobileHtml).toContain('<meta name="theme-color" content="#070709" />');
     expect(mobileHtml).toMatch(
       /navigator\.standalone === true[\s\S]*!standalone && window\.matchMedia\("\(display-mode: browser\)"\)\.matches[\s\S]*data-mobile-browser-chrome[\s\S]*meta\[name="theme-color"\][\s\S]*"content", "transparent"/,
     );

@@ -345,7 +345,7 @@ describe("SkillsService", () => {
     expect(bundled).toMatchObject({
       providerId: "poracode-built-in",
       providerGroupId: "poracode",
-      providerGroupLabel: "Poracode",
+      providerGroupLabel: "Axe Code",
       providerGroupOrder: -1,
       origin: "built-in",
       mutable: false,

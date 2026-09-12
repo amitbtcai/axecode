@@ -594,8 +594,8 @@ msgstr "{percent}% đầy"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} đã được cập nhật lên v{0}."
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} đã được cập nhật lên v{0}."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "Có chứa giá trị nhạy cảm; hãy thêm thủ công"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "Nội dung"
 
@@ -5016,7 +5017,7 @@ msgstr "Mức nỗ lực cho {modelName}"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "Trống"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "Mục tiêu đã đặt"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "Đã hiểu"
+#~ msgid "Got it"
+#~ msgstr "Đã hiểu"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "Các chủ đề tiếp tục ẩn sẽ được quét 5 phút một lần và được dỡ bỏ sau độ tuổi nhàn rỗi này."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "Ẩn"
 
@@ -10405,9 +10405,7 @@ msgstr "Pull request đã được hợp nhất"
 msgid "Pull request options"
 msgstr "Tùy chọn pull request"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "Pull request"
 
@@ -15106,8 +15104,8 @@ msgid "View diff"
 msgstr "Xem diff"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "Xem toàn bộ nhật ký thay đổi"
+#~ msgid "View full changelog"
+#~ msgstr "Xem toàn bộ nhật ký thay đổi"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15329,8 +15327,6 @@ msgid "What this server provides"
 msgstr "Nội dung mà máy chủ này cung cấp"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "Có gì mới"
 

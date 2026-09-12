@@ -594,8 +594,8 @@ msgstr "{percent}% lleno"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} se actualizó a la v{0}."
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} se actualizó a la v{0}."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "Contiene valores confidenciales; añádelo manualmente"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "Contenido"
 
@@ -5016,7 +5017,7 @@ msgstr "Niveles de esfuerzo para {modelName}"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "Vacío"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "Objetivos definidos"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "Entendido"
+#~ msgid "Got it"
+#~ msgstr "Entendido"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "Los hilos ocultos reanudables se revisan cada 5 minutos y se descargan tras este tiempo de inactividad."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "Ocultar"
 
@@ -10405,9 +10405,7 @@ msgstr "Pull request fusionado"
 msgid "Pull request options"
 msgstr "Opciones de pull request"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "Pull requests"
 
@@ -15106,8 +15104,8 @@ msgid "View diff"
 msgstr "Ver diff"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "Ver el registro de cambios completo"
+#~ msgid "View full changelog"
+#~ msgstr "Ver el registro de cambios completo"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15329,8 +15327,6 @@ msgid "What this server provides"
 msgstr "Qué ofrece este servidor"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "Novedades"
 

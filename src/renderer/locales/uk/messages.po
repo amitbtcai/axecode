@@ -594,8 +594,8 @@ msgstr "{percent}% заповнено"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} оновлено до v{0}."
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} оновлено до v{0}."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "Містить конфіденційні значення; додайт
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "Контент"
 
@@ -5016,7 +5017,7 @@ msgstr "Рівні зусиль для {modelName}"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "Порожньо"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "Встановлено цілей"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "Зрозуміло"
+#~ msgid "Got it"
+#~ msgstr "Зрозуміло"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "Приховані відновлювані треди перевіряються кожні 5 хвилин і вивантажуються після цього часу простою."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "Сховати"
 
@@ -10405,9 +10405,7 @@ msgstr "Pull request злито"
 msgid "Pull request options"
 msgstr "Параметри pull request"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "Pull request"
 
@@ -15106,8 +15104,8 @@ msgid "View diff"
 msgstr "Показать diff"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "Відкрити повний список змін"
+#~ msgid "View full changelog"
+#~ msgstr "Відкрити повний список змін"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15329,8 +15327,6 @@ msgid "What this server provides"
 msgstr "Що надає цей сервер"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "Що нового"
 

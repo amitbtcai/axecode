@@ -5,6 +5,7 @@ import {
   calendarDate,
   cardsForDay,
   columnOf,
+  dropPatchForColumn,
   groupByStatus,
   monthDays,
   nextDays,
@@ -118,5 +119,58 @@ describe("nextDays", () => {
   it("returns consecutive YYYY-MM-DD dates starting from `from`", () => {
     const days = nextDays(3, new Date(2026, 8, 11));
     expect(days.map((d) => d.dateStr)).toEqual(["2026-09-11", "2026-09-12", "2026-09-13"]);
+  });
+});
+
+describe("dropPatchForColumn", () => {
+  const now = new Date("2026-09-13T12:00:00.000Z");
+
+  it("moves cards between the draft and scheduled columns", () => {
+    expect(dropPatchForColumn(card({ status: "draft" }), "scheduled", now)).toEqual({
+      status: "scheduled",
+      scheduledFor: "2026-09-13T12:10:00.000Z",
+    });
+    expect(
+      dropPatchForColumn(
+        card({ status: "scheduled", scheduledFor: "2026-09-12T12:00:00.000Z" }),
+        "draft",
+        now,
+      ),
+    ).toEqual({ status: "draft", scheduledFor: null });
+  });
+
+  it("treats legacy review/approved cards as drafts", () => {
+    expect(dropPatchForColumn(card({ status: "review" }), "draft", now)).toBeNull();
+    expect(dropPatchForColumn(card({ status: "approved" }), "scheduled", now)).toEqual({
+      status: "scheduled",
+      scheduledFor: "2026-09-13T12:10:00.000Z",
+    });
+  });
+
+  it("clears the live post link when a published card leaves Published", () => {
+    const live = card({
+      status: "published",
+      publishUrl: "https://x.com/post/1",
+      publishedAt: "2026-09-10T09:00:00.000Z",
+    });
+    expect(dropPatchForColumn(live, "draft", now)).toEqual({
+      status: "draft",
+      scheduledFor: null,
+      publishUrl: null,
+      publishError: null,
+    });
+    expect(dropPatchForColumn(live, "scheduled", now)).toEqual({
+      status: "scheduled",
+      scheduledFor: "2026-09-13T12:10:00.000Z",
+      publishUrl: null,
+      publishError: null,
+    });
+  });
+
+  it("rejects drops on the Published column and same-column drops", () => {
+    expect(dropPatchForColumn(card({ status: "draft" }), "published")).toBeNull();
+    expect(dropPatchForColumn(card({ status: "scheduled" }), "published")).toBeNull();
+    expect(dropPatchForColumn(card({ status: "draft" }), "draft")).toBeNull();
+    expect(dropPatchForColumn(card({ status: "archived" }), "archived")).toBeNull();
   });
 });

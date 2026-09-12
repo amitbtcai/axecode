@@ -355,7 +355,10 @@ describe("mobile route components", () => {
     expect(screen.queryByTestId("quick-compose")).toBeNull();
     expect(screen.getByText("Connect desktop")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Connect" }));
-    expect(fixtures.navigate).toHaveBeenCalledWith({ to: "/desktops" });
+    expect(fixtures.navigate).toHaveBeenCalledWith({
+      to: "/desktops",
+      search: { pair: true },
+    });
   });
 
   it("shows an add-project prompt instead of the home composer when no project is available", () => {

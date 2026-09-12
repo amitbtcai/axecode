@@ -38,7 +38,7 @@ describe("sharedSettingsStore", () => {
       crossagentRoutingOverrides: [],
       providerOrder: [],
       threadDocksOrder: ["goal", "plan", "agents", "backgroundTasks", "images"],
-      sidebarShortcutOrder: ["pullRequests", "githubActions", "schedules"],
+      sidebarShortcutOrder: ["githubActions", "schedules", "content"],
       lastUsedProjectDirs: {},
       enabledMcpServers: {},
       installedPlugins: {},
@@ -120,12 +120,12 @@ describe("sharedSettingsStore", () => {
   });
 
   it("reorders sidebar shortcuts and keeps every supported shortcut", () => {
-    useSharedSettings.getState().setSidebarShortcutOrder(["schedules", "pullRequests"]);
+    useSharedSettings.getState().setSidebarShortcutOrder(["schedules", "githubActions"]);
 
     expect(useSharedSettings.getState().sidebarShortcutOrder).toEqual([
       "schedules",
-      "pullRequests",
       "githubActions",
+      "content",
     ]);
   });
 

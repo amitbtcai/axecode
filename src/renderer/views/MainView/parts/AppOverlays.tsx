@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { AlertDialog } from "@heroui/react";
 import { Trans } from "@lingui/react/macro";
 import { PixelLoader } from "@/renderer/components/common/PixelLoader";
@@ -33,7 +33,7 @@ import { readBridge } from "@/renderer/bridge";
 import { Button } from "@/renderer/components/common/Button";
 import { useBrowserPanelStore } from "@/renderer/state/browserPanelStore";
 import type { UsageLoginConfirmationAction } from "@/shared/contracts";
-import { WhatsNewOverlay } from "@/renderer/views/WhatsNewOverlay";
+import { useChangelogStore } from "@/renderer/state/changelogStore";
 import { useLoginTerminalStore } from "@/renderer/state/loginTerminalStore";
 import { findExperimentByWorktree } from "@/renderer/state/experimentStore";
 
@@ -99,9 +99,16 @@ export function AppOverlays() {
     },
   );
 
+  // Once per launch: initialize the changelog seen marker (fresh profiles only)
+  // and fetch the latest changelog so Settings → Changelog has content ready.
+  useEffect(() => {
+    const store = useChangelogStore.getState();
+    store.bootstrapSeenState();
+    void store.loadChangelog();
+  }, []);
+
   return (
     <>
-      <WhatsNewOverlay />
       <OverlayShell open={settingsOpen} onExited={() => usePanelStore.getState().closeSettings()}>
         <Suspense fallback={<OverlayLoader />}>
           <DeferredSettingsOverlay onClose={() => usePanelStore.getState().closeSettings()} />

@@ -594,8 +594,8 @@ msgstr "{percent}% zapełnienia"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} zaktualizowano do wersji v{0}."
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} zaktualizowano do wersji v{0}."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "Zawiera poufne wartości; dodaj ręcznie"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "Treści"
 
@@ -5016,7 +5017,7 @@ msgstr "Poziomy rozumowania dla modelu {modelName}"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "Puste"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "Ustawione cele"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "Rozumiem"
+#~ msgid "Got it"
+#~ msgstr "Rozumiem"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "Ukryte wątki, które można wznowić, są czyszczone co 5 minut i rozładowywane po upływie tego okresu bezczynności."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "Ukryj"
 
@@ -10405,9 +10405,7 @@ msgstr "Żądanie ściągnięcia scalone"
 msgid "Pull request options"
 msgstr "Opcje żądania ściągnięcia"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "Żądania ściągnięcia"
 
@@ -15106,8 +15104,8 @@ msgid "View diff"
 msgstr "Pokaż diff"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "Zobacz pełny dziennik zmian"
+#~ msgid "View full changelog"
+#~ msgstr "Zobacz pełny dziennik zmian"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15329,8 +15327,6 @@ msgid "What this server provides"
 msgstr "Co udostępnia ten serwer"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "Nowości"
 

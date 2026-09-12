@@ -44,6 +44,7 @@ import {
   APP_CONTROLS_MCP_INSTRUCTIONS,
   TOOLS,
   dispatchTool,
+  isKnownToolName,
   type AppControlsSupervisorCaller,
   type AppControlsToolContext,
 } from "./toolRegistry";
@@ -2196,6 +2197,25 @@ describe("Poracode app control tools — skills", () => {
       expect(result.content).toHaveLength(content.length);
     } finally {
       await rm(directory, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("content card tools", () => {
+  it("exposes the Content board toolset on the app-controls server", () => {
+    const names = new Set(TOOLS.map((tool) => tool.name));
+    for (const name of [
+      "create_content_card",
+      "update_content_card",
+      "list_content_cards",
+      "delete_content_card",
+      "attach_content_card_media",
+      "list_publish_attempts",
+      "list_content_social_accounts",
+      "set_content_social_account",
+    ]) {
+      expect(names.has(name)).toBe(true);
+      expect(isKnownToolName(name)).toBe(true);
     }
   });
 });

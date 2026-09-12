@@ -216,6 +216,14 @@ export const BUILT_IN_MCP_SERVER_TOOL_NAMES = {
     "list_skills",
     "read_skill",
     "set_skill_enabled",
+    "create_content_card",
+    "update_content_card",
+    "list_content_cards",
+    "attach_content_card_media",
+    "delete_content_card",
+    "list_publish_attempts",
+    "list_content_social_accounts",
+    "set_content_social_account",
   ],
 } as const satisfies Record<BuiltInMcpServerId, readonly string[]>;
 

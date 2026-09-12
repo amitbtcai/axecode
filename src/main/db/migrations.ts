@@ -693,6 +693,61 @@ export const DATABASE_MIGRATIONS = [
       `);
     },
   },
+  {
+    // Fork-owned (Axe Code): general task board + editable mind tree. Agents
+    // and the user manage these via the app-controls MCP tools and the Tasks
+    // view; mind_nodes.parent_id cascades so deleting a node removes its
+    // subtree, while taskCardId is a soft link that survives card deletion.
+    version: 47,
+    name: "task cards and mind nodes",
+    migrate: (sqlite) => {
+      sqlite.exec(`
+        CREATE TABLE IF NOT EXISTS task_cards (
+          id TEXT PRIMARY KEY,
+          project_id TEXT REFERENCES projects(id) ON DELETE CASCADE,
+          title TEXT NOT NULL,
+          notes TEXT NOT NULL DEFAULT '',
+          status TEXT NOT NULL DEFAULT 'todo',
+          priority TEXT NOT NULL DEFAULT 'medium',
+          due_at TEXT,
+          source_thread_id TEXT,
+          source_run_id TEXT,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_task_cards_status
+          ON task_cards (status, updated_at DESC);
+        CREATE INDEX IF NOT EXISTS idx_task_cards_priority
+          ON task_cards (priority, updated_at DESC);
+        CREATE TABLE IF NOT EXISTS mind_nodes (
+          id TEXT PRIMARY KEY,
+          parent_id TEXT REFERENCES mind_nodes(id) ON DELETE CASCADE,
+          title TEXT NOT NULL,
+          note TEXT NOT NULL DEFAULT '',
+          task_card_id TEXT,
+          sort_order INTEGER NOT NULL DEFAULT 0,
+          collapsed INTEGER NOT NULL DEFAULT 0,
+          created_at TEXT NOT NULL,
+          updated_at TEXT NOT NULL
+        );
+        CREATE INDEX IF NOT EXISTS idx_mind_nodes_parent
+          ON mind_nodes (parent_id, sort_order);
+      `);
+    },
+  },
+  {
+    // Fork-owned (Axe Code): the task board + mind tree feature was removed.
+    // v47 created these tables on databases that ran the interim build; drop
+    // them so nothing task-related persists.
+    version: 48,
+    name: "drop task cards and mind nodes",
+    migrate: (sqlite) => {
+      sqlite.exec(`
+        DROP TABLE IF EXISTS mind_nodes;
+        DROP TABLE IF EXISTS task_cards;
+      `);
+    },
+  },
 ] as const satisfies readonly DatabaseMigration[];
 
 export const LATEST_SCHEMA_VERSION = DATABASE_MIGRATIONS[DATABASE_MIGRATIONS.length - 1]!.version;

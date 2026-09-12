@@ -1,14 +1,12 @@
 export const CHANGELOG_STORAGE_KEYS = {
   seenVersion: "poracode-changelog-seen-version",
   acknowledgedVersion: "poracode-changelog-ack-version",
-  hidden: "poracode-whatsnew-hidden",
   cache: "poracode-changelog-cache",
 } as const;
 
 const LEGACY_CHANGELOG_STORAGE_KEYS = {
   seenVersion: "lightcode-changelog-seen-version",
   acknowledgedVersion: "lightcode-changelog-ack-version",
-  hidden: "lightcode-whatsnew-hidden",
   cache: "lightcode-changelog-cache",
 } as const;
 

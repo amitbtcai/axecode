@@ -11,7 +11,6 @@ describe("shared settings defaults", () => {
   it("normalizes sidebar shortcut order without duplicates or omissions", () => {
     expect(normalizeSidebarShortcutOrder(["schedules", "schedules"])).toEqual([
       "schedules",
-      "pullRequests",
       "githubActions",
       "content",
     ]);

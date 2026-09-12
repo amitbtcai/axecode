@@ -594,8 +594,8 @@ msgstr "{percent}% 满"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} 已更新到 v{0}。"
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} 已更新到 v{0}。"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "包含敏感值；请手动添加"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "内容"
 
@@ -5016,7 +5017,7 @@ msgstr "{modelName} 的思考级别"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "空"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "已设目标"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "知道了"
+#~ msgid "Got it"
+#~ msgstr "知道了"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "隐藏的可恢复线程每 5 分钟清理一次，并在此空闲期限后卸载。"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "隐藏"
 
@@ -10404,9 +10404,7 @@ msgstr "Pull request 已合并"
 msgid "Pull request options"
 msgstr "拉取请求选项"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "拉取请求"
 
@@ -15105,8 +15103,8 @@ msgid "View diff"
 msgstr "查看 diff"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "查看完整变更日志"
+#~ msgid "View full changelog"
+#~ msgstr "查看完整变更日志"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15328,8 +15326,6 @@ msgid "What this server provides"
 msgstr "此服务器提供的功能"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "新功能"
 

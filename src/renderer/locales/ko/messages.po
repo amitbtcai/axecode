@@ -594,8 +594,8 @@ msgstr "{percent}% 가득 참"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName}이(가) v{0}(으)로 업데이트되었습니다."
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName}이(가) v{0}(으)로 업데이트되었습니다."
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3530,6 +3530,7 @@ msgstr "민감한 값이 포함되어 있습니다. 직접 추가하세요"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "콘텐츠"
 
@@ -5016,7 +5017,7 @@ msgstr "{modelName}의 추론 강도 단계"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "비어 있음"
 
@@ -6215,8 +6216,8 @@ msgid "Goals set"
 msgstr "설정한 목표"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "확인"
+#~ msgid "Got it"
+#~ msgstr "확인"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6306,7 +6307,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "숨겨진 재개 가능 스레드는 5분마다 청소되고 이 유휴 기간이 지나면 언로드됩니다."
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "숨기기"
 
@@ -10405,9 +10405,7 @@ msgstr "Pull request가 병합되었습니다"
 msgid "Pull request options"
 msgstr "풀 요청 옵션"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "풀 리퀘스트"
 
@@ -15106,8 +15104,8 @@ msgid "View diff"
 msgstr "diff 보기"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "전체 변경 내역 보기"
+#~ msgid "View full changelog"
+#~ msgstr "전체 변경 내역 보기"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15329,8 +15327,6 @@ msgid "What this server provides"
 msgstr "이 서버가 제공하는 기능"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "새 소식"
 

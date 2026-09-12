@@ -593,8 +593,8 @@ msgstr "{percent}% 使用"
 
 #. placeholder {0}: bridge.appVersion
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "{productName} was updated to v{0}."
-msgstr "{productName} がv{0}に更新されました。"
+#~ msgid "{productName} was updated to v{0}."
+#~ msgstr "{productName} がv{0}に更新されました。"
 
 #: src/renderer/views/MainView/parts/Sidebar/parts/SidebarProjectHeader.tsx
 msgid "{projectLocation} (disabled)"
@@ -3529,6 +3529,7 @@ msgstr "機密値が含まれています。手動で追加してください"
 
 #: src/renderer/views/ContentBoardView/ContentBoardView.tsx
 #: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
+#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Content"
 msgstr "コンテンツ"
 
@@ -5015,7 +5016,7 @@ msgstr "{modelName} の推論レベル"
 msgid "Electron"
 msgstr "Electron"
 
-#: src/renderer/views/ContentBoardView/ContentBoardView.tsx
+#: src/renderer/views/ContentBoardView/parts/ContentBoardColumn.tsx
 msgid "Empty"
 msgstr "空"
 
@@ -6214,8 +6215,8 @@ msgid "Goals set"
 msgstr "設定した目標数"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "Got it"
-msgstr "了解"
+#~ msgid "Got it"
+#~ msgstr "了解"
 
 #. placeholder {0}: skill.securityGrade
 #: src/renderer/components/skills/SkillMarketplaceModal.tsx
@@ -6305,7 +6306,6 @@ msgid "Hidden resumable threads are swept every 5 minutes and unloaded after thi
 msgstr "非表示の再開可能なスレッドは 5 分ごとにスイープされ、このアイドル時間が経過するとアンロードされます。"
 
 #: src/renderer/views/GitReviewOverlay/parts/GitReviewPanel.tsx
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
 msgid "Hide"
 msgstr "隠す"
 
@@ -10403,9 +10403,7 @@ msgstr "Pull request をマージしました"
 msgid "Pull request options"
 msgstr "プルリクエストのオプション"
 
-#: src/renderer/views/MainView/parts/Sidebar/parts/sidebarShortcuts.tsx
 #: src/renderer/views/PullRequestsView/PullRequestsView.tsx
-#: src/renderer/views/SettingsOverlay/parts/SidebarShortcutsSelector.tsx
 msgid "Pull requests"
 msgstr "プルリクエスト"
 
@@ -15104,8 +15102,8 @@ msgid "View diff"
 msgstr "diff を表示"
 
 #: src/renderer/views/WhatsNewOverlay.tsx
-msgid "View full changelog"
-msgstr "変更履歴をすべて表示"
+#~ msgid "View full changelog"
+#~ msgstr "変更履歴をすべて表示"
 
 #: src/renderer/components/skills/SkillViewModal.tsx
 msgid "View raw"
@@ -15327,8 +15325,6 @@ msgid "What this server provides"
 msgstr "このサーバーが提供する機能"
 
 #: src/renderer/commands/registry.ts
-#: src/renderer/views/MainView/parts/Sidebar/parts/WhatsNewButton.tsx
-#: src/renderer/views/WhatsNewOverlay.tsx
 msgid "What's New"
 msgstr "新着情報"
 

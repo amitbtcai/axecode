@@ -51,8 +51,10 @@ describe("database migration registry", () => {
       [44, "content card published_at"],
       [45, "content social accounts"],
       [46, "content publish attempts"],
+      [47, "task cards and mind nodes"],
+      [48, "drop task cards and mind nodes"],
     ]);
-    expect(LATEST_SCHEMA_VERSION).toBe(46);
+    expect(LATEST_SCHEMA_VERSION).toBe(48);
     expect(() => validateMigrationRegistry()).not.toThrow();
   });
 

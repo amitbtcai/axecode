@@ -95,7 +95,7 @@ describe("GitWorktreeService pull", () => {
     });
 
     await expect(new GitWorktreeService().pull(location, "origin", true)).rejects.toThrow(
-      "Pull did not complete. Your local changes remain in a Poracode stash.",
+      "Pull did not complete. Your local changes remain in a Axe Code stash.",
     );
     expect(commands).not.toContain("stash apply --index stash-sha");
     expect(commands).not.toContain("stash drop stash@{0}");

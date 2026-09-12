@@ -39,7 +39,7 @@ describe("GeneralSettings", () => {
   it("groups sidebar shortcuts in a reorderable visibility selector", () => {
     useSharedSettings.setState({
       sidebarHiddenShortcuts: ["githubActions"],
-      sidebarShortcutOrder: ["pullRequests", "githubActions", "schedules"],
+      sidebarShortcutOrder: ["content", "githubActions", "schedules"],
     });
     render(<GeneralSettings />);
 
@@ -48,10 +48,10 @@ describe("GeneralSettings", () => {
 
     fireEvent.click(trigger);
 
-    const pullRequests = screen.getByRole("option", { name: /Pull requests/ });
+    const content = screen.getByRole("option", { name: /Content/ });
     const githubActions = screen.getByRole("option", { name: /GitHub Actions/ });
     const schedules = screen.getByRole("option", { name: /Schedules/ });
-    expect(pullRequests).toHaveAttribute("aria-selected", "true");
+    expect(content).toHaveAttribute("aria-selected", "true");
     expect(githubActions).toHaveAttribute("aria-selected", "false");
     expect(schedules).toHaveAttribute("aria-selected", "true");
     expect(screen.getAllByRole("button", { name: /Reorder/ })).toHaveLength(3);

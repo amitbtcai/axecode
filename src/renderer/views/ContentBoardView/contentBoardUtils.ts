@@ -23,6 +23,42 @@ export const CHANNEL_LABELS: Record<ContentCardChannel, string> = {
   youtube: "YouTube",
 };
 
+/** Board columns that accept card drops. Published stays publish-only —
+ *  dropping there would fabricate a publish attempt in History. */
+export const BOARD_DROP_TARGETS: readonly ContentCardStatus[] = ["draft", "scheduled"];
+
+/** Default slot given to a card dropped on Scheduled — 10 minutes from now. */
+export const DROP_SCHEDULE_OFFSET_MS = 10 * 60 * 1000;
+
+/**
+ * The card patch produced by dropping `card` onto a board column, or null when
+ * the drop is a no-op (same column, or a column that is not a drop target).
+ * A published card leaving the Published column clears its live post link,
+ * mirroring the modal's "Move back to drafts" action; a card going back to
+ * Drafts drops its schedule slot so it does not linger on the calendar. A card
+ * dropped on Scheduled is booked for `now + 10 min` — the picker refines it.
+ */
+export function dropPatchForColumn(
+  card: ContentCard,
+  column: ContentCardStatus,
+  now: Date = new Date(),
+): {
+  status: ContentCardStatus;
+  scheduledFor?: string | null;
+  publishUrl?: null;
+  publishError?: null;
+} | null {
+  if (!BOARD_DROP_TARGETS.includes(column) || columnOf(card.status) === column) return null;
+  return {
+    status: column,
+    scheduledFor:
+      column === "scheduled"
+        ? new Date(now.getTime() + DROP_SCHEDULE_OFFSET_MS).toISOString()
+        : null,
+    ...(card.status === "published" ? { publishUrl: null, publishError: null } : {}),
+  };
+}
+
 /**
  * Per-channel composer shape, matching how each platform actually composes:
  * X is plain text capped at 280 chars (longer content becomes a numbered

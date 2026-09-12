@@ -724,6 +724,7 @@ describe("shipped packages", () => {
       "browser-tools",
       "chrome-tools",
       "computer-use",
+      "content-marketing",
       "github",
       "outlook",
       "subagent-delegation",

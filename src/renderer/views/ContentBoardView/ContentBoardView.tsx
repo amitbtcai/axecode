@@ -1,4 +1,12 @@
 import { useEffect, useState } from "react";
+import {
+  DragDropProvider,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor,
+  type DragEndEvent,
+} from "@dnd-kit/react";
+import { PointerActivationConstraints } from "@dnd-kit/dom";
 import { Button, Dropdown, Input, Label, TextField } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import {
@@ -28,11 +36,13 @@ import {
   CHANNEL_LABELS,
   calendarCards,
   cardsForDay,
+  dropPatchForColumn,
   groupByStatus,
   monthDays,
   weekDays,
 } from "./contentBoardUtils";
-import { ChannelBadge, ContentCardTile } from "./parts/ContentCardTile";
+import { ChannelBadge, ContentCardDragPreview } from "./parts/ContentCardTile";
+import { ContentBoardColumn } from "./parts/ContentBoardColumn";
 import { ContentCardModal } from "./parts/ContentCardModal";
 import { ContentAgentPanel } from "./parts/ContentAgentPanel";
 import { SocialAccountsModal } from "./parts/SocialAccountsModal";
@@ -45,6 +55,15 @@ const COLUMN_KEYS = [
   "scheduled",
   "published",
 ] as const satisfies readonly ContentCardStatus[];
+
+// Small distance threshold so a click on a card still opens the modal instead
+// of starting a drag; the keyboard sensor makes column moves keyboard-driven.
+const BOARD_SENSORS = [
+  PointerSensor.configure({
+    activationConstraints: [new PointerActivationConstraints.Distance({ value: 5 })],
+  }),
+  KeyboardSensor,
+];
 
 function replaceCard(cards: ContentCard[], next: ContentCard): ContentCard[] {
   const idx = cards.findIndex((c) => c.id === next.id);
@@ -146,6 +165,23 @@ export function ContentBoardView() {
   async function deleteCard(id: string) {
     await readBridge().deleteContentCard({ id });
     setCards((prev) => prev.filter((c) => c.id !== id));
+  }
+
+  function handleBoardDragEnd(event: DragEndEvent) {
+    if (event.canceled) return;
+    const sourceData = event.operation.source?.data as { cardId?: string } | undefined;
+    const targetData = event.operation.target?.data as
+      | { type?: string; status?: ContentCardStatus }
+      | undefined;
+    const card = sourceData?.cardId ? cards.find((c) => c.id === sourceData.cardId) : undefined;
+    if (!card || targetData?.type !== "content-column" || !targetData.status) return;
+    const patch = dropPatchForColumn(card, targetData.status, new Date());
+    if (!patch) return;
+    // Land the card in its new column before the drop animation resolves, so
+    // the overlay tweens into the card's real landing slot instead of
+    // snapping back to the source column and popping.
+    setCards((prev) => replaceCard(prev, { ...card, ...patch }));
+    void saveCard(card.id, patch);
   }
 
   async function newCard() {
@@ -313,34 +349,29 @@ export function ContentBoardView() {
             </div>
           </div>
         ) : tab === "board" ? (
-          <div className="grid flex-1 grid-cols-3 gap-3 overflow-x-auto">
-            {COLUMN_KEYS.map((status) => {
-              const columnCards = grouped.get(status) ?? [];
-              return (
-                <div key={status} className="flex min-w-[180px] flex-col">
-                  <div className="mb-2 flex items-center justify-between px-1">
-                    <span className="text-xs font-medium text-muted">{columnLabels[status]}</span>
-                    <span className="text-[11px] text-muted">{columnCards.length}</span>
-                  </div>
-                  <div className="flex flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-surface-secondary/40 p-2">
-                    {columnCards.map((card) => (
-                      <ContentCardTile
-                        key={card.id}
-                        card={card}
-                        onOpen={setOpenCard}
-                        onDelete={(c) => void deleteCard(c.id)}
-                      />
-                    ))}
-                    {columnCards.length === 0 ? (
-                      <div className="flex flex-1 items-center justify-center py-6 text-[11px] text-muted/60">
-                        <Trans>Empty</Trans>
-                      </div>
-                    ) : null}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <DragDropProvider sensors={BOARD_SENSORS} onDragEnd={handleBoardDragEnd}>
+            <div className="grid flex-1 grid-cols-3 gap-3 overflow-x-auto">
+              {COLUMN_KEYS.map((status) => (
+                <ContentBoardColumn
+                  key={status}
+                  status={status}
+                  label={columnLabels[status]}
+                  cards={grouped.get(status) ?? []}
+                  onOpen={setOpenCard}
+                  onDelete={(c) => void deleteCard(c.id)}
+                />
+              ))}
+            </div>
+            <DragOverlay>
+              {(source) => {
+                const cardId = (source.data as { cardId?: string } | undefined)?.cardId;
+                const card = cards.find((c) => c.id === cardId);
+                const width = source.element?.getBoundingClientRect().width;
+                if (!card) return null;
+                return <ContentCardDragPreview card={card} {...(width ? { width } : {})} />;
+              }}
+            </DragOverlay>
+          </DragDropProvider>
         ) : tab === "calendar" ? (
           <div className="flex flex-1 flex-col">
             <div className="mb-3 flex items-center justify-between">
