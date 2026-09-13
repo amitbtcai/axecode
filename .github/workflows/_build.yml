@@ -44,9 +44,11 @@ env:
 
 jobs:
   build:
-    # Pinned off macos-latest (macos-26): image 20260831.0337 breaks
-    # electron-builder 26 code signing (`security set-key-partition-list`
-    # fails with SecKeychainUnlock). Stay on macos-15 until upstream fixes it.
+    # mac leg runs on macos-26: electron-builder 26 requires actool 26+ for the
+    # Liquid Glass .icon asset catalog, and Xcode 26's toolchain crashes on the
+    # macos-15 runner OS (AssetCatalogAgent / missing MediaToolbox symbols).
+    # macos-26 needs the self-managed signing keychain below — electron-builder
+    # 26.15.3's own keychain path is broken there (electron-builder#10066).
     strategy:
       fail-fast: false
       matrix:
@@ -61,7 +63,7 @@ jobs:
             platform: linux
             rust-targets: x86_64-unknown-linux-musl
             electron-cache: "~/.cache/electron"
-          - os: macos-15
+          - os: macos-26
             artifact: dist-mac
             platform: mac
             rust-targets: x86_64-apple-darwin,aarch64-apple-darwin
@@ -75,24 +77,34 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      # electron-builder 26 requires actool 26+ for asset catalogs, but the
-      # macos-15 image still defaults to Xcode 16.4. The Xcode 26 toolchain is
-      # installed on the image — select it without moving off the pinned
-      # runner OS (macos-26 breaks `security set-key-partition-list`).
-      - name: Select Xcode 26 toolchain
+      # electron-builder 26.15.3 passes the .p12 import password to
+      # `security set-key-partition-list -k` instead of the temporary keychain's
+      # own password (electron-builder#10066). macOS 15 tolerated the wrong
+      # password; macOS 26 rejects it with SecKeychainUnlock. Build the signing
+      # keychain ourselves, then let electron-builder discover the Developer ID
+      # identity via CSC_IDENTITY_AUTO_DISCOVERY instead of CSC_LINK.
+      - name: Prepare macOS signing keychain
         if: matrix.platform == 'mac'
         run: |
-          # BSD sort has no -V; order by numeric dotted fields and take the
-          # newest Xcode 26+ bundle (Xcode_26.x.0.app entries are symlinks).
-          XCODE_VER="$(find /Applications -maxdepth 1 -name 'Xcode_2[6-9]*.app' -type d \
-            -exec basename {} .app \; | sed 's/^Xcode_//' | sort -t. -k1,1n -k2,2n -k3,3n | tail -1)"
-          if [ -z "$XCODE_VER" ]; then
-            echo "::error::No Xcode 26+ app bundle found on this runner image."
-            exit 1
-          fi
-          sudo xcode-select -s "/Applications/Xcode_${XCODE_VER}.app/Contents/Developer"
-          xcodebuild -version
-          actool --version
+          set -euo pipefail
+          KEYCHAIN="build.keychain"
+          KEYCHAIN_PASSWORD="$(openssl rand -base64 32)"
+          echo "$MAC_CSC_LINK" | base64 --decode -o signing-cert.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security import signing-cert.p12 -k "$KEYCHAIN" \
+            -P "$MAC_CSC_KEY_PASSWORD" -T /usr/bin/codesign -T /usr/bin/productbuild
+          security set-key-partition-list -S apple-tool:,apple: -s \
+            -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          # shellcheck disable=SC2046
+          security list-keychains -d user -s "$KEYCHAIN" \
+            $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning "$KEYCHAIN"
+          rm -f signing-cert.p12
+        env:
+          MAC_CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
+          MAC_CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
         shell: bash
 
       - name: Install Linux helper build tools
@@ -218,9 +230,9 @@ jobs:
         env:
           PORACODE_CHANNEL: ${{ inputs.channel }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # macOS Developer ID signing (base64-encoded .p12 + password).
-          CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
-          CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
+          # macOS Developer ID signing: do NOT set CSC_LINK/CSC_KEY_PASSWORD —
+          # the identity is discovered from the keychain prepared above.
+          # (electron-builder#10066 breaks its own keychain path on macOS 26.)
           # macOS notarization via Apple ID + app-specific password.
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
@@ -275,7 +287,7 @@ jobs:
             fi
           }
 
-          apps=(release/mac*/Poracode*.app)
+          apps=(release/mac*/*.app)
           if [ "${#apps[@]}" -eq 0 ]; then
             echo "::error::No branded macOS app bundles found under release/mac*."
             exit 1
@@ -284,7 +296,7 @@ jobs:
             verify_app "$app"
           done
 
-          zips=(release/Poracode-*.zip)
+          zips=(release/*.zip)
           if [ "${#zips[@]}" -eq 2 ]; then
             :
           else
@@ -316,11 +328,11 @@ jobs:
         with:
           name: ${{ matrix.artifact }}
           path: |
-            release/Poracode-*.exe
-            release/Poracode-*.dmg
-            release/Poracode-*.zip
-            release/Poracode-*.AppImage
-            release/Poracode-*.deb
+            release/*.exe
+            release/*.dmg
+            release/*.zip
+            release/*.AppImage
+            release/*.deb
             release/latest*.yml
             release/nightly*.yml
             release/*.blockmap
