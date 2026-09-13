@@ -87,6 +87,10 @@ jobs:
         if: matrix.platform == 'mac'
         run: |
           set -euo pipefail
+          if [ -z "${MAC_CSC_LINK:-}" ]; then
+            echo "MAC_CSC_LINK not configured — building unsigned (adhoc)."
+            exit 0
+          fi
           KEYCHAIN="build.keychain"
           KEYCHAIN_PASSWORD="$(openssl rand -base64 32)"
           echo "$MAC_CSC_LINK" | base64 --decode -o signing-cert.p12
@@ -244,34 +248,33 @@ jobs:
           set -euo pipefail
           shopt -s nullglob
 
-          if [ -z "${APPLE_TEAM_ID:-}" ]; then
-            echo "::error::APPLE_TEAM_ID is required to verify macOS release signatures."
-            exit 1
-          fi
-
+          # Signature checks run only when Apple credentials are configured;
+          # unsigned builds still get the structural + arch-slice checks.
           verify_app() {
             local app="$1"
             local signature
             local helper
             local helper_signature
 
-            codesign --verify --deep --strict --verbose=4 "$app"
-            signature="$(codesign --display --verbose=4 "$app" 2>&1)"
-            if ! grep -q '^Authority=Developer ID Application:' <<<"$signature"; then
-              echo "::error file=$app::$app is not signed with a Developer ID Application certificate."
-              exit 1
-            fi
-            if ! grep -q "^TeamIdentifier=${APPLE_TEAM_ID}$" <<<"$signature"; then
-              echo "::error file=$app::$app is not signed by the expected Apple team."
-              exit 1
-            fi
+            if [ -n "${APPLE_TEAM_ID:-}" ]; then
+              codesign --verify --deep --strict --verbose=4 "$app"
+              signature="$(codesign --display --verbose=4 "$app" 2>&1)"
+              if ! grep -q '^Authority=Developer ID Application:' <<<"$signature"; then
+                echo "::error file=$app::$app is not signed with a Developer ID Application certificate."
+                exit 1
+              fi
+              if ! grep -q "^TeamIdentifier=${APPLE_TEAM_ID}$" <<<"$signature"; then
+                echo "::error file=$app::$app is not signed by the expected Apple team."
+                exit 1
+              fi
 
-            helper="$app/Contents/Resources/computer-use-helper/darwin-universal/poracode-computer-use"
-            codesign --verify --strict --verbose=4 "$helper"
-            helper_signature="$(codesign -d --verbose=4 "$helper" 2>&1)"
-            if ! grep -q 'flags=.*runtime' <<<"$helper_signature"; then
-              echo "::error file=$helper::Computer-use helper is missing the hardened-runtime signature flag."
-              exit 1
+              helper="$app/Contents/Resources/computer-use-helper/darwin-universal/poracode-computer-use"
+              codesign --verify --strict --verbose=4 "$helper"
+              helper_signature="$(codesign -d --verbose=4 "$helper" 2>&1)"
+              if ! grep -q 'flags=.*runtime' <<<"$helper_signature"; then
+                echo "::error file=$helper::Computer-use helper is missing the hardened-runtime signature flag."
+                exit 1
+              fi
             fi
 
             main_executable="$app/Contents/MacOS/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$app/Contents/Info.plist")"

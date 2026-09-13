@@ -461,6 +461,9 @@ function buildElectronBuilderConfig(macArtifactKind = "branded") {
   const publishChannelLine = updaterChannel ? `\n  channel: ${updaterChannel}` : "";
   const macEntitlements = "build/entitlements.mac.plist";
   const macEntitlementsInherit = "build/entitlements.mac.plist";
+  // Notarize only when Apple credentials are present — unsigned CI builds and
+  // local builds without APPLE_* envs must not attempt it.
+  const macNotarize = process.env.APPLE_ID ? "true" : "false";
   const packagedDistFilesYaml = PACKAGED_DIST_FILES.map((glob) =>
     glob.startsWith("!") ? `  - "${glob}"` : `  - ${glob}`,
   ).join("\n");
@@ -586,7 +589,7 @@ mac:
     NSMicrophoneUsageDescription: ${productName} uses the microphone for local voice input in the composer.
   entitlements: ${macEntitlements}
   entitlementsInherit: ${macEntitlementsInherit}
-  notarize: true
+  notarize: ${macNotarize}
 
 npmRebuild: false
 `;
