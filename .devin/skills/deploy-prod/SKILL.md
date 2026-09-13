@@ -17,8 +17,9 @@ description: Deploy Axe Code to production. Use when the user says "deploy to pr
    serves the new version
 6. Download the DMG via the site's `/api/download/mac-<arch>` endpoint
    (falls back to the GitHub asset if the site lags)
-7. Replace the app in `/Applications` (`Axe Code.app`, plus legacy `Poracode.app`)
-   and verify `CFBundleShortVersionString` matches
+7. Replace `Axe Code.app` in `/Applications` and verify
+   `CFBundleShortVersionString` matches. Only `Axe Code.app` is touched — a
+   running `Poracode.app` is a separate bundle and is left alone
 
 ## When the user says "deploy to prod"
 

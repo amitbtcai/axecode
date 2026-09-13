@@ -49,7 +49,6 @@ SITE_TIMEOUT_MIN="${SITE_TIMEOUT_MIN:-20}"
 WORKFLOW="release.yml"
 CHANGELOG="website/public/changelog.json"
 APP_PATH="/Applications/Axe Code.app"
-LEGACY_APP_PATHS=("/Applications/Poracode.app")
 
 COMMIT_MSG="chore: release prep"
 SITE_COMMIT_MSG="chore: deploy pending site work"
@@ -247,22 +246,18 @@ NEW_APP="$(find "$MOUNT" -maxdepth 1 -name '*.app' | head -1)"
 [ -n "$NEW_APP" ] || { hdiutil detach "$MOUNT" -quiet; die "no .app in DMG"; }
 info "found bundle: $(basename "$NEW_APP")"
 
-for app in "$APP_PATH" "${LEGACY_APP_PATHS[@]}"; do
-  [ -e "$app" ] && info "will remove: $app"
-done
-if [ "$ASSUME_YES" != "1" ]; then
-  printf "    Replace the app(s) above in /Applications? [y/N] "
-  read -r ans; [ "$ans" = "y" ] || { hdiutil detach "$MOUNT" -quiet; die "aborted by user"; }
+# Only ever touch the app being installed — a running Poracode instance is a
+# separate bundle and is left alone.
+if [ -e "$APP_PATH" ]; then
+  info "will replace: $APP_PATH"
+  if [ "$ASSUME_YES" != "1" ]; then
+    printf "    Replace it? [y/N] "
+    read -r ans; [ "$ans" = "y" ] || { hdiutil detach "$MOUNT" -quiet; die "aborted by user"; }
+  fi
+  osascript -e 'tell application "Axe Code" to quit' 2>/dev/null || true
+  sleep 1
+  rm -rf "$APP_PATH"
 fi
-
-# quit a running instance before replacing
-osascript -e 'tell application "Axe Code" to quit' 2>/dev/null || true
-osascript -e 'tell application "Poracode" to quit' 2>/dev/null || true
-sleep 1
-
-for app in "$APP_PATH" "${LEGACY_APP_PATHS[@]}"; do
-  [ -e "$app" ] && rm -rf "$app"
-done
 cp -R "$NEW_APP" /Applications/
 hdiutil detach "$MOUNT" -quiet
 ok "installed $(basename "$NEW_APP")"
