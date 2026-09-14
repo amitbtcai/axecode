@@ -169,6 +169,49 @@ then copy the package into `build/` and rebuild. The flat PNG/ICNS/ICO set from
 `build-icons.mjs` is unchanged and still used for Linux/Windows, the tray, and
 the PWA/website.
 
+## Phase 3 — remote access & mobile identity
+
+Remote access had its own brand layer that Phases 1–2 never touched: pairing
+links minted by packaged builds pointed at upstream's hosted PWA.
+
+- Pairing entry + hosted PWA origin: **`code.axeai.com`** (nightly:
+  `code-nightly.axeai.com`). `app.axeai.com` is a different product (the AxeAI
+  CLI remote-access app) — do not point pairing links there.
+- `DesktopRemoteAccessController.ts`: `PRODUCTION_PAIRING_APP_URL` /
+  `PRODUCTION_HOSTED_APP_URLS` now use those hosts (also the remote server's
+  trusted CORS origins). Both constants live in `src/main/remote/config.ts` so
+  the headless server (`createHeadlessRemoteHost`) applies the same defaults —
+  upstream only wired them for the desktop, which left headless servers
+  CORS-rejecting the hosted PWA unless `PORACODE_REMOTE_ACCESS_PAIRING_APP_URL`
+  was set by hand.
+- `security.ts` answers Private Network Access preflights
+  (`Access-Control-Allow-Private-Network`) for trusted origins — required by
+  Chromium's Local Network Access gate for https→LAN/loopback pairing.
+- Hosted PWA deploy: `scripts/deploy-mobile-pwa.sh` builds `dist/mobile` and
+  rsyncs it to the Hostinger VPS (`/opt/apps/axecode-mobile`); the
+  `code.axeai.com` site block lives in the axeai site repo's
+  `deploy/axeai.Caddyfile` (no `common_headers` — its CSP would break
+  cleartext-LAN pairing). Root `vercel.json` and `release-pwa.yml` are
+  upstream's path and are inert here.
+- Mobile app id: **`com.axecode.mobile`** (was `com.lightcodeapp.mobile`) —
+  `capacitor.config.json`, `project.pbxproj` (`...mobile.activities` for the
+  Live Activity extension), Android `applicationId`/`namespace`, `strings.xml`,
+  AASA/assetlinks default in `finalize-mobile-build.mjs` and the website AASA
+  route. Java package moved `com.poracode.app` → `com.axecode.mobile`;
+  `ic_stat_poracode` → `ic_stat_axecode`.
+- Universal-link host: `code.axeai.com` in `configure-mobile-native.mjs`
+  (`DEFAULT_MOBILE_APP_HOST`), iOS `applinks:`/`webcredentials:` entitlements,
+  and Android intent filters.
+- AASA `appIDs` stay empty until `PORACODE_MOBILE_APPLE_TEAM_ID` is set at
+  build time — PWA pairing works regardless.
+- **Left as-is on purpose:** `PoracodeActivities` target/dir names, `@poracode/*`
+  package scope, `PORACODE_*` env vars, `lc_pair_` token prefix,
+  `/.well-known/{poracode,lightcode}/environment` probe paths,
+  `x-poracode-command-id`, `__poracode*` wire fields, `lightcode-mobile`
+  IndexedDB, `poracode-remote-local-*` SW caches, `poracode-local://` — all are
+  wire tokens or persisted identity; renaming breaks interop or orphans state.
+- Docs updated: `docs/MOBILE_DEV.md`, `docs/RELEASE_MOBILE.md`.
+
 ## GitHub
 
 - **https://github.com/amitbtcai/axecode** (public, `master`)

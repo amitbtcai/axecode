@@ -1,9 +1,9 @@
-# Poracode mobile beta release
+# Axe Code mobile beta release
 
-Poracode ships one mobile client from `src/mobile` to a hosted PWA, Android via
+Axe Code ships one mobile client from `src/mobile` to a hosted PWA, Android via
 Capacitor, and iOS via Capacitor. The native application identifier is locked to
-`com.lightcodeapp.mobile`; the iOS Live Activity extension uses
-`com.lightcodeapp.mobile.PoracodeActivities`.
+`com.axecode.mobile`; the iOS Live Activity extension uses
+`com.axecode.mobile.activities`.
 
 The first beta is an internal TestFlight build and a Google Play internal-test
 release. Public store-listing screenshots and promotional art are not part of
@@ -37,21 +37,25 @@ Internal TestFlight and Play installation can work without the association
 endpoints, but the links must be live before testing universal/app links or
 using them as store metadata:
 
-- Stable PWA: `https://app.poracode.com/`
-- Nightly PWA: `https://app-nightly.poracode.com/`
-- Privacy policy: `https://poracode.com/privacy`
-- Support: `https://poracode.com/support`
-- Apple association: `https://poracode.com/.well-known/apple-app-site-association`
-- Android association: `https://poracode.com/.well-known/assetlinks.json`
+- Stable PWA: `https://code.axeai.com/`
+- Nightly PWA: `https://code-nightly.axeai.com/`
+- Privacy policy: `https://axeai.com/code/privacy`
+- Support: `https://axeai.com/code/support`
+- Apple association: `https://code.axeai.com/.well-known/apple-app-site-association`
+- Android association: `https://code.axeai.com/.well-known/assetlinks.json`
 
-The association routes are owned by the marketing website. Configure these in
-the production environment for that Vercel project:
+The PWA is hosted on the Hostinger VPS: `scripts/deploy-mobile-pwa.sh` builds
+`dist/mobile` and rsyncs it to `/opt/apps/axecode-mobile`, which the
+`code.axeai.com` block in the `axeai` site repo's `deploy/axeai.Caddyfile`
+serves. The association files are emitted into `dist/mobile/.well-known/` by
+`scripts/finalize-mobile-build.mjs` at build time — configure these when
+running the deploy:
 
 | Variable                                           | Value                                                    |
 | -------------------------------------------------- | -------------------------------------------------------- |
 | `PORACODE_MOBILE_APPLE_TEAM_ID`                    | Apple Developer Team ID                                  |
 | `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS` | Play App Signing SHA-256 fingerprint(s), comma separated |
-| `PORACODE_MOBILE_APP_ID`                           | Optional; defaults to `com.lightcodeapp.mobile`          |
+| `PORACODE_MOBILE_APP_ID`                           | Optional; defaults to `com.axecode.mobile`               |
 
 Both endpoints intentionally return valid empty associations until the account
 values exist. After configuration, verify a direct 200 response with
@@ -60,19 +64,19 @@ values exist. After configuration, verify a direct 200 response with
 The production push gateway runs in the same Vercel project. Configure these as
 encrypted production environment variables before testing notifications:
 
-| Variable                     | Value                                                           |
-| ---------------------------- | --------------------------------------------------------------- |
-| `FCM_PROJECT_ID`             | Firebase project ID                                             |
-| `FCM_CLIENT_EMAIL`           | Firebase service-account email                                  |
-| `FCM_PRIVATE_KEY`            | Firebase service-account private key                            |
-| `APNS_KEY_ID`                | Apple Push Notifications key ID                                 |
-| `APNS_TEAM_ID`               | Apple Developer Team ID                                         |
-| `APNS_AUTH_KEY`              | Full Apple Push Notifications `.p8` contents                    |
-| `APNS_TOPIC`                 | `com.lightcodeapp.mobile`                                       |
-| `APNS_ENV`                   | `production` (the default; use `sandbox` only for development)  |
-| `WEB_PUSH_VAPID_PUBLIC_KEY`  | Public VAPID key used by installed PWAs                         |
-| `WEB_PUSH_VAPID_PRIVATE_KEY` | Matching private VAPID key; keep encrypted                      |
-| `WEB_PUSH_VAPID_SUBJECT`     | Optional contact URI; defaults to `mailto:support@poracode.com` |
+| Variable                     | Value                                                          |
+| ---------------------------- | -------------------------------------------------------------- |
+| `FCM_PROJECT_ID`             | Firebase project ID                                            |
+| `FCM_CLIENT_EMAIL`           | Firebase service-account email                                 |
+| `FCM_PRIVATE_KEY`            | Firebase service-account private key                           |
+| `APNS_KEY_ID`                | Apple Push Notifications key ID                                |
+| `APNS_TEAM_ID`               | Apple Developer Team ID                                        |
+| `APNS_AUTH_KEY`              | Full Apple Push Notifications `.p8` contents                   |
+| `APNS_TOPIC`                 | `com.axecode.mobile`                                           |
+| `APNS_ENV`                   | `production` (the default; use `sandbox` only for development) |
+| `WEB_PUSH_VAPID_PUBLIC_KEY`  | Public VAPID key used by installed PWAs                        |
+| `WEB_PUSH_VAPID_PRIVATE_KEY` | Matching private VAPID key; keep encrypted                     |
+| `WEB_PUSH_VAPID_SUBJECT`     | Optional contact URI; defaults to `mailto:support@axeai.com`   |
 
 Generate the VAPID pair once with
 `pnpm --dir website exec web-push generate-vapid-keys --json`. Keep the same
@@ -84,7 +88,7 @@ new browser subscription the next time it connects.
 The `mobile-android` and `mobile-ios` environments are used by the native
 release workflow (`release-mobile.yml`); the `mobile-web` environment is used by
 the standalone PWA workflow (`release-pwa.yml`). Set
-`PORACODE_MOBILE_APP_HOST=poracode.com` in all three and `PLAY_TRACK=internal`
+`PORACODE_MOBILE_APP_HOST=code.axeai.com` in all three and `PLAY_TRACK=internal`
 in `mobile-android`. Each environment requires approval from the repository
 owner and only accepts deployments from `master` or a `mobile-v*` tag. The
 workflows pin third-party actions to immutable commits and scope publisher
@@ -92,8 +96,11 @@ credentials to the steps that consume them.
 
 ### `mobile-web`
 
-Used by **Release PWA** (`release-pwa.yml`), which deploys the hosted PWA to
-Vercel production independently of the native store releases. The environment
+The hosted PWA deploys to the Hostinger VPS, not Vercel: run
+`scripts/deploy-mobile-pwa.sh` (builds `dist/mobile`, rsyncs to
+`/opt/apps/axecode-mobile`, Caddy serves `code.axeai.com`). The legacy
+**Release PWA** workflow (`release-pwa.yml`) is upstream's Vercel path and is
+inert in this fork. If it is ever re-enabled, the environment
 needs `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and this secret:
 
 - `VERCEL_TOKEN`
@@ -114,7 +121,7 @@ Create one long-lived upload keystore, keep an offline backup, and add:
 PowerShell encodes the binary files without line wrapping:
 
 ```powershell
-[Convert]::ToBase64String([IO.File]::ReadAllBytes("poracode-upload.keystore"))
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("axecode-upload.keystore"))
 [Convert]::ToBase64String([IO.File]::ReadAllBytes("google-services.json"))
 ```
 
@@ -139,16 +146,16 @@ backups.
 ## Apple one-time setup
 
 1. In Certificates, Identifiers & Profiles, register
-   `com.lightcodeapp.mobile` with Push Notifications and Associated Domains.
-2. Register `com.lightcodeapp.mobile.PoracodeActivities` as the extension ID.
+   `com.axecode.mobile` with Push Notifications and Associated Domains.
+2. Register `com.axecode.mobile.activities` as the extension ID.
 3. Create an Admin team App Store Connect API key and add the GitHub secrets
    above. Do not use an individual API key because Xcode automatic provisioning
    cannot use it.
 4. Create the App Store Connect app record: platform iOS, name `Poracode`, bundle
-   ID `com.lightcodeapp.mobile`, primary language English (U.S.), and a unique
-   SKU such as `poracode-ios`.
-5. Set Privacy Policy URL to `https://poracode.com/privacy` and Support URL to
-   `https://poracode.com/support`.
+   ID `com.axecode.mobile`, primary language English (U.S.), and a unique
+   SKU such as `axecode-ios`.
+5. Set Privacy Policy URL to `https://axeai.com/code/privacy` and Support URL to
+   `https://axeai.com/code/support`.
 6. Complete App Privacy, age rating, content-rights, and export-compliance
    questions. Do not automatically answer “no encryption”: Poracode includes an
    SSH client and SwiftCrypto, so the encryption/export answer must be reviewed
@@ -174,7 +181,7 @@ What to Test:
 > notifications, universal links, and Live Activity status. Report the desktop
 > and mobile versions, device model, iOS version, and exact reproduction steps.
 
-Feedback email: `support@poracode.com`
+Feedback email: `support@axeai.com`
 
 Review note:
 
@@ -186,11 +193,11 @@ Review note:
 
 1. Complete Play Console developer enrollment and create an app named
    `Poracode`, default language English (United States), package
-   `com.lightcodeapp.mobile`, app/game = App, free.
+   `com.axecode.mobile`, app/game = App, free.
 2. Generate one upload key, back it up, and add its encoded
    keystore/password/alias values to the GitHub environment. Select Play App
    Signing with a Google-generated app-signing key for the first release.
-3. Add `com.lightcodeapp.mobile` to Firebase, download `google-services.json`,
+3. Add `com.axecode.mobile` to Firebase, download `google-services.json`,
    encode it, and add `ANDROID_GOOGLE_SERVICES_JSON_BASE64`.
 4. Complete App access, Ads, Content rating, Target audience, Privacy policy,
    and the Data safety form applicable to the selected testing track.
@@ -228,9 +235,9 @@ Initial release note:
 > First beta: pair with Poracode desktop, monitor and steer agent threads, scan
 > pairing QR codes, and receive optional status notifications.
 
-Privacy policy: `https://poracode.com/privacy`
+Privacy policy: `https://axeai.com/code/privacy`
 
-Support: `https://poracode.com/support`
+Support: `https://axeai.com/code/support`
 
 ## First release
 
@@ -240,7 +247,7 @@ Support: `https://poracode.com/support`
    TestFlight upload is automatic. Leave `PLAY_SERVICE_ACCOUNT_JSON` unset for
    the first run so the workflow produces the signed AAB without attempting the
    unsupported first API upload.
-4. Download `poracode-android-<version>-<build>.zip` from the workflow and upload
+4. Download `axecode-android-<version>-<build>.zip` from the workflow and upload
    its AAB to the Play Internal testing release.
 5. Select the processed TestFlight build for the internal tester group and roll
    out the Play internal release.

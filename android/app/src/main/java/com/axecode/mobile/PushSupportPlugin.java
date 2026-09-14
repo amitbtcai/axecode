@@ -1,4 +1,4 @@
-package com.poracode.app;
+package com.axecode.mobile;
 
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;

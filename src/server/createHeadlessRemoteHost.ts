@@ -32,6 +32,8 @@ import {
 } from "@/main/remote/push";
 import { RemoteAccessServer, type RemoteAccessServerInfo } from "@/main/remote/RemoteAccessServer";
 import {
+  PRODUCTION_HOSTED_APP_URLS,
+  PRODUCTION_PAIRING_APP_URL,
   remoteAccessAdvertisedHost,
   remoteAccessHost,
   remoteAccessPairingAppUrl,
@@ -368,7 +370,19 @@ export async function createHeadlessRemoteHost(
     (isDev
       ? process.env.PORACODE_REMOTE_ACCESS_ADVERTISED_HOST?.trim() || "127.0.0.1"
       : remoteAccessAdvertisedHost({ bindHost: host }));
-  const pairingAppUrl = options.pairingAppUrl ?? remoteAccessPairingAppUrl();
+  // Mirror the desktop's production defaults: without an explicit option/env
+  // override, headless builds mint hosted pairing links and CORS-trust the
+  // hosted app origins so `code.axeai.com` can reach them. Dev builds stay on
+  // desktop-served pairing so local testing needs no hosted app.
+  const configuredPairingAppUrl = remoteAccessPairingAppUrl();
+  const pairingAppUrl =
+    options.pairingAppUrl ??
+    configuredPairingAppUrl ??
+    (isDev ? undefined : PRODUCTION_PAIRING_APP_URL.stable);
+  const trustedCorsOrigins =
+    options.pairingAppUrl || configuredPairingAppUrl || isDev
+      ? undefined
+      : PRODUCTION_HOSTED_APP_URLS;
 
   const portForwarding = createPortForwarding({
     bindHost: host,
@@ -390,6 +404,7 @@ export async function createHeadlessRemoteHost(
     port,
     advertisedHost,
     ...(pairingAppUrl ? { pairingAppUrl } : {}),
+    ...(trustedCorsOrigins ? { trustedCorsOrigins } : {}),
     callSupervisor: (name, payload) => supervisorClient.call(name, payload),
     resolveMcpLaunchSnapshot: (projectId) =>
       resolveMcpLaunchSnapshot(getSharedSettings(), dbGetProject(projectId)?.mcpServers ?? []),

@@ -120,6 +120,12 @@ export class RemoteServerSecurity {
     if (origin) {
       res.setHeader("Access-Control-Allow-Origin", origin);
       res.setHeader("Vary", "Origin");
+      // Chromium gates https→LAN/loopback requests behind its Local Network
+      // Access permission plus a Private Network Access preflight that asks
+      // for this opt-in header. Echo it only when the preflight requests it.
+      if (req.headers["access-control-request-private-network"] === "true") {
+        res.setHeader("Access-Control-Allow-Private-Network", "true");
+      }
     }
     return true;
   }

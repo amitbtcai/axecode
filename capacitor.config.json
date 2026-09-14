@@ -1,6 +1,6 @@
 {
-  "appId": "com.lightcodeapp.mobile",
-  "appName": "Poracode",
+  "appId": "com.axecode.mobile",
+  "appName": "Axe Code",
   "webDir": "dist/mobile",
   "backgroundColor": "#070709",
   "server": {

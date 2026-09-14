@@ -2190,6 +2190,7 @@ describe("RemoteAccessServer", () => {
       identity: { desktopId: "desktop-prod", label: "Prod Desktop" },
       host: "127.0.0.1",
       port: 0,
+      trustedCorsOrigins: ["https://code.axeai.com"],
       callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
     });
     servers.push(prodServer);
@@ -2211,6 +2212,20 @@ describe("RemoteAccessServer", () => {
     });
     expect(prodPreflight.status).toBe(204);
     expect(prodPreflight.headers.get("access-control-allow-origin")).toBe("http://localhost:3100");
+    expect(prodPreflight.headers.get("access-control-allow-private-network")).toBeNull();
+
+    // Chromium's Local Network Access gate sends a Private Network Access
+    // preflight for https→LAN requests; it must get the opt-in header back.
+    const pnaPreflight = await fetch(new URL("/api/auth/token", prodInfo.httpBaseUrl), {
+      method: "OPTIONS",
+      headers: {
+        origin: "https://code.axeai.com",
+        "access-control-request-method": "POST",
+        "access-control-request-private-network": "true",
+      },
+    });
+    expect(pnaPreflight.status).toBe(204);
+    expect(pnaPreflight.headers.get("access-control-allow-private-network")).toBe("true");
   });
 
   it("advertises a full advertisedBaseUrl over host/port (https → wss)", async () => {

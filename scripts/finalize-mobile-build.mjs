@@ -20,7 +20,7 @@ const serviceWorkerPath = join(outDir, "service-worker.js");
 const wellKnownDir = join(outDir, ".well-known");
 const sshRuntimeSourceDir = resolve(process.cwd(), "resources/mobile-ssh-runtime");
 const sshRuntimeTargetDir = join(outDir, "poracode-ssh-runtime");
-const appId = readEnv("PORACODE_MOBILE_APP_ID") || "com.lightcodeapp.mobile";
+const appId = readEnv("PORACODE_MOBILE_APP_ID") || "com.axecode.mobile";
 const androidFingerprints = readFingerprintList();
 const appleTeamId = readEnv("PORACODE_MOBILE_APPLE_TEAM_ID");
 const requireAndroidLinks =
@@ -84,8 +84,8 @@ if (isNightly) {
     process.exit(1);
   }
   html = html
-    .replaceAll("<title>Poracode</title>", "<title>Poracode Nightly</title>")
-    .replaceAll('web-app-title" content="Poracode"', 'web-app-title" content="Poracode Nightly"');
+    .replaceAll("<title>Axe Code</title>", "<title>Axe Code Nightly</title>")
+    .replaceAll('web-app-title" content="Axe Code"', 'web-app-title" content="Axe Code Nightly"');
   writeFileSync(source, html, "utf8");
 }
 writeFileSync(target, html, "utf8");

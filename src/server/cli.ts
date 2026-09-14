@@ -66,7 +66,7 @@ export interface DataDirLock {
  * run against the same threads/worktrees/DB (which corrupts rows AND causes a
  * crypto mismatch: the desktop's safeStorage-derived key vs. the headless
  * file-backed key can't decrypt each other's sealed settings). The default
- * data dir is the SAME `~/.poracode` the desktop uses, so this guards the
+ * data dir is the SAME `~/.axecode` the desktop uses, so this guards the
  * common "run the server while the app is open" footgun.
  *
  * Writes `<baseDir>/server.lock` with `openSync(path, "wx")` (exclusive

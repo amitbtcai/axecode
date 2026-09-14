@@ -84,12 +84,14 @@ fixes both:
 
 ## Deep linking (Universal Links)
 
-Goal: one `https://poracode.com/pair` pairing link that opens the **installed
-app** if present, else redirects browser users to the hosted PWA at
-`https://app.poracode.com/pair`. The stable and nightly PWAs use separate
-origins (`app.poracode.com` and `app-nightly.poracode.com`) so their permissions,
-storage, caches, and service workers cannot affect the marketing site or each
-other.
+Goal: one `https://code.axeai.com/pair` pairing link that opens the
+**installed app** if present, else loads the hosted PWA at the same URL. The
+PWA is served from its own origin (`code.axeai.com`; nightly would use
+`code-nightly.axeai.com`) so its permissions, storage, caches, and service
+workers cannot affect the marketing site.
+
+Note: `app.axeai.com` belongs to a different product (the AxeAI CLI remote
+access app) — do not point pairing links there.
 
 **Already wired (app side):**
 
@@ -98,35 +100,34 @@ other.
   `App.getLaunchUrl()`, warm via the `appUrlOpen` event — parses it with
   `parsePairingUrl`, and calls `pairDesktop`. Inert on the hosted PWA (there,
   boot-time launch params are handled by `capturePairingLaunch()`).
-- Native association host defaults to `poracode.com`
-  (`scripts/configure-mobile-native.mjs`), which writes `applinks:poracode.com`
-  into the iOS entitlement + the Android intent-filter on `cap:sync`/`cap:configure`.
+- Native association host defaults to `code.axeai.com`
+  (`scripts/configure-mobile-native.mjs`), which writes
+  `applinks:code.axeai.com` into the iOS entitlement + the Android
+  intent-filter on `cap:sync`/`cap:configure`.
 
-**To make links actually route into the app (ops — needs secrets + hosting):**
+**Hosting (production):**
+
+- The PWA is `dist/mobile` (from `pnpm run build:mobile`), deployed to the
+  Hostinger VPS at `/opt/apps/axecode-mobile` and served by Caddy as
+  `code.axeai.com` — see `deploy/axeai.Caddyfile` in the `axeai` site repo
+  and `scripts/deploy-mobile-pwa.sh` here.
+- `/.well-known/apple-app-site-association` and `assetlinks.json` are emitted
+  into `dist/mobile/.well-known/` by `scripts/finalize-mobile-build.mjs`, so
+  they are served from the same origin — no separate hosting step.
+
+**To make links actually route into the app (ops — needs secrets):**
 
 1. **Apple Team ID** — set `PORACODE_MOBILE_APPLE_TEAM_ID` (+ Android
-   `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS`) so
-   `scripts/finalize-mobile-build.mjs` emits a **non-empty** AASA/assetlinks into
-   `dist/mobile/.well-known/` (AASA `appIDs = <team>.com.lightcodeapp.mobile`,
-   components match `/pair*` and `/app*`).
-2. **Host** `/pair` and `/.well-known/apple-app-site-association` on
-   **poracode.com**. The marketing deployment redirects browser requests for
-   `/pair` and legacy `/app*` and `/pwa*` URLs to **app.poracode.com**; legacy
-   `/app-nightly*` URLs redirect to **app-nightly.poracode.com**. Both PWA
-   domains point at the separate mobile Vercel project (`vercel.json` →
-   `dist/mobile`) and serve their channel at `/`.
-3. **Desktop** — packaged builds default to `https://poracode.com`, so minted
-   QR/links are `https://poracode.com/pair?host=…#token=…`. Set
+   `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS`) at build time so the
+   emitted AASA/assetlinks are **non-empty** (AASA `appIDs =
+<team>.com.axecode.mobile`, components match `/pair*` and `/app*`).
+2. **Desktop** — packaged builds mint
+   `https://code.axeai.com/pair?host=…#token=…` QR/links by default. Set
    `PORACODE_REMOTE_ACCESS_PAIRING_APP_URL` only to override that host.
-4. Rebuild the app (`cap sync` + `pnpm run dev:ios`) so the entitlement + plugin
-   ship. Universal-link routing **cannot be exercised in the simulator** until
-   the app is built with the entitlement _and_ the AASA is served over https.
-
-**Gotcha — preserve the poracode.com pairing entry.** `buildPairingUrl`
-(`src/shared/remote/pairingUrl.ts`) intentionally mints
-`https://poracode.com/pair`. Existing native installs claim that universal link
-before the browser sees the redirect; browser users are redirected to
-`https://app.poracode.com/pair`.
+3. Rebuild the app (`cap sync` + `pnpm run dev:ios`) so the entitlement +
+   plugin ship. Universal-link routing **cannot be exercised in the
+   simulator** until the app is built with the entitlement _and_ the AASA is
+   served over https.
 
 ## Troubleshooting
 

@@ -26,6 +26,8 @@ import type { PrWatchService } from "../prWatch";
 import type { GitStateService } from "../gitState";
 import { createPersistentRemoteAuthStore } from "./auth";
 import {
+  PRODUCTION_HOSTED_APP_URLS,
+  PRODUCTION_PAIRING_APP_URL,
   remoteAccessAdvertisedHost,
   remoteAccessHost,
   remoteAccessPairingAppUrl,
@@ -55,16 +57,6 @@ import {
   probeTailscaleStatus,
   type TailscaleStatus,
 } from "./tailscale";
-
-const PRODUCTION_PAIRING_APP_URL: Record<PoracodeChannel, string> = {
-  stable: "https://poracode.com",
-  nightly: "https://app-nightly.poracode.com",
-};
-
-const PRODUCTION_HOSTED_APP_URLS = [
-  "https://app.poracode.com",
-  "https://app-nightly.poracode.com",
-] as const;
 
 export interface DesktopRemoteAccessControllerOptions {
   readonly appVersion: string;

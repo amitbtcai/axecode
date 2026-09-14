@@ -1,4 +1,4 @@
-const DEFAULT_APP_ID = "com.lightcodeapp.mobile";
+const DEFAULT_APP_ID = "com.axecode.mobile";
 
 export const dynamic = "force-dynamic";
 

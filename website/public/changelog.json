@@ -1,6 +1,35 @@
 {
   "releases": [
     {
+      "version": "1.8.3",
+      "tagline": "Axe Code",
+      "date": "2026-09-14",
+      "title": "Remote pairing on Axe Code infrastructure",
+      "summary": "Remote access now runs entirely on Axe Code infrastructure: pairing links and QR codes open the Axe Code hosted app, and pairing from modern browsers is fixed.",
+      "changes": [
+        {
+          "kind": "improved",
+          "label": "Remote",
+          "text": "Pairing links and QR codes now open the Axe Code hosted app at code.axeai.com instead of the old Poracode domain, so remote sessions no longer depend on upstream infrastructure."
+        },
+        {
+          "kind": "improved",
+          "label": "Remote",
+          "text": "The headless server mints hosted pairing links and trusts the hosted app out of the box, with no extra configuration needed."
+        },
+        {
+          "kind": "improved",
+          "label": "Mobile",
+          "text": "The mobile app identity is now Axe Code (com.axecode.mobile) with universal links pointed at code.axeai.com."
+        },
+        {
+          "kind": "fixed",
+          "label": "Remote",
+          "text": "Pairing from browsers that gate local-network access (recent Chrome) now completes instead of stalling."
+        }
+      ]
+    },
+    {
       "version": "1.8.2",
       "tagline": "Axe Code",
       "date": "2026-09-11",

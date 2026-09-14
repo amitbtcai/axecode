@@ -6,8 +6,8 @@
 	<string>production</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:poracode.com</string>
-		<string>webcredentials:poracode.com</string>
+		<string>applinks:code.axeai.com</string>
+		<string>webcredentials:code.axeai.com</string>
 	</array>
 </dict>
 </plist>

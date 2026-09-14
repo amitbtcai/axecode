@@ -5,7 +5,7 @@ const root = process.cwd();
 // Domain that owns pairing/universal links. The installed app claims
 // `applinks:<host>` so https://<host>/pair opens the app instead of the hosted
 // PWA. Override with PORACODE_MOBILE_APP_HOST (e.g. a staging domain).
-const DEFAULT_MOBILE_APP_HOST = "poracode.com";
+const DEFAULT_MOBILE_APP_HOST = "code.axeai.com";
 const appHost = readAppHost();
 const requireAndroidLinks =
   readBoolEnv("PORACODE_MOBILE_REQUIRE_NATIVE_LINKS") ||

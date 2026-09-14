@@ -84,6 +84,11 @@ vi.mock("./auth", () => ({
 }));
 
 vi.mock("./config", () => ({
+  PRODUCTION_PAIRING_APP_URL: {
+    stable: "https://code.axeai.com",
+    nightly: "https://code-nightly.axeai.com",
+  },
+  PRODUCTION_HOSTED_APP_URLS: ["https://code.axeai.com", "https://code-nightly.axeai.com"],
   remoteAccessAdvertisedHost: () => "127.0.0.1",
   remoteAccessHost: () => "127.0.0.1",
   remoteAccessPairingAppUrl: () => undefined,
@@ -305,10 +310,10 @@ describe("DesktopRemoteAccessController", () => {
     const production = createController();
     await production.setEnabled(true);
 
-    expect(h.servers[0]?.options.pairingAppUrl).toBe("https://poracode.com");
+    expect(h.servers[0]?.options.pairingAppUrl).toBe("https://code.axeai.com");
     expect(h.servers[0]?.options.trustedCorsOrigins).toEqual([
-      "https://app.poracode.com",
-      "https://app-nightly.poracode.com",
+      "https://code.axeai.com",
+      "https://code-nightly.axeai.com",
     ]);
     expect(h.servers[0]?.options.devMobileAppUrl).toBeUndefined();
     expect(h.servers[0]?.options.isDev).toBe(false);
@@ -326,10 +331,10 @@ describe("DesktopRemoteAccessController", () => {
     const nightly = createController(undefined, "nightly");
     await nightly.setEnabled(true);
 
-    expect(h.servers[0]?.options.pairingAppUrl).toBe("https://app-nightly.poracode.com");
+    expect(h.servers[0]?.options.pairingAppUrl).toBe("https://code-nightly.axeai.com");
     expect(h.servers[0]?.options.trustedCorsOrigins).toEqual([
-      "https://app.poracode.com",
-      "https://app-nightly.poracode.com",
+      "https://code.axeai.com",
+      "https://code-nightly.axeai.com",
     ]);
   });
 

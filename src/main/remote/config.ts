@@ -1,5 +1,6 @@
 import { createServer, isIPv4 } from "node:net";
 import { networkInterfaces } from "node:os";
+import type { PoracodeChannel } from "@/shared/channel";
 
 export const DEFAULT_REMOTE_ACCESS_PORT = 49152;
 const MAX_AUTO_REMOTE_ACCESS_PORT = 65535;
@@ -178,3 +179,15 @@ export function remoteAccessAdvertisedHost(input?: {
 export function remoteAccessPairingAppUrl(): string | undefined {
   return readTrimmedEnv("PORACODE_REMOTE_ACCESS_PAIRING_APP_URL");
 }
+
+/** Hosted pairing app production builds point at, per release channel. */
+export const PRODUCTION_PAIRING_APP_URL: Record<PoracodeChannel, string> = {
+  stable: "https://code.axeai.com",
+  nightly: "https://code-nightly.axeai.com",
+};
+
+/** Hosted app origins the remote server CORS-trusts in production builds. */
+export const PRODUCTION_HOSTED_APP_URLS = [
+  "https://code.axeai.com",
+  "https://code-nightly.axeai.com",
+] as const;
