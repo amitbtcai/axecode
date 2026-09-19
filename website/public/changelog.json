@@ -1,17 +1,31 @@
 {
   "releases": [
     {
-      "version": "1.8.3",
+      "version": "1.8.4",
       "tagline": "Axe Code",
       "date": "2026-09-19",
-      "title": "Remote pairing on Axe Code infrastructure",
-      "summary": "Remote access now runs entirely on Axe Code infrastructure: pairing links and QR codes open the Axe Code hosted app, and pairing from modern browsers is fixed.",
+      "title": "OpenCode 2 provider",
+      "summary": "This release merges the latest upstream Poracode work, headlined by OpenCode 2 as a structured-runtime provider alongside the existing agents.",
       "changes": [
         {
           "kind": "added",
           "label": "OpenCode",
-          "text": "OpenCode 2 is available as a structured-runtime provider, merged in from upstream Poracode."
+          "text": "OpenCode 2 is available as a structured-runtime provider — native chat sessions with live model switching, permissions, and plugins."
         },
+        {
+          "kind": "fixed",
+          "label": "Chat",
+          "text": "The single-pane thread view is no longer exposed to screen readers as a disabled button."
+        }
+      ]
+    },
+    {
+      "version": "1.8.3",
+      "tagline": "Axe Code",
+      "date": "2026-09-14",
+      "title": "Remote pairing on Axe Code infrastructure",
+      "summary": "Remote access now runs entirely on Axe Code infrastructure: pairing links and QR codes open the Axe Code hosted app, and pairing from modern browsers is fixed.",
+      "changes": [
         {
           "kind": "improved",
           "label": "Remote",
