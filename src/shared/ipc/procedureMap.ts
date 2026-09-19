@@ -1,3 +1,4 @@
+import { agentCredentialProcedures } from "./procedures/agentCredentials";
 import { appProcedures } from "./procedures/app";
 import { browserProcedures } from "./procedures/browser";
 import { dbProcedures } from "./procedures/db";
@@ -42,6 +43,7 @@ export const groupedIpcProcedures = {
   skills: skillProcedures,
   plugins: pluginProcedures,
   contentCards: contentCardProcedures,
+  agentCredentials: agentCredentialProcedures,
 } as const;
 
 export const ipcProcedureMap = {
@@ -66,6 +68,7 @@ export const ipcProcedureMap = {
   ...skillProcedures,
   ...pluginProcedures,
   ...contentCardProcedures,
+  ...agentCredentialProcedures,
 } as const;
 
 export type IpcProcedureMap = typeof ipcProcedureMap;

@@ -25,3 +25,6 @@ export * from "./contracts/workspace";
 export * from "./contracts/computerUse";
 export * from "./contracts/nativeMcpSetup";
 export * from "./contracts/contentCard";
+
+export * from "./contracts/agentCredentials";
+export * from "./contracts/agentPlugins";
