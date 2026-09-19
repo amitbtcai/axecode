@@ -3,10 +3,15 @@
     {
       "version": "1.8.3",
       "tagline": "Axe Code",
-      "date": "2026-09-14",
+      "date": "2026-09-19",
       "title": "Remote pairing on Axe Code infrastructure",
       "summary": "Remote access now runs entirely on Axe Code infrastructure: pairing links and QR codes open the Axe Code hosted app, and pairing from modern browsers is fixed.",
       "changes": [
+        {
+          "kind": "added",
+          "label": "OpenCode",
+          "text": "OpenCode 2 is available as a structured-runtime provider, merged in from upstream Poracode."
+        },
         {
           "kind": "improved",
           "label": "Remote",
