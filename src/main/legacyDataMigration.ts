@@ -2,21 +2,38 @@ import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, statSy
 import { homedir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { writeFileAtomic } from "@/shared/atomicFile";
-import { type PoracodeChannel, resolvePoracodeChannel } from "@/shared/channel";
-import { resolvePoracodeBaseDir } from "@/shared/poracodePaths";
+import { type AxeCodeChannel, resolveAxeCodeChannel } from "@/shared/channel";
+import { resolveAxeCodeBaseDir } from "@/shared/axecodePaths";
 import Database from "better-sqlite3";
 import { resolveBetterSqliteNativeBindingOptions } from "./db/connection";
 
-const MIGRATION_VERSION = 1;
-const MIGRATION_MARKER_FILENAME = ".lightcode-migration-v1.json";
-const MIGRATION_REQUEST_SUFFIX = ".lightcode-migration-request-v1";
+const MIGRATION_VERSION = 2;
+const MIGRATION_MARKER_FILENAME = ".legacy-migration-v2.json";
+const MIGRATION_REQUEST_SUFFIX = ".legacy-migration-request-v2";
+const LEGACY_V1_MARKER_FILENAME = ".lightcode-migration-v1.json";
 
-const LEGACY_DATA_DIR_NAME: Record<PoracodeChannel, string> = {
-  stable: ".lightcode",
-  nightly: ".lightcode-nightly",
+interface LegacySourceSpec {
+  /** Marker bookkeeping tag and suffix for staging/backup directory names. */
+  readonly tag: string;
+  readonly dataDirName: string;
+  readonly productName: string;
+}
+
+// Newest generation first: `.poracode` data supersedes `.lightcode` data.
+const LEGACY_SOURCES: Record<AxeCodeChannel, readonly LegacySourceSpec[]> = {
+  stable: [
+    { tag: "poracode", dataDirName: ".poracode", productName: "Poracode" },
+    { tag: "lightcode", dataDirName: ".lightcode", productName: "Lightcode" },
+  ],
+  nightly: [
+    { tag: "poracode", dataDirName: ".poracode-nightly", productName: "Poracode Nightly" },
+    { tag: "lightcode", dataDirName: ".lightcode-nightly", productName: "Lightcode Nightly" },
+  ],
 };
 
-const LEGACY_PRODUCT_NAME: Record<PoracodeChannel, string> = {
+// Chromium's safeStorage keys macOS Keychain and Linux secret-store entries by
+// app name, and every released generation initialized crypto under "Lightcode".
+const LEGACY_PRODUCT_NAME: Record<AxeCodeChannel, string> = {
   stable: "Lightcode",
   nightly: "Lightcode Nightly",
 };
@@ -24,6 +41,7 @@ const LEGACY_PRODUCT_NAME: Record<PoracodeChannel, string> = {
 const TRANSIENT_DATA_ROOT_ENTRIES = new Set([
   "server.lock",
   MIGRATION_MARKER_FILENAME,
+  LEGACY_V1_MARKER_FILENAME,
   "state.sqlite",
   "state.sqlite-journal",
   "state.sqlite-shm",
@@ -38,7 +56,7 @@ const TRANSIENT_ELECTRON_ENTRIES = new Set([
 
 export interface LegacyDataMigrationOptions {
   readonly baseDir: string;
-  readonly channel?: PoracodeChannel;
+  readonly channel?: AxeCodeChannel;
   readonly electronUserDataDir?: string;
   readonly legacyElectronUserDataDir?: string;
   readonly legacyBaseDir?: string;
@@ -56,10 +74,12 @@ export interface LegacyDataMigrationRequestResult {
 }
 
 interface MigrationMarker {
-  readonly version: typeof MIGRATION_VERSION;
+  readonly version: number;
   readonly completedAt: string;
   readonly importedDataRoot: boolean;
   readonly importedElectronUserData: boolean;
+  /** Generation tags consumed by this marker (v2+). */
+  readonly importedSources?: readonly string[];
   readonly dataBackupPath?: string;
   readonly electronUserDataBackupPath?: string;
 }
@@ -86,21 +106,62 @@ function requestPath(baseDir: string): string {
   return `${baseDir}${MIGRATION_REQUEST_SUFFIX}`;
 }
 
-function isDefaultDataRoot(baseDir: string, channel: PoracodeChannel): boolean {
-  return normalizedPath(baseDir) === normalizedPath(resolvePoracodeBaseDir(channel));
+function isDefaultDataRoot(baseDir: string, channel: AxeCodeChannel): boolean {
+  return normalizedPath(baseDir) === normalizedPath(resolveAxeCodeBaseDir(channel));
 }
 
-function legacyDataDir(channel: PoracodeChannel, override?: string): string {
-  return override ?? join(homedir(), LEGACY_DATA_DIR_NAME[channel]);
+function legacySourcesFor(channel: AxeCodeChannel): readonly LegacySourceSpec[] {
+  return LEGACY_SOURCES[channel];
 }
 
-export function legacyProductNameFor(channel: PoracodeChannel): string {
+/** Sources a prior migration already consumed and must never be re-imported. */
+function consumedSources(marker: MigrationMarker | null): ReadonlySet<string> {
+  if (!marker) return new Set();
+  if (marker.version >= MIGRATION_VERSION) return new Set(marker.importedSources ?? []);
+  // v1 markers predate the Poracode generation: they recorded only whether the
+  // Lightcode data root was imported.
+  return marker.importedDataRoot ? new Set(["lightcode"]) : new Set();
+}
+
+interface ResolvedLegacySource {
+  readonly spec: LegacySourceSpec;
+  readonly dataDir: string;
+}
+
+/**
+ * Pick the newest legacy generation with data on disk that no prior migration
+ * consumed. A `legacyBaseDir` override always wins and is reported under the
+ * "custom" tag so it never marks a real generation as consumed.
+ */
+function resolveLegacySource(
+  channel: AxeCodeChannel,
+  override: string | undefined,
+  consumed: ReadonlySet<string>,
+  baseDir: string,
+): ResolvedLegacySource | undefined {
+  if (override) {
+    if (normalizedPath(override) === normalizedPath(baseDir)) return undefined;
+    return {
+      spec: { tag: "custom", dataDirName: override, productName: override },
+      dataDir: override,
+    };
+  }
+  for (const spec of legacySourcesFor(channel)) {
+    if (consumed.has(spec.tag)) continue;
+    const candidate = join(homedir(), spec.dataDirName);
+    if (normalizedPath(candidate) === normalizedPath(baseDir)) continue;
+    if (isDirectory(candidate)) return { spec, dataDir: candidate };
+  }
+  return undefined;
+}
+
+export function legacyProductNameFor(channel: AxeCodeChannel): string {
   return LEGACY_PRODUCT_NAME[channel];
 }
 
-function uniqueBackupPath(targetDir: string): string {
+function uniqueBackupPath(targetDir: string, sourceTag: string): string {
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const prefix = `${targetDir}.before-lightcode-import-${timestamp}`;
+  const prefix = `${targetDir}.before-${sourceTag}-import-${timestamp}`;
   let candidate = prefix;
   let suffix = 2;
   while (existsSync(candidate)) {
@@ -139,9 +200,10 @@ function replaceDirectoryFromLegacy(
   sourceDir: string,
   targetDir: string,
   transientEntries: ReadonlySet<string>,
+  sourceTag: string,
   prepareStaging?: (stagingDir: string) => void,
 ): string | undefined {
-  const stagingDir = `${targetDir}.importing-lightcode`;
+  const stagingDir = `${targetDir}.importing-${sourceTag}`;
   let backupDir: string | undefined;
 
   rmSync(stagingDir, { recursive: true, force: true });
@@ -157,7 +219,7 @@ function replaceDirectoryFromLegacy(
     prepareStaging?.(stagingDir);
 
     if (existsSync(targetDir)) {
-      backupDir = uniqueBackupPath(targetDir);
+      backupDir = uniqueBackupPath(targetDir, sourceTag);
       renameSync(targetDir, backupDir);
     }
 
@@ -216,31 +278,42 @@ function removeMigrationRequest(baseDir: string): void {
 
 export function resolveLegacyElectronUserDataDir(
   electronUserDataDir: string,
-  channel: PoracodeChannel = resolvePoracodeChannel(),
+  channel: AxeCodeChannel = resolveAxeCodeChannel(),
   isDev = false,
 ): string {
   const currentProductDir = isDev ? dirname(electronUserDataDir) : electronUserDataDir;
-  const legacyProductDir = join(dirname(currentProductDir), legacyProductNameFor(channel));
-  return isDev ? join(legacyProductDir, basename(electronUserDataDir)) : legacyProductDir;
+  const mapCandidate = (productName: string): string => {
+    const legacyProductDir = join(dirname(currentProductDir), productName);
+    return isDev ? join(legacyProductDir, basename(electronUserDataDir)) : legacyProductDir;
+  };
+  // Newest generation first so a Poracode-era install wins over a stale
+  // Lightcode directory when both happen to exist.
+  const candidates = legacySourcesFor(channel).map((spec) => mapCandidate(spec.productName));
+  return candidates.find((candidate) => isDirectory(candidate)) ?? candidates[0]!;
 }
 
 export function migrateLegacyDataOnLaunch(
   options: LegacyDataMigrationOptions,
 ): LegacyDataMigrationResult {
-  const channel = options.channel ?? resolvePoracodeChannel();
+  const channel = options.channel ?? resolveAxeCodeChannel();
   if (!options.allowCustomDataRoot && !isDefaultDataRoot(options.baseDir, channel)) {
     return { status: "unavailable" };
   }
 
   const requested = existsSync(requestPath(options.baseDir));
-  if (!requested && existsSync(markerPath(options.baseDir))) {
+  const priorMarker = readLegacyDataMigrationMarker(options.baseDir);
+  if (!requested && priorMarker && priorMarker.version >= MIGRATION_VERSION) {
     return { status: "already-complete" };
   }
 
-  const sourceDataDir = legacyDataDir(channel, options.legacyBaseDir);
-  const importDataRoot =
-    isDirectory(sourceDataDir) && normalizedPath(sourceDataDir) !== normalizedPath(options.baseDir);
+  // An explicit Settings request re-imports even generations a prior marker
+  // consumed; automatic launches never re-import consumed sources.
+  const consumed = requested ? new Set<string>() : consumedSources(priorMarker);
+  const electronConsumed = !requested && priorMarker?.importedElectronUserData === true;
+  const source = resolveLegacySource(channel, options.legacyBaseDir, consumed, options.baseDir);
+  const importDataRoot = source !== undefined && isDirectory(source.dataDir);
   const importElectronUserData =
+    !electronConsumed &&
     isDirectory(options.legacyElectronUserDataDir) &&
     options.electronUserDataDir !== undefined &&
     normalizedPath(options.legacyElectronUserDataDir) !==
@@ -254,13 +327,14 @@ export function migrateLegacyDataOnLaunch(
         completedAt: new Date().toISOString(),
         importedDataRoot: false,
         importedElectronUserData: false,
+        importedSources: [...consumed],
       });
     }
     return { status: "no-legacy-data" };
   }
 
   if (importDataRoot) {
-    assertDataRootAvailable(sourceDataDir);
+    assertDataRootAvailable(source.dataDir);
     if (isDirectory(options.baseDir)) assertDataRootAvailable(options.baseDir);
   }
 
@@ -274,16 +348,18 @@ export function migrateLegacyDataOnLaunch(
         options.legacyElectronUserDataDir,
         options.electronUserDataDir!,
         TRANSIENT_ELECTRON_ENTRIES,
+        source?.spec.tag ?? "legacy",
       );
       electronUserDataImported = true;
     }
 
     if (importDataRoot) {
       dataBackupPath = replaceDirectoryFromLegacy(
-        sourceDataDir,
+        source.dataDir,
         options.baseDir,
         TRANSIENT_DATA_ROOT_ENTRIES,
-        (stagingDir) => snapshotLegacyDatabase(sourceDataDir, stagingDir),
+        source.spec.tag,
+        (stagingDir) => snapshotLegacyDatabase(source.dataDir, stagingDir),
       );
       dataImported = true;
     }
@@ -292,7 +368,12 @@ export function migrateLegacyDataOnLaunch(
       version: MIGRATION_VERSION,
       completedAt: new Date().toISOString(),
       importedDataRoot: importDataRoot,
-      importedElectronUserData: importElectronUserData,
+      importedElectronUserData:
+        importElectronUserData || priorMarker?.importedElectronUserData === true,
+      importedSources: [
+        ...consumed,
+        ...(importDataRoot && source.spec.tag !== "custom" ? [source.spec.tag] : []),
+      ],
       ...(dataBackupPath ? { dataBackupPath } : {}),
       ...(electronUserDataBackupPath ? { electronUserDataBackupPath } : {}),
     });
@@ -320,7 +401,7 @@ export function migrateLegacyDataOnLaunch(
         )
         .join("; ");
       throw new Error(
-        `Lightcode data import failed and Poracode data could not be fully restored: ${details}`,
+        `Legacy data import failed and AxeCode data could not be fully restored: ${details}`,
         { cause: error },
       );
     }
@@ -337,15 +418,14 @@ export function migrateLegacyDataOnLaunch(
 export function requestLegacyDataMigration(
   options: LegacyDataMigrationOptions,
 ): LegacyDataMigrationRequestResult {
-  const channel = options.channel ?? resolvePoracodeChannel();
+  const channel = options.channel ?? resolveAxeCodeChannel();
   if (!options.allowCustomDataRoot && !isDefaultDataRoot(options.baseDir, channel)) {
     return { status: "unavailable" };
   }
 
-  const sourceDataDir = legacyDataDir(channel, options.legacyBaseDir);
+  const source = resolveLegacySource(channel, options.legacyBaseDir, new Set(), options.baseDir);
   const hasLegacyData =
-    (isDirectory(sourceDataDir) &&
-      normalizedPath(sourceDataDir) !== normalizedPath(options.baseDir)) ||
+    (source !== undefined && isDirectory(source.dataDir)) ||
     (isDirectory(options.legacyElectronUserDataDir) &&
       options.electronUserDataDir !== undefined &&
       normalizedPath(options.legacyElectronUserDataDir) !==
@@ -361,9 +441,12 @@ export function requestLegacyDataMigration(
 }
 
 export function readLegacyDataMigrationMarker(baseDir: string): MigrationMarker | null {
-  try {
-    return JSON.parse(readFileSync(markerPath(baseDir), "utf8")) as MigrationMarker;
-  } catch {
-    return null;
+  for (const filename of [MIGRATION_MARKER_FILENAME, LEGACY_V1_MARKER_FILENAME]) {
+    try {
+      return JSON.parse(readFileSync(join(baseDir, filename), "utf8")) as MigrationMarker;
+    } catch {
+      // Try the older marker name next.
+    }
   }
+  return null;
 }

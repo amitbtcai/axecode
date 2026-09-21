@@ -8,7 +8,7 @@ describe("repairLegacyMacAppPath", () => {
   let root: string;
 
   beforeEach(() => {
-    root = mkdtempSync(join(tmpdir(), "poracode-mac-app-path-"));
+    root = mkdtempSync(join(tmpdir(), "axecode-mac-app-path-"));
   });
 
   afterEach(() => {
@@ -23,7 +23,7 @@ describe("repairLegacyMacAppPath", () => {
   }
 
   it("restores the legacy Nightly path as a relative symlink", () => {
-    const executablePath = packagedExecutable("Poracode Nightly.app");
+    const executablePath = packagedExecutable("AxeCode Nightly.app");
 
     expect(
       repairLegacyMacAppPath("nightly", {
@@ -35,11 +35,11 @@ describe("repairLegacyMacAppPath", () => {
 
     const legacyPath = join(root, "Lightcode Nightly.app");
     expect(lstatSync(legacyPath).isSymbolicLink()).toBe(true);
-    expect(readlinkSync(legacyPath)).toBe("Poracode Nightly.app");
+    expect(readlinkSync(legacyPath)).toBe("AxeCode Nightly.app");
   });
 
   it("restores the legacy Stable path", () => {
-    const executablePath = packagedExecutable("Poracode.app");
+    const executablePath = packagedExecutable("AxeCode.app");
 
     expect(
       repairLegacyMacAppPath("stable", {
@@ -48,11 +48,11 @@ describe("repairLegacyMacAppPath", () => {
         executablePath,
       }),
     ).toBe("created");
-    expect(readlinkSync(join(root, "Lightcode.app"))).toBe("Poracode.app");
+    expect(readlinkSync(join(root, "Lightcode.app"))).toBe("AxeCode.app");
   });
 
   it("never replaces an existing legacy app", () => {
-    const executablePath = packagedExecutable("Poracode Nightly.app");
+    const executablePath = packagedExecutable("AxeCode Nightly.app");
     const legacyPath = join(root, "Lightcode Nightly.app");
     mkdirSync(legacyPath);
 
@@ -67,7 +67,7 @@ describe("repairLegacyMacAppPath", () => {
   });
 
   it("skips unpackaged, non-macOS, and unexpectedly named bundles", () => {
-    const executablePath = packagedExecutable("Poracode Nightly.app");
+    const executablePath = packagedExecutable("AxeCode Nightly.app");
     const otherExecutablePath = packagedExecutable("Renamed.app");
 
     expect(

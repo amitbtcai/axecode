@@ -5,11 +5,11 @@ import { formatPluginDiagnostic, type PluginDiagnostic } from "@/shared/plugins/
 import { loadPluginFromDirectory, PLUGIN_MANIFEST_FILE, PLUGIN_MCP_FILE } from "./PluginLoader";
 
 /**
- * Discovers Agent Plugins packages from the roots Poracode scans.
+ * Discovers Agent Plugins packages from the roots AxeCode scans.
  *
  * Bundled packages ship with the app, user packages are whatever the user drops
  * into the app plugin directory, and project packages live in the repository at
- * `<project>/.poracode/plugins`. The specification leaves these locations to the
+ * `<project>/.axecode/plugins`. The specification leaves these locations to the
  * client — it only fixes what a package looks like once a root is handed to the
  * loader.
  *
@@ -28,8 +28,9 @@ export interface PluginRegistryOptions {
   onDiagnostics?: (pluginDirectory: string, lines: readonly string[]) => void;
 }
 
-/** Repository-scoped packages, alongside `.poracode/skills` and friends. */
-export const PROJECT_PLUGINS_DIR = join(".poracode", "plugins");
+/** Repository-scoped packages, alongside `.axecode/skills` and friends. */
+export const PROJECT_PLUGINS_DIR = join(".axecode", "plugins");
+const LEGACY_PROJECT_PLUGINS_DIR = join(".poracode", "plugins");
 
 export function projectPluginsDir(projectFsPath: string): string {
   return join(projectFsPath, PROJECT_PLUGINS_DIR);
@@ -119,10 +120,16 @@ export class PluginRegistry {
     if (projectFsPath) {
       const projectDir = projectPluginsDir(projectFsPath);
       // The home-scope project lives at the home directory, whose
-      // `.poracode/plugins` is the user plugin folder itself — scanning it twice
+      // `.axecode/plugins` is the user plugin folder itself — scanning it twice
       // would just re-read the same packages under a different source label.
       if (!samePath(projectDir, userDir)) {
         roots.push({ directory: projectDir, source: "project" });
+      }
+      // Projects managed by Poracode-era builds keep their plugins under
+      // `.poracode/plugins`. `.axecode` is scanned first so it wins name ties.
+      const legacyDir = join(projectFsPath, LEGACY_PROJECT_PLUGINS_DIR);
+      if (!samePath(legacyDir, projectDir) && !samePath(legacyDir, userDir)) {
+        roots.push({ directory: legacyDir, source: "project" });
       }
     }
     return roots;

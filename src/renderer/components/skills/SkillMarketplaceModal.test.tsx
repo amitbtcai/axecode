@@ -109,7 +109,7 @@ describe("SkillMarketplaceModal", () => {
         marketplace: "skills-sh",
         marketplaceSkillId: "vercel-labs/skills/find-skills",
         destinationScope: "global",
-        availability: "poracode",
+        availability: "axecode",
         replace: false,
         wslDistro: "Ubuntu",
       }),

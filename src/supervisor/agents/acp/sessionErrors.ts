@@ -156,7 +156,7 @@ export function resolveAcpPromptRpcErrorMessage(error: unknown): string {
 
 /**
  * An MCP server rejecting with 401/Unauthorized almost always means the
- * credentials the agent session holds went stale: Poracode injects MCP
+ * credentials the agent session holds went stale: AxeCode injects MCP
  * `Authorization` headers once, when the ACP session opens, and generic ACP
  * sessions have no per-turn refresh — so a long-lived thread keeps the token
  * copy from session-open time while the settings probe (which always uses a
@@ -181,7 +181,7 @@ export function withMcpAuthFailureHint(message: string): string {
 /**
  * Some ACP agents acknowledge `session/cancel` by rejecting the in-flight
  * `session/prompt` request instead of returning a cancelled stop reason.
- * Treat that transport shape as cancellation only when Poracode actually
+ * Treat that transport shape as cancellation only when AxeCode actually
  * requested the interrupt; the same error without a user stop is still a
  * real prompt failure.
  */

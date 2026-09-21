@@ -65,7 +65,7 @@ function platformTag(electronPlatformName) {
 // npm installs every node-pty prebuild from its package tarball. electron-builder
 // preserves all of them under app.asar.unpacked, including the Intel-only macOS
 // spawn-helper in an arm64 app. macOS treats that nested helper as an Intel-based
-// component and displays its end-of-support warning even though Poracode itself
+// component and displays its end-of-support warning even though AxeCode itself
 // and the helper it actually loads are arm64. Remove all foreign prebuilds from
 // each thin package before signing. SQLite 13 also ships one N-API prebuild per target.
 function pruneForeignNativePrebuilds(resourcesDir, electronPlatformName, archName) {
@@ -185,25 +185,25 @@ function chmodNodePtyHelpers(resourcesDir) {
 
 function computerUseTarget(electronPlatformName, archName) {
   if (electronPlatformName === "darwin" || electronPlatformName === "mas") {
-    return { directory: "darwin-universal", executable: "poracode-computer-use" };
+    return { directory: "darwin-universal", executable: "axecode-computer-use" };
   }
   if (electronPlatformName === "win32") {
     if (archName !== "x64" && archName !== "arm64") {
       throw new Error(`[afterPack] FATAL: unsupported Windows computer-use arch ${archName}`);
     }
-    return { directory: `win32-${archName}`, executable: "poracode-computer-use.exe" };
+    return { directory: `win32-${archName}`, executable: "axecode-computer-use.exe" };
   }
   if (electronPlatformName === "linux") {
     if (archName !== "x64") {
       throw new Error(`[afterPack] FATAL: unsupported Linux computer-use arch ${archName}`);
     }
-    return { directory: `linux-${archName}`, executable: "poracode-computer-use" };
+    return { directory: `linux-${archName}`, executable: "axecode-computer-use" };
   }
   throw new Error(`[afterPack] FATAL: unsupported computer-use platform ${electronPlatformName}`);
 }
 
 function allowMissingComputerUseHelper() {
-  return /^(1|true|yes)$/i.test(process.env.PORACODE_ALLOW_MISSING_COMPUTER_USE_HELPER ?? "");
+  return /^(1|true|yes)$/i.test(process.env.AXECODE_ALLOW_MISSING_COMPUTER_USE_HELPER ?? "");
 }
 
 function pruneForeignComputerUseHelpers(resourcesDir, electronPlatformName, archName) {
@@ -311,7 +311,7 @@ module.exports = async function afterPack(context) {
   assertNativeBinaries(resourcesDir, context.electronPlatformName, context.arch);
   if (allowMissingComputerUseHelper()) {
     console.warn(
-      "[afterPack] PORACODE_ALLOW_MISSING_COMPUTER_USE_HELPER is set; skipping the computer-use helper assertion",
+      "[afterPack] AXECODE_ALLOW_MISSING_COMPUTER_USE_HELPER is set; skipping the computer-use helper assertion",
     );
   } else {
     assertComputerUseHelper(resourcesDir, context.electronPlatformName, archName);

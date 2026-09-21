@@ -56,13 +56,13 @@ export function classifyNativeCrashEvent(
   if (isGpuFatal(event)) {
     return {
       drop: false,
-      fingerprint: ["poracode-native-crash", platform, "gpu-fatal"],
+      fingerprint: ["axecode-native-crash", platform, "gpu-fatal"],
     };
   }
   if (isNativeOutOfMemory(event)) {
     return {
       drop: false,
-      fingerprint: ["poracode-native-crash", platform, "out-of-memory"],
+      fingerprint: ["axecode-native-crash", platform, "out-of-memory"],
     };
   }
   return { drop: false };

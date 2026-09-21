@@ -225,14 +225,14 @@ export class GitStatusService {
     if (!status.branch || !status.tracking) return;
     const slash = status.tracking.indexOf("/");
     if (slash <= 0 || status.tracking.slice(slash + 1) === status.branch) return;
-    let poracodeSource: string | null = null;
+    let axecodeSource: string | null = null;
     try {
       const result = await execGit(location, [
         "config",
         "--get",
-        `branch.${status.branch}.poracodeSource`,
+        `branch.${status.branch}.axecodeSource`,
       ]);
-      poracodeSource = result.trim() || null;
+      axecodeSource = result.trim() || null;
     } catch {
       return;
     }
@@ -240,7 +240,7 @@ export class GitStatusService {
       !isInheritedStartPointUpstream({
         branch: status.branch,
         tracking: status.tracking,
-        poracodeSource,
+        axecodeSource,
       })
     ) {
       return;

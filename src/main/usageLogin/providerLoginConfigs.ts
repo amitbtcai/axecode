@@ -2,7 +2,7 @@ import {
   ALIBABA_TOKEN_PLAN_INTL_DASHBOARD_URL,
   allUsageProviderDescriptors,
   MUSE_DASHBOARD_URL,
-} from "@poracode/agents-usage";
+} from "@axecode/agents-usage";
 import { isOpenCodeLoginCookieLive } from "./openCodeLoginProbe";
 import { isQoderLoginCookieLive } from "./qoderLoginProbe";
 

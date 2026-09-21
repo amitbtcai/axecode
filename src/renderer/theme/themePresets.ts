@@ -5,7 +5,7 @@
  * the user's appearance mode (system / light / dark), so e.g. Catppuccin is
  * Latte in light and Mocha in dark. Palettes are adapted from the popular
  * VS Code / Cursor / editor themes of the same name and remapped onto
- * Poracode's token set — the app keeps its own layout, radius, and typography.
+ * AxeCode's token set — the app keeps its own layout, radius, and typography.
  *
  * `THEME_SPECS` holds the authored anchor colors (the source of truth, also
  * consumed by the contrast test); `APP_THEME_PRESETS` is the derived token set.
@@ -33,7 +33,7 @@ export interface AppThemePreset {
 export const DEFAULT_THEME_ID = "default";
 
 export const THEME_SPECS: AppThemeSpec[] = [
-  // Poracode base. Mirrors the `.light` / `.dark` values in styles.css and is
+  // AxeCode base. Mirrors the `.light` / `.dark` values in styles.css and is
   // used only for the gallery preview — at runtime the base theme clears all
   // overrides so styles.css stays the source of truth (see applyAppTheme).
   {
@@ -66,7 +66,7 @@ export const THEME_SPECS: AppThemeSpec[] = [
   // Axe Code Legacy — the original pre-rebrand look (neutral graphite +
   // blue accent), preserved as a selectable theme so the old style isn't lost.
   {
-    id: "poracode-legacy",
+    id: "axecode-legacy",
     label: "Axe Code Legacy",
     light: {
       bg: "#f1f1f4",
@@ -381,7 +381,7 @@ export const APP_THEME_PRESETS: AppThemePreset[] = THEME_SPECS.map((spec) => ({
 const PRESETS_BY_ID = new Map(APP_THEME_PRESETS.map((entry) => [entry.id, entry]));
 
 export function getThemePreset(id: string): AppThemePreset {
-  const currentId = id === "lightcode-legacy" ? "poracode-legacy" : id;
+  const currentId = id === "lightcode-legacy" ? "axecode-legacy" : id;
   return PRESETS_BY_ID.get(currentId) ?? PRESETS_BY_ID.get(DEFAULT_THEME_ID)!;
 }
 

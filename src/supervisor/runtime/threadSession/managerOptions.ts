@@ -93,7 +93,7 @@ export interface ThreadSessionManagerOptions {
     projectLocation: ProjectLocation,
     options?: { proxyStdioCwd?: boolean },
   ): Promise<McpServer[]>;
-  /** Synchronize Poracode-owned provider skill projections before a new agent process starts. */
+  /** Synchronize AxeCode-owned provider skill projections before a new agent process starts. */
   prepareSkillsForLaunch?(projectLocation: ProjectLocation, agentKind: AgentKind): Promise<void>;
   /** Enforce plugin skill policy before a segment reaches a provider. */
   filterPluginSkillSegments?(input: {

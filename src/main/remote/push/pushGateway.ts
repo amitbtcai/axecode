@@ -14,7 +14,7 @@ const DEFAULT_PUSH_GATEWAY_URL = "https://poracode.com";
 
 /** Resolve the gateway origin: env override, else the production default. */
 export function resolvePushGatewayUrl(): string {
-  const fromEnv = process.env.PORACODE_PUSH_GATEWAY_URL?.trim();
+  const fromEnv = process.env.AXECODE_PUSH_GATEWAY_URL?.trim();
   return fromEnv && fromEnv.length > 0 ? fromEnv : DEFAULT_PUSH_GATEWAY_URL;
 }
 
@@ -145,7 +145,7 @@ function createOperationalReporter(options: CreatePushGatewayOptions) {
       options.onError?.(diagnostic);
       return;
     }
-    console.warn(`[poracode] ${diagnostic.message}`);
+    console.warn(`[axecode] ${diagnostic.message}`);
   };
 }
 

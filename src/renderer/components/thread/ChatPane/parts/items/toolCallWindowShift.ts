@@ -104,8 +104,8 @@ const EASED_PROGRESS: readonly number[] = Array.from(
   (_unused, index) => easeProgress(index / TOOL_CALL_SHIFT_STEPS),
 );
 
-const GHOST_CLASS = "poracode-tool-call-group-ghost";
-const CLIP_CLASS = "poracode-tool-call-group-clip";
+const GHOST_CLASS = "axecode-tool-call-group-ghost";
+const CLIP_CLASS = "axecode-tool-call-group-clip";
 /** Mirrors the class ToolCallGroup puts on freshly mounted rows. */
 const ROW_ENTER_CLASS = "animate-tool-call-enter";
 

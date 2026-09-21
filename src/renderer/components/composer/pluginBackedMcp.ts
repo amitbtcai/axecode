@@ -2,8 +2,8 @@ import { BUILT_IN_MCP_SERVER_IDS } from "@/shared/contracts";
 import type { McpMentionItem, PluginMentionItem } from "./MentionInput";
 
 /**
- * Bridges Poracode's built-in MCP servers and the first-party plugins that
- * package them. Browser, Chrome, Crossagents, Computer Use, and Poracode each
+ * Bridges AxeCode's built-in MCP servers and the first-party plugins that
+ * package them. Browser, Chrome, Crossagents, Computer Use, and AxeCode each
  * exist twice — once as a server the app owns, once as the plugin that wraps
  * it — so every composer surface resolves the pair through this module instead
  * of guessing.
@@ -15,7 +15,7 @@ const BUILT_IN_MCP_MENTION_IDS = new Set<string>(BUILT_IN_MCP_SERVER_IDS);
  * Keeps only standalone MCP `@`-mentions.
  *
  * Built-in servers are offered as plugins, so the mention list never shows
- * Browser, Chrome, Crossagents, Computer Use, or Poracode as MCP rows — even
+ * Browser, Chrome, Crossagents, Computer Use, or AxeCode as MCP rows — even
  * when their plugin is off. Plugin-declared `mcp.json` servers (namespaced
  * `plugin:…` or `pluginName.server`) are the same: pick the plugin. Custom
  * user and project servers stay, because they have no plugin row.

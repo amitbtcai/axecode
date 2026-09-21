@@ -3,21 +3,21 @@ import { projectLocationSchema } from "./common";
 import {
   agentPluginManifestSchema,
   pluginMcpEntrySchema,
-  poracodePluginExtensionSchema,
+  axecodePluginExtensionSchema,
 } from "../plugins/spec";
 
 /**
  * Contracts for Agent Plugins packages after loading.
  *
  * The manifest itself is defined by the specification (`src/shared/plugins/spec`).
- * This module covers what Poracode adds on top: where a package was found, what
+ * This module covers what AxeCode adds on top: where a package was found, what
  * the loader resolved out of it, and the per-plugin state the user controls.
  */
 
 /**
  * Where a package was found. `bundled` ships with the app, `user` lives in the
  * writable app plugin folder, and `project` comes from the repository itself
- * (`<project>/.poracode/plugins`) — the last of which arrives with a clone and
+ * (`<project>/.axecode/plugins`) — the last of which arrives with a clone and
  * therefore always stays opt-in.
  */
 export const pluginSourceSchema = z.enum(["bundled", "user", "project"]);
@@ -61,7 +61,7 @@ export const loadedPluginSchema = z
     /** Filesystem-resolved package boundary. */
     root: z.string().min(1),
     manifest: agentPluginManifestSchema,
-    poracode: poracodePluginExtensionSchema,
+    axecode: axecodePluginExtensionSchema,
     skills: z.array(pluginSkillRefSchema),
     mcpServers: z.array(pluginMcpServerRefSchema),
     diagnostics: z.array(pluginDiagnosticSchema),
@@ -72,7 +72,7 @@ export type LoadedPlugin = z.infer<typeof loadedPluginSchema>;
 export const listPluginsPayloadSchema = z
   .object({
     /**
-     * Scopes the scan. With a project, its `.poracode/plugins` packages are
+     * Scopes the scan. With a project, its `.axecode/plugins` packages are
      * loaded alongside the bundled and user ones; without, only the two
      * app-global roots are read.
      */

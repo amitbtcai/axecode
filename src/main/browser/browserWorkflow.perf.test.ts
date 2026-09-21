@@ -12,9 +12,9 @@ import type { ChromeToolContext } from "./external/chromeTools";
 import { dispatchTool } from "./mcp/tools/dispatch";
 import { dispatchChromeTool } from "./external/chromeTools";
 
-// Opt-in real Chromium benchmark; PORACODE_BROWSER_BASELINE_REF selects the
+// Opt-in real Chromium benchmark; AXECODE_BROWSER_BASELINE_REF selects the
 // comparison commit (HEAD by default). Both versions use identical fixtures.
-const enabled = process.env.PORACODE_BROWSER_BENCH === "1";
+const enabled = process.env.AXECODE_BROWSER_BENCH === "1";
 const fixture = `<!doctype html><title>Browser workflow fixture</title>
 <style>body{font:16px sans-serif}input,button,select{margin:8px;padding:8px}</style>
 <form id="form"><label>Name<input id="name" aria-label="Name"></label>
@@ -123,7 +123,7 @@ describe.skipIf(!enabled)("real browser before/after workflows", () => {
     const baselineDir = await mkdtemp(resolve("tmp/browser-benchmark/baseline-"));
     baselineCommit = execFileSync(
       "git",
-      ["rev-parse", "--verify", `${process.env.PORACODE_BROWSER_BASELINE_REF ?? "HEAD"}^{commit}`],
+      ["rev-parse", "--verify", `${process.env.AXECODE_BROWSER_BASELINE_REF ?? "HEAD"}^{commit}`],
       { encoding: "utf8", windowsHide: true },
     ).trim();
     const archive = resolve(baselineDir, "source.tar");
@@ -145,7 +145,7 @@ describe.skipIf(!enabled)("real browser before/after workflows", () => {
     if (!address || typeof address === "string") throw new Error("No fixture port");
     baseUrl = `http://127.0.0.1:${address.port}`;
     browser = spawn(
-      process.env.PORACODE_TEST_CHROME ?? "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      process.env.AXECODE_TEST_CHROME ?? "C:/Program Files/Google/Chrome/Application/chrome.exe",
       [
         "--headless=new",
         "--disable-gpu",

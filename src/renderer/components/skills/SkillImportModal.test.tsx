@@ -109,7 +109,7 @@ describe("SkillImportModal", () => {
     expect(onImported).toHaveBeenCalled();
   });
 
-  it("imports a skill into the Poracode-only root", async () => {
+  it("imports a skill into the AxeCode-only root", async () => {
     renderModal([skill()]);
     fireEvent.click(screen.getByLabelText("Skill availability"));
     fireEvent.click(await screen.findByRole("option", { name: "Axe Code only" }));
@@ -123,7 +123,7 @@ describe("SkillImportModal", () => {
           {
             sourcePath: "C:\\Users\\me\\.claude\\skills\\review",
             destinationScope: "global",
-            availability: "poracode",
+            availability: "axecode",
             mode: "copy",
             replace: false,
           },

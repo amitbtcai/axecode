@@ -9,19 +9,19 @@ import { describe, expect, it } from "vitest";
 
 const execFileAsync = promisify(execFile);
 const repoRoot = resolve(import.meta.dirname, "../..");
-const cdpScript = join(repoRoot, ".agents/skills/interactive-testing/scripts/poracode-cdp.mjs");
+const cdpScript = join(repoRoot, ".agents/skills/interactive-testing/scripts/axecode-cdp.mjs");
 const runnerScript = join(
   repoRoot,
-  ".agents/skills/interactive-testing/scripts/run-poracode-smoke.mjs",
+  ".agents/skills/interactive-testing/scripts/run-axecode-smoke.mjs",
 );
 const integrationScript = join(
   repoRoot,
-  ".agents/skills/interactive-testing/scripts/poracode-integration-smoke.mjs",
+  ".agents/skills/interactive-testing/scripts/axecode-integration-smoke.mjs",
 );
 const debugSessionModulePath: string =
-  "../../.agents/skills/interactive-testing/scripts/poracode-debug-session.mjs";
+  "../../.agents/skills/interactive-testing/scripts/axecode-debug-session.mjs";
 const cdpTargetModulePath: string =
-  "../../.agents/skills/interactive-testing/scripts/poracode-cdp-target.mjs";
+  "../../.agents/skills/interactive-testing/scripts/axecode-cdp-target.mjs";
 const debugSessionModule = import(debugSessionModulePath);
 const cdpTargetModule = import(cdpTargetModulePath);
 
@@ -32,7 +32,7 @@ describe("managed CDP scripts", () => {
       readFile(join(repoRoot, "scripts/dev-launch.mjs"), "utf8"),
     ]);
 
-    expect(runnerSource).toContain('PORACODE_CDP_USER_DATA_DIR: join(dataDir, "userData")');
+    expect(runnerSource).toContain('AXECODE_CDP_USER_DATA_DIR: join(dataDir, "userData")');
     expect(devLaunchSource).toContain("`--user-data-dir=${cdpUserDataDir}`");
     expect(devLaunchSource).toContain("const app = spawn(electronPath");
     expect(devLaunchSource).toContain('windowsHide: process.platform === "win32"');
@@ -84,7 +84,7 @@ describe("managed CDP scripts", () => {
   });
 
   it("preserves the startup failure when a warm fixture is missing", async () => {
-    const root = await mkdtemp(join(tmpdir(), "poracode-profile-missing-"));
+    const root = await mkdtemp(join(tmpdir(), "axecode-profile-missing-"));
     try {
       const result = await runScript(join(repoRoot, "scripts/profile-startup.mjs"), [
         root,
@@ -104,7 +104,7 @@ describe("managed CDP scripts", () => {
     const result = await runScript(cdpScript, ["eval", "location.href", "--port", "45678"]);
 
     expect(result.code).toBe(1);
-    expect(result.stderr).toContain("requires both PORACODE_CDP_PORT and PORACODE_APP_URL");
+    expect(result.stderr).toContain("requires both AXECODE_CDP_PORT and AXECODE_APP_URL");
   });
 
   it("rejects a reachable Vite port as non-CDP without waiting", async () => {
@@ -149,8 +149,8 @@ describe("managed CDP scripts", () => {
           {
             id: "main-target",
             type: "page",
-            title: "Poracode",
-            url: "http://127.0.0.1:3100/?poracodeDebugSession=correct",
+            title: "AxeCode",
+            url: "http://127.0.0.1:3100/?axecodeDebugSession=correct",
             webSocketDebuggerUrl: "ws://127.0.0.1/unused",
           },
         ]),
@@ -164,7 +164,7 @@ describe("managed CDP scripts", () => {
         "--port",
         String(port),
         "--appUrl",
-        "http://127.0.0.1:3100/?poracodeDebugSession=wrong",
+        "http://127.0.0.1:3100/?axecodeDebugSession=wrong",
       ]);
 
       expect(result.code).toBe(1);
@@ -176,16 +176,16 @@ describe("managed CDP scripts", () => {
   });
 
   it("refuses ambiguous active sessions instead of picking one", async () => {
-    const smokeRoot = await mkdtemp(join(tmpdir(), "poracode-cdp-sessions-"));
+    const smokeRoot = await mkdtemp(join(tmpdir(), "axecode-cdp-sessions-"));
     try {
       await writeSession(smokeRoot, "one", 41001);
       await writeSession(smokeRoot, "two", 41002);
       const result = await runScript(cdpScript, ["eval", "location.href"], {
-        PORACODE_SMOKE_ROOT: smokeRoot,
+        AXECODE_SMOKE_ROOT: smokeRoot,
       });
 
       expect(result.code).toBe(1);
-      expect(result.stderr).toContain("multiple active Poracode debug sessions");
+      expect(result.stderr).toContain("multiple active AxeCode debug sessions");
       expect(result.stderr).toContain("--session <session.json>");
     } finally {
       await rm(smokeRoot, { recursive: true, force: true });
@@ -193,7 +193,7 @@ describe("managed CDP scripts", () => {
   });
 
   it("rejects stopped explicit sessions", async () => {
-    const smokeRoot = await mkdtemp(join(tmpdir(), "poracode-cdp-stopped-"));
+    const smokeRoot = await mkdtemp(join(tmpdir(), "axecode-cdp-stopped-"));
     try {
       const sessionFile = await writeSession(smokeRoot, "stopped", 41003, "stopped");
       const result = await runScript(cdpScript, ["info", "--session", sessionFile]);
@@ -207,7 +207,7 @@ describe("managed CDP scripts", () => {
   });
 
   it("rejects explicit sessions from another checkout or purpose", async () => {
-    const smokeRoot = await mkdtemp(join(tmpdir(), "poracode-cdp-scope-"));
+    const smokeRoot = await mkdtemp(join(tmpdir(), "axecode-cdp-scope-"));
     try {
       const wrongCheckout = await writeSession(smokeRoot, "wrong-checkout", 41006, "ready", {
         repoRoot: join(repoRoot, "another-checkout"),
@@ -228,7 +228,7 @@ describe("managed CDP scripts", () => {
   });
 
   it("rejects a managed session whose isolation mode does not match", async () => {
-    const smokeRoot = await mkdtemp(join(tmpdir(), "poracode-cdp-mode-"));
+    const smokeRoot = await mkdtemp(join(tmpdir(), "axecode-cdp-mode-"));
     try {
       const sessionFile = await writeSession(smokeRoot, "mock-session", 41004);
       const result = await runScript(integrationScript, [
@@ -247,7 +247,7 @@ describe("managed CDP scripts", () => {
       const launchResult = await runScript(
         runnerScript,
         ["--launch-only", "--mode", "real", "--root", alternateRoot],
-        { PORACODE_SMOKE_ROOT: smokeRoot },
+        { AXECODE_SMOKE_ROOT: smokeRoot },
       );
       expect(launchResult.code).toBe(1);
       expect(launchResult.stderr).toContain("active debug session mode is mock");
@@ -260,14 +260,14 @@ describe("managed CDP scripts", () => {
   });
 
   it("does not claim an unresponsive ready session is reusable", async () => {
-    const smokeRoot = await mkdtemp(join(tmpdir(), "poracode-cdp-unhealthy-"));
+    const smokeRoot = await mkdtemp(join(tmpdir(), "axecode-cdp-unhealthy-"));
     try {
       await writeSession(smokeRoot, "unhealthy", 41005);
       const alternateRoot = join(smokeRoot, "should-not-launch");
       const result = await runScript(
         runnerScript,
         ["--launch-only", "--mode", "mock", "--root", alternateRoot],
-        { PORACODE_SMOKE_ROOT: smokeRoot },
+        { AXECODE_SMOKE_ROOT: smokeRoot },
       );
 
       expect(result.code).toBe(1);
@@ -297,13 +297,13 @@ describe("managed CDP scripts", () => {
 
   it("recovers an ownerless launch reservation after its creation grace period", async () => {
     const { acquireDebugLaunchLock } = await debugSessionModule;
-    const lockRepo = join(tmpdir(), `poracode-ownerless-lock-${process.pid}-${Date.now()}`);
+    const lockRepo = join(tmpdir(), `axecode-ownerless-lock-${process.pid}-${Date.now()}`);
     const releaseOriginal = await acquireDebugLaunchLock(lockRepo);
     const lockKey = createHash("sha256")
       .update(process.platform === "win32" ? resolve(lockRepo).toLowerCase() : resolve(lockRepo))
       .digest("hex")
       .slice(0, 20);
-    const lockDir = join(tmpdir(), "poracode-debug-launch-locks", lockKey);
+    const lockDir = join(tmpdir(), "axecode-debug-launch-locks", lockKey);
     await rm(join(lockDir, "owner.json"));
     await new Promise((done) => setTimeout(done, 1_100));
 
@@ -336,9 +336,9 @@ async function runScript(
       cwd: repoRoot,
       env: {
         ...process.env,
-        PORACODE_DEBUG_SESSION: "",
-        PORACODE_CDP_PORT: "",
-        PORACODE_APP_URL: "",
+        AXECODE_DEBUG_SESSION: "",
+        AXECODE_CDP_PORT: "",
+        AXECODE_APP_URL: "",
         ...env,
       },
       encoding: "utf8",
@@ -372,7 +372,7 @@ async function writeSession(
     state,
     repoRoot,
     root: sessionRoot,
-    appUrl: `http://127.0.0.1:3100/?poracodeDebugSession=${id}`,
+    appUrl: `http://127.0.0.1:3100/?axecodeDebugSession=${id}`,
     cdpPort,
     devServerPort: 3100,
     ownerPid: process.pid,
@@ -430,7 +430,7 @@ describe("dev port preparation", () => {
       process.execPath,
       [join(repoRoot, "scripts/free-port.mjs"), String(port)],
       {
-        env: { ...process.env, PORACODE_DEV_SERVER_REQUIRE_FREE: "1" },
+        env: { ...process.env, AXECODE_DEV_SERVER_REQUIRE_FREE: "1" },
         timeout: 10_000,
       },
     );
@@ -443,7 +443,7 @@ describe("dev port preparation", () => {
     try {
       await expect(
         execFileAsync(process.execPath, [join(repoRoot, "scripts/free-port.mjs"), String(port)], {
-          env: { ...process.env, PORACODE_DEV_SERVER_REQUIRE_FREE: "1" },
+          env: { ...process.env, AXECODE_DEV_SERVER_REQUIRE_FREE: "1" },
           timeout: 10_000,
         }),
       ).rejects.toMatchObject({ stderr: expect.stringContaining("Refusing to reclaim") });

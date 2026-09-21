@@ -198,10 +198,7 @@ export function GitDiffContent(props: {
   const showLoader = (loading || !panelReady) && filtered.length > 0;
 
   return (
-    <div
-      data-poracode-find-scope="git"
-      className="poracode-git-diff-content relative h-full min-h-0"
-    >
+    <div data-axecode-find-scope="git" className="axecode-git-diff-content relative h-full min-h-0">
       <GitFindBar containerRef={selectedFile ? singleFileScrollRef : scrollRef} />
       {showLoader && (
         <div className="absolute inset-0 z-20 flex items-center justify-center bg-[var(--content-background)]">

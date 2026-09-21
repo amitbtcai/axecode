@@ -29,7 +29,7 @@ describe("ItemMarkdownInner", () => {
   beforeEach(() => {
     codeBlockSpy.mockClear();
     toastDangerSpy.mockClear();
-    Reflect.deleteProperty(window, "poracode");
+    Reflect.deleteProperty(window, "axecode");
   });
 
   it("routes supported fenced code blocks through CodeBlock", () => {
@@ -152,14 +152,14 @@ describe("ItemMarkdownInner", () => {
     render(
       <AppProvider>
         <ItemMarkdownInner
-          text={'<img src="C:/Users/sdsle/.poracode-smoke/raw-image.png" alt="Raw image" />'}
+          text={'<img src="C:/Users/sdsle/.axecode-smoke/raw-image.png" alt="Raw image" />'}
         />
       </AppProvider>,
     );
 
     expect(screen.getByAltText("Raw image")).toHaveAttribute(
       "src",
-      "poracode-local://local/C:/Users/sdsle/.poracode-smoke/raw-image.png",
+      "axecode-local://local/C:/Users/sdsle/.axecode-smoke/raw-image.png",
     );
   });
 
@@ -174,7 +174,7 @@ describe("ItemMarkdownInner", () => {
     expect(img).toHaveClass("max-h-[min(18rem,40vh)]", "max-w-full", "object-contain");
     expect(img).toHaveAttribute("decoding", "async");
     expect(img).toHaveAttribute("draggable", "false");
-    expect(img.closest('[data-poracode-image-card="true"]')).not.toBeNull();
+    expect(img.closest('[data-axecode-image-card="true"]')).not.toBeNull();
     expect(screen.getByRole("button", { name: "Copy image" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Download image" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Open preview" })).toBeTruthy();
@@ -192,7 +192,7 @@ describe("ItemMarkdownInner", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Open image preview" }));
     expect(screen.getByRole("dialog")).toBeTruthy();
-    expect(document.querySelector(".poracode-image-lightbox__image")).toHaveAttribute(
+    expect(document.querySelector(".axecode-image-lightbox__image")).toHaveAttribute(
       "src",
       "https://example.test/screenshot.png",
     );
@@ -202,14 +202,14 @@ describe("ItemMarkdownInner", () => {
     render(
       <AppProvider>
         <ItemMarkdownInner
-          text={"![Before](C:/Users/sdsle/.poracode-smoke/artifacts/composer-before-full.png)"}
+          text={"![Before](C:/Users/sdsle/.axecode-smoke/artifacts/composer-before-full.png)"}
         />
       </AppProvider>,
     );
 
     expect(screen.getByAltText("Before")).toHaveAttribute(
       "src",
-      "poracode-local://local/C:/Users/sdsle/.poracode-smoke/artifacts/composer-before-full.png",
+      "axecode-local://local/C:/Users/sdsle/.axecode-smoke/artifacts/composer-before-full.png",
     );
   });
 
@@ -227,7 +227,7 @@ describe("ItemMarkdownInner", () => {
       </AppProvider>,
     );
 
-    expect(remoteLocalImageUrl).toHaveBeenCalledWith("poracode-local://local/tmp/screenshot.png");
+    expect(remoteLocalImageUrl).toHaveBeenCalledWith("axecode-local://local/tmp/screenshot.png");
     expect(screen.getByAltText("Screenshot")).toHaveAttribute(
       "src",
       "https://remote.test/api/files/image?path=screenshot.png",
@@ -236,7 +236,7 @@ describe("ItemMarkdownInner", () => {
 
   it("renders Windows backslash markdown image paths without CommonMark escape corruption", () => {
     // Paths with `\.` (dot-folders) are mangled by CommonMark unless rewritten
-    // to poracode-local:// before parse.
+    // to axecode-local:// before parse.
     render(
       <AppProvider>
         <ItemMarkdownInner
@@ -248,7 +248,7 @@ describe("ItemMarkdownInner", () => {
     );
 
     const src = screen.getByAltText("Before").getAttribute("src") ?? "";
-    expect(src.startsWith("poracode-local://local/")).toBe(true);
+    expect(src.startsWith("axecode-local://local/")).toBe(true);
     // Literal percent folder names must be double-encoded in the URL so the
     // protocol handler's decodeURIComponent restores E%3A… rather than E:…
     expect(src).toContain("E%253A%255Cwork");
@@ -260,7 +260,7 @@ describe("ItemMarkdownInner", () => {
     const actions = makeActions({
       projectLocation: {
         kind: "windows",
-        path: "E:\\work\\lightcode\\.poracode\\worktrees\\poracode-brave-willow-b4fc6c26",
+        path: "E:\\work\\lightcode\\.axecode\\worktrees\\axecode-brave-willow-b4fc6c26",
       },
     });
 
@@ -275,7 +275,7 @@ describe("ItemMarkdownInner", () => {
     );
 
     const src = screen.getByAltText("After").getAttribute("src") ?? "";
-    expect(src.startsWith("poracode-local://local/E:")).toBe(true);
+    expect(src.startsWith("axecode-local://local/E:")).toBe(true);
     expect(src).toContain("verification-shots");
     expect(src).toContain("01-collapsed-same-file-edits.png");
   });
@@ -287,7 +287,7 @@ describe("ItemMarkdownInner", () => {
     const copyImageToClipboard = vi
       .fn<(payload: { data: Uint8Array }) => Promise<boolean>>()
       .mockResolvedValue(true);
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         appVersion: "test",
@@ -312,18 +312,18 @@ describe("ItemMarkdownInner", () => {
 
     await waitFor(() => expect(copyImageToClipboard).toHaveBeenCalledTimes(1));
     expect(readLocalImageFile).toHaveBeenCalledWith({
-      url: "poracode-local://local/tmp/project/images/screenshot.png",
+      url: "axecode-local://local/tmp/project/images/screenshot.png",
     });
     expect(screen.getByRole("button", { name: "Copied" })).toBeTruthy();
   });
 
   it("renders Grok session-relative images/ markdown via the local file protocol", () => {
     const sessionDir =
-      "C:\\Users\\sdsle\\.grok\\sessions\\E%3A%5Cwork%5Clightcode%5C.poracode%5Cworktrees%5Cporacode-warm-yak-d27ed350\\019f6789-4fd1-7740-a828-9a42918d42e8";
+      "C:\\Users\\sdsle\\.grok\\sessions\\E%3A%5Cwork%5Clightcode%5C.axecode%5Cworktrees%5Caxecode-warm-yak-d27ed350\\019f6789-4fd1-7740-a828-9a42918d42e8";
     const actions = makeActions({
       projectLocation: {
         kind: "windows",
-        path: "E:\\work\\lightcode\\.poracode\\worktrees\\poracode-warm-yak-d27ed350",
+        path: "E:\\work\\lightcode\\.axecode\\worktrees\\axecode-warm-yak-d27ed350",
       },
       markdownImageRoots: [sessionDir],
     });
@@ -337,7 +337,7 @@ describe("ItemMarkdownInner", () => {
     );
 
     const src = screen.getByAltText("Modal PDF preview").getAttribute("src") ?? "";
-    expect(src.startsWith("poracode-local://local/")).toBe(true);
+    expect(src.startsWith("axecode-local://local/")).toBe(true);
     expect(src).toContain("images");
     expect(src).toContain("4.jpg");
     // Must land under the Grok session dir, not the project root.
@@ -353,7 +353,7 @@ describe("ItemMarkdownInner", () => {
         <ChatPaneActionsContext.Provider value={actions}>
           <ItemMarkdownInner
             text={
-              "Changed [styles.css](/Users/serhiivecherenko/work/poracode/src/renderer/styles.css)"
+              "Changed [styles.css](/Users/serhiivecherenko/work/axecode/src/renderer/styles.css)"
             }
           />
         </ChatPaneActionsContext.Provider>
@@ -408,7 +408,7 @@ describe("ItemMarkdownInner", () => {
     fireEvent.click(chip);
 
     await waitFor(() => expect(chip).toBeDisabled());
-    expect(chip).toHaveClass("poracode-inline-path-chip--inert");
+    expect(chip).toHaveClass("axecode-inline-path-chip--inert");
   });
 
   it("keeps out-of-project absolute markdown link hrefs absolute", () => {
@@ -505,7 +505,7 @@ describe("ItemMarkdownInner", () => {
     const openExternal = vi
       .fn<(href: string) => Promise<void>>()
       .mockRejectedValue(new Error("open failed"));
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         openExternal,
@@ -534,7 +534,7 @@ function makeActions(overrides?: Partial<ChatPaneActions>): ChatPaneActions {
     revealProjectFolderInTree: vi.fn<(path: string) => void>(),
     showProjectEntryInExplorer: vi.fn<(path: string) => void>(),
     onContentHeightChange: vi.fn<() => void>(),
-    projectLocation: { kind: "posix", path: "/Users/serhiivecherenko/work/poracode" },
+    projectLocation: { kind: "posix", path: "/Users/serhiivecherenko/work/axecode" },
     projectRootNames: new Set(["src"]),
     ...overrides,
   };

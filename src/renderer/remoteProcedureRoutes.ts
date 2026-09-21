@@ -104,7 +104,7 @@ export const NON_ROUTER_PROJECT_PROCEDURES = {
   detectProjectIcon: "remote-mirrors-skip-file-icons",
   listProjectIconFiles: "remote-mirrors-skip-file-icons",
   // Plugin packages are read from the host filesystem the supervisor runs on.
-  // A remote project's own `.poracode/plugins` therefore stays with its server;
+  // A remote project's own `.axecode/plugins` therefore stays with its server;
   // the local scan just falls back to the app-global roots.
   listPlugins: "remote-projects-scan-locally",
   refreshPlugins: "remote-projects-scan-locally",

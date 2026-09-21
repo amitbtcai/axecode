@@ -27,12 +27,12 @@ describe("ThreadCommandPanel", () => {
 
     const popoverOption = screen.getByRole("option");
     expect(popoverOption).toHaveClass(
-      "poracode-mention-popover__item",
-      "poracode-mention-popover__item--active",
+      "axecode-mention-popover__item",
+      "axecode-mention-popover__item--active",
     );
-    expect(screen.getByRole("listbox")).toHaveClass("poracode-mention-popover__list");
+    expect(screen.getByRole("listbox")).toHaveClass("axecode-mention-popover__list");
     expect(screen.getByRole("listbox")).toHaveStyle({ maxHeight: "240px" });
-    expect(screen.getByText("[focus]")).toHaveClass("poracode-mention-popover__detail");
+    expect(screen.getByText("[focus]")).toHaveClass("axecode-mention-popover__detail");
     fireEvent.mouseDown(popoverOption);
     expect(onSelect).toHaveBeenCalledWith(command);
 
@@ -46,6 +46,6 @@ describe("ThreadCommandPanel", () => {
       />,
     );
 
-    expect(screen.getByText("[focus]")).not.toHaveClass("poracode-mention-popover__detail");
+    expect(screen.getByText("[focus]")).not.toHaveClass("axecode-mention-popover__detail");
   });
 });

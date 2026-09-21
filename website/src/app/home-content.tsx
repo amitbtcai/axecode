@@ -164,12 +164,12 @@ const DETAILS = [
   { icon: Keyboard, title: "detail.shortcuts.title", desc: "detail.shortcuts.desc" },
 ] as const;
 
-// The built-in MCP servers Poracode exposes to any agent that speaks MCP.
+// The built-in MCP servers AxeCode exposes to any agent that speaks MCP.
 // `server` is the literal server name an agent addresses, so it stays untranslated.
 const MCP_POWERS = [
   {
     icon: SlidersHorizontal,
-    server: "poracode",
+    server: "axecode",
     title: "mcp.appControls.title",
     desc: "mcp.appControls.desc",
   },
@@ -179,7 +179,7 @@ const MCP_POWERS = [
     title: "mcp.crossagents.title",
     desc: "mcp.crossagents.desc",
   },
-  { icon: Plug, server: "poracode", title: "mcp.extend.title", desc: "mcp.extend.desc" },
+  { icon: Plug, server: "axecode", title: "mcp.extend.title", desc: "mcp.extend.desc" },
   {
     icon: MousePointerClick,
     server: "browser · chrome · computer_use",
@@ -187,7 +187,7 @@ const MCP_POWERS = [
     desc: "mcp.surfaces.desc",
   },
   // The user's side of the same story, given a full-width card: the servers
-  // above are Poracode's, this one is everyone else's.
+  // above are AxeCode's, this one is everyone else's.
   {
     icon: Server,
     server: "stdio · http · sse",
@@ -490,9 +490,9 @@ function HomeBody({
     })),
   ];
   // Lead with the `Pora.code` wordmark, so the headline copy is the value-prop
-  // only: drop the "Poracode —" brand prefix from title1 and the trailing
+  // only: drop the "AxeCode —" brand prefix from title1 and the trailing
   // full-stop from title2 (the Pora dot stands in for it). Locale-safe.
-  const descriptor = `${t("hero.title1").replace(/^Poracode\s*[—–-]\s*/u, "")} ${t(
+  const descriptor = `${t("hero.title1").replace(/^AxeCode\s*[—–-]\s*/u, "")} ${t(
     "hero.title2",
   ).replace(/[.。]\s*$/u, "")}`;
 
@@ -526,7 +526,7 @@ function HomeBody({
           <Link
             href={homeHref}
             prefetch={false}
-            aria-label="Poracode"
+            aria-label="AxeCode"
             className="transition-opacity hover:opacity-90"
           >
             <BrandLockup />
@@ -554,7 +554,7 @@ function HomeBody({
               {t("nav.changelog")}
             </Link>
             <a
-              href="https://github.com/Porabuild/Poracode"
+              href="https://github.com/Porabuild/AxeCode"
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -612,7 +612,7 @@ function HomeBody({
               <ArrowUpRight className="h-4 w-4 text-dim transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a
-              href="https://github.com/Porabuild/Poracode"
+              href="https://github.com/Porabuild/AxeCode"
               target="_blank"
               rel="noreferrer"
               className="group inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-7 font-semibold text-moon transition will-change-transform hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.06]"
@@ -684,7 +684,7 @@ function HomeBody({
           <div className="pointer-events-none absolute -inset-x-10 -top-10 bottom-0 -z-10 bg-[radial-gradient(55%_45%_at_50%_28%,rgba(139,123,255,0.22),transparent)] blur-[90px]" />
           <AppWindow
             src="/hero-screenshot.png"
-            alt="Poracode desktop app running Claude and Codex coding agents side by side"
+            alt="AxeCode desktop app running Claude and Codex coding agents side by side"
             width={2920}
             height={1840}
             chrome
@@ -918,7 +918,7 @@ function HomeBody({
                   {t("hero.downloadFor", { platform: platform.label })}
                 </a>
                 <a
-                  href="https://github.com/Porabuild/Poracode"
+                  href="https://github.com/Porabuild/AxeCode"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-6 font-medium text-moon transition hover:border-white/20 hover:bg-white/[0.06]"
@@ -956,7 +956,7 @@ function HomeBody({
               {t("nav.changelog")}
             </Link>
             <a
-              href="https://github.com/Porabuild/Poracode"
+              href="https://github.com/Porabuild/AxeCode"
               className="font-mono text-[13px] text-dim transition-colors hover:text-moon"
             >
               GitHub

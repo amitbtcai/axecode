@@ -24,7 +24,7 @@ function closeAllMenus(): void {
  * outside-press dismissal can look for this to recognise a press that the menu
  * on top already handled.
  */
-export const MENU_BACKDROP_ATTR = "data-poracode-menu-backdrop";
+export const MENU_BACKDROP_ATTR = "data-axecode-menu-backdrop";
 
 /**
  * Registers a menu row as a drag source in the app's drag-and-drop provider, so
@@ -345,14 +345,14 @@ export function ContextMenuSurface(props: {
     ? createPortal(
         <>
           {props.withBackdrop ? (
-            // Shares the popover layer (see .poracode-menu-backdrop), so it
+            // Shares the popover layer (see .axecode-menu-backdrop), so it
             // covers the surface this menu was opened from — it comes later in
             // the portal order — while the menu itself, portaled after it,
             // still paints above. Marked so a host's own outside-press watcher
             // can tell this apart from a press outside every menu.
             <div
               {...{ [MENU_BACKDROP_ATTR]: true }}
-              className={`poracode-menu-backdrop fixed inset-0 ${hiddenWhileDraggingClass}`}
+              className={`axecode-menu-backdrop fixed inset-0 ${hiddenWhileDraggingClass}`}
               onPointerDown={(event) => {
                 event.preventDefault();
                 event.stopPropagation();

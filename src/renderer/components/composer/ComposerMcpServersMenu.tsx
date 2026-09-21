@@ -82,7 +82,7 @@ export function ComposerMcpServersSubmenuContent(props: ComposerMcpServersMenuPr
         <div
           role="list"
           aria-label={t`MCP Servers`}
-          className="poracode-menu max-h-72 min-w-56 overflow-y-auto p-1"
+          className="axecode-menu max-h-72 min-w-56 overflow-y-auto p-1"
         >
           {servers.map((server) => (
             <div key={server.id} role="listitem" className={readOnlyRowClassName}>
@@ -101,7 +101,7 @@ export function ComposerMcpServersSubmenuContent(props: ComposerMcpServersMenuPr
           selectionMode="multiple"
           selectedKeys={selectedKeys}
           onSelectionChange={handleSelection}
-          className="poracode-menu max-h-72 min-w-56 overflow-y-auto"
+          className="axecode-menu max-h-72 min-w-56 overflow-y-auto"
         >
           {servers.map((server) => (
             <Dropdown.Item key={server.id} id={server.id} textValue={server.name}>
@@ -124,7 +124,7 @@ export function ComposerMcpServersSubmenuContent(props: ComposerMcpServersMenuPr
           onAction={(key) => {
             if (key === MANAGE_KEY) onManage();
           }}
-          className="poracode-menu min-w-56 border-t border-border"
+          className="axecode-menu min-w-56 border-t border-border"
         >
           <Dropdown.Item id={MANAGE_KEY} textValue={t`Manage MCP servers`}>
             <SlidersHorizontal className="size-4 text-muted" />

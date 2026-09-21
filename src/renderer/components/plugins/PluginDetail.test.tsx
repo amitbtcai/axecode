@@ -90,7 +90,7 @@ function TryNowPluginDetail() {
     ...base,
     plugin: {
       ...base.plugin,
-      poracode: { ...base.plugin.poracode, examplePrompt: "Inspect this page" },
+      axecode: { ...base.plugin.axecode, examplePrompt: "Inspect this page" },
     },
   };
   return <PluginDetail plugin={plugin} hostPlatform="win32" onBack={() => undefined} />;

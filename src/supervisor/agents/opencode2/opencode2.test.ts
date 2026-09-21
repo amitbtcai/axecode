@@ -235,13 +235,13 @@ describe("buildOpenCode2CapabilityPartialFromInventory", () => {
 describe("OpenCode 2 prompt formatting", () => {
   it("places attachments on their own line with \\n\\n separator", () => {
     const adapter = createOpenCode2Adapter();
-    const attachmentPath = join(homedir(), ".poracode", "attachments", "draft", "image.png");
+    const attachmentPath = join(homedir(), ".axecode", "attachments", "draft", "image.png");
     const prompt = adapter.formatPromptSegments?.([
       { kind: "text", content: "can you see this image?" },
       { kind: "attachment", path: attachmentPath },
     ]);
 
-    expect(prompt).toBe("can you see this image?\n\n@~/.poracode/attachments/draft/image.png ");
+    expect(prompt).toBe("can you see this image?\n\n@~/.axecode/attachments/draft/image.png ");
   });
 
   it("wraps multiline prompts in bracketed paste in buildDirectInput", () => {

@@ -227,8 +227,8 @@ function createController(
     appVersion: "9.9.9-test",
     channel,
     paths: {
-      baseDir: "/tmp/poracode-controller-test",
-      settingsPath: "/tmp/poracode-controller-test/settings.json",
+      baseDir: "/tmp/axecode-controller-test",
+      settingsPath: "/tmp/axecode-controller-test/settings.json",
     },
     ...(devServerUrl ? { devServerUrl } : {}),
     callSupervisor,
@@ -293,7 +293,7 @@ describe("DesktopRemoteAccessController", () => {
     h.disableTailscaleServe.mockResolvedValue();
     h.launchTailscaleApp.mockResolvedValue({ ok: true });
     h.resolveRemoteAccessPort.mockResolvedValue(38987);
-    delete process.env.PORACODE_REMOTE_ACCESS_ADVERTISED_HOST;
+    delete process.env.AXECODE_REMOTE_ACCESS_ADVERTISED_HOST;
     logSpy = vi.spyOn(console, "log").mockImplementation(() => {});
     warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
     errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
@@ -303,7 +303,7 @@ describe("DesktopRemoteAccessController", () => {
     logSpy.mockRestore();
     warnSpy.mockRestore();
     errorSpy.mockRestore();
-    delete process.env.PORACODE_REMOTE_ACCESS_ADVERTISED_HOST;
+    delete process.env.AXECODE_REMOTE_ACCESS_ADVERTISED_HOST;
   });
 
   it("uses the hosted pairing app in production and the local mobile app in development", async () => {
@@ -524,9 +524,9 @@ describe("DesktopRemoteAccessController", () => {
       message: "Remote access server port remained unavailable after retries.",
     });
     expect(reportError.mock.calls[0]?.[1]).toEqual({
-      "poracode.feature_area": "remote-access",
-      "poracode.channel": "stable",
-      "poracode.platform": process.platform,
+      "axecode.feature_area": "remote-access",
+      "axecode.channel": "stable",
+      "axecode.platform": process.platform,
       "event.origin": "remote-access.listen.port-conflict",
     });
     expect((reportError.mock.calls[0]![0] as Error).message).not.toContain("192.168");

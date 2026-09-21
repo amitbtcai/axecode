@@ -9,16 +9,16 @@ import type { McpAddInput } from "./clientTypes";
 export type OpenCode2McpServerConfig = McpAddInput["config"];
 
 /**
- * Project Poracode's provider-neutral MCP descriptors into the OpenCode 2
+ * Project AxeCode's provider-neutral MCP descriptors into the OpenCode 2
  * dynamic `mcp.add` shape. Kept provider-owned (rather than an option on the
  * shared `buildOpenCodeMcp`) because the config form differs structurally from
  * OpenCode 1's: the enabled flag is inverted and the timeout is per-phase.
  *
- * Poracode's single per-server `timeoutMs` maps to the `execution` phase — it
+ * AxeCode's single per-server `timeoutMs` maps to the `execution` phase — it
  * is the tool-call budget the user configures, and the startup/catalog phases
  * are better left on the server's own defaults. The TimeoutConfig unit is
  * milliseconds by config lineage: V2 inherits the V1 MCP config format (where
- * `timeout` was ms), and Poracode's own `timeoutMs` contract is ms too
+ * `timeout` was ms), and AxeCode's own `timeoutMs` contract is ms too
  * (`DEFAULT_MCP_SERVER_TIMEOUT_MS = 30_000`).
  */
 export function buildOpenCode2McpServers(

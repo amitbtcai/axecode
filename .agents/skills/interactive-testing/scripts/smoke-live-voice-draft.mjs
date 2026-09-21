@@ -24,7 +24,7 @@ export async function mockDraftVoicePermissionGate({
 
   await run(`(async () => {
     const s = window.__liveVoiceSmoke;
-    const app = window.__poracodeDev.stores.app;
+    const app = window.__axecodeDev.stores.app;
     s.draftOriginal = app.getState().draftContents[${projectId}];
     s.createThread = app.getState().createThread;
     s.draftLaunches = 0;
@@ -38,7 +38,7 @@ export async function mockDraftVoicePermissionGate({
     for (const kind of ["text", "attachment", "queued-attachment"]) {
       await run(`(() => {
         const s = window.__liveVoiceSmoke;
-        const app = window.__poracodeDev.stores.app;
+        const app = window.__axecodeDev.stores.app;
         app.getState().clearDraftContent(${projectId});
         s.draftStopped = 0;
         s.grant = null;
@@ -92,10 +92,10 @@ export async function mockDraftVoicePermissionGate({
       );
       assert.equal(await run(`window.__liveVoiceSmoke.draftLaunches`), 0);
       await run(
-        `window.__poracodeDev.stores.app.getState().openThread(window.__liveVoiceSmoke.threadId)`,
+        `window.__axecodeDev.stores.app.getState().openThread(window.__liveVoiceSmoke.threadId)`,
       );
       const saved = await waitForValue(
-        () => run(`window.__poracodeDev.stores.app.getState().draftContents[${projectId}]`),
+        () => run(`window.__axecodeDev.stores.app.getState().draftContents[${projectId}]`),
         (value) => Boolean(value),
         `${kind} draft persisted after navigation`,
       );
@@ -113,7 +113,7 @@ export async function mockDraftVoicePermissionGate({
           ),
         );
       }
-      await run(`window.__poracodeDev.stores.app.getState().openDraft(${projectId})`);
+      await run(`window.__axecodeDev.stores.app.getState().openDraft(${projectId})`);
       await waitForValue(
         () => run(kind === "text" ? `(${editor})?.textContent ?? ''` : `document.body.innerText`),
         (text) => text.includes(kind === "text" ? draftText : "#voice-draft-note"),
@@ -121,7 +121,7 @@ export async function mockDraftVoicePermissionGate({
       );
       await screenshot(client, join(outDir, `live-voice-draft-${kind}-preserved.png`));
       await run(
-        `window.__poracodeDev.stores.app.getState().openThread(window.__liveVoiceSmoke.threadId)`,
+        `window.__axecodeDev.stores.app.getState().openThread(window.__liveVoiceSmoke.threadId)`,
       );
       await waitForValue(
         () => run(`Boolean(${button("Start live voice")})`),
@@ -129,7 +129,7 @@ export async function mockDraftVoicePermissionGate({
         "returned to existing thread",
       );
       await waitForValue(
-        () => run(`window.__poracodeDev.stores.app.getState().draftContents[${projectId}]`),
+        () => run(`window.__axecodeDev.stores.app.getState().draftContents[${projectId}]`),
         Boolean,
         "restored draft persisted again before the next case",
       );
@@ -138,7 +138,7 @@ export async function mockDraftVoicePermissionGate({
     await run(`(async () => {
       const s = window.__liveVoiceSmoke;
       await s.voice.liveVoice.stop();
-      const app = window.__poracodeDev.stores.app;
+      const app = window.__axecodeDev.stores.app;
       app.setState({ createThread: s.createThread });
       app.getState().clearDraftContent(${projectId});
       if (s.draftOriginal) app.getState().saveDraftContent(${projectId}, s.draftOriginal);

@@ -112,7 +112,7 @@ export function ProjectTreeView(props: {
         onDrop={(event) => {
           event.preventDefault();
           useProjectTreeStore.getState().setDropTargetPath(null);
-          const payload = event.dataTransfer.getData("application/poracode-project-tree");
+          const payload = event.dataTransfer.getData("application/axecode-project-tree");
           if (!payload) return;
           try {
             const { path } = JSON.parse(payload) as { path: string };
@@ -128,7 +128,7 @@ export function ProjectTreeView(props: {
       >
         <div className="flex items-center gap-2 border-b border-[color:var(--border)] px-0 py-2">
           <div
-            data-poracode-find-scope="tree"
+            data-axecode-find-scope="tree"
             className="flex min-w-0 flex-1 items-center gap-2 rounded-3xl px-2 py-1.5 text-muted transition-colors hover:bg-[var(--row-hover)] hover:text-foreground focus-within:bg-[var(--row-active)] focus-within:text-foreground"
           >
             <Search className="size-3.5 shrink-0 text-muted" />

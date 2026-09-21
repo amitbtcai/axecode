@@ -205,7 +205,7 @@ export class HelperComputerUseDriver implements ComputerUseDriver {
     this.helloPromise ??= this.host
       .request("hello", {
         protocolVersion: COMPUTER_USE_HELPER_PROTOCOL_VERSION,
-        clientVersion: "poracode",
+        clientVersion: "axecode",
       })
       .then((value) => {
         const hello = computerUseHelperHelloSchema.safeParse(value);

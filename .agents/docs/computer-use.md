@@ -1,6 +1,6 @@
 # Computer Use
 
-Poracode's built-in `computer_use` MCP server is owned by the Electron main process. A bundled Rust helper performs native window discovery, passive capture, accessibility queries, and input. The renderer only enables the capability for a thread and displays status; it never starts native automation processes.
+AxeCode's built-in `computer_use` MCP server is owned by the Electron main process. A bundled Rust helper performs native window discovery, passive capture, accessibility queries, and input. The renderer only enables the capability for a thread and displays status; it never starts native automation processes.
 
 ## Architecture and file map
 
@@ -121,7 +121,7 @@ Recognition is structural, not a list of browser names. Every Chromium distribut
 
 ```text
 Brave Browser.app/Contents/Frameworks/Brave Browser Framework.framework/Helpers/chrome_crashpad_handler
-Poracode.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler
+AxeCode.app/Contents/Frameworks/Electron Framework.framework/Versions/A/Helpers/chrome_crashpad_handler
 ```
 
 The bundle is read once per application path and cached, and the read is authoritative: a bundle this host could inspect has already answered the question, so the name list below is consulted only when there is no bundle to read. Treating it as an extra vote misclassifies an ordinary app whose name splits into a browser word (`Arc Welder.app`). A name list is the fallback for a window whose bundle cannot be read, because `WindowInfo::app` degrades to an executable path or the CoreGraphics owner name; it matches whole words so `Arc` is recognized and `Monarch` is not. Do not turn the fallback into the primary test — a rebranded fork keeps the crashpad helper and drops the name, which is exactly the case that used to break.

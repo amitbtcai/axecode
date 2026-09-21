@@ -4,7 +4,7 @@ import type { McpServer, ProjectLocation } from "@/shared/contracts";
 import { resolveNodeForDistro } from "../wsl/runtime";
 import { deployFilesToWslTempBase, resolveWslHelpersDir } from "../wsl/wslDeploy";
 
-const CONFIG_ENV = "PORACODE_MCP_FILTER_CONFIG";
+const CONFIG_ENV = "AXECODE_MCP_FILTER_CONFIG";
 
 function filterConfig(server: McpServer): string {
   return Buffer.from(
@@ -29,7 +29,7 @@ export async function prepareMcpToolFilters(
   const names = [...new Set(servers.filter(needsProxy).map(workerName))];
   const sources = names.map((name) => ({ name, path: helpersDir ? join(helpersDir, name) : "" }));
   if (sources.some((source) => !source.path || !existsSync(source.path))) {
-    throw new Error("Poracode MCP launch helper is unavailable.");
+    throw new Error("AxeCode MCP launch helper is unavailable.");
   }
 
   let command = process.execPath;
@@ -39,10 +39,10 @@ export async function prepareMcpToolFilters(
     const node = await resolveNodeForDistro(location.distro);
     const deployed = deployFilesToWslTempBase(
       location.distro,
-      `poracode-mcp-filter-${process.pid}`,
+      `axecode-mcp-filter-${process.pid}`,
       sources.map((source) => ({ src: source.path, relDest: `mcp-filter/${source.name}` })),
     );
-    if (!deployed) throw new Error("Poracode MCP launch helper could not be deployed to WSL.");
+    if (!deployed) throw new Error("AxeCode MCP launch helper could not be deployed to WSL.");
     command = node.nodePath;
     workerDirectory = `${deployed.linuxBaseDir}/mcp-filter`;
   }
@@ -53,7 +53,7 @@ export async function prepareMcpToolFilters(
     const env: Record<string, string> = filtersTools
       ? { [CONFIG_ENV]: filterConfig(server) }
       : {
-          PORACODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
+          AXECODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
             "base64url",
           ),
         };

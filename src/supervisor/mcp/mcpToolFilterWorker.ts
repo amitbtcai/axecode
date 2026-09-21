@@ -5,7 +5,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/server/stdio";
 import type { McpServer } from "@/shared/contracts";
 import { createUpstreamTransport, startFilterProxy } from "./mcpToolFilterProxy";
 
-const CONFIG_ENV = "PORACODE_MCP_FILTER_CONFIG";
+const CONFIG_ENV = "AXECODE_MCP_FILTER_CONFIG";
 
 function readConfig(): { server: McpServer; disabledTools: string[] } {
   const encoded = process.env[CONFIG_ENV];

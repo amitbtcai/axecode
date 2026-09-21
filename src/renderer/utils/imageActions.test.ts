@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 describe("image action bytes", () => {
-  it.each(["poracode", "lightcode"])(
+  it.each(["axecode", "lightcode"])(
     "reads %s-local originals through the bridge",
     async (scheme) => {
       const bytes = new Uint8Array([1, 2, 3]);
@@ -36,7 +36,7 @@ describe("image action bytes", () => {
   it("passes PNG through even without MIME metadata", async () => {
     const bytes = new Uint8Array([0x89, 0x50, 0x4e, 0x47]);
     readLocalImageFile.mockResolvedValue(bytes);
-    expect(await toClipboardPngBytes({ src: "poracode-local:///sample" })).toEqual(bytes);
+    expect(await toClipboardPngBytes({ src: "axecode-local:///sample" })).toEqual(bytes);
   });
 
   it.each([
@@ -62,10 +62,10 @@ describe("image action bytes", () => {
     vi.spyOn(HTMLCanvasElement.prototype, "toBlob").mockImplementation((callback) => {
       callback({ arrayBuffer: async () => png.buffer } as Blob);
     });
-    expect(await toClipboardPngBytes({ src: "poracode-local:///sample", mime })).toEqual(png);
+    expect(await toClipboardPngBytes({ src: "axecode-local:///sample", mime })).toEqual(png);
     expect(drawImage).toHaveBeenCalledOnce();
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:test");
-    expect(await fetchImageBytes("poracode-local:///sample.webp")).toEqual(original);
+    expect(await fetchImageBytes("axecode-local:///sample.webp")).toEqual(original);
   });
 
   it("does not silently copy undecodable data", async () => {
@@ -81,7 +81,7 @@ describe("image action bytes", () => {
         };
       },
     );
-    await expect(toClipboardPngBytes({ src: "poracode-local:///bad.gif" })).rejects.toThrow(
+    await expect(toClipboardPngBytes({ src: "axecode-local:///bad.gif" })).rejects.toThrow(
       "decode failed",
     );
     expect(revokeObjectURL).toHaveBeenCalledWith("blob:bad");

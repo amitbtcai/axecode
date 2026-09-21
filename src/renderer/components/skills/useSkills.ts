@@ -213,7 +213,7 @@ export function usePluginMentionItems(
       !core ||
       !isPluginSkillEnabled(plugin, state, core.folder) ||
       !isPluginSupportedForProject(plugin, readBridge().platform, projectLocation) ||
-      plugin.poracode.builtInMcpServerIds.some((id) => disabledBuiltIns[id] === true)
+      plugin.axecode.builtInMcpServerIds.some((id) => disabledBuiltIns[id] === true)
     ) {
       return [];
     }
@@ -235,8 +235,8 @@ export function usePluginMentionItems(
         // its display name.
         ...(plugin.manifest.keywords?.length ? { searchAliases: plugin.manifest.keywords } : {}),
         command: { ...command, pluginId: plugin.name, pluginName: localized.name },
-        ...(plugin.poracode.builtInMcpServerIds.length > 0
-          ? { enablesMcpServerIds: plugin.poracode.builtInMcpServerIds }
+        ...(plugin.axecode.builtInMcpServerIds.length > 0
+          ? { enablesMcpServerIds: plugin.axecode.builtInMcpServerIds }
           : {}),
       },
     ];

@@ -1,6 +1,6 @@
 /**
  * Hand-written TypeScript for the MSP (Muse Session Protocol) wire subset
- * Poracode speaks. Derived from the `muse schema generate-json-schema`
+ * AxeCode speaks. Derived from the `muse schema generate-json-schema`
  * export of Muse Code 1.0.2:
  *
  *   muse schema generate-json-schema --out DIR   (offline, instant)
@@ -21,7 +21,7 @@
  * Implementation strategy: hand-rolled client, not `@muse-code/sdk`. The
  * official SDK (MIT, zero-dep) covers the same ground, but it is pre-1.0
  * with no stability promise, its pinned schema fingerprint matches neither
- * this host generation nor the transcript corpus, and Poracode-specific
+ * this host generation nor the transcript corpus, and AxeCode-specific
  * mapping, WSL routing, and thread lifecycle must be ours regardless.
  * Revisit when the SDK reaches 1.0 with a stability promise, its
  * fingerprint aligns with our minimum supported host, and WSL spawn

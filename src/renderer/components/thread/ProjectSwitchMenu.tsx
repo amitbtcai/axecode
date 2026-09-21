@@ -172,7 +172,7 @@ export function ProjectSwitchMenu(props: {
       selectionMode="single"
       selectedKeys={[currentProjectId]}
       onAction={(key) => handleSelect(String(key))}
-      className="poracode-menu min-w-56"
+      className="axecode-menu min-w-56"
     >
       {menuItems(projects)}
     </Dropdown.Menu>

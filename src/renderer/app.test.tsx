@@ -167,7 +167,7 @@ const {
           newSourceCommit: "abc123",
         }),
       gitAddWorktree: vi.fn<() => Promise<{ path: string }>>().mockResolvedValue({
-        path: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+        path: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
       }),
       gitRemoveWorktree: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
       gitDeleteBranch: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -322,7 +322,7 @@ vi.mock("./views/MainView/parts/Sidebar/Sidebar", () => ({
           onClick={() =>
             gitMergeAndRemove(
               "project-1",
-              "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+              "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
             )
           }
           type="button"
@@ -369,7 +369,7 @@ vi.mock("@/renderer/components/thread/ThreadDraftView", () => ({
             agentKind: "codex",
             config: { model: "gpt-5.4" },
             prompt: "attach worktree",
-            existingWorktreePath: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+            existingWorktreePath: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
             worktreeBranch: "feature/x",
           })
         }
@@ -1734,18 +1734,18 @@ describe("App", () => {
     const threads = useAppStore.getState().threads;
     expect(threads).toHaveLength(1);
     expect(threads[0]?.worktreePath).toBe(
-      "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+      "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
     );
     expect(threads[0]?.worktreeBranch).toBe("feature/x");
     expect(useAppStore.getState().projects[0]?.lastDraftConfig?.worktreeMode).toBe(true);
     expect(bridge.gitWatchWorktrees).toHaveBeenCalledWith({
       projectId: "project-1",
-      worktreePaths: ["C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x"],
+      worktreePaths: ["C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x"],
     });
     expect(bridge.getGitStatus).toHaveBeenCalledWith({
       projectLocation: {
         kind: "windows",
-        path: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+        path: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
       },
     });
   });
@@ -1778,7 +1778,7 @@ describe("App", () => {
           status: "idle",
           attention: "none",
           canResumeWithConfig: false,
-          worktreePath: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-y",
+          worktreePath: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-y",
           worktreeBranch: "feature/y",
           archived: false,
           done: false,
@@ -1797,8 +1797,8 @@ describe("App", () => {
       expect(bridge.gitWatchWorktrees).toHaveBeenCalledWith({
         projectId: "project-1",
         worktreePaths: [
-          "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
-          "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-y",
+          "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
+          "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-y",
         ],
       });
     });
@@ -1809,8 +1809,8 @@ describe("App", () => {
     useAppStore.persist.onHydrate = vi.fn<() => () => void>(() => () => undefined);
     useAppStore.persist.onFinishHydration = vi.fn<() => () => void>(() => () => undefined);
 
-    const visiblePath = "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-y";
-    const hiddenPath = "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-z";
+    const visiblePath = "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-y";
+    const hiddenPath = "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-z";
 
     useSidebarUiStore.setState({ threadListLimits: { "project-1": 1 } });
     useAppStore.setState((state) => ({
@@ -1933,7 +1933,7 @@ describe("App", () => {
       const threads = useAppStore.getState().threads;
       expect(threads).toHaveLength(1);
       expect(threads[0]?.worktreePath).toBe(
-        "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+        "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
       );
       expect(threads[0]?.worktreeBranch).toBe("feature/x");
     });
@@ -1970,7 +1970,7 @@ describe("App", () => {
           status: "idle",
           attention: "none",
           canResumeWithConfig: false,
-          worktreePath: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+          worktreePath: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
           archived: false,
           done: false,
           starred: false,
@@ -1986,8 +1986,8 @@ describe("App", () => {
           status: "idle",
           attention: "none",
           canResumeWithConfig: false,
-          worktreePath: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
-          worktreeBranch: "poracode/brave-heron",
+          worktreePath: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
+          worktreeBranch: "axecode/brave-heron",
           archived: false,
           done: false,
           starred: false,
@@ -2004,7 +2004,7 @@ describe("App", () => {
     await waitFor(() => {
       expect(bridge.gitGetWorktreeSourceBranch).toHaveBeenCalledWith({
         projectLocation: { kind: "windows", path: "C:\\repo" },
-        branch: "poracode/brave-heron",
+        branch: "axecode/brave-heron",
       });
     });
 
@@ -2013,14 +2013,14 @@ describe("App", () => {
         projectLocation: { kind: "windows", path: "C:\\repo" },
         worktreeLocation: {
           kind: "windows",
-          path: "C:\\Users\\demo\\.poracode\\worktrees\\repo-12345678\\feature-x",
+          path: "C:\\Users\\demo\\.axecode\\worktrees\\repo-12345678\\feature-x",
         },
-        worktreeBranch: "poracode/brave-heron",
+        worktreeBranch: "axecode/brave-heron",
         sourceBranch: "master",
       });
       expect(bridge.gitDeleteBranch).toHaveBeenCalledWith({
         projectLocation: { kind: "windows", path: "C:\\repo" },
-        branch: "poracode/brave-heron",
+        branch: "axecode/brave-heron",
         force: true,
       });
     });

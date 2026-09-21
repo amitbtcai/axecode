@@ -96,7 +96,7 @@ const homeProject: Project = {
 
 const localProject: Project = {
   id: "local-1",
-  name: "Poracode",
+  name: "AxeCode",
   location: { kind: "windows", path: "C:\\repo" },
   createdAt: "2026-07-01T00:00:00.000Z",
   workspaceId: "w1",
@@ -112,7 +112,7 @@ const secondLocalProject: Project = {
 
 const unreachableRemoteProject: Project = {
   id: "remote-1",
-  name: "Mac Poracode",
+  name: "Mac AxeCode",
   location: { kind: "posix", path: "/repo" },
   createdAt: "2026-07-01T00:00:00.000Z",
   remoteServerId: "desktop-1",
@@ -145,7 +145,7 @@ describe("SidebarFlatThreadList", () => {
 
     expect(screen.getByText(`new-thread:${HOME_PROJECT_ID}`)).toBeInTheDocument();
     expect(screen.getByText(/thread:h1 in Home/)).toBeInTheDocument();
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
   });
 
   it("keeps Home threads and the new-thread row when the only workspace project is unreachable", () => {
@@ -189,12 +189,12 @@ describe("SidebarFlatThreadList", () => {
 
     render(<SidebarFlatThreadList sortMode="updated" />);
 
-    expect(screen.getByText(/thread:r1 in Mac Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:r1 in Mac AxeCode/)).toBeInTheDocument();
   });
 
   it("tags remote-project rows with the machine name; local rows carry none", () => {
     useRemoteServersStore.setState({
-      servers: [{ desktopId: "desktop-1", label: "Poracode on MacBook 16" }],
+      servers: [{ desktopId: "desktop-1", label: "AxeCode on MacBook 16" }],
       runtime: { "desktop-1": { status: "online", projects: [], threads: [] } },
     } as never);
     useAppStore.setState({
@@ -207,9 +207,9 @@ describe("SidebarFlatThreadList", () => {
 
     render(<SidebarFlatThreadList sortMode="updated" />);
 
-    const remoteRow = screen.getByText(/thread:r1 in Mac Poracode/).closest("[data-testid=row]");
+    const remoteRow = screen.getByText(/thread:r1 in Mac AxeCode/).closest("[data-testid=row]");
     expect(remoteRow).toHaveTextContent("MacBook 16");
-    const localRow = screen.getByText(/thread:p1 in Poracode/).closest("[data-testid=row]");
+    const localRow = screen.getByText(/thread:p1 in AxeCode/).closest("[data-testid=row]");
     expect(localRow).not.toHaveTextContent("MacBook 16");
   });
 
@@ -224,7 +224,7 @@ describe("SidebarFlatThreadList", () => {
 
     render(<SidebarFlatThreadList sortMode="updated" />);
 
-    const row = screen.getByText(/thread:p1 in Poracode/).closest("[data-testid=row]");
+    const row = screen.getByText(/thread:p1 in AxeCode/).closest("[data-testid=row]");
     const glyph = row?.querySelector("svg");
     expect(glyph).not.toBeNull();
     // 12px, not the 16px menu default: the tag text next to it is 10px.
@@ -265,7 +265,7 @@ describe("SidebarFlatThreadList", () => {
       (svg) => svg.getAttribute("viewBox") === "0 0 40 16",
     );
     expect(tuxIcon?.getAttribute("class")).toContain("h-2.5");
-    const localRow = screen.getByText(/thread:p1 in Poracode/).closest("[data-testid=row]");
+    const localRow = screen.getByText(/thread:p1 in AxeCode/).closest("[data-testid=row]");
     expect(localRow).not.toHaveTextContent("WSL");
   });
 
@@ -292,7 +292,7 @@ describe("SidebarFlatThreadList", () => {
     expect(screen.getByText(/thread:h-mine in Home/)).toBeInTheDocument();
     expect(screen.getByText(/thread:h-legacy in Home/)).toBeInTheDocument();
     expect(screen.queryByText(/thread:h-other/)).not.toBeInTheDocument();
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
   });
 
   it("keeps a Home thread with a dangling workspace tag visible", () => {
@@ -324,7 +324,7 @@ describe("SidebarFlatThreadList", () => {
     render(<SidebarFlatThreadList sortMode="updated" />);
 
     expect(screen.queryByText(/thread:h1/)).not.toBeInTheDocument();
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
     expect(screen.getByText("new-thread:local-1")).toBeInTheDocument();
   });
 
@@ -342,7 +342,7 @@ describe("SidebarFlatThreadList", () => {
     render(<SidebarFlatThreadList sortMode="updated" />);
 
     expect(screen.getByTestId("project-filter")).toHaveTextContent("local-1");
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
     expect(screen.queryByText(/thread:h1/)).not.toBeInTheDocument();
     expect(screen.queryByText(/thread:s1/)).not.toBeInTheDocument();
     // The most recently updated thread overall is h1 (Home), but the filtered
@@ -407,7 +407,7 @@ describe("SidebarFlatThreadList", () => {
     render(<SidebarFlatThreadList sortMode="updated" />);
 
     expect(screen.queryByTestId("project-filter")).not.toBeInTheDocument();
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
   });
 
   it("keeps the only disabled project in the filter so it can be re-enabled", () => {
@@ -433,7 +433,7 @@ describe("SidebarFlatThreadList", () => {
 
     const { container } = render(<SidebarFlatThreadList sortMode="updated" />);
 
-    const head = container.querySelector(".poracode-flat-list-head");
+    const head = container.querySelector(".axecode-flat-list-head");
     expect(head).not.toBeNull();
     expect(head).toHaveTextContent("new-thread:local-1");
     expect(head?.querySelector('[data-testid="project-filter"]')).not.toBeNull();
@@ -448,7 +448,7 @@ describe("SidebarFlatThreadList", () => {
 
     const { container } = render(<SidebarFlatThreadList sortMode="updated" />);
 
-    const head = container.querySelector(".poracode-flat-list-head");
+    const head = container.querySelector(".axecode-flat-list-head");
     const scroller = container.querySelector(".overflow-y-auto");
     if (!head || !scroller) throw new Error("expected head row and scroll container");
     // The head lives outside (above) the scroll container, so it stays put
@@ -466,7 +466,7 @@ describe("SidebarFlatThreadList", () => {
 
     const { container } = render(<SidebarFlatThreadList sortMode="updated" />);
 
-    expect(container.querySelector(".poracode-flat-list-head")).toBeNull();
+    expect(container.querySelector(".axecode-flat-list-head")).toBeNull();
     expect(newThreadCalls.at(-1)).toEqual({ projectId: "local-1", inline: undefined });
   });
 

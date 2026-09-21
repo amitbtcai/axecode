@@ -145,7 +145,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("resolves npm .cmd shims to their package exe target when present", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-claude-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-claude-shim-"));
     tempDirs.push(root);
     const cmdPath = join(root, "claude.cmd");
     const exePath = join(root, "node_modules", "@anthropic-ai", "claude-code", "bin", "claude.exe");
@@ -168,7 +168,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("resolves pnpm .cmd shims wrapping a native .exe (e.g. claude.cmd -> claude.exe)", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-pnpm-claude-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-pnpm-claude-shim-"));
     tempDirs.push(root);
     const binDir = join(root, "bin");
     const cmdPath = join(binDir, "claude.cmd");
@@ -205,7 +205,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("resolves Scoop .exe shims to their executable target", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-scoop-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-scoop-shim-"));
     tempDirs.push(root);
     const shimDir = join(root, "scoop", "shims");
     const target = join(root, "scoop", "apps", "opencode", "current", "opencode.exe");
@@ -225,7 +225,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("keeps Scoop shims that supply fixed arguments", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-scoop-args-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-scoop-args-shim-"));
     tempDirs.push(root);
     const shim = join(root, "tool.exe");
     const target = join(root, "target.exe");
@@ -249,7 +249,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
     // buildAgentCommand spawned `node.exe --model ... --enable ...` and Node
     // rejected the agent's flags with "bad option: --model". The .cmd must
     // remain so resolveWindowsNodeCmdShim can extract the script entry later.
-    const root = mkdtempSync(join(tmpdir(), "poracode-command-code-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-command-code-shim-"));
     tempDirs.push(root);
     const cmdPath = join(root, "command-code.cmd");
     const nodeExePath = join(root, "node.exe");
@@ -283,7 +283,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
     // shim's `IF EXIST "%dp0%\node.exe"` line — resolving `grok` to node.exe.
     // Detection then read node's version and the ACP probe spawned
     // `node.exe agent stdio`, breaking version, models, and account info.
-    const root = mkdtempSync(join(tmpdir(), "poracode-grok-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-grok-shim-"));
     tempDirs.push(root);
     const cmdPath = join(root, "grok.cmd");
     const nodeExePath = join(root, "node.exe");
@@ -319,7 +319,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
     // exe substitution matched the shim's `SET "NODE_EXE=%~dp0\node.exe"`
     // line — resolving `npx` to node.exe and dropping the CLI script, so the
     // probe spawned `node.exe -y codex-acp@1.0.0 --help`.
-    const root = mkdtempSync(join(tmpdir(), "poracode-npm11-npx-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-npm11-npx-shim-"));
     tempDirs.push(root);
     const cmdPath = join(root, "npx.cmd");
     const nodeExePath = join(root, "node.exe");
@@ -364,7 +364,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("keeps the .cmd path for pnpm node-shim wrappers (e.g. command-code.cmd -> node index.mjs)", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-pnpm-command-code-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-pnpm-command-code-shim-"));
     tempDirs.push(root);
     const binDir = join(root, "bin");
     const cmdPath = join(binDir, "command-code.cmd");
@@ -406,7 +406,7 @@ describe.skipIf(process.platform !== "win32")("Windows executable path fallback"
   });
 
   it("keeps the .cmd path for pnpm shims with an extensionless bin script (e.g. grok.cmd)", () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-pnpm-grok-shim-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-pnpm-grok-shim-"));
     tempDirs.push(root);
     const binDir = join(root, "bin");
     const cmdPath = join(binDir, "grok.cmd");

@@ -14,7 +14,7 @@ export function piMcpLaunch(
   return {
     args: ["--extension", helper.path],
     env: {
-      PORACODE_PI_MCP: Buffer.from(JSON.stringify({ version: 1, servers })).toString("base64url"),
+      AXECODE_PI_MCP: Buffer.from(JSON.stringify({ version: 1, servers })).toString("base64url"),
     },
     ...(helper.cleanup ? { cleanup: helper.cleanup } : {}),
   };

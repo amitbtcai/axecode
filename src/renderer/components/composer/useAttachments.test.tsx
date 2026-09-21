@@ -43,7 +43,7 @@ describe("useAttachments", () => {
 
   it("uses the remote image saver for pasted images", async () => {
     const saveImage = vi.fn<SaveClipboardImage>(async () =>
-      Promise.resolve("/Users/host/.poracode/attachments/draft/image.png"),
+      Promise.resolve("/Users/host/.axecode/attachments/draft/image.png"),
     );
     const file = new File([new Uint8Array([1, 2, 3])], "clipboard.png", {
       type: "image/png",
@@ -62,7 +62,7 @@ describe("useAttachments", () => {
     expect(result.current.toSegments()).toEqual([
       {
         kind: "attachment",
-        path: "/Users/host/.poracode/attachments/draft/image.png",
+        path: "/Users/host/.axecode/attachments/draft/image.png",
         mimeType: "image/png",
       },
     ]);
@@ -70,7 +70,7 @@ describe("useAttachments", () => {
 
   it("previews pasted images from a local object URL and revokes it on removal", async () => {
     const saveImage = vi.fn<SaveClipboardImage>(async () =>
-      Promise.resolve("C:\\Users\\host\\.poracode\\attachments\\draft\\image.png"),
+      Promise.resolve("C:\\Users\\host\\.axecode\\attachments\\draft\\image.png"),
     );
     const file = new File([new Uint8Array([1, 2, 3])], "clipboard.png", { type: "image/png" });
     const { result } = renderHook(() => useAttachments({ saveClipboardImage: saveImage }));

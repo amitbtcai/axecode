@@ -19,7 +19,7 @@ vi.mock("./SortableThreadItem/SortableThreadItem", () => ({ SortableThreadItem: 
 
 const project = {
   id: "project-1",
-  name: "Poracode",
+  name: "AxeCode",
   location: { kind: "windows", path: "C:\\repo" },
   createdAt: "2026-08-21T00:00:00.000Z",
 } satisfies Project;
@@ -116,7 +116,7 @@ describe("SidebarThreadRow Done section action", () => {
   it("removes a worktree owned only by one done thread", () => {
     useSharedSettings.setState({ threadRemoveAction: "delete" });
     const thread = makeThread("done-1", {
-      worktreePath: "C:\\repo\\.poracode\\worktrees\\feature",
+      worktreePath: "C:\\repo\\.axecode\\worktrees\\feature",
     });
     renderDoneRow({ doneThreads: [thread] });
 
@@ -128,7 +128,7 @@ describe("SidebarThreadRow Done section action", () => {
 
   it("removes a worktree when every sibling is done", () => {
     useSharedSettings.setState({ threadRemoveAction: "delete" });
-    const worktreePath = "C:\\repo\\.poracode\\worktrees\\feature";
+    const worktreePath = "C:\\repo\\.axecode\\worktrees\\feature";
     const threads = [
       makeThread("done-1", { worktreePath }),
       makeThread("done-2", { worktreePath }),
@@ -143,7 +143,7 @@ describe("SidebarThreadRow Done section action", () => {
 
   it("preserves a worktree that still has a retained sibling", () => {
     useSharedSettings.setState({ threadRemoveAction: "delete" });
-    const worktreePath = "C:\\repo\\.poracode\\worktrees\\feature";
+    const worktreePath = "C:\\repo\\.axecode\\worktrees\\feature";
     const doneThread = makeThread("done-1", { worktreePath });
     const activeThread = makeThread("active-1", { worktreePath, done: false });
     renderDoneRow({ doneThreads: [doneThread], allThreads: [doneThread, activeThread] });

@@ -19,4 +19,4 @@ const Database = require("better-sqlite3");
 new Database(":memory:", { nativeBinding: binding }).close();
 mkdirSync(outputDir, { recursive: true });
 copyFileSync(binding, outputFile);
-console.log(`[poracode-server] prepared better-sqlite3 N-API binding: ${outputFile}`);
+console.log(`[axecode-server] prepared better-sqlite3 N-API binding: ${outputFile}`);

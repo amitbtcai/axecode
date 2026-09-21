@@ -26,7 +26,7 @@ export function createComputerUseDriver(
   const primary = binaryPath
     ? new HelperComputerUseDriver({
         binaryPath,
-        stateDir: options.stateDir ?? join(tmpdir(), "poracode-computer-use"),
+        stateDir: options.stateDir ?? join(tmpdir(), "axecode-computer-use"),
       })
     : null;
   const fallback =

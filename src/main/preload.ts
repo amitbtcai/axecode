@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer, webUtils } from "electron";
-import { type PoracodeChannel, normalizeChannel } from "@/shared/channel";
+import { type AxeCodeChannel, normalizeChannel } from "@/shared/channel";
 import type { RemoteThreadCommand } from "@/shared/contracts";
 import type { RemoteAccessPairingInfo } from "@/shared/remote";
 import type { SharedSettings } from "@/shared/settings";
@@ -8,10 +8,10 @@ import {
   createInvokeBridge,
   IPC_EVENT_CHANNELS,
   IPC_WINDOW_CHANNELS,
-  PORACODE_WINDOW_KINDS,
+  AXECODE_WINDOW_KINDS,
   type BrowserEvent,
-  type PoracodeBridge,
-  type PoracodeWindowKind,
+  type AxeCodeBridge,
+  type AxeCodeWindowKind,
   type PrWatchMergedEvent,
   type PrWatchStatusEvent,
   type ProjectStateChangedEvent,
@@ -23,7 +23,7 @@ import {
 
 /**
  * Host home dir without `node:os` — sandboxed preload must not import Node
- * built-ins that can fail and drop `window.poracode` (index.html then redirects
+ * built-ins that can fail and drop `window.axecode` (index.html then redirects
  * to mobile.html).
  */
 function resolveHomeDir(): string | undefined {
@@ -62,7 +62,7 @@ function resolveIsDev(): boolean {
   return false;
 }
 
-function resolveChannel(): PoracodeChannel {
+function resolveChannel(): AxeCodeChannel {
   const prefix = "--lc-channel=";
   for (const arg of process.argv) {
     if (arg.startsWith(prefix)) {
@@ -72,10 +72,10 @@ function resolveChannel(): PoracodeChannel {
   return "stable";
 }
 
-function resolveWindowKind(): PoracodeWindowKind {
+function resolveWindowKind(): AxeCodeWindowKind {
   const kind = resolveArgValue("--lc-window-kind=");
-  return (PORACODE_WINDOW_KINDS as readonly string[]).includes(kind)
-    ? (kind as PoracodeWindowKind)
+  return (AXECODE_WINDOW_KINDS as readonly string[]).includes(kind)
+    ? (kind as AxeCodeWindowKind)
     : "main";
 }
 
@@ -109,7 +109,7 @@ function resolveArgBoolean(prefix: string): boolean {
 
 const homeDir = resolveHomeDir();
 
-const bridge: PoracodeBridge = {
+const bridge: AxeCodeBridge = {
   platform: process.platform,
   appVersion: resolveAppVersion(),
   arch: process.arch,
@@ -261,4 +261,4 @@ const bridge: PoracodeBridge = {
   },
 };
 
-contextBridge.exposeInMainWorld("poracode", bridge);
+contextBridge.exposeInMainWorld("axecode", bridge);

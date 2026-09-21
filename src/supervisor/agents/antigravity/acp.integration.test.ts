@@ -83,7 +83,7 @@ describe("Antigravity official ACP runtime", () => {
   }, 70_000);
 
   it("creates, resumes, cancels, and cleans up Chat through the shared ACP session", async () => {
-    const root = await mkdtemp(join(tmpdir(), "poracode-antigravity-acp-session-"));
+    const root = await mkdtemp(join(tmpdir(), "axecode-antigravity-acp-session-"));
     roots.push(root);
     const resumeMarker = join(root, "resume.txt");
     const promptMarker = join(root, "prompt.txt");

@@ -73,7 +73,7 @@ describe("shared message i18n integration", () => {
     await dynamicActivate("es");
     const summary = friendlyError(
       new Error(
-        "Error invoking remote method 'poracode:authenticate-acp-agent': Error: My ACP reported authentication success, but Axe Code could not verify it. Configure My ACP directly, then try again.",
+        "Error invoking remote method 'axecode:authenticate-acp-agent': Error: My ACP reported authentication success, but Axe Code could not verify it. Configure My ACP directly, then try again.",
       ),
     );
 

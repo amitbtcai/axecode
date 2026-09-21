@@ -43,7 +43,7 @@ export function McpChip(props: {
         <Tooltip.Trigger>
           <button
             type="button"
-            className="poracode-overlay-header__controls shrink-0 rounded p-1 text-muted/60 transition-colors hover:bg-[var(--row-hover)] hover:text-foreground"
+            className="axecode-overlay-header__controls shrink-0 rounded p-1 text-muted/60 transition-colors hover:bg-[var(--row-hover)] hover:text-foreground"
             aria-label={title}
             onClick={(e) => e.stopPropagation()}
           >
@@ -56,17 +56,17 @@ export function McpChip(props: {
   }
   return (
     <div
-      className="poracode-attachment-chip poracode-browser-chip"
+      className="axecode-attachment-chip axecode-browser-chip"
       title={title}
       aria-label={title}
       role={onRemove ? "group" : "img"}
     >
       <Icon className="size-3 text-muted" aria-hidden="true" />
-      <span className="poracode-attachment-chip__name">{props.label ?? t(descriptor.label)}</span>
+      <span className="axecode-attachment-chip__name">{props.label ?? t(descriptor.label)}</span>
       {onRemove ? (
         <button
           type="button"
-          className="poracode-attachment-chip__delete"
+          className="axecode-attachment-chip__delete"
           aria-label={t(descriptor.disableLabel)}
           onMouseDown={(e) => e.preventDefault()}
           onClick={(e) => {
@@ -140,14 +140,14 @@ function AttachmentChip(props: {
       : att.selector
     : undefined;
   const labelClass = isPicked
-    ? "poracode-attachment-chip__name poracode-attachment-chip__selector"
-    : "poracode-attachment-chip__name";
+    ? "axecode-attachment-chip__name axecode-attachment-chip__selector"
+    : "axecode-attachment-chip__name";
 
   const content = (
     <>
       {att.isImage ? (
         <img
-          className="poracode-attachment-chip__thumb"
+          className="axecode-attachment-chip__thumb"
           src={attachmentImageUrl(att, imageUrlForPath)}
           alt={att.name}
           decoding="async"
@@ -155,7 +155,7 @@ function AttachmentChip(props: {
         />
       ) : (
         <img
-          className="poracode-attachment-chip__icon"
+          className="axecode-attachment-chip__icon"
           src={getEntryIconUrl(att.name, false)}
           alt=""
           draggable={false}
@@ -169,7 +169,7 @@ function AttachmentChip(props: {
       {onRemove ? (
         <button
           type="button"
-          className="poracode-attachment-chip__delete"
+          className="axecode-attachment-chip__delete"
           aria-label={t`Remove ${att.name}`}
           onMouseDown={(e) => e.preventDefault()}
           onClick={(e) => {
@@ -191,7 +191,7 @@ function AttachmentChip(props: {
   if (onPreview) {
     return (
       <div
-        className="poracode-attachment-chip"
+        className="axecode-attachment-chip"
         role="button"
         tabIndex={0}
         aria-label={t`Preview ${att.name}`}
@@ -208,7 +208,7 @@ function AttachmentChip(props: {
     );
   }
 
-  return <div className="poracode-attachment-chip">{content}</div>;
+  return <div className="axecode-attachment-chip">{content}</div>;
 }
 
 function ImagePreview(props: {
@@ -230,8 +230,8 @@ function ImagePreview(props: {
     return (
       <button
         type="button"
-        className="poracode-attachment-image-preview"
-        data-poracode-attachment-image-preview="true"
+        className="axecode-attachment-image-preview"
+        data-axecode-attachment-image-preview="true"
         onClick={() => onPreviewImage(att)}
         aria-label={t`Preview ${att.name}`}
       >
@@ -240,10 +240,7 @@ function ImagePreview(props: {
     );
   }
   return (
-    <span
-      className="poracode-attachment-image-preview"
-      data-poracode-attachment-image-preview="true"
-    >
+    <span className="axecode-attachment-image-preview" data-axecode-attachment-image-preview="true">
       {img}
     </span>
   );
@@ -275,8 +272,8 @@ export function AttachmentBar(props: {
 
   const className =
     layout === "inset"
-      ? "poracode-attachment-bar poracode-attachment-bar--inset"
-      : "poracode-attachment-bar";
+      ? "axecode-attachment-bar axecode-attachment-bar--inset"
+      : "axecode-attachment-bar";
 
   return (
     <div className={className}>

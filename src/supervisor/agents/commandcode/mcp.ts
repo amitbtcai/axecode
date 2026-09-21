@@ -10,7 +10,7 @@ export function commandCodeMcpLaunch(
   return {
     args: ["--mod", helper.path],
     env: {
-      PORACODE_COMMANDCODE_MCP: Buffer.from(JSON.stringify({ version: 1, servers })).toString(
+      AXECODE_COMMANDCODE_MCP: Buffer.from(JSON.stringify({ version: 1, servers })).toString(
         "base64url",
       ),
     },

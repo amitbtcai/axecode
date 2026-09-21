@@ -34,7 +34,7 @@ export function ThreadDraftCompactHeader({
       className={`px-2 ${props.headerNeedsTrafficLightPad ? macosTrafficLightPadClass : ""}`}
     >
       <div
-        className={`${props.paneDraggable ? "poracode-content-over-drag-region" : "poracode-content-over-drag-region--drag"} ${props.alignClass} flex w-full max-w-[920px] items-center gap-2 py-1`}
+        className={`${props.paneDraggable ? "axecode-content-over-drag-region" : "axecode-content-over-drag-region--drag"} ${props.alignClass} flex w-full max-w-[920px] items-center gap-2 py-1`}
       >
         {/* The drag handle wraps only the title. dnd-kit exposes the handle as
             a (possibly disabled) button, so it must not contain other controls
@@ -62,7 +62,7 @@ export function ThreadDraftCompactHeader({
             <button
               type="button"
               aria-label={t`Close pane`}
-              className="poracode-overlay-header__controls shrink-0 rounded p-1 text-muted/60 transition-colors hover:bg-[var(--row-hover)] hover:text-foreground"
+              className="axecode-overlay-header__controls shrink-0 rounded p-1 text-muted/60 transition-colors hover:bg-[var(--row-hover)] hover:text-foreground"
               onClick={(e) => {
                 e.stopPropagation();
                 props.onClose?.();

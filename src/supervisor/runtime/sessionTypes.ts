@@ -63,7 +63,7 @@ export interface SessionRuntime {
   mcpLaunchSnapshot: McpLaunchSnapshot;
   /** True only when the resolved launch server set contains app-controls/read_thread. */
   threadMentionToolsAvailable?: boolean;
-  /** Provider-native plugin packages that replace matching Poracode contributions. */
+  /** Provider-native plugin packages that replace matching AxeCode contributions. */
   nativePlugins?: readonly AgentNativePlugin[];
   sessionRef?: SessionRef;
   slashCommands?: AgentSlashCommand[];
@@ -136,7 +136,7 @@ export interface SessionRuntime {
   workingSilenceTimer?: ReturnType<typeof setTimeout> | undefined;
   outputTranscript?: TranscriptBuffer | undefined;
   /**
-   * True when `PORACODE_HOOK_URL` (and related vars) were injected into the
+   * True when `AXECODE_HOOK_URL` (and related vars) were injected into the
    * agent PTY at spawn (L1 path: host or WSL bridge → HookIngress). Used so the
    * UI can show Enhanced (Hooks) before the first routed hook event. If the CLI
    * blocks hooks from running, OSC/title hints can promote the session back to

@@ -44,6 +44,6 @@ export function classifyRendererProcessGone(
 
   return {
     bucket,
-    fingerprint: ["poracode-renderer-process-gone", platform, bucket],
+    fingerprint: ["axecode-renderer-process-gone", platform, bucket],
   };
 }

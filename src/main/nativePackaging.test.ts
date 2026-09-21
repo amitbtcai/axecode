@@ -25,7 +25,7 @@ describe("SQLite N-API packaging", () => {
     fixture = mkdtempSync(join(tmp, "native-packaging-"));
     const resources =
       platform === "darwin"
-        ? join(fixture, "Poracode.app", "Contents", "Resources")
+        ? join(fixture, "AxeCode.app", "Contents", "Resources")
         : join(fixture, "resources");
     const modules = join(resources, "app.asar.unpacked", "node_modules");
     const sqlite = join(modules, "better-sqlite3", "prebuilds");
@@ -36,7 +36,7 @@ describe("SQLite N-API packaging", () => {
       mkdirSync(pty, { recursive: true });
       writeFileSync(join(pty, "pty.node"), target);
     }
-    vi.stubEnv("PORACODE_ALLOW_MISSING_COMPUTER_USE_HELPER", "1");
+    vi.stubEnv("AXECODE_ALLOW_MISSING_COMPUTER_USE_HELPER", "1");
     return sqlite;
   }
 

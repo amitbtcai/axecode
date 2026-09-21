@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import type { ProjectLocation } from "@/shared/contracts";
-import { resolvePoracodePaths } from "@/shared/poracodePaths";
+import { resolveAxeCodePaths } from "@/shared/axecodePaths";
 import {
   findSessionFiles,
   getCachedWslHomeDirectory,
@@ -18,7 +18,7 @@ import {
 } from "./sessionFiles";
 
 function nativePrivateCodexHome(): string {
-  return join(resolvePoracodePaths(process.env.PORACODE_DATA_DIR).agentPluginsDir, "codex", "home");
+  return join(resolveAxeCodePaths(process.env.AXECODE_DATA_DIR).agentPluginsDir, "codex", "home");
 }
 
 function nativeCodexHomeCandidates(): string[] {
@@ -27,7 +27,7 @@ function nativeCodexHomeCandidates(): string[] {
 
 /** Append the codex private-home suffix to a resolved WSL `$HOME`, if present. */
 function codexPrivateHomeFrom(home: string | undefined): string | undefined {
-  return home ? `${home}/.poracode/agent-plugins/codex/home` : undefined;
+  return home ? `${home}/.axecode/agent-plugins/codex/home` : undefined;
 }
 
 function wslPrivateCodexHome(distro: string): string | undefined {

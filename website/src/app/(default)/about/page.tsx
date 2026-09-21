@@ -13,9 +13,9 @@ import {
 } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "About Poracode — Open-source AI coding agent desktop app",
+  title: "About AxeCode — Open-source AI coding agent desktop app",
   description:
-    "Learn what Poracode is: an open-source desktop workspace for Claude Code, Codex, Gemini, Cursor, OpenCode, and ACP coding agents.",
+    "Learn what AxeCode is: an open-source desktop workspace for Claude Code, Codex, Gemini, Cursor, OpenCode, and ACP coding agents.",
   path: "/about",
 });
 
@@ -28,7 +28,7 @@ const OFFICIAL_LINKS = [
   },
   {
     label: "Source repository",
-    value: "Porabuild/Poracode",
+    value: "Porabuild/AxeCode",
     href: GITHUB_URL,
     icon: GitBranch,
   },
@@ -81,7 +81,7 @@ export default function AboutPage() {
             Official project profile
           </p>
           <h1 className="max-w-3xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl md:text-6xl">
-            About Poracode
+            About AxeCode
           </h1>
           <p className="mt-7 max-w-3xl text-xl leading-9 text-dim">{SITE_DESCRIPTION}</p>
         </header>
@@ -90,10 +90,10 @@ export default function AboutPage() {
           <div className="space-y-12 text-[16px] leading-8 text-dim">
             <section>
               <h2 className="mb-4 text-2xl font-semibold tracking-[-0.02em] text-moon">
-                What Poracode is
+                What AxeCode is
               </h2>
               <p>
-                Poracode is an open-source developer tool for working with AI coding agents from a
+                AxeCode is an open-source developer tool for working with AI coding agents from a
                 single desktop workspace. It brings terminal-native agents and structured chat
                 workflows together with the files, Git changes, browser previews, worktrees, and
                 pull requests involved in a real coding session.
@@ -117,9 +117,9 @@ export default function AboutPage() {
                 Open source and cross-platform
               </h2>
               <p>
-                Poracode is developed in public and distributed under the Apache License 2.0. The
+                AxeCode is developed in public and distributed under the Apache License 2.0. The
                 desktop app is available for macOS, Windows, and Linux, with a hosted companion at
-                app.poracode.com for connecting to a Poracode desktop that you control.
+                app.poracode.com for connecting to a AxeCode desktop that you control.
               </p>
             </section>
 
@@ -128,14 +128,14 @@ export default function AboutPage() {
                 The official identity
               </h2>
               <p>
-                Poracode, Pora.code, and poracode.com refer to this AI coding agent software
-                project. The canonical website is poracode.com, and the canonical source repository
-                is Porabuild/Poracode on GitHub.
+                AxeCode, Pora.code, and poracode.com refer to this AI coding agent software project.
+                The canonical website is poracode.com, and the canonical source repository is
+                Porabuild/AxeCode on GitHub.
               </p>
             </section>
           </div>
 
-          <aside aria-label="Official Poracode links" className="md:pt-1">
+          <aside aria-label="Official AxeCode links" className="md:pt-1">
             <div className="sticky top-8 overflow-hidden rounded-2xl border border-white/[0.08] bg-tile/80">
               <div className="border-b border-white/[0.07] px-5 py-4">
                 <BrandLockup />

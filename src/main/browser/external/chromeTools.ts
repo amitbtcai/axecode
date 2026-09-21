@@ -37,7 +37,7 @@ export interface ChromeToolContext {
 const CHROME_CORE_SKILL = uniqueCoreSkillForBuiltInMcp("chrome");
 
 export const CHROME_MCP_INSTRUCTIONS = [
-  "These tools control the USER'S OWN Chrome browser through the Poracode companion extension —",
+  "These tools control the USER'S OWN Chrome browser through the AxeCode companion extension —",
   "real tabs, real cookies, real logged-in sessions. Treat every action as if the user performed it themselves.",
   "By default you work in a BACKGROUND 'Axe Code' tab group that does NOT steal the user's foreground tab:",
   "open reuses your single background workspace tab (navigating it in place) and navigate/click/etc. run",
@@ -57,7 +57,7 @@ function pageExecutor(cdp: CdpSession): { executeJavaScript: (code: string) => P
 }
 
 /** Per-thread tab-group options for the extension's `openTab`, derived from the
- *  calling thread. Absent when no thread is on the URL (falls back to Poracode). */
+ *  calling thread. Absent when no thread is on the URL (falls back to AxeCode). */
 function threadGroupOpts(ctx: ChromeToolContext): {
   groupKey?: string;
   groupTitle?: string;
@@ -100,7 +100,7 @@ export async function dispatchChromeTool(
     if (!conn) {
       return {
         connected: false,
-        hint: "The Poracode Chrome extension is not connected. Ask the user to install/enable it — it auto-connects when Poracode is running — and confirm its popup shows Connected.",
+        hint: "The AxeCode Chrome extension is not connected. Ask the user to install/enable it — it auto-connects when AxeCode is running — and confirm its popup shows Connected.",
       };
     }
     return conn.status();
@@ -118,7 +118,7 @@ export async function dispatchChromeTool(
   if (!conn) {
     return {
       error:
-        "The Poracode Chrome extension is not connected. Ask the user to install/enable it (it auto-connects), then retry chrome_status.",
+        "The AxeCode Chrome extension is not connected. Ask the user to install/enable it (it auto-connects), then retry chrome_status.",
     };
   }
 
@@ -274,7 +274,7 @@ const RAW_CHROME_TOOLS: ToolSpec[] = [
   {
     name: "attach",
     description:
-      "Attach to one of the user's EXISTING tabs (shows a 'Poracode started debugging' banner). Use only when asked to act on a tab the user already has open; pass a tabId from list_tabs (omit for the active tab).",
+      "Attach to one of the user's EXISTING tabs (shows a 'AxeCode started debugging' banner). Use only when asked to act on a tab the user already has open; pass a tabId from list_tabs (omit for the active tab).",
     inputSchema: {
       type: "object",
       properties: { tabId: { type: "number", description: "Chrome tab id from list_tabs" } },

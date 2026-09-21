@@ -263,7 +263,7 @@ export const useAgentStatusesStore = create<AgentStatusesStore>()(
         }),
     }),
     {
-      name: "poracode-agent-statuses-v1",
+      name: "axecode-agent-statuses-v1",
       version: 30,
       // v30 mirrors supervisor STATUS_CACHE_VERSION=33: discover the OpenCode 2
       // provider and re-probe the per-provider credentials agents report
@@ -320,7 +320,7 @@ export function applyAgentStatusSupervisorEvent(
       store.mergeAgentStatus(event.status);
       break;
     case "windows-agent-statuses": {
-      if (import.meta.env.DEV) performance.mark("poracode:native providers discovered");
+      if (import.meta.env.DEV) performance.mark("axecode:native providers discovered");
       console.log(`[renderer] event: windows-agent-statuses (${event.statuses.length} agents)`);
       if (
         options.deferFirstLaunchBulk &&

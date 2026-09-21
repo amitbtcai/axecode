@@ -26,12 +26,12 @@ const TOKEN_EXPIRY_SLACK_MS = 60 * 1000;
 const STORE_FILE_NAME = "mcp-oauth.json";
 const CALLBACK_PATH = "/callback";
 
-const CALLBACK_SUCCESS_HTML = `<!doctype html><html><head><meta charset="utf-8"><title>Poracode</title></head>
+const CALLBACK_SUCCESS_HTML = `<!doctype html><html><head><meta charset="utf-8"><title>AxeCode</title></head>
 <body style="font-family: system-ui, sans-serif; display: flex; justify-content: center; margin-top: 4rem;">
-<p>Sign-in complete. You can close this window and return to Poracode.</p></body></html>`;
-const CALLBACK_FAILURE_HTML = `<!doctype html><html><head><meta charset="utf-8"><title>Poracode</title></head>
+<p>Sign-in complete. You can close this window and return to AxeCode.</p></body></html>`;
+const CALLBACK_FAILURE_HTML = `<!doctype html><html><head><meta charset="utf-8"><title>AxeCode</title></head>
 <body style="font-family: system-ui, sans-serif; display: flex; justify-content: center; margin-top: 4rem;">
-<p>Sign-in failed. You can close this window and retry from Poracode.</p></body></html>`;
+<p>Sign-in failed. You can close this window and retry from AxeCode.</p></body></html>`;
 
 /** Sealed-at-rest per-server credential entry. Values are `encryptSecret` strings. */
 interface StoredEntry {

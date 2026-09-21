@@ -15,7 +15,7 @@ import type { BuiltInMcpServerId } from "../contracts/mcpServer";
  * renderer apply to them — host/project support and contribution enablement.
  *
  * A package contributes the specification's skills and `mcp.json` servers.
- * Poracode's extension may bind those to an equivalent built-in MCP or a
+ * AxeCode's extension may bind those to an equivalent built-in MCP or a
  * provider-native package without changing the standard package contents.
  */
 
@@ -23,7 +23,7 @@ export function isPluginSupportedOnHost(
   plugin: LoadedPlugin,
   hostPlatform: NodeJS.Platform,
 ): boolean {
-  const platforms = plugin.poracode.platforms;
+  const platforms = plugin.axecode.platforms;
   return !platforms || platforms.includes(hostPlatform as "win32" | "darwin" | "linux");
 }
 
@@ -32,7 +32,7 @@ export function isPluginSupportedForProject(
   hostPlatform: NodeJS.Platform,
   projectLocation: ProjectLocation | undefined,
 ): boolean {
-  const projectKinds = plugin.poracode.projectKinds;
+  const projectKinds = plugin.axecode.projectKinds;
   return (
     isPluginSupportedOnHost(plugin, hostPlatform) &&
     (!projectLocation || !projectKinds || projectKinds.includes(projectLocation.kind))
@@ -45,7 +45,7 @@ export function getPluginSkill(plugin: LoadedPlugin, folder: string): PluginSkil
 
 /** Skill represented by an `@Plugin` composer mention. */
 export function getPluginCoreSkill(plugin: LoadedPlugin): PluginSkillRef | undefined {
-  const configured = plugin.poracode.coreSkill;
+  const configured = plugin.axecode.coreSkill;
   if (configured) return getPluginSkill(plugin, configured);
   return (
     getPluginSkill(plugin, plugin.name) ??
@@ -54,11 +54,11 @@ export function getPluginCoreSkill(plugin: LoadedPlugin): PluginSkillRef | undef
 }
 
 export function pluginBuiltInMcpServerIds(plugin: LoadedPlugin): readonly BuiltInMcpServerId[] {
-  return plugin.poracode.builtInMcpServerIds;
+  return plugin.axecode.builtInMcpServerIds;
 }
 
 /**
- * A bundled package whose only servers are Poracode's own built-in MCPs
+ * A bundled package whose only servers are AxeCode's own built-in MCPs
  * (Browser, Chrome, Crossagents, Computer Use). These ship inside the app, so
  * there is nothing to fetch or install: they count as installed from the first
  * run and are enabled unless the user turns them off. Packages that carry their
@@ -67,7 +67,7 @@ export function pluginBuiltInMcpServerIds(plugin: LoadedPlugin): readonly BuiltI
 export function isBuiltInToolPlugin(plugin: LoadedPlugin): boolean {
   return (
     plugin.source === "bundled" &&
-    plugin.poracode.builtInMcpServerIds.length > 0 &&
+    plugin.axecode.builtInMcpServerIds.length > 0 &&
     plugin.mcpServers.length === 0
   );
 }
@@ -76,7 +76,7 @@ export function isBuiltInToolPlugin(plugin: LoadedPlugin): boolean {
 export function defaultInstalledPluginState(plugin: LoadedPlugin): InstalledPluginState {
   return {
     version: plugin.manifest.version ?? "0.0.0",
-    enabled: plugin.poracode.defaultEnabled,
+    enabled: plugin.axecode.defaultEnabled,
     disabledSkillIds: [],
     disabledMcpServerNames: [],
   };
@@ -100,7 +100,7 @@ export function resolveInstalledPluginState(
 
 /** Bundled plugins the user cannot switch off. */
 export function isAlwaysEnabledPlugin(plugin: LoadedPlugin): boolean {
-  return plugin.source === "bundled" && plugin.poracode.alwaysEnabled;
+  return plugin.source === "bundled" && plugin.axecode.alwaysEnabled;
 }
 
 /** Built-in tool plugins are part of the app; they can be disabled, not removed. */
@@ -114,7 +114,7 @@ export function canDisablePlugin(plugin: LoadedPlugin): boolean {
 }
 
 export function pluginNativeNames(plugin: LoadedPlugin): readonly string[] {
-  return [plugin.name, ...plugin.poracode.nativePluginNames];
+  return [plugin.name, ...plugin.axecode.nativePluginNames];
 }
 
 export function isPluginProvidedNatively(
@@ -123,7 +123,7 @@ export function isPluginProvidedNatively(
 ): boolean {
   if (nativePluginNames === undefined) return false;
   if (nativePluginNames.has(plugin.name)) return true;
-  const replacements = plugin.poracode.nativePluginNames;
+  const replacements = plugin.axecode.nativePluginNames;
   return replacements.length > 0 && replacements.every((name) => nativePluginNames.has(name));
 }
 

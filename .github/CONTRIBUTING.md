@@ -1,4 +1,4 @@
-# Contributing to Poracode
+# Contributing to AxeCode
 
 Thanks for thinking about contributing! Bug reports, docs fixes, new providers, and features are all welcome.
 
@@ -6,16 +6,16 @@ By contributing, you agree your work is licensed under the [Apache License 2.0](
 
 ## Before you start
 
-- For anything non-trivial, [open an issue](https://github.com/Porabuild/Poracode/issues/new/choose) first so we can align on scope.
-- Search [existing issues](https://github.com/Porabuild/Poracode/issues) and [PRs](https://github.com/Porabuild/Poracode/pulls) to avoid duplicates.
+- For anything non-trivial, [open an issue](https://github.com/Porabuild/AxeCode/issues/new/choose) first so we can align on scope.
+- Search [existing issues](https://github.com/Porabuild/AxeCode/issues) and [PRs](https://github.com/Porabuild/AxeCode/pulls) to avoid duplicates.
 
 ## Local setup
 
 You'll need Node `>= 24.10.0` (see `.nvmrc`) and pnpm `12.3.4` (pinned in `package.json#packageManager`).
 
 ```bash
-git clone https://github.com/<your-username>/poracode.git
-cd poracode
+git clone https://github.com/<your-username>/axecode.git
+cd axecode
 pnpm install
 pnpm run dev
 ```
@@ -47,7 +47,7 @@ Rebase on the latest `master` before requesting review. Husky runs `lint-staged`
 
 ## Reporting issues
 
-Use the [issue templates](https://github.com/Porabuild/Poracode/issues/new/choose). Include OS, Poracode version, the agent(s) involved, and reproduction steps.
+Use the [issue templates](https://github.com/Porabuild/AxeCode/issues/new/choose). Include OS, AxeCode version, the agent(s) involved, and reproduction steps.
 
 For security issues, don't open a public issue. See [SECURITY.md](SECURITY.md).
 

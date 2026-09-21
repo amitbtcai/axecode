@@ -7,7 +7,7 @@ import type { ToolSpec } from "./types";
 
 const BROWSER_CORE_SKILL = uniqueCoreSkillForBuiltInMcp("browser");
 
-export const BROWSER_MCP_INSTRUCTIONS = `Use the browser MCP server for browsing, inspecting, clicking, typing, screenshots, network/console checks, and local web app verification inside Poracode. Before the first browsing action, ${loadPluginCoreSkillPhrase(BROWSER_CORE_SKILL)}, then call browser.enable once and keep it enabled across the whole uninterrupted browser session so agent presence stays consistent between calls. Always call browser.disable before pausing to ask for user input, waiting for an external event, or finishing, and enable again when you resume. Use browser.perform to batch known page actions and a condition wait with one final compact observation; split at decisions and navigation and never replay completed actions after partial failure. Prefer browser.snapshot or browser.find before browser.click/fill/type, use @e refs from snapshots when possible, and call browser.api when you need the complete API map.`;
+export const BROWSER_MCP_INSTRUCTIONS = `Use the browser MCP server for browsing, inspecting, clicking, typing, screenshots, network/console checks, and local web app verification inside AxeCode. Before the first browsing action, ${loadPluginCoreSkillPhrase(BROWSER_CORE_SKILL)}, then call browser.enable once and keep it enabled across the whole uninterrupted browser session so agent presence stays consistent between calls. Always call browser.disable before pausing to ask for user input, waiting for an external event, or finishing, and enable again when you resume. Use browser.perform to batch known page actions and a condition wait with one final compact observation; split at decisions and navigation and never replay completed actions after partial failure. Prefer browser.snapshot or browser.find before browser.click/fill/type, use @e refs from snapshots when possible, and call browser.api when you need the complete API map.`;
 
 const RAW_TOOLS: ToolSpec[] = [
   {
@@ -31,12 +31,12 @@ const RAW_TOOLS: ToolSpec[] = [
   },
   {
     name: "list_tabs",
-    description: "List open tabs in the Poracode in-app browser panel.",
+    description: "List open tabs in the AxeCode in-app browser panel.",
     inputSchema: { type: "object", properties: {} },
   },
   {
     name: "new_tab",
-    description: "Open a new tab in the Poracode browser panel.",
+    description: "Open a new tab in the AxeCode browser panel.",
     inputSchema: {
       type: "object",
       properties: {
@@ -47,7 +47,7 @@ const RAW_TOOLS: ToolSpec[] = [
   },
   {
     name: "open",
-    description: "Open a URL in the active Poracode browser tab, creating a tab if needed.",
+    description: "Open a URL in the active AxeCode browser tab, creating a tab if needed.",
     inputSchema: {
       type: "object",
       required: ["url"],
@@ -272,7 +272,7 @@ const RAW_TOOLS: ToolSpec[] = [
   {
     name: "eval",
     description:
-      "Evaluate a JS expression in the page's main world. Disabled by default; enable in Poracode settings.",
+      "Evaluate a JS expression in the page's main world. Disabled by default; enable in AxeCode settings.",
     inputSchema: {
       type: "object",
       required: ["js"],
@@ -502,7 +502,7 @@ const RAW_TOOLS: ToolSpec[] = [
   {
     name: "cookies",
     description:
-      'Cookies for the tab. `op:"get"` returns matching cookies; `op:"set"` upserts; `op:"clear"` deletes (filter optional). Requires allowDataAccess in Poracode settings.',
+      'Cookies for the tab. `op:"get"` returns matching cookies; `op:"set"` upserts; `op:"clear"` deletes (filter optional). Requires allowDataAccess in AxeCode settings.',
     inputSchema: {
       type: "object",
       properties: {
@@ -537,7 +537,7 @@ const RAW_TOOLS: ToolSpec[] = [
   {
     name: "storage",
     description:
-      'Read/write localStorage or sessionStorage. `op:"getAll"|"get"|"set"|"remove"|"clear"`. Requires allowDataAccess in Poracode settings.',
+      'Read/write localStorage or sessionStorage. `op:"getAll"|"get"|"set"|"remove"|"clear"`. Requires allowDataAccess in AxeCode settings.',
     inputSchema: {
       type: "object",
       required: ["op", "kind"],

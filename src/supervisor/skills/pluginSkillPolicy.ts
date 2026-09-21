@@ -169,7 +169,7 @@ export class PluginSkillPolicy {
       const state = resolveInstalledPluginState(plugin, installedPlugins);
       if (!state) return [];
       if (!this.isSupported(plugin, context)) return [];
-      const label = plugin.poracode.title ?? plugin.name;
+      const label = plugin.axecode.title ?? plugin.name;
       return [
         {
           ...skill,

@@ -120,7 +120,7 @@ export function AsideSlot(props: {
       ? { transition: `opacity ${contentFadeDuration} ${contentFadeEase}` }
       : {
           animation: `${
-            contentVisible ? "poracode-panel-content-in" : "poracode-panel-content-out"
+            contentVisible ? "axecode-panel-content-in" : "axecode-panel-content-out"
           } ${contentFadeDuration} ${contentFadeEase}`,
         }),
     willChange: "opacity",
@@ -132,7 +132,7 @@ export function AsideSlot(props: {
       {showHandle && (
         <div
           key="handle"
-          className={isHorizontal ? "poracode-resize-handle-horizontal" : "poracode-resize-handle"}
+          className={isHorizontal ? "axecode-resize-handle-horizontal" : "axecode-resize-handle"}
           onMouseDown={onResizeStart}
           onKeyDown={onResizeKeyDown}
           role="separator"
@@ -145,7 +145,7 @@ export function AsideSlot(props: {
         {showOverlayHandle && (
           <div
             key="overlay-handle"
-            className="poracode-resize-handle-overlay"
+            className="axecode-resize-handle-overlay"
             style={{ top: overlayTop }}
             onMouseDown={onResizeStart}
             onKeyDown={onResizeKeyDown}

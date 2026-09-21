@@ -1,4 +1,4 @@
-import { isQoderSessionLive } from "@poracode/agents-usage";
+import { isQoderSessionLive } from "@axecode/agents-usage";
 import { fetchHttpClient } from "./fetchHttpClient";
 
 /**
@@ -6,7 +6,7 @@ import { fetchHttpClient } from "./fetchHttpClient";
  * qoder.com sets non-auth cookies on every page load (locale, anti-bot) whose
  * names match the login pattern, so a name match alone would prompt before the
  * user signs in. Runs the same usages-endpoint probe as the usage collector via
- * the shared `@poracode/agents-usage` helper, backed here by global fetch —
+ * the shared `@axecode/agents-usage` helper, backed here by global fetch —
  * the same shape as `openCodeLoginProbe`.
  */
 

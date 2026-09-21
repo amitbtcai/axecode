@@ -81,7 +81,7 @@ function makeStubbedManager(opts: {
       nodeVersion: "22.11.0",
       source: "user-installed",
     }),
-    deploy: () => ({ home: "/home/me", linuxBaseDir: "/home/me/.poracode" }),
+    deploy: () => ({ home: "/home/me", linuxBaseDir: "/home/me/.axecode" }),
     spawn: (childOpts) => {
       const spawnedChild = opts.childFactory?.() ?? child;
       children.push(spawnedChild);
@@ -286,10 +286,10 @@ describe("WslBridgeServer", () => {
   });
 
   it("forwards Browser MCP upstream env into the in-WSL bridge", async () => {
-    const oldUrl = process.env.PORACODE_BROWSER_MCP_URL;
-    const oldToken = process.env.PORACODE_BROWSER_MCP_TOKEN;
-    process.env.PORACODE_BROWSER_MCP_URL = "http://127.0.0.1:65093";
-    process.env.PORACODE_BROWSER_MCP_TOKEN = "browser-token";
+    const oldUrl = process.env.AXECODE_BROWSER_MCP_URL;
+    const oldToken = process.env.AXECODE_BROWSER_MCP_TOKEN;
+    process.env.AXECODE_BROWSER_MCP_URL = "http://127.0.0.1:65093";
+    process.env.AXECODE_BROWSER_MCP_TOKEN = "browser-token";
     const helpersDir = makeHelpersDir();
     let capturedEnv: Record<string, string> | undefined;
     try {
@@ -304,19 +304,19 @@ describe("WslBridgeServer", () => {
       await manager.ensureBridge("Ubuntu");
 
       expect(capturedEnv).toMatchObject({
-        PORACODE_BROWSER_MCP_URL: "http://127.0.0.1:65093",
-        PORACODE_BROWSER_MCP_TOKEN: "browser-token",
+        AXECODE_BROWSER_MCP_URL: "http://127.0.0.1:65093",
+        AXECODE_BROWSER_MCP_TOKEN: "browser-token",
       });
     } finally {
       if (oldUrl === undefined) {
-        delete process.env.PORACODE_BROWSER_MCP_URL;
+        delete process.env.AXECODE_BROWSER_MCP_URL;
       } else {
-        process.env.PORACODE_BROWSER_MCP_URL = oldUrl;
+        process.env.AXECODE_BROWSER_MCP_URL = oldUrl;
       }
       if (oldToken === undefined) {
-        delete process.env.PORACODE_BROWSER_MCP_TOKEN;
+        delete process.env.AXECODE_BROWSER_MCP_TOKEN;
       } else {
-        process.env.PORACODE_BROWSER_MCP_TOKEN = oldToken;
+        process.env.AXECODE_BROWSER_MCP_TOKEN = oldToken;
       }
     }
   });
@@ -329,7 +329,7 @@ describe("WslBridgeServer", () => {
       secret: "s",
       protocolVersion: 1,
       resolveNode: async () => null,
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: () => {
         throw new Error("should not spawn");
       },
@@ -398,7 +398,7 @@ describe("WslBridgeServer", () => {
         nodeVersion: "22.11.0",
         source: "user-installed",
       }),
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: () => {
         // Schedule the early exit AFTER spawn returns so the manager has
         // already attached its `once("exit")` handler.
@@ -433,7 +433,7 @@ describe("WslBridgeServer", () => {
         nodeVersion: "22.11.0",
         source: "user-installed",
       }),
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: () => {
         const child = new FakeChild();
         const version = versions[children.length] ?? "2.0.0";
@@ -474,10 +474,10 @@ describe("WslBridgeServer", () => {
         nodeVersion: "22.11.0",
         source: "user-installed",
       }),
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: (opts) => {
         expect(opts.stdin).toBe("pipe");
-        expect(opts.env?.PORACODE_BRIDGE_PARENT_STDIN).toBe("1");
+        expect(opts.env?.AXECODE_BRIDGE_PARENT_STDIN).toBe("1");
         const child = new FakeChild();
         const version = children.length === 0 ? "2.15.0" : "2.16.0";
         const port = children.length === 0 ? 9100 : 9101;
@@ -520,7 +520,7 @@ describe("WslBridgeServer", () => {
         nodeVersion: "22.11.0",
         source: "user-installed",
       }),
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: () => {
         const child = new FakeChild();
         children.push(child);
@@ -557,7 +557,7 @@ describe("WslBridgeServer", () => {
         nodeVersion: "22.11.0",
         source: "user-installed",
       }),
-      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.poracode" }),
+      deploy: () => ({ home: "/h", linuxBaseDir: "/h/.axecode" }),
       spawn: () => {
         const child = new FakeChild();
         setImmediate(() => {

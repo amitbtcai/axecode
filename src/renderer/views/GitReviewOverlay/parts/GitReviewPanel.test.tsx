@@ -74,7 +74,7 @@ describe("GitReviewPanel", () => {
   it("refreshes an existing full status when the panel opens", async () => {
     const project: Project = {
       id: "remote-project",
-      name: "Poracode",
+      name: "AxeCode",
       createdAt: new Date().toISOString(),
       location: {
         kind: "posix",

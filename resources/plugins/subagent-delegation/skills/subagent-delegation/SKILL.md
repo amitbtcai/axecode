@@ -1,11 +1,11 @@
 ---
 name: subagent-delegation
-description: Delegate independent, bounded work to the best available Poracode agents and consolidate verified results. Use for parallel research, independent reviews, specialist work, or non-overlapping implementation; do not delegate trivial, sequential, tightly coupled, or context-heavy work.
+description: Delegate independent, bounded work to the best available AxeCode agents and consolidate verified results. Use for parallel research, independent reviews, specialist work, or non-overlapping implementation; do not delegate trivial, sequential, tightly coupled, or context-heavy work.
 ---
 
 # Crossagents
 
-Use Poracode's `crossagents` MCP when independent, bounded work can run in parallel or a specialist or independent second opinion will materially improve the result. The coordinator remains responsible for understanding the problem, protecting shared state, and validating the final answer.
+Use AxeCode's `crossagents` MCP when independent, bounded work can run in parallel or a specialist or independent second opinion will materially improve the result. The coordinator remains responsible for understanding the problem, protecting shared state, and validating the final answer.
 
 ## Decide whether to delegate
 

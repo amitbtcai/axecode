@@ -27,7 +27,7 @@ describe.each([
     },
     {
       name: "legacy stored link with a line range",
-      href: () => "https://poracode.local/path/%2Ftmp%2Freport.txt%3A20-26",
+      href: () => "https://axecode.local/path/%2Ftmp%2Freport.txt%3A20-26",
       path: "report.txt",
       line: 20,
       title: "report.txt:20-26",

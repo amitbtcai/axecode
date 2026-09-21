@@ -78,7 +78,7 @@ describe("PersistentJsonLineHost", () => {
     const host = new PersistentJsonLineHost({
       label: "missing host",
       maxStdoutBufferBytes: 1024,
-      spawn: () => spawn("this-executable-does-not-exist-poracode"),
+      spawn: () => spawn("this-executable-does-not-exist-axecode"),
     });
     hosts.push(host);
 

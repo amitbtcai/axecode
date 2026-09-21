@@ -2,15 +2,15 @@ import { nativeImage } from "electron";
 import type { BrowserPanelManager } from "../browser";
 import { dbGetProject, dbGetProjects, dbGetThreads } from "../db";
 import { patchSharedSettingsFile, readSharedSettingsFile } from "../sharedSettingsFile";
-import type { PoracodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
+import type { AxeCodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
 import type {
   RemoteAccessTailscaleStatus,
   StartTailscaleResult,
   SupervisorEvent,
 } from "@/shared/ipc";
 import { toErrorMessage } from "@/shared/errorMessage";
-import { resolvePoracodePaths, type PoracodePaths } from "@/shared/poracodePaths";
-import type { PoracodeChannel } from "@/shared/channel";
+import { resolveAxeCodePaths, type AxeCodePaths } from "@/shared/axecodePaths";
+import type { AxeCodeChannel } from "@/shared/channel";
 import { saveUploadedAttachmentFile } from "../attachments/attachmentStorage";
 import {
   pickRemoteSettings,
@@ -60,8 +60,8 @@ import {
 
 export interface DesktopRemoteAccessControllerOptions {
   readonly appVersion: string;
-  readonly channel: PoracodeChannel;
-  readonly paths: Pick<PoracodePaths, "baseDir" | "settingsPath">;
+  readonly channel: AxeCodeChannel;
+  readonly paths: Pick<AxeCodePaths, "baseDir" | "settingsPath">;
   readonly devServerUrl?: string;
   readonly callSupervisor: RemoteAccessServerOptions["callSupervisor"];
   readonly dispatchThreadCommand: NonNullable<RemoteAccessServerOptions["dispatchThreadCommand"]>;
@@ -69,7 +69,7 @@ export interface DesktopRemoteAccessControllerOptions {
   readonly notifySharedSettingsChanged: (settings: SharedSettings) => void;
   readonly notifyRemoteAccessPairingChanged: (info: RemoteAccessPairingInfo) => void;
   readonly notifyProjectStateChanged: (projects: readonly Project[]) => void;
-  readonly reportError: (error: unknown, tags?: PoracodeDiagnosticTags) => void;
+  readonly reportError: (error: unknown, tags?: AxeCodeDiagnosticTags) => void;
   readonly scheduleService: ScheduleService;
   readonly prWatchService: PrWatchService;
   readonly gitStateService: GitStateService;
@@ -104,8 +104,8 @@ class RemoteAccessStartSupersededError extends Error {
 
 function remoteAccessStartupDiagnostic(
   error: unknown,
-  channel: PoracodeChannel,
-): { error: unknown; tags: PoracodeDiagnosticTags } {
+  channel: AxeCodeChannel,
+): { error: unknown; tags: AxeCodeDiagnosticTags } {
   const code =
     typeof error === "object" && error !== null && "code" in error && typeof error.code === "string"
       ? error.code
@@ -116,9 +116,9 @@ function remoteAccessStartupDiagnostic(
     return {
       error: diagnostic,
       tags: {
-        "poracode.feature_area": "remote-access",
-        "poracode.channel": channel,
-        "poracode.platform":
+        "axecode.feature_area": "remote-access",
+        "axecode.channel": channel,
+        "axecode.platform":
           process.platform === "darwin" ||
           process.platform === "linux" ||
           process.platform === "win32"
@@ -128,7 +128,7 @@ function remoteAccessStartupDiagnostic(
       },
     };
   }
-  return { error, tags: { "poracode.feature_area": "remote-access" } };
+  return { error, tags: { "axecode.feature_area": "remote-access" } };
 }
 
 interface RemoteAccessStartAttempt {
@@ -223,7 +223,7 @@ export function createDesktopRemoteAccessController(
   const resolveAdvertisedBaseUrl = async (
     port: number,
   ): Promise<{ advertisedBaseUrl?: string; tailscaleServeUrl?: string }> => {
-    const envAdvertisedHost = process.env.PORACODE_REMOTE_ACCESS_ADVERTISED_HOST?.trim();
+    const envAdvertisedHost = process.env.AXECODE_REMOTE_ACCESS_ADVERTISED_HOST?.trim();
     if (envAdvertisedHost) return {};
 
     const settings = readSharedSettingsFile(options.paths.settingsPath);
@@ -327,7 +327,7 @@ export function createDesktopRemoteAccessController(
       const pushStore = new PushRegistrationStore(options.paths.baseDir);
       const pushGatewayOptions = {
         onError: (error: unknown) =>
-          options.reportError(error, { "poracode.feature_area": "remote-push" }),
+          options.reportError(error, { "axecode.feature_area": "remote-push" }),
       };
       const coordinator = new PushCoordinator({
         store: pushStore,
@@ -409,7 +409,7 @@ export function createDesktopRemoteAccessController(
         updates: options.updates,
         attachments: {
           save: (input) =>
-            saveUploadedAttachmentFile(resolvePoracodePaths(options.paths.baseDir), input),
+            saveUploadedAttachmentFile(resolveAxeCodePaths(options.paths.baseDir), input),
         },
         // `ScheduleService`'s public methods already match the gateway
         // interface, so pass it directly instead of re-wrapping each method.
@@ -431,8 +431,8 @@ export function createDesktopRemoteAccessController(
       attempt.serverStartPromise = serverStartPromise;
       const info = await serverStartPromise;
       if (!isCurrentStartAttempt(attempt)) throw new RemoteAccessStartSupersededError();
-      console.log("[poracode] remote access enabled at %s", info.httpBaseUrl);
-      console.log("[poracode] remote pairing URL: %s", info.pairingUrl);
+      console.log("[axecode] remote access enabled at %s", info.httpBaseUrl);
+      console.log("[axecode] remote pairing URL: %s", info.pairingUrl);
       return info;
     } catch (error) {
       await disposeAttemptServer(attempt).catch(() => {});
@@ -455,7 +455,7 @@ export function createDesktopRemoteAccessController(
 
       const superseded = !isCurrentStartAttempt(attempt);
       if (!superseded) {
-        console.error("[poracode] remote access failed to start:", toErrorMessage(error));
+        console.error("[axecode] remote access failed to start:", toErrorMessage(error));
         const diagnostic = remoteAccessStartupDiagnostic(error, options.channel);
         options.reportError(diagnostic.error, diagnostic.tags);
       }
@@ -534,9 +534,9 @@ export function createDesktopRemoteAccessController(
     const serverDisposal =
       attempt?.server === server ? disposeAttemptServer(attempt) : server.dispose();
     void serverDisposal
-      .then(() => console.log("[poracode] remote access disabled"))
+      .then(() => console.log("[axecode] remote access disabled"))
       .catch((error) =>
-        console.warn("[poracode] remote access failed to stop cleanly:", toErrorMessage(error)),
+        console.warn("[axecode] remote access failed to stop cleanly:", toErrorMessage(error)),
       )
       .finally(() => {
         forwarding?.dispose();

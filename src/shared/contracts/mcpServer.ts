@@ -11,7 +11,7 @@ export interface McpToolAnnotations {
   openWorldHint?: boolean;
 }
 
-/** Stable ids for the MCP servers provided by Poracode itself. */
+/** Stable ids for the MCP servers provided by AxeCode itself. */
 export const BUILT_IN_MCP_SERVER_IDS = [
   "browser",
   "crossagents",
@@ -27,10 +27,10 @@ export const BUILT_IN_MCP_SERVER_NAMES: Record<BuiltInMcpServerId, string> = {
   crossagents: "crossagents",
   chrome: "chrome",
   "computer-use": "computer_use",
-  "app-controls": "poracode",
+  "app-controls": "axecode",
 };
 
-/** Tool catalogs advertised by each Poracode-owned MCP server. */
+/** Tool catalogs advertised by each AxeCode-owned MCP server. */
 export const BUILT_IN_MCP_SERVER_TOOL_NAMES = {
   browser: [
     "api",
@@ -236,7 +236,11 @@ export const BUILT_IN_MCP_SERVER_TOOL_COUNTS: Record<BuiltInMcpServerId, number>
 };
 
 const RESERVED_MCP_SERVER_NAMES = new Set(
-  Object.values(BUILT_IN_MCP_SERVER_NAMES).map((name) => name.toLowerCase()),
+  Object.values(BUILT_IN_MCP_SERVER_NAMES)
+    .map((name) => name.toLowerCase())
+    // Poracode-era agents called the app-controls server "poracode"; keep the
+    // name reserved so user servers cannot collide with either generation.
+    .concat(["poracode"]),
 );
 
 export function isReservedMcpServerName(name: string): boolean {
@@ -344,7 +348,7 @@ export type DiscoverExternalMcpServersResult = z.infer<
   typeof discoverExternalMcpServersResultSchema
 >;
 
-/** Canonical provider-agnostic custom MCP server managed by Poracode. */
+/** Canonical provider-agnostic custom MCP server managed by AxeCode. */
 export const mcpServerSchema = z
   .object({
     id: z.string().min(1),

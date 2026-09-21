@@ -1,11 +1,11 @@
-export const COMPUTER_USE_OVERLAY_TITLE = "Poracode Computer Use Overlay";
+export const COMPUTER_USE_OVERLAY_TITLE = "AxeCode Computer Use Overlay";
 
 /**
  * The badge's exit link navigates to this URL in a new window so the main
  * process can intercept it in `setWindowOpenHandler` — the page itself stays a
  * sandboxed data: URL with no preload and no privileged API.
  */
-export const OVERLAY_EXIT_URL = "poracode-computer-use-overlay://exit";
+export const OVERLAY_EXIT_URL = "axecode-computer-use-overlay://exit";
 
 const TAKEOVER_OVERLAY_HTML = `<!doctype html>
 <html>
@@ -40,7 +40,7 @@ const TAKEOVER_OVERLAY_HTML = `<!doctype html>
     </style>
   </head>
   <body>
-    <div class="badge">Poracode using your computer | Esc to Exit</div>
+    <div class="badge">AxeCode using your computer | Esc to Exit</div>
   </body>
 </html>`;
 
@@ -62,8 +62,8 @@ function escapeHtml(value: string): string {
  */
 export function createBadgeOverlayUrl(target?: string): string {
   const label = target
-    ? `Poracode is controlling ${escapeHtml(target)} in the background`
-    : "Poracode is controlling an app in the background";
+    ? `AxeCode is controlling ${escapeHtml(target)} in the background`
+    : "AxeCode is controlling an app in the background";
   const html = `<!doctype html>
 <html>
   <head>

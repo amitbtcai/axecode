@@ -75,7 +75,7 @@ function createAdapter(): AgentAdapter {
 }
 
 function createManager(emit: (event: SupervisorEvent) => void): ThreadSessionManager {
-  const tempDir = mkdtempSync(join(tmpdir(), "poracode-restart-failure-"));
+  const tempDir = mkdtempSync(join(tmpdir(), "axecode-restart-failure-"));
   tempDirs.push(tempDir);
   const manager = new ThreadSessionManager({
     emit,

@@ -14,7 +14,7 @@ export function stageLaunchFiles(
   files: Readonly<Record<string, string>>,
 ): { directory: string; cleanup: () => void } {
   if (!/^[a-z0-9-]+$/u.test(prefix)) throw new Error("Invalid launch directory prefix");
-  const name = `poracode-${prefix}-${randomUUID()}`;
+  const name = `axecode-${prefix}-${randomUUID()}`;
   const directory = location.kind === "wsl" ? `/tmp/${name}` : join(tmpdir(), name);
   const fsDirectory =
     location.kind === "wsl" ? toWslUncPath(location.distro, directory) : directory;

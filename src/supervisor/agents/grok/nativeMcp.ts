@@ -6,7 +6,7 @@ import type { NativeMcpConfigFile } from "../../mcp/nativeSetup/configFile";
 
 function markers(name: string) {
   const id = digest(name).slice(0, 16);
-  return [`# BEGIN Poracode MCP ${id}`, `# END Poracode MCP ${id}`] as const;
+  return [`# BEGIN AxeCode MCP ${id}`, `# END AxeCode MCP ${id}`] as const;
 }
 export function grokNativeMcpConfig(
   path = join(process.env.GROK_HOME || join(homedir(), ".grok"), "config.toml"),

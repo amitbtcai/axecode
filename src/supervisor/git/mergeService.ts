@@ -199,7 +199,7 @@ export class GitMergeService {
       "push",
       "-u",
       "-m",
-      `Poracode: before pull from ${sourceBranch}`,
+      `AxeCode: before pull from ${sourceBranch}`,
     ]);
     const stashCommit = (await execGit(worktreeLocation, ["rev-parse", "refs/stash"]))
       .trim()

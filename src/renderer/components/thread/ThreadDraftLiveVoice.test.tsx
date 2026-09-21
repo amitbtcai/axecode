@@ -4,7 +4,7 @@ import type { ReactElement, ReactNode } from "react";
 import { act, cleanup, fireEvent, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { AgentStatus, Project, Thread } from "@/shared/contracts";
-import type { PoracodeBridge } from "@/shared/ipc";
+import type { AxeCodeBridge } from "@/shared/ipc";
 import { renderWithI18n as render } from "@/renderer/testUtils/i18n";
 import { useAppStore } from "@/renderer/state/appStore";
 import { useBrowserAttachInbox } from "@/renderer/state/browserAttachInbox";
@@ -15,12 +15,12 @@ const { bridge, composerSpy } = vi.hoisted(() => ({
   bridge: {
     platform: "win32",
     windowKind: "main",
-    scanSkills: vi.fn<NonNullable<PoracodeBridge["scanSkills"]>>(),
-    connectThreadVoice: vi.fn<PoracodeBridge["connectThreadVoice"]>(),
-    disconnectThreadVoice: vi.fn<PoracodeBridge["disconnectThreadVoice"]>(),
-    onSupervisorEvent: vi.fn<PoracodeBridge["onSupervisorEvent"]>(),
-    pickFiles: vi.fn<PoracodeBridge["pickFiles"]>(),
-    saveClipboardImage: vi.fn<PoracodeBridge["saveClipboardImage"]>(),
+    scanSkills: vi.fn<NonNullable<AxeCodeBridge["scanSkills"]>>(),
+    connectThreadVoice: vi.fn<AxeCodeBridge["connectThreadVoice"]>(),
+    disconnectThreadVoice: vi.fn<AxeCodeBridge["disconnectThreadVoice"]>(),
+    onSupervisorEvent: vi.fn<AxeCodeBridge["onSupervisorEvent"]>(),
+    pickFiles: vi.fn<AxeCodeBridge["pickFiles"]>(),
+    saveClipboardImage: vi.fn<AxeCodeBridge["saveClipboardImage"]>(),
   },
   composerSpy: vi.fn<(props: unknown) => void>(),
 }));

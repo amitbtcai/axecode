@@ -17,7 +17,7 @@ import {
 
 // Provider default for the default model's effort ladder. OpenCode Go's
 // deepseek-v4.1-flash ships `low`/`high`/`max` and OpenCode 2's own default is
-// the strongest tier, so Poracode follows it rather than OpenCode 1's `medium`.
+// the strongest tier, so AxeCode follows it rather than OpenCode 1's `medium`.
 const OPENCODE2_PREFERRED_DEFAULT_EFFORT = "max";
 
 export const opencode2DefaultCapabilities: AgentCapability = {
@@ -73,7 +73,7 @@ function opencode2NativeAuthPath(): string {
 
 /** Per-model entry from the V2 catalog, normalised for the capability builder. */
 export interface OpenCode2InventoryModel {
-  /** Composite id the rest of Poracode keys models by: `${providerID}/${id}`. */
+  /** Composite id the rest of AxeCode keys models by: `${providerID}/${id}`. */
   id: string;
   /** Server-supplied display name; falls back to the composite id when empty. */
   label: string;

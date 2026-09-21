@@ -49,7 +49,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
       aria-label={t`Slash commands`}
       className={
         isPopover
-          ? "poracode-mention-popover__list"
+          ? "axecode-mention-popover__list"
           : "max-h-[min(12rem,32vh)] space-y-0 overflow-y-auto [scrollbar-gutter:stable]"
       }
       role="listbox"
@@ -63,13 +63,13 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
             key={headingId}
             role="group"
             aria-labelledby={headingId}
-            className={isPopover ? "poracode-mention-popover__section" : undefined}
+            className={isPopover ? "axecode-mention-popover__section" : undefined}
           >
             <div
               id={headingId}
               className={
                 isPopover
-                  ? "poracode-mention-popover__section-label"
+                  ? "axecode-mention-popover__section-label"
                   : "px-2 pb-1 pt-2 text-[0.68rem] font-semibold uppercase text-muted/70"
               }
             >
@@ -87,7 +87,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
                     aria-selected={isActive}
                     className={
                       isPopover
-                        ? `poracode-mention-popover__item w-full border-0 bg-transparent text-left ${isActive ? "poracode-mention-popover__item--active" : ""}`
+                        ? `axecode-mention-popover__item w-full border-0 bg-transparent text-left ${isActive ? "axecode-mention-popover__item--active" : ""}`
                         : `flex w-full cursor-pointer items-center gap-3 rounded px-2 py-1 text-left leading-5 transition-colors hover:bg-foreground/5 ${isActive ? "bg-accent/10" : ""}`
                     }
                     role="option"
@@ -103,7 +103,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
                     <span
                       className={
                         isPopover
-                          ? "poracode-mention-popover__label min-w-0 gap-1 truncate font-bold"
+                          ? "axecode-mention-popover__label min-w-0 gap-1 truncate font-bold"
                           : "flex shrink-0 items-center gap-1 font-bold text-foreground"
                       }
                     >
@@ -118,7 +118,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
                       <span
                         className={
                           isPopover
-                            ? "poracode-mention-popover__detail min-w-0 flex-1 truncate font-normal text-[color:var(--muted)]"
+                            ? "axecode-mention-popover__detail min-w-0 flex-1 truncate font-normal text-[color:var(--muted)]"
                             : "min-w-0 flex-1 truncate font-normal text-[color:var(--muted)]"
                         }
                       >
@@ -129,7 +129,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
                       <span
                         className={
                           isPopover
-                            ? "poracode-mention-popover__detail ml-auto shrink-0 text-xs text-muted/60"
+                            ? "axecode-mention-popover__detail ml-auto shrink-0 text-xs text-muted/60"
                             : "shrink-0 text-xs text-muted/60"
                         }
                       >
@@ -140,7 +140,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
                       <span
                         className={
                           isPopover
-                            ? "poracode-mention-popover__detail ml-auto shrink-0 text-xs text-muted/60"
+                            ? "axecode-mention-popover__detail ml-auto shrink-0 text-xs text-muted/60"
                             : "shrink-0 text-muted/60"
                         }
                       >
@@ -160,7 +160,7 @@ export function ThreadCommandPanel(props: ThreadCommandPanelProps) {
   if (isPopover) {
     return (
       <div
-        className="poracode-mention-popover"
+        className="axecode-mention-popover"
         style={{ width: "100%", maxHeight: props.maxHeight }}
       >
         {list}

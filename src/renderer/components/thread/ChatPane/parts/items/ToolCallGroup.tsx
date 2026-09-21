@@ -239,11 +239,11 @@ export const ToolCallGroup = memo(function ToolCallGroup({
                     group height the virtualizer measures — stays constant. */}
                 <div
                   ref={wrapRef}
-                  className={`relative ${isWindowed ? "poracode-tool-call-group-windowed" : ""}`}
+                  className={`relative ${isWindowed ? "axecode-tool-call-group-windowed" : ""}`}
                 >
                   <div
                     ref={scrollRef}
-                    className={`poracode-tool-call-group-viewport flex flex-col gap-0.5 pr-1 ${
+                    className={`axecode-tool-call-group-viewport flex flex-col gap-0.5 pr-1 ${
                       showAll ? "max-h-[420px] overflow-y-auto" : ""
                     }`}
                   >
@@ -555,11 +555,9 @@ function GroupSummarySection({
       <code
         ref={shimmerRef}
         className={`font-mono tabular-nums [word-spacing:-0.25em] !text-[color:var(--muted)] ${
-          isRunning ? "poracode-thinking-text" : ""
+          isRunning ? "axecode-thinking-text" : ""
         }`}
-        {...(isRunning
-          ? { "data-poracode-shimmer-text": `${section.count} ${section.label}` }
-          : {})}
+        {...(isRunning ? { "data-axecode-shimmer-text": `${section.count} ${section.label}` } : {})}
       >
         <AnimatedNumber value={section.count} />{" "}
         {section.category === "mcp" ? (
@@ -585,18 +583,18 @@ function InlineRowTitle({
   const shimmerRef = useShimmer<HTMLElement>(isRunning);
   const displayTitle = normalizeCallTitleSeparator(title);
   const displayPrefix = titleParts ? normalizeCallTitleSeparator(titleParts.prefix) : undefined;
-  const shimmerData = isRunning ? { "data-poracode-shimmer-text": displayTitle } : {};
+  const shimmerData = isRunning ? { "data-axecode-shimmer-text": displayTitle } : {};
   if (titleParts) {
     // Shimmer only the stable prefix ("Edit · "), never the path: the path can
     // change while running (absolute → project-relative), and mutating text
     // under `background-clip: text` leaves ghosted glyphs (see
-    // .poracode-thinking-text in styles.css).
+    // .axecode-thinking-text in styles.css).
     return (
       <code className="flex min-w-0 items-baseline overflow-hidden font-mono !text-[color:var(--muted)]">
         <span
           ref={shimmerRef}
-          className={`shrink-0 whitespace-pre ${isRunning ? "poracode-thinking-text" : ""}`}
-          {...(isRunning ? { "data-poracode-shimmer-text": displayPrefix } : {})}
+          className={`shrink-0 whitespace-pre ${isRunning ? "axecode-thinking-text" : ""}`}
+          {...(isRunning ? { "data-axecode-shimmer-text": displayPrefix } : {})}
         >
           {displayPrefix}
         </span>
@@ -619,7 +617,7 @@ function InlineRowTitle({
   return (
     <code
       ref={shimmerRef}
-      className={`min-w-0 truncate font-mono !text-[color:var(--muted)] ${isRunning ? "poracode-thinking-text" : ""}`}
+      className={`min-w-0 truncate font-mono !text-[color:var(--muted)] ${isRunning ? "axecode-thinking-text" : ""}`}
       {...shimmerData}
     >
       {displayTitle}

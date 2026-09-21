@@ -2,7 +2,7 @@
  * OpenCode SDK event dispatch → canonical RuntimeEvent[].
  *
  * Translates events emitted by the legacy client's `event.subscribe`
- * into Poracode's canonical chat events.
+ * into AxeCode's canonical chat events.
  *
  * Reconciliation note: OpenCode interleaves `message.part.delta` (incremental)
  * with `message.part.updated` (full part snapshot). To avoid double-emit we

@@ -155,7 +155,7 @@ export function MentionPopover(props: {
 
   return createPortal(
     <div
-      className="poracode-mention-popover pointer-events-auto"
+      className="axecode-mention-popover pointer-events-auto"
       style={{
         position: "fixed",
         left: position.left,
@@ -167,7 +167,7 @@ export function MentionPopover(props: {
     >
       <div
         ref={listRef}
-        className="poracode-mention-popover__list"
+        className="axecode-mention-popover__list"
         role="listbox"
         style={{ maxHeight: position.maxHeight }}
       >
@@ -178,9 +178,9 @@ export function MentionPopover(props: {
               key={labelId}
               role="group"
               aria-labelledby={labelId}
-              className="poracode-mention-popover__section"
+              className="axecode-mention-popover__section"
             >
-              <div id={labelId} className="poracode-mention-popover__section-label">
+              <div id={labelId} className="axecode-mention-popover__section-label">
                 <SectionLabel sectionKey={section.key} />
               </div>
               {section.items.map(({ entry, index }) => {
@@ -201,7 +201,7 @@ export function MentionPopover(props: {
                     // MentionInput keeps real DOM focus and drives selection via
                     // arrow keys, so options never enter the tab order themselves.
                     tabIndex={-1}
-                    className={`poracode-mention-popover__item ${isActive ? "poracode-mention-popover__item--active" : ""}`}
+                    className={`axecode-mention-popover__item ${isActive ? "axecode-mention-popover__item--active" : ""}`}
                     onMouseEnter={() => onActiveIndexChange(index)}
                     onMouseDown={(e) => {
                       e.preventDefault();
@@ -209,31 +209,28 @@ export function MentionPopover(props: {
                     }}
                   >
                     {isPlugin ? (
-                      <PluginIcon
-                        pluginId={entry.path}
-                        className="poracode-mention-popover__icon"
-                      />
+                      <PluginIcon pluginId={entry.path} className="axecode-mention-popover__icon" />
                     ) : isThread ? (
                       <MessagesSquare
-                        className="poracode-mention-popover__icon text-muted"
+                        className="axecode-mention-popover__icon text-muted"
                         aria-hidden="true"
                       />
                     ) : McpIcon ? (
                       <McpIcon
-                        className="poracode-mention-popover__icon text-muted"
+                        className="axecode-mention-popover__icon text-muted"
                         aria-hidden="true"
                       />
                     ) : (
                       <img
-                        className="poracode-mention-popover__icon"
+                        className="axecode-mention-popover__icon"
                         src={getEntryIconUrl(entry.name, entry.type === "directory")}
                         alt=""
                         draggable={false}
                       />
                     )}
-                    <span className="poracode-mention-popover__label truncate">{entry.name}</span>
+                    <span className="axecode-mention-popover__label truncate">{entry.name}</span>
                     {detail ? (
-                      <span className="poracode-mention-popover__detail ml-auto shrink-0 text-xs text-[var(--muted)]">
+                      <span className="axecode-mention-popover__detail ml-auto shrink-0 text-xs text-[var(--muted)]">
                         {detail}
                       </span>
                     ) : null}

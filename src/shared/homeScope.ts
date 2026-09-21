@@ -14,7 +14,7 @@ export function isHomeProject(project: Pick<Project, "id"> | undefined): boolean
 }
 
 /**
- * True when the workspace *is* the user home directory (Poracode's Home
+ * True when the workspace *is* the user home directory (AxeCode's Home
  * scope). Home is a projectless OS-level session, so agents must not be
  * confined to that folder — every provider, not just ACP.
  */

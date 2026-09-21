@@ -69,7 +69,7 @@ describe("ChromeMcpIngress", () => {
         };
         expect(body.result.isError).toBe(true);
         expect(body.result.content[0]?.text).toMatch(
-          /Tool disabled by Poracode: click|Unknown tool: chrome_click/,
+          /Tool disabled by AxeCode: click|Unknown tool: chrome_click/,
         );
       }
       expect(send).not.toHaveBeenCalled();

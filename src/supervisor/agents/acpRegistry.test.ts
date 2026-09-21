@@ -100,7 +100,7 @@ describe("ACP registry installs", () => {
   });
 
   it("still removes an agent when a recorded WSL distro can no longer be resolved", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-remove-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-remove-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -144,7 +144,7 @@ describe("ACP registry installs", () => {
 
   it("resolves the distro-local agent root used to remove WSL registry artifacts", () => {
     expect(wslAcpRegistryAgentInstallDir("Ubuntu", "/home/demo", "antigravity-acp")).toBe(
-      "\\\\wsl.localhost\\Ubuntu\\home\\demo\\.poracode\\acp-registry\\antigravity-acp",
+      "\\\\wsl.localhost\\Ubuntu\\home\\demo\\.axecode\\acp-registry\\antigravity-acp",
     );
   });
 
@@ -178,7 +178,7 @@ describe("ACP registry installs", () => {
   }
 
   it("fresh-installs the official Antigravity ACP artifact as a first-class runtime", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -218,7 +218,7 @@ describe("ACP registry installs", () => {
   });
 
   it("records a removal opt-out and clears it on the next install", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-optout-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-optout-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -252,7 +252,7 @@ describe("ACP registry installs", () => {
   });
 
   it("preserves concurrent settings and honors an opt-out added during auto-install", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-race-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-race-"));
     const settingsPath = join(dir, "settings.json");
     let finishProbe: (() => void) | undefined;
     probeAcpGenericInstanceMock.mockImplementationOnce(
@@ -303,7 +303,7 @@ describe("ACP registry installs", () => {
   });
 
   it("persists adoption of an existing generic Antigravity ACP install", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-migration-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-migration-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -356,7 +356,7 @@ describe("ACP registry installs", () => {
   });
 
   it("does not persist a schema-collapsed collection when adopting", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-collapse-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-collapse-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -398,7 +398,7 @@ describe("ACP registry installs", () => {
   });
 
   it("does not adopt a first-class binary whose ACP initialization probe fails", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-probe-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-probe-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -425,7 +425,7 @@ describe("ACP registry installs", () => {
   });
 
   it("keeps a same-version artifact when the first-class install probe fails", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-repair-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-repair-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -466,9 +466,9 @@ describe("ACP registry installs", () => {
   });
 
   it("installs a WSL-targeted artifact into the distro home and records the installation", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-wsl-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-wsl-"));
     const settingsPath = join(dir, "settings.json");
-    const distroRoot = mkdtempSync(join(tmpdir(), "poracode-wsl-home-"));
+    const distroRoot = mkdtempSync(join(tmpdir(), "axecode-wsl-home-"));
     const originalPlatform = process.platform;
     Object.defineProperty(process, "platform", { value: "win32", configurable: true });
     const registry = antigravityRegistry("1.0.0");
@@ -511,7 +511,7 @@ describe("ACP registry installs", () => {
               wsl: {
                 Ubuntu: {
                   binary:
-                    "/home/tester/.poracode/acp-registry/antigravity-acp/1.0.0/bin/agy_acp_server.par",
+                    "/home/tester/.axecode/acp-registry/antigravity-acp/1.0.0/bin/agy_acp_server.par",
                 },
               },
             },
@@ -519,7 +519,7 @@ describe("ACP registry installs", () => {
         },
       );
       expect(batchWslCommandsAsyncMock).toHaveBeenCalledWith("Ubuntu", [
-        expect.stringContaining("chmod -R 755 '/home/tester/.poracode/acp-registry/"),
+        expect.stringContaining("chmod -R 755 '/home/tester/.axecode/acp-registry/"),
       ]);
     } finally {
       Object.defineProperty(process, "platform", { value: originalPlatform, configurable: true });
@@ -528,7 +528,7 @@ describe("ACP registry installs", () => {
   });
 
   it("updates the Antigravity ACP artifact while preserving auth and provider settings", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -583,7 +583,7 @@ describe("ACP registry installs", () => {
   });
 
   it("rejects unsupported-platform Antigravity artifacts without recording an install", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-"));
     const settingsPath = join(dir, "settings.json");
     const registry = antigravityRegistry("1.0.0");
     registry.agents[0]!.distribution.binary = {
@@ -608,7 +608,7 @@ describe("ACP registry installs", () => {
   });
 
   it("does not record a first-class install when the registry artifact download fails", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-antigravity-acp-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-antigravity-acp-"));
     const settingsPath = join(dir, "settings.json");
     vi.stubGlobal(
       "fetch",
@@ -634,7 +634,7 @@ describe("ACP registry installs", () => {
   });
 
   it("installs Factory Droid with direct ACP mode", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     const registry: AcpRegistryListResult = {
       version: "1.0.0",
@@ -668,7 +668,7 @@ describe("ACP registry installs", () => {
   });
 
   it("installs known ACP wrappers as generic ACP instances", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     const registry: AcpRegistryListResult = {
       version: "1.0.0",
@@ -734,7 +734,7 @@ describe("ACP registry installs", () => {
   it.runIf(process.platform === "win32")(
     "passes Windows binary archive paths to PowerShell through the child environment",
     async () => {
-      const dir = mkdtempSync(join(tmpdir(), "poracode acp registry-"));
+      const dir = mkdtempSync(join(tmpdir(), "axecode acp registry-"));
       const settingsPath = join(dir, "settings.json");
       const registry: AcpRegistryListResult = {
         version: "1.0.0",
@@ -775,19 +775,19 @@ describe("ACP registry installs", () => {
           "-NoLogo",
           "-NoProfile",
           "-Command",
-          "Expand-Archive -LiteralPath $env:PORACODE_ACP_ARCHIVE_PATH -DestinationPath $env:PORACODE_ACP_INSTALL_DIR -Force",
+          "Expand-Archive -LiteralPath $env:AXECODE_ACP_ARCHIVE_PATH -DestinationPath $env:AXECODE_ACP_INSTALL_DIR -Force",
         ]);
         expect(options).toMatchObject({
           windowsHide: true,
           env: {
-            PORACODE_ACP_ARCHIVE_PATH: join(
+            AXECODE_ACP_ARCHIVE_PATH: join(
               dir,
               "acp-registry",
               "binary-agent",
               "1.0.0",
               "agent.zip",
             ),
-            PORACODE_ACP_INSTALL_DIR: join(dir, "acp-registry", "binary-agent", "1.0.0", "bin"),
+            AXECODE_ACP_INSTALL_DIR: join(dir, "acp-registry", "binary-agent", "1.0.0", "bin"),
           },
         });
       } finally {
@@ -797,7 +797,7 @@ describe("ACP registry installs", () => {
   );
 
   it("backfills registry icons into existing generic installs and caches them locally", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     const iconsDir = join(dir, "acp-icons");
     writeFileSync(
@@ -864,7 +864,7 @@ describe("ACP registry installs", () => {
 
       const installedIcon = settings.acpRegistryInstalledAgents["glm-acp-agent"]?.icon;
       const instanceIcon = settings.agentInstances["glm-acp-agent"]?.icon;
-      expect(installedIcon).toMatch(/^poracode-local:\/\//);
+      expect(installedIcon).toMatch(/^axecode-local:\/\//);
       expect(installedIcon).toContain("glm-acp-agent.svg");
       expect(instanceIcon).toBe(installedIcon);
 
@@ -879,7 +879,7 @@ describe("ACP registry installs", () => {
   });
 
   it("localizes remote acp-generic icons at launch without a registry fetch", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     const iconsDir = join(dir, "acp-icons");
     const remoteIcon = "https://cdn.agentclientprotocol.com/registry/v1/latest/glm-acp-agent.svg";
@@ -933,7 +933,7 @@ describe("ACP registry installs", () => {
       };
       const installedIcon = settings.acpRegistryInstalledAgents["glm-acp-agent"]?.icon;
       const instanceIcon = settings.agentInstances["glm-acp-agent"]?.icon;
-      expect(installedIcon).toMatch(/^poracode-local:\/\//);
+      expect(installedIcon).toMatch(/^axecode-local:\/\//);
       expect(installedIcon).toContain("glm-acp-agent.svg");
       expect(instanceIcon).toBe(installedIcon);
       // Only the icon SVG is fetched — never the registry JSON.
@@ -951,7 +951,7 @@ describe("ACP registry installs", () => {
   });
 
   it("stores ACP registry auth env vars on the installed generic instance", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1005,7 +1005,7 @@ describe("ACP registry installs", () => {
   });
 
   it("keeps registered adapters when one stored secret can no longer be decrypted", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1028,7 +1028,7 @@ describe("ACP registry installs", () => {
                 sensitive: true,
               },
             },
-            config: { configDir: "~/.poracode/claude-profiles/z-ai" },
+            config: { configDir: "~/.axecode/claude-profiles/z-ai" },
           },
         },
       }),
@@ -1050,7 +1050,7 @@ describe("ACP registry installs", () => {
   });
 
   it("updates an installed ACP agent to a new registry version while preserving credentials", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     const initialRegistry: AcpRegistryListResult = {
       version: "1.0.0",
@@ -1118,7 +1118,7 @@ describe("ACP registry installs", () => {
   });
 
   it("rejects updates for agents that are not installed", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     await expect(
       updateAcpRegistryAgent({
@@ -1131,7 +1131,7 @@ describe("ACP registry installs", () => {
   });
 
   it("auto-updates installed agents whose registry version differs", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1196,7 +1196,7 @@ describe("ACP registry installs", () => {
   });
 
   it("leaves first-class aliases for their built-in update route", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1240,7 +1240,7 @@ describe("ACP registry installs", () => {
   });
 
   it("reports settings changes when one environment update succeeds and another fails", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1331,7 +1331,7 @@ describe("ACP registry installs", () => {
   });
 
   it("auto-update skips installs that are already current", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1388,7 +1388,7 @@ describe("ACP registry installs", () => {
   });
 
   it("repairs an already-current Factory Droid daemon command", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-registry-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-registry-"));
     const settingsPath = join(dir, "settings.json");
     writeFileSync(
       settingsPath,
@@ -1454,7 +1454,7 @@ describe("ACP registry installs", () => {
 
 describe("ACP registry install layout repair", () => {
   const wslBinary =
-    "/home/tester/.poracode/acp-registry/antigravity-acp/1.0.0/bin/agy_acp_server.par";
+    "/home/tester/.axecode/acp-registry/antigravity-acp/1.0.0/bin/agy_acp_server.par";
 
   function writeLegacyLayoutSettings(dir: string, layoutVersion?: number): string {
     const settingsPath = join(dir, "settings.json");
@@ -1509,14 +1509,14 @@ describe("ACP registry install layout repair", () => {
   });
 
   it("marks a pre-layout WSL install executable once and stamps both environments", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-layout-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-layout-"));
     const settingsPath = writeLegacyLayoutSettings(dir);
     batchWslCommandsAsyncMock.mockResolvedValueOnce([{ ok: true, stdout: "" }]);
 
     await expect(repairAcpRegistryInstallLayouts({ settingsPath })).resolves.toBe(true);
 
     expect(batchWslCommandsAsyncMock).toHaveBeenCalledExactlyOnceWith("Ubuntu", [
-      "chmod -R 755 '/home/tester/.poracode/acp-registry/antigravity-acp/1.0.0/bin'",
+      "chmod -R 755 '/home/tester/.axecode/acp-registry/antigravity-acp/1.0.0/bin'",
     ]);
     const record =
       readAcpRegistrySettings(settingsPath).acpRegistryInstalledAgents["antigravity-acp"];
@@ -1543,7 +1543,7 @@ describe("ACP registry install layout repair", () => {
   });
 
   it("leaves a WSL install unstamped when the repair command fails so the next launch retries", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-layout-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-layout-"));
     const settingsPath = writeLegacyLayoutSettings(dir);
     batchWslCommandsAsyncMock.mockResolvedValueOnce([{ ok: false, stdout: "" }]);
 
@@ -1563,7 +1563,7 @@ describe("ACP registry install layout repair", () => {
   });
 
   it("is a no-op for installs already on the current layout", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-acp-layout-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-acp-layout-"));
     const settingsPath = writeLegacyLayoutSettings(dir, 2);
     const before = readFileSync(settingsPath, "utf8");
 

@@ -4,7 +4,7 @@ import { sanitizeCommandCodeCwd, sanitizeCommandCodeMcpCwd } from "./sessionFile
 // Compatibility contract for the `cwd → projects/<dir>` mapping.
 //
 // `sanitizeCommandCodeCwd` must byte-match the Command Code CLI (v1.4.1)'s own
-// `@sindresorhus/slugify@2.2.1` slug of the cwd, otherwise Poracode looks for
+// `@sindresorhus/slugify@2.2.1` slug of the cwd, otherwise AxeCode looks for
 // session transcripts in a directory the CLI never writes to. Every expected
 // value below is the literal 2.2.1 output for its input — do NOT regenerate
 // them from a newer slugify without also confirming the CLI moved in lockstep.
@@ -12,20 +12,20 @@ import { sanitizeCommandCodeCwd, sanitizeCommandCodeMcpCwd } from "./sessionFile
 // back to the raw path and the mapping stays deterministic across OSes.
 const cases: Array<[cwd: string, slug: string]> = [
   // Fixtures already asserted in commandcode.test.ts.
-  ["/Users/test-fixture-xyz/work/poracode", "users-test-fixture-xyz-work-poracode"],
+  ["/Users/test-fixture-xyz/work/axecode", "users-test-fixture-xyz-work-axecode"],
   [
-    "/Users/test-fixture-xyz/.poracode/worktrees/lc-bbea/lc-golden-pixel-8f39b4b5",
-    "users-test-fixture-xyz-poracode-worktrees-lc-bbea-lc-golden-pixel-8f39b4b5",
+    "/Users/test-fixture-xyz/.axecode/worktrees/lc-bbea/lc-golden-pixel-8f39b4b5",
+    "users-test-fixture-xyz-axecode-worktrees-lc-bbea-lc-golden-pixel-8f39b4b5",
   ],
   ["/private/var/T/cc-dbg-ca.ppww", "private-var-t-cc-dbg-ca-ppww"],
   ["C:\\Users\\demo\\AppData\\Local\\CommandCode", "c-users-demo-app-data-local-command-code"],
   // Doc-comment examples in sessionFiles.ts.
   ["C:\\Users\\me\\AppData\\Local\\cc", "c-users-me-app-data-local-cc"],
   // Windows drive paths (backslashes, spaces, trailing separators, case).
-  ["C:\\Users\\John Doe\\My Projects\\Poracode", "c-users-john-doe-my-projects-poracode"],
+  ["C:\\Users\\John Doe\\My Projects\\AxeCode", "c-users-john-doe-my-projects-axe-code"],
   [
-    "E:\\work\\lightcode\\.poracode\\worktrees\\lc-test-slug-probe-xyz",
-    "e-work-lightcode-poracode-worktrees-lc-test-slug-probe-xyz",
+    "E:\\work\\lightcode\\.axecode\\worktrees\\lc-test-slug-probe-xyz",
+    "e-work-lightcode-axecode-worktrees-lc-test-slug-probe-xyz",
   ],
   ["D:\\a\\b\\c\\", "d-a-b-c"],
   ["C:\\Users\\demo\\AppData\\", "c-users-demo-app-data"],

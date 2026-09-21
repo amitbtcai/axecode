@@ -1,4 +1,4 @@
-# Poracode
+# Axe Code
 
 Universal AI agent orchestrator — Electron desktop app managing Claude, Codex, and Gemini via real PTY sessions (terminal-native) and structured runtimes (native chat).
 
@@ -45,7 +45,7 @@ Any user-facing string in `src/renderer` (menus, buttons, dialogs, labels, place
 
 1. Wrap with the right macro: JSX body → `<Trans>`; attributes/strings in a component → `` t`…` `` from `useLingui()`; module-level labels → `msg`; toasts/actions → `i18n._(msg`…`)`; supervisor/main → key in `src/shared/messages.ts` plus descriptor in `src/renderer/i18n/sharedMessages.ts`.
 2. Run `pnpm i18n:extract` (skipping this leaves the UI in English with no error).
-3. Fill every new `msgstr ""` in all 12 non-English catalogs — they are fully translated, not English-fallback. Keep `Poracode`, `WSL`, `.poracode/worktrees` literal; grep an existing catalog entry for terminology.
+3. Fill every new `msgstr ""` in all 12 non-English catalogs — they are fully translated, not English-fallback. Keep `AxeCode`, `WSL`, `.axecode/worktrees` literal; grep an existing catalog entry for terminology.
 4. Re-run `pnpm i18n:extract` and confirm **0 missing** for every locale.
 
 Before finishing: no raw user-facing literals in `src/renderer`; extract stats 0 missing; all 12 `msgstr` filled; typecheck and lint pass on touched files.

@@ -1,6 +1,6 @@
 import { powerSaveBlocker } from "electron";
 
-const LOG_PREFIX = "[poracode] computerUseWakeLock:";
+const LOG_PREFIX = "[axecode] computerUseWakeLock:";
 
 /**
  * The subset of Electron's `powerSaveBlocker` this module needs, so unit tests

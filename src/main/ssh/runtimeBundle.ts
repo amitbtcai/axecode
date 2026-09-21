@@ -86,7 +86,7 @@ function runtimePackageJson(dependencyNames: readonly string[]): string {
   );
   return `${JSON.stringify(
     {
-      name: "poracode-ssh-runtime",
+      name: "axecode-ssh-runtime",
       version: packageJson.version,
       private: true,
       engines: packageJson.engines,

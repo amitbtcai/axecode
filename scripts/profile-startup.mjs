@@ -3,18 +3,16 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import { promisify } from "node:util";
-import { assertSessionRootOutsideRepo } from "../.agents/skills/interactive-testing/scripts/poracode-debug-session.mjs";
+import { assertSessionRootOutsideRepo } from "../.agents/skills/interactive-testing/scripts/axecode-debug-session.mjs";
 
 const exec = promisify(execFile);
 const repoRoot = resolve(import.meta.dirname, "..");
 const helpers = join(repoRoot, ".agents/skills/interactive-testing/scripts");
-const root = resolve(
-  process.argv[2] ?? join(homedir(), ".poracode-smoke", `startup-${Date.now()}`),
-);
+const root = resolve(process.argv[2] ?? join(homedir(), ".axecode-smoke", `startup-${Date.now()}`));
 const warm = process.argv[3] === "--warm";
 const reportName = warm ? "startup-warm" : "startup";
 const sessionFile = join(root, "session.json");
-const cdp = join(helpers, "poracode-cdp.mjs");
+const cdp = join(helpers, "axecode-cdp.mjs");
 assertSessionRootOutsideRepo(root, repoRoot);
 await mkdir(root, { recursive: true });
 
@@ -24,7 +22,7 @@ const lines = [];
 const child = spawn(
   process.execPath,
   [
-    join(helpers, "run-poracode-smoke.mjs"),
+    join(helpers, "run-axecode-smoke.mjs"),
     "--launch-only",
     "--new",
     "--mode",
@@ -35,7 +33,7 @@ const child = spawn(
   ],
   {
     cwd: repoRoot,
-    env: { ...process.env, PORACODE_PROFILE_STARTUP: "1" },
+    env: { ...process.env, AXECODE_PROFILE_STARTUP: "1" },
     windowsHide: true,
     stdio: ["ignore", "pipe", "pipe"],
   },
@@ -92,12 +90,12 @@ try {
     const deadline = performance.now() + 110000;
     const check = () => {
       const input = document.querySelector('[contenteditable="true"][role="textbox"]');
-      const agents = window.__poracodeDev.stores.agentStatuses.getState();
+      const agents = window.__axecodeDev.stores.agentStatuses.getState();
       if (input && input.getBoundingClientRect().width > 0 && agents.windowsLoaded) {
         resolve({ timeOrigin: performance.timeOrigin, usableAt: performance.now(),
-          view: window.__poracodeDev.stores.app.getState().view.kind,
+          view: window.__axecodeDev.stores.app.getState().view.kind,
           installedProviders: agents.agentStatuses.filter(s => s.installed).length,
-          entries: performance.getEntries().filter(e => e.name.startsWith('poracode:')).map(e => e.toJSON()),
+          entries: performance.getEntries().filter(e => e.name.startsWith('axecode:')).map(e => e.toJSON()),
           resources: performance.getEntriesByType('resource').map(e => ({ name: e.name, start: e.startTime, duration: e.duration })) });
       } else if (performance.now() > deadline) reject(new Error('No usable composer with discovered providers'));
       else setTimeout(check, 50);

@@ -275,7 +275,7 @@ export class OpencodeSdkSession implements StructuredSessionHandle {
     const createSession = (server: typeof acquired) =>
       server.client.session.create({
         directory: this.sdkDirectory,
-        title: `poracode/${this.threadId.slice(0, 8)}`,
+        title: `axecode/${this.threadId.slice(0, 8)}`,
         ...(permission ? { permission } : {}),
       });
     let created: Awaited<ReturnType<typeof acquired.client.session.create>>;

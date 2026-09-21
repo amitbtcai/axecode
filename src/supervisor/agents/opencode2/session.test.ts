@@ -313,7 +313,7 @@ describe("OpenCode2Session", () => {
 
     expect(client.session.create).toHaveBeenCalledWith({
       // Session titles carry the short thread id for server-side readability.
-      title: "poracode/thread-a",
+      title: "axecode/thread-a",
       location: { directory: "/repo" },
       permissions: [
         { action: "*", resource: "*", effect: "ask" },

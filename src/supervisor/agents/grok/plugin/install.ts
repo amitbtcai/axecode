@@ -29,14 +29,14 @@ import {
  * Grok CLI plugin installer.
  *
  * Two writes per install:
- *   1. **Plugin staging** under `~/.poracode/agent-plugins/grok/` — copies
+ *   1. **Plugin staging** under `~/.axecode/agent-plugins/grok/` — copies
  *      `forward.mjs` + `plugin.json` + the shared forwarder runtime + the
  *      native wrapper script. Same shape as Claude/Codex/Gemini/Copilot.
- *   2. **Global hook config** at `~/.grok/hooks/poracode-status.json`. Grok
+ *   2. **Global hook config** at `~/.grok/hooks/axecode-status.json`. Grok
  *      loads global hooks at every session and always trusts them — no
  *      `/hooks-trust` prompt is required. Done at install time, not per-spawn.
  *
- * Both files are owned by Poracode — we replace them on reinstall and never
+ * Both files are owned by AxeCode — we replace them on reinstall and never
  * merge into user-authored config.
  */
 
@@ -55,7 +55,7 @@ export interface GrokPluginPaths {
 
 const GROK_HOOK_EVENTS = ["SessionStart", "UserPromptSubmit", "Stop", "Notification"] as const;
 
-const GLOBAL_HOOK_FILENAME = "poracode-status.json";
+const GLOBAL_HOOK_FILENAME = "axecode-status.json";
 const LEGACY_GLOBAL_HOOK_FILENAME = "lightcode-status.json";
 const GLOBAL_HOOK_DIR_NAME = "hooks";
 const GLOBAL_GROK_DIR_NAME = ".grok";
@@ -68,7 +68,7 @@ const callerDir =
 
 const resolveSourceDir = createPluginSourceResolver({
   kind: "grok",
-  sourceEnvVar: "PORACODE_GROK_PLUGIN_SOURCE",
+  sourceEnvVar: "AXECODE_GROK_PLUGIN_SOURCE",
   callerDir,
 });
 
@@ -277,13 +277,13 @@ export function isGrokPluginInstalled(ctx?: AgentEnvContext): {
       : "";
     return verifyStagedPluginAt(wsl.uncBase, "wsl", {
       assets: GROK_VERIFY_ASSETS,
-      extraCheck: () => hookFile.length > 0 && hookFileMatchesPoracode(hookFile),
+      extraCheck: () => hookFile.length > 0 && hookFileMatchesAxeCode(hookFile),
     });
   }
   const hookFile = join(nativeGlobalGrokDir(), GLOBAL_HOOK_DIR_NAME, GLOBAL_HOOK_FILENAME);
   return verifyStagedPluginAt(getNativePluginBaseDir("grok", ctx?.baseDir), "native", {
     assets: GROK_VERIFY_ASSETS,
-    extraCheck: () => hookFileMatchesPoracode(hookFile),
+    extraCheck: () => hookFileMatchesAxeCode(hookFile),
   });
 }
 
@@ -298,14 +298,14 @@ export function uninstallGrokPlugin(ctx?: AgentEnvContext): void {
 
 /**
  * Match either the WSL command shape (absolute node path + forward.mjs) or
- * the native shape (`poracode-hook.{sh,cmd,ps1}` wrapper). Used to confirm
+ * the native shape (`axecode-hook.{sh,cmd,ps1}` wrapper). Used to confirm
  * the hook file points at our staged wrapper and not at a stale or
  * user-authored entry.
  */
-const PORACODE_GROK_HOOK_RE =
-  /agent-plugins(?:[/\\]+)grok(?:[/\\]+)(?:forward\.mjs|poracode-hook\.(?:sh|cmd|ps1))/;
+const AXECODE_GROK_HOOK_RE =
+  /agent-plugins(?:[/\\]+)grok(?:[/\\]+)(?:forward\.mjs|axecode-hook\.(?:sh|cmd|ps1))/;
 const MANAGED_GROK_HOOK_RE =
-  /agent-plugins(?:[/\\]+)grok(?:[/\\]+)(?:forward\.mjs|(?:poracode|lightcode)-hook\.(?:sh|cmd|ps1))/;
+  /agent-plugins(?:[/\\]+)grok(?:[/\\]+)(?:forward\.mjs|(?:axecode|poracode|lightcode)-hook\.(?:sh|cmd|ps1))/;
 
 function removeManagedHookFile(path: string): void {
   try {
@@ -315,8 +315,8 @@ function removeManagedHookFile(path: string): void {
   }
 }
 
-function hookFileMatchesPoracode(path: string): boolean {
-  return hookFileMatches(path, PORACODE_GROK_HOOK_RE);
+function hookFileMatchesAxeCode(path: string): boolean {
+  return hookFileMatches(path, AXECODE_GROK_HOOK_RE);
 }
 
 function hookFileMatches(path: string, pattern: RegExp): boolean {

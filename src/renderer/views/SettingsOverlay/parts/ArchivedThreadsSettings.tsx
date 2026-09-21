@@ -161,7 +161,7 @@ export function ArchivedThreadsSettings() {
           <Dropdown.Popover placement="bottom start" className="min-w-[--trigger-width]">
             <Dropdown.Menu
               aria-label={t`Machine`}
-              className="poracode-menu"
+              className="axecode-menu"
               selectionMode="single"
               selectedKeys={[selectedMachineId]}
               onAction={(key) => setMachineId(String(key))}

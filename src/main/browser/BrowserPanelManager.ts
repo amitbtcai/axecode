@@ -9,7 +9,7 @@ import {
   type BrowserTabInfo,
 } from "@/shared/ipc";
 import type { UsageLoginConfirmationAction, UsageLoginDeviceCode } from "@/shared/contracts";
-import type { PoracodePaths } from "@/shared/poracodePaths";
+import type { AxeCodePaths } from "@/shared/axecodePaths";
 import type { BrowserLinkOpenTarget, BrowserLinkPresentationMode } from "@/shared/settings";
 import { dbGetState, dbSetState } from "../db";
 import { readSharedSettingsFile } from "../sharedSettingsFile";
@@ -86,7 +86,7 @@ export class BrowserPanelManager {
   });
 
   constructor(
-    private readonly paths: PoracodePaths,
+    private readonly paths: AxeCodePaths,
     private readonly browserUserAgent: string,
     private readonly options: BrowserPanelManagerOptions = {},
   ) {
@@ -776,7 +776,7 @@ export class BrowserPanelManager {
     if (active && active.isAttached()) {
       active.webContents
         .executeJavaScript(
-          `(() => { window.dispatchEvent(new CustomEvent("__poracode_picker_cancel")); })()`,
+          `(() => { window.dispatchEvent(new CustomEvent("__axecode_picker_cancel")); })()`,
           false,
         )
         .catch(() => {});

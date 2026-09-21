@@ -96,7 +96,7 @@ describe("appStore runtime config sync", () => {
       agentKind: "codex",
       config: { model: "gpt-5.4" },
       prompt: "hello",
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
       worktreeProvisioning: true,
     });
     const experimentThread = useAppStore.getState().createThread({
@@ -104,7 +104,7 @@ describe("appStore runtime config sync", () => {
       agentKind: "codex",
       config: { model: "gpt-5.4" },
       prompt: "compare it",
-      worktreeBranch: "poracode/experiment-feature",
+      worktreeBranch: "axecode/experiment-feature",
       groupId: "experiment-1",
       focus: false,
     });
@@ -128,7 +128,7 @@ describe("appStore runtime config sync", () => {
 
     useAppStore
       .getState()
-      .setThreadWorktree(thread.id, "C:\\worktrees\\feature", "poracode/feature");
+      .setThreadWorktree(thread.id, "C:\\worktrees\\feature", "axecode/feature");
     const resolved = partialize(useAppStore.getState()) as Pick<AppStoreState, "threads" | "view">;
     expect(resolved.threads).toContainEqual(
       expect.objectContaining({ id: thread.id, worktreePath: "C:\\worktrees\\feature" }),

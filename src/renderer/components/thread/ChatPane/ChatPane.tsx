@@ -135,7 +135,7 @@ export function ChatPane(props: ChatPaneProps) {
   );
 
   // Session-media roots (e.g. Grok `image_gen` → session `images/N.jpg`) so
-  // markdown can resolve those relative paths via poracode-local://.
+  // markdown can resolve those relative paths via axecode-local://.
   const providerSessionId = thread.sessionRef?.providerSessionId;
   const markdownImageRoots = useMemo(() => {
     const projectLocation = targetContext?.projectLocation;

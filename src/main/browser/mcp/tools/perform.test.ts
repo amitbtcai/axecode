@@ -35,7 +35,7 @@ describe("perform page workflows", () => {
         { steps: [{ action: "fill" }, { action: "click" }] },
         { ...context, disabledTools: ["click"] },
       ),
-    ).rejects.toThrow("Tool disabled by Poracode: click");
+    ).rejects.toThrow("Tool disabled by AxeCode: click");
     expect(dispatch).not.toHaveBeenCalled();
   });
   it("honors snapshot restrictions for implicit observation", async () => {
@@ -45,7 +45,7 @@ describe("perform page workflows", () => {
         { steps: [{ action: "fill" }] },
         { ...context, disabledTools: ["snapshot"] },
       ),
-    ).rejects.toThrow("Tool disabled by Poracode: snapshot");
+    ).rejects.toThrow("Tool disabled by AxeCode: snapshot");
     expect(dispatch).not.toHaveBeenCalled();
   });
   it.each([

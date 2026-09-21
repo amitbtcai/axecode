@@ -73,7 +73,7 @@ function createTransport(server: McpServer, observation: AuthObservation): Probe
       args: transport.args,
       env: transport.env,
       ...(transport.cwd ? { cwd: transport.cwd } : {}),
-      // Probe output must not copy an MCP server's stderr into Poracode logs.
+      // Probe output must not copy an MCP server's stderr into AxeCode logs.
       stderr: "ignore",
     });
   }
@@ -267,7 +267,7 @@ export async function probeMcpServer(
 ): Promise<McpProbeResult> {
   const startedAt = Date.now();
   const observation: AuthObservation = {};
-  const client = new Client({ name: "poracode-mcp-probe", version: "1.0.0" });
+  const client = new Client({ name: "axecode-mcp-probe", version: "1.0.0" });
   // Transport-level failures (e.g. an oversized stdio frame) are reported via
   // Client.onerror while the pending request rejects with ConnectionClosed.
   // Remember the first one so the classifier can tell bad responses apart

@@ -160,7 +160,7 @@ export function GitReviewOverlay(props: {
       title={t`Git Review`}
       contentHeaderChildren={
         <>
-          <div className="poracode-overlay-header__controls flex min-w-0 shrink items-center gap-2 pl-1.5">
+          <div className="axecode-overlay-header__controls flex min-w-0 shrink items-center gap-2 pl-1.5">
             <span className="min-w-0 max-w-[min(200px,30vw)] truncate font-mono text-[13px] font-medium tracking-tight text-muted">
               {project.name}
             </span>
@@ -215,7 +215,7 @@ export function GitReviewOverlay(props: {
             ) : null}
           </div>
           {selectedFile && (
-            <div className="poracode-overlay-header__controls flex items-center gap-3">
+            <div className="axecode-overlay-header__controls flex items-center gap-3">
               <button
                 type="button"
                 className="flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-muted hover:text-foreground"
@@ -233,7 +233,7 @@ export function GitReviewOverlay(props: {
           <div className="flex-1" />
 
           {!selectedFile && (
-            <div className="poracode-overlay-header__controls flex items-center">
+            <div className="axecode-overlay-header__controls flex items-center">
               <Dropdown>
                 <Button variant="ghost" size="sm" className="h-5 px-1.5 text-xs text-muted">
                   {diffFilter === "changes"
@@ -276,7 +276,7 @@ export function GitReviewOverlay(props: {
             </div>
           )}
 
-          <div className="poracode-overlay-header__controls flex items-center gap-1">
+          <div className="axecode-overlay-header__controls flex items-center gap-1">
             <button
               type="button"
               className="rounded p-1 text-muted hover:text-foreground"

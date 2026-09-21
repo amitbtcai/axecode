@@ -1,6 +1,6 @@
 ---
 name: web-app-verification
-description: "Prove a web change actually works by exercising the flow in Poracode's browser and collecting visual, console, and network evidence."
+description: "Prove a web change actually works by exercising the flow in AxeCode's browser and collecting visual, console, and network evidence."
 ---
 
 # Web App Verification

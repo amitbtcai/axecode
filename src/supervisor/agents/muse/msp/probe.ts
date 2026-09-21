@@ -140,7 +140,7 @@ export async function probeMuseModelCatalog(
 
     const run = (async (): Promise<MuseProbedCatalog> => {
       const init = await client!.initialize(
-        options.clientName ?? "poracode_probe",
+        options.clientName ?? "axecode_probe",
         options.clientVersion ?? "1.0.0",
       );
       // The pin is advisory (schema is additive-open): warn on drift so a

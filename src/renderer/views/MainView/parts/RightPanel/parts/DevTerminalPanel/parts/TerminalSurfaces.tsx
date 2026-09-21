@@ -9,7 +9,7 @@ import type { TerminalFeedListener } from "@/shared/remote/terminalFeed";
 
 const SPLIT_MIN_PERCENT = 15;
 const SPLIT_DEFAULT_PERCENT = 50;
-const SPLIT_STORAGE_KEY = "poracode-split-percent";
+const SPLIT_STORAGE_KEY = "axecode-split-percent";
 const SPLIT_KEY_STEP_PERCENT = 2;
 
 function readSplitPercent(): number {
@@ -225,7 +225,7 @@ export function TerminalSurfaces(props: {
           ))}
         </div>
         <div
-          className="poracode-pane-divider"
+          className="axecode-pane-divider"
           onMouseDown={handleResizeStart}
           onKeyDown={handleResizeKeyDown}
           role="separator"

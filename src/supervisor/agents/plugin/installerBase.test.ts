@@ -33,7 +33,7 @@ import {
 
 const tempDirs: string[] = [];
 
-function makeTempDir(prefix = "poracode-installer-base-"): string {
+function makeTempDir(prefix = "axecode-installer-base-"): string {
   const dir = mkdtempSync(join(tmpdir(), prefix));
   tempDirs.push(dir);
   return dir;
@@ -56,7 +56,7 @@ describe("isWslPluginContext", () => {
 });
 
 describe("createPluginSourceResolver", () => {
-  const ENV_KEY = "PORACODE_TEST_PLUGIN_SOURCE";
+  const ENV_KEY = "AXECODE_TEST_PLUGIN_SOURCE";
 
   beforeEach(() => {
     delete process.env[ENV_KEY];
@@ -163,7 +163,7 @@ describe("parseExistingHooksJson", () => {
 
 describe("isPluginAssetsFresh + copyPluginAssetsIfStale", () => {
   function seedSource(): string {
-    const sourceDir = makeTempDir("poracode-installer-base-src-");
+    const sourceDir = makeTempDir("axecode-installer-base-src-");
     for (const file of PLUGIN_ASSET_FILES) {
       writeFileSync(join(sourceDir, file), `${file} v1`, "utf8");
     }
@@ -299,7 +299,7 @@ describe("renderNativeHookWrapper", () => {
   });
 
   it("prefers PowerShell 7, then Windows PowerShell, before cmd fallback on Windows", () => {
-    const body = renderNativeHookWrapper({ electronPath: "C:\\Poracode\\Poracode.exe" });
+    const body = renderNativeHookWrapper({ electronPath: "C:\\AxeCode\\AxeCode.exe" });
     if (process.platform !== "win32") {
       return;
     }
@@ -308,10 +308,10 @@ describe("renderNativeHookWrapper", () => {
       body.indexOf("set ELECTRON_RUN_AS_NODE=1"),
     );
     expect(body).toContain(
-      'pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0poracode-hook.ps1" %*',
+      'pwsh.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0axecode-hook.ps1" %*',
     );
     expect(body).toContain(
-      'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0poracode-hook.ps1" %*',
+      'powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0axecode-hook.ps1" %*',
     );
   });
 });
@@ -319,7 +319,7 @@ describe("renderNativeHookWrapper", () => {
 describe("renderNativeHookPowerShellWrapper", () => {
   it("passes hook args through to forward.mjs", () => {
     const body = renderNativeHookPowerShellWrapper({
-      electronPath: "C:\\Poracode\\Poracode.exe",
+      electronPath: "C:\\AxeCode\\AxeCode.exe",
     });
     expect(body).toContain("$forward = Join-Path $PSScriptRoot 'forward.mjs'");
     expect(body).toContain("$forward @args");
@@ -328,7 +328,7 @@ describe("renderNativeHookPowerShellWrapper", () => {
 
   it("escapes single quotes in the node path", () => {
     const body = renderNativeHookPowerShellWrapper({
-      electronPath: "C:\\Poracode\\Poracode.exe",
+      electronPath: "C:\\AxeCode\\AxeCode.exe",
       nodePath: "C:\\a'b\\node.exe",
     });
     expect(body).toContain("& 'C:\\a''b\\node.exe' $forward @args");
@@ -340,37 +340,37 @@ describe("buildNativeHookCommandHead", () => {
   const missingShell = () => undefined;
 
   it("prefers PowerShell 7 for native Windows hook wrappers", () => {
-    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\poracode-hook.cmd", (name) =>
+    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\axecode-hook.cmd", (name) =>
       name === "pwsh.exe" ? "C:\\Program Files\\PowerShell\\7\\pwsh.exe" : undefined,
     );
     const expected =
       process.platform === "win32"
-        ? '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\poracode-hook.ps1"'
-        : "'C:\\Users\\u\\poracode-hook.cmd'";
+        ? '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\axecode-hook.ps1"'
+        : "'C:\\Users\\u\\axecode-hook.cmd'";
     expect(commandHead).toBe(expected);
   });
 
   it("falls back to Windows PowerShell when PowerShell 7 is missing", () => {
-    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\poracode-hook.cmd", (name) =>
+    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\axecode-hook.cmd", (name) =>
       name === "powershell.exe"
         ? "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
         : undefined,
     );
     const expected =
       process.platform === "win32"
-        ? '"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\poracode-hook.ps1"'
-        : "'C:\\Users\\u\\poracode-hook.cmd'";
+        ? '"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\axecode-hook.ps1"'
+        : "'C:\\Users\\u\\axecode-hook.cmd'";
     expect(commandHead).toBe(expected);
   });
 
   it("preserves an extensionless resolved PowerShell command", () => {
-    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\poracode-hook.cmd", (name) =>
+    const commandHead = buildNativeHookCommandHead("C:\\Users\\u\\axecode-hook.cmd", (name) =>
       name === "pwsh" ? "C:\\Tools\\pwsh" : undefined,
     );
     const expected =
       process.platform === "win32"
-        ? '"C:\\Tools\\pwsh" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\poracode-hook.ps1"'
-        : "'C:\\Users\\u\\poracode-hook.cmd'";
+        ? '"C:\\Tools\\pwsh" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\axecode-hook.ps1"'
+        : "'C:\\Users\\u\\axecode-hook.cmd'";
     expect(commandHead).toBe(expected);
   });
 
@@ -384,13 +384,13 @@ describe("buildNativeHookCommandHead", () => {
   });
 
   it("escapes embedded quotes for the active native shell", () => {
-    const commandHead = buildNativeHookCommandHead('C:\\Users\\a"b\\poracode-hook.cmd', (name) =>
+    const commandHead = buildNativeHookCommandHead('C:\\Users\\a"b\\axecode-hook.cmd', (name) =>
       name === "pwsh.exe" ? "C:\\Program Files\\PowerShell\\7\\pwsh.exe" : undefined,
     );
     const expected =
       process.platform === "win32"
-        ? '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\a\\"b\\poracode-hook.ps1"'
-        : "'C:\\Users\\a\"b\\poracode-hook.cmd'";
+        ? '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\a\\"b\\axecode-hook.ps1"'
+        : "'C:\\Users\\a\"b\\axecode-hook.cmd'";
     expect(commandHead).toBe(expected);
   });
 });
@@ -400,21 +400,21 @@ describe("buildNativeHookCmdShellCommand", () => {
   it.skipIf(!isWindows)(
     "returns the cmd.exe-routed wrapper invocation on Windows (pwsh-free)",
     () => {
-      const command = buildNativeHookCmdShellCommand("C:\\Users\\u\\poracode-hook.cmd");
-      expect(command).toBe('cmd.exe /d /s /c call "C:\\Users\\u\\poracode-hook.cmd"');
+      const command = buildNativeHookCmdShellCommand("C:\\Users\\u\\axecode-hook.cmd");
+      expect(command).toBe('cmd.exe /d /s /c call "C:\\Users\\u\\axecode-hook.cmd"');
       expect(command).not.toMatch(/pwsh|powershell/i);
     },
   );
 
   it.skipIf(isWindows)("returns a single-quoted wrapper path on POSIX", () => {
-    const command = buildNativeHookCmdShellCommand("/home/u/poracode-hook.sh");
-    expect(command).toBe("'/home/u/poracode-hook.sh'");
+    const command = buildNativeHookCmdShellCommand("/home/u/axecode-hook.sh");
+    expect(command).toBe("'/home/u/axecode-hook.sh'");
   });
 });
 
 describe("buildNativeHookCommandHeads", () => {
   it("centralizes generic, bash, and PowerShell native command shapes", () => {
-    const heads = buildNativeHookCommandHeads("C:\\Users\\u\\poracode-hook.cmd", (name) =>
+    const heads = buildNativeHookCommandHeads("C:\\Users\\u\\axecode-hook.cmd", (name) =>
       name === "pwsh.exe" ? "C:\\Program Files\\PowerShell\\7\\pwsh.exe" : undefined,
     );
 
@@ -422,13 +422,13 @@ describe("buildNativeHookCommandHeads", () => {
       process.platform === "win32"
         ? {
             command:
-              '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\poracode-hook.ps1"',
-            bashCommand: "'C:\\Users\\u\\poracode-hook.cmd'",
-            powershellCommand: "& 'C:\\Users\\u\\poracode-hook.ps1'",
+              '"C:\\Program Files\\PowerShell\\7\\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -File "C:\\Users\\u\\axecode-hook.ps1"',
+            bashCommand: "'C:\\Users\\u\\axecode-hook.cmd'",
+            powershellCommand: "& 'C:\\Users\\u\\axecode-hook.ps1'",
           }
         : {
-            command: "'C:\\Users\\u\\poracode-hook.cmd'",
-            bashCommand: "'C:\\Users\\u\\poracode-hook.cmd'",
+            command: "'C:\\Users\\u\\axecode-hook.cmd'",
+            bashCommand: "'C:\\Users\\u\\axecode-hook.cmd'",
           };
     expect(heads).toEqual(expected);
   });

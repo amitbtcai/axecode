@@ -162,7 +162,7 @@ describe("pending PR refresh", () => {
     checkPrWatchMock.mockReset();
     ghListPrsMock.mockReset();
     checkPrWatchMock.mockResolvedValue(undefined);
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -316,13 +316,13 @@ describe("pending PR refresh", () => {
           ...worktreeThread,
           id: "candidate-1",
           worktreePath: "/repo/experiment-one",
-          worktreeBranch: "poracode/one",
+          worktreeBranch: "axecode/one",
         },
         {
           ...worktreeThread,
           id: "candidate-2",
           worktreePath: "/repo/experiment-two",
-          worktreeBranch: "poracode/two",
+          worktreeBranch: "axecode/two",
         },
       ],
     });
@@ -338,7 +338,7 @@ describe("pending PR refresh", () => {
           threadId: "candidate-1",
           agentKind: "codex",
           worktreePath: "/repo/experiment-one",
-          worktreeBranch: "poracode/one",
+          worktreeBranch: "axecode/one",
           worktreeOwnerToken: "experiment-1:candidate-1",
           worktreeState: "owned",
         },
@@ -346,7 +346,7 @@ describe("pending PR refresh", () => {
           threadId: "candidate-2",
           agentKind: "codex",
           worktreePath: "/repo/experiment-two",
-          worktreeBranch: "poracode/two",
+          worktreeBranch: "axecode/two",
           worktreeOwnerToken: "experiment-1:candidate-2",
           worktreeState: "owned",
         },
@@ -639,7 +639,7 @@ describe("watcher git status refresh", () => {
         }) => Promise<{ statuses: Record<string, GitStatusResult> }>
       >()
       .mockResolvedValue({ statuses: { "/repo-wt": worktreeStatus } });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -719,7 +719,7 @@ describe("watcher git status refresh", () => {
           "/repo-wt": detail === "full" ? fullWorktreeStatus : summaryWorktreeStatus,
         },
       }));
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: { platform: "darwin", getGitStatus, gitWorktreeStatusBatch },
     });
@@ -788,7 +788,7 @@ describe("watcher git status refresh", () => {
         }
         return { statuses: { "/repo-wt": summaryWorktreeStatus } };
       });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: { platform: "darwin", getGitStatus, gitWorktreeStatusBatch },
     });
@@ -847,7 +847,7 @@ describe("watcher git status refresh", () => {
         worktrees: [{ path: "/repo", branch: "feature/pr-checks", commit: "abc123", isMain: true }],
         ghAvailable: false,
       });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -910,7 +910,7 @@ describe("watcher git status refresh", () => {
         worktrees: [{ path: "/repo", branch: "feature/pr-checks", commit: "abc123", isMain: true }],
         ghAvailable: false,
       });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -958,7 +958,7 @@ describe("watcher git status refresh", () => {
         }) => Promise<{ statuses: Record<string, GitStatusResult> }>
       >()
       .mockResolvedValue({ statuses: { "/repo-wt": worktreeStatus } });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1009,7 +1009,7 @@ describe("watcher git status refresh", () => {
       });
     const getGitStatus = vi.fn<() => Promise<GitStatusResult>>().mockResolvedValue(status);
     const gitWatchWorktrees = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1080,7 +1080,7 @@ describe("watcher git status refresh", () => {
         ],
         ghAvailable: false,
       });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1119,7 +1119,7 @@ describe("watcher git status refresh", () => {
     const gitProjectSnapshot = vi
       .fn<() => Promise<{ status: GitStatusResult; worktrees: []; ghAvailable: boolean }>>()
       .mockResolvedValue({ status, worktrees: [], ghAvailable: false });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1155,7 +1155,7 @@ describe("watcher git status refresh", () => {
     const gitProjectSnapshot = vi
       .fn<() => Promise<{ status: GitStatusResult; worktrees: []; ghAvailable: boolean }>>()
       .mockResolvedValue({ status, worktrees: [], ghAvailable: false });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1181,7 +1181,7 @@ describe("watcher git status refresh", () => {
   });
 
   function seedDecidedExperimentCandidate(candidatePath: string): void {
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         platform: "darwin",
@@ -1197,7 +1197,7 @@ describe("watcher git status refresh", () => {
           ...worktreeThread,
           id: "candidate-1",
           worktreePath: candidatePath,
-          worktreeBranch: "poracode/one",
+          worktreeBranch: "axecode/one",
         },
       ],
       view: { kind: "home" },
@@ -1215,7 +1215,7 @@ describe("watcher git status refresh", () => {
           threadId: "candidate-1",
           agentKind: "codex",
           worktreePath: candidatePath,
-          worktreeBranch: "poracode/one",
+          worktreeBranch: "axecode/one",
           worktreeOwnerToken: "experiment-1:candidate-1",
           worktreeState: "owned",
         },

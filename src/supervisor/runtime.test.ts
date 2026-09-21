@@ -64,10 +64,10 @@ import { SupervisorRuntime } from "./supervisorRuntime";
 
 const tempDirs: string[] = [];
 const runtimesToDispose: SupervisorRuntime[] = [];
-const poracodeDataDirBeforeTests = process.env.PORACODE_DATA_DIR;
+const axecodeDataDirBeforeTests = process.env.AXECODE_DATA_DIR;
 
 function makeTempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-runtime-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-runtime-"));
   tempDirs.push(dir);
   return dir;
 }
@@ -98,10 +98,10 @@ afterEach(() => {
   // string "undefined" and create `./undefined/settings.json` in cwd on
   // the next `SupervisorRuntime` construction. Use `delete` when the
   // original value was absent; assign otherwise.
-  if (poracodeDataDirBeforeTests === undefined) {
-    delete process.env.PORACODE_DATA_DIR;
+  if (axecodeDataDirBeforeTests === undefined) {
+    delete process.env.AXECODE_DATA_DIR;
   } else {
-    process.env.PORACODE_DATA_DIR = poracodeDataDirBeforeTests;
+    process.env.AXECODE_DATA_DIR = axecodeDataDirBeforeTests;
   }
   taskkillSpawnSyncMock.mockReset();
   ptySpawnMock.mockReset();
@@ -1162,7 +1162,7 @@ describe("SupervisorRuntime thread input", () => {
     vi.useFakeTimers();
     process.env.VITE_DEV_SERVER_URL = "http://localhost:5173";
     const tempDir = makeTempDir();
-    process.env.PORACODE_DATA_DIR = tempDir;
+    process.env.AXECODE_DATA_DIR = tempDir;
     const runtime = makeRuntime(() => undefined);
     const session = createRuntimeSession({ prevChunk: "" });
 
@@ -2399,7 +2399,7 @@ describe("SupervisorRuntime thread input", () => {
     ).cliHookPluginCoordinator.resolvePluginEnvForSpawn = vi.fn<
       (input: unknown) => Promise<{ env: Record<string, string>; extraArgs: string[] }>
     >(async () => ({
-      env: { PORACODE_HOOK_URL: "http://127.0.0.1:43123/v1/agent-event" },
+      env: { AXECODE_HOOK_URL: "http://127.0.0.1:43123/v1/agent-event" },
       extraArgs: ["--enable", "hooks"],
     }));
 
@@ -2476,7 +2476,7 @@ describe("SupervisorRuntime thread input", () => {
     ).cliHookPluginCoordinator.resolvePluginEnvForSpawn = vi.fn<
       (input: unknown) => Promise<{ env: Record<string, string>; extraArgs: string[] }>
     >(async () => ({
-      env: { PORACODE_HOOK_URL: "http://127.0.0.1:43123/v1/agent-event" },
+      env: { AXECODE_HOOK_URL: "http://127.0.0.1:43123/v1/agent-event" },
       extraArgs: ["--enable", "hooks"],
     }));
 
@@ -2803,8 +2803,8 @@ describe("SupervisorRuntime thread input", () => {
   };
 
   it("hands an in-place provider switch to the transcript-reading instruction when read_thread is available", async () => {
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_TOKEN", "test-token");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_TOKEN", "test-token");
     try {
       const { runtime, startTurn } = makeGuiSwitchFixture();
       await runtime.threadSessionManager.startThread({ ...guiSwitchPayload });
@@ -2819,8 +2819,8 @@ describe("SupervisorRuntime thread input", () => {
   });
 
   it("omits the transcript handoff instruction when read_thread is unavailable for the incoming session", async () => {
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_URL", "");
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_TOKEN", "");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_URL", "");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_TOKEN", "");
     try {
       const { runtime, startTurn } = makeGuiSwitchFixture();
       await runtime.threadSessionManager.startThread({ ...guiSwitchPayload });
@@ -2834,8 +2834,8 @@ describe("SupervisorRuntime thread input", () => {
   });
 
   it("warns in the thread when a transcript handoff cannot reach read_thread", async () => {
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_URL", "");
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_TOKEN", "");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_URL", "");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_TOKEN", "");
     try {
       const { runtime, events } = makeGuiSwitchFixture();
       await runtime.threadSessionManager.startThread({ ...guiSwitchPayload });
@@ -2852,8 +2852,8 @@ describe("SupervisorRuntime thread input", () => {
   });
 
   it("leaves a context-file switch alone: the prompt already carries the handoff context", async () => {
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_TOKEN", "test-token");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_TOKEN", "test-token");
     try {
       const { runtime, startTurn, events } = makeGuiSwitchFixture();
       await runtime.threadSessionManager.startThread({
@@ -2872,8 +2872,8 @@ describe("SupervisorRuntime thread input", () => {
   });
 
   it("treats a switch from a client that predates contextStrategy as context-file", async () => {
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
-    vi.stubEnv("PORACODE_APP_CONTROLS_MCP_TOKEN", "test-token");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_URL", "http://127.0.0.1:9/mcp");
+    vi.stubEnv("AXECODE_APP_CONTROLS_MCP_TOKEN", "test-token");
     try {
       const { runtime, startTurn } = makeGuiSwitchFixture();
       await runtime.threadSessionManager.startThread({

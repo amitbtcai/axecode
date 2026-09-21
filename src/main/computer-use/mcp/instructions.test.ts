@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { COMPUTER_USE_CORE_SKILL, COMPUTER_USE_MCP_INSTRUCTIONS } from "./instructions";
 import computerUsePlugin from "../../../../resources/plugins/computer-use/plugin.json";
-import { PORACODE_EXTENSION_NAMESPACE } from "@/shared/plugins/spec/extensions";
+import { AXECODE_EXTENSION_NAMESPACE } from "@/shared/plugins/spec/extensions";
 
 describe("computer use instructions", () => {
   // Wording order is the whole mechanism here: an agent that reads about
@@ -75,7 +75,7 @@ describe("computer use instructions", () => {
   // Keep the safety wording; do not grow the tax back to a second page.
   it("tells the agent to load the plugin core skill before acting", () => {
     expect(COMPUTER_USE_CORE_SKILL).toBe(
-      computerUsePlugin.extensions[PORACODE_EXTENSION_NAMESPACE].coreSkill,
+      computerUsePlugin.extensions[AXECODE_EXTENSION_NAMESPACE].coreSkill,
     );
     expect(COMPUTER_USE_MCP_INSTRUCTIONS).toContain(
       `load the ${COMPUTER_USE_CORE_SKILL} skill by name`,

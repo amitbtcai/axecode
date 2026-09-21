@@ -695,8 +695,12 @@ msgstr "@scope/plugin@version"
 #~ msgstr "/skill-creator Tạo một skill được quản lý mới cho {destinationLabel}."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
-msgstr "/skill-creator-poracode Tạo một skill được quản lý mới cho {destinationLabel}."
+msgid "/skill-creator-axecode Create a new managed skill for {destinationLabel}."
+msgstr "/skill-creator-axecode Tạo một skill được quản lý mới cho {destinationLabel}."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
+#~ msgstr "/skill-creator-poracode Tạo một skill được quản lý mới cho {destinationLabel}."
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
@@ -993,8 +997,12 @@ msgid "Add a project to use GitHub Actions."
 msgstr "Thêm dự án để sử dụng GitHub Actions."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
-msgstr "Thêm skill vào .agents/skills hoặc .poracode/skills, hoặc nhập từ nhà cung cấp khác."
+msgid "Add a skill to .agents/skills or .axecode/skills, or import one from another provider."
+msgstr "Thêm skill vào .agents/skills hoặc .axecode/skills, hoặc nhập từ nhà cung cấp khác."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
+#~ msgstr "Thêm skill vào .agents/skills hoặc .poracode/skills, hoặc nhập từ nhà cung cấp khác."
 
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "Add a skill to .agents/skills or import one from another provider."
@@ -4664,8 +4672,12 @@ msgid "Development"
 msgstr "Phát triển"
 
 #: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
-msgid "Development-only overrides. Only visible in the PORACODE DEV build."
-msgstr "Ghi đè chỉ dành cho phát triển. Chỉ hiển thị trong bản dựng PORACODE DEV."
+msgid "Development-only overrides. Only visible in the AXECODE DEV build."
+msgstr "Ghi đè chỉ dành cho phát triển. Chỉ hiển thị trong bản dựng AXECODE DEV."
+
+#: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
+#~ msgid "Development-only overrides. Only visible in the PORACODE DEV build."
+#~ msgstr "Ghi đè chỉ dành cho phát triển. Chỉ hiển thị trong bản dựng PORACODE DEV."
 
 #: src/renderer/views/SettingsOverlay/parts/AudioSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -15176,8 +15188,13 @@ msgstr "Sử dụng chữ cái, chữ số, dấu chấm, dấu gạch ngang ho�
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
-msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
-msgstr "Dùng một thư mục toàn cục, hoặc lồng các cây làm việc bên trong mỗi dự án tại .poracode/worktrees."
+msgid "Use one global folder, or nest worktrees inside each project at .axecode/worktrees."
+msgstr "Dùng một thư mục toàn cục, hoặc lồng các cây làm việc bên trong mỗi dự án tại .axecode/worktrees."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
+#~ msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
+#~ msgstr "Dùng một thư mục toàn cục, hoặc lồng các cây làm việc bên trong mỗi dự án tại .poracode/worktrees."
 
 #: src/renderer/components/providers/opencode2/OpenCode2PluginCards.tsx
 msgid "Use OpenCode’s CLI to update terminal-only packages."

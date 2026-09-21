@@ -13,7 +13,7 @@ paywalled doc, an admin console — and read only what was asked for.
 Call `chrome.status`. A disconnected extension means the answer is "connect Chrome", not a silent switch to the
 isolated browser, which has none of these logins.
 
-Ask yourself whether the login is actually required. If the page is public, Poracode's own browser is the safer surface
+Ask yourself whether the login is actually required. If the page is public, AxeCode's own browser is the safer surface
 and leaves the user's session untouched.
 
 ## Reach the page

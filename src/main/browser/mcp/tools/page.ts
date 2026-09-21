@@ -177,7 +177,7 @@ export async function dispatchPageTool(
     }
     case "eval": {
       if (!ctx.allowEval) {
-        return { error: "eval is disabled in Poracode settings" };
+        return { error: "eval is disabled in AxeCode settings" };
       }
       const expression = String(payload.js ?? "");
       if (!expression) throw new Error("js required");
@@ -340,7 +340,7 @@ export async function dispatchPageTool(
       if (!ctx.allowDataAccess) {
         return {
           error:
-            "cookies is disabled. Enable 'Allow agents to read/write cookies and storage' in Poracode settings.",
+            "cookies is disabled. Enable 'Allow agents to read/write cookies and storage' in AxeCode settings.",
         };
       }
       const op = String(payload.op ?? "get") as "get" | "set" | "clear";
@@ -369,7 +369,7 @@ export async function dispatchPageTool(
       if (!ctx.allowDataAccess) {
         return {
           error:
-            "storage is disabled. Enable 'Allow agents to read/write cookies and storage' in Poracode settings.",
+            "storage is disabled. Enable 'Allow agents to read/write cookies and storage' in AxeCode settings.",
         };
       }
       const kind = (payload.kind === "session" ? "session" : "local") as "local" | "session";

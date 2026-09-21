@@ -25,7 +25,7 @@ export function LiveVoiceButton(props: {
           isIconOnly
           size="sm"
           aria-label={label}
-          className="poracode-composer-send bg-success text-success-foreground"
+          className="axecode-composer-send bg-success text-success-foreground"
           isDisabled={!active && props.isDisabled === true}
           onPress={() => {
             if (active) liveVoice.stopScope(props.scopeId);

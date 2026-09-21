@@ -18,10 +18,10 @@ for command_name in rsync ssh pnpm; do
   fi
 done
 
-echo "Building the mobile PWA (channel=${PORACODE_MOBILE_CHANNEL:-stable})"
-PORACODE_MOBILE_CHANNEL="${PORACODE_MOBILE_CHANNEL:-stable}" \
-PORACODE_MOBILE_BASE_PATH="/" \
-PORACODE_MOBILE_APP_ID="${PORACODE_MOBILE_APP_ID:-com.axecode.mobile}" \
+echo "Building the mobile PWA (channel=${AXECODE_MOBILE_CHANNEL:-stable})"
+AXECODE_MOBILE_CHANNEL="${AXECODE_MOBILE_CHANNEL:-stable}" \
+AXECODE_MOBILE_BASE_PATH="/" \
+AXECODE_MOBILE_APP_ID="${AXECODE_MOBILE_APP_ID:-com.axecode.mobile}" \
 pnpm run build:mobile
 
 test -f dist/mobile/index.html

@@ -81,7 +81,7 @@ const materializedAttachments = new Map<string, string>();
 function materializeDataAttachment(url: string, filename: string, bytes: Buffer): string {
   const existing = materializedAttachments.get(url);
   if (existing) return existing;
-  attachmentDirectory ??= mkdtempSync(join(tmpdir(), "poracode-opencode-attachments-"));
+  attachmentDirectory ??= mkdtempSync(join(tmpdir(), "axecode-opencode-attachments-"));
   const safeFilename = filename.replace(/[^A-Za-z0-9._-]/g, "_") || "attachment";
   const path = join(attachmentDirectory, `${materializedAttachments.size}-${safeFilename}`);
   writeFileSync(path, bytes, { flag: "wx" });

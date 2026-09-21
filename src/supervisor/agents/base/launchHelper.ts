@@ -16,12 +16,12 @@ export function stageLaunchHelper(
 } {
   const helpers = resolveWslHelpersDir();
   const source = helpers ? join(helpers, name) : "";
-  if (!source || !existsSync(source)) throw new Error(`Poracode helper ${name} is unavailable`);
+  if (!source || !existsSync(source)) throw new Error(`AxeCode helper ${name} is unavailable`);
   if (location.kind !== "wsl") return { path: source };
-  const deployed = deployFilesToWslTempBase(location.distro, `poracode-${prefix}-${randomUUID()}`, [
+  const deployed = deployFilesToWslTempBase(location.distro, `axecode-${prefix}-${randomUUID()}`, [
     { src: source, relDest: name },
   ]);
-  if (!deployed) throw new Error(`Poracode helper ${name} could not be deployed to WSL`);
+  if (!deployed) throw new Error(`AxeCode helper ${name} could not be deployed to WSL`);
   return {
     path: `${deployed.linuxBaseDir}/${name}`,
     cleanup: () =>

@@ -80,7 +80,7 @@ function createShellCompletionToken(): string {
 }
 
 function shellCompletionMarker(token: string): string {
-  return `\u001B]777;poracode-shell-complete=${token}:`;
+  return `\u001B]777;axecode-shell-complete=${token}:`;
 }
 
 function quotePosixShellArg(value: string): string {
@@ -96,8 +96,8 @@ function buildScriptWithCompletion(
   if (lines.length === 0) return "";
 
   if (locationKind === "windows") {
-    const succeeded = "$poracodeSetupSucceeded";
-    const exitCode = "$poracodeSetupExitCode";
+    const succeeded = "$axecodeSetupSucceeded";
+    const exitCode = "$axecodeSetupExitCode";
     const guarded = lines.reduceRight(
       (tail, line) => `${line}; if ($?) { ${tail} }`,
       `${succeeded} = $true`,
@@ -106,16 +106,16 @@ function buildScriptWithCompletion(
       `${succeeded} = $false`,
       guarded,
       `${exitCode} = if (${succeeded}) { 0 } elseif ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) { $LASTEXITCODE } else { 1 }`,
-      `Write-Host "$([char]27)]777;poracode-shell-complete=${token}:${exitCode}$([char]7)" -NoNewline`,
+      `Write-Host "$([char]27)]777;axecode-shell-complete=${token}:${exitCode}$([char]7)" -NoNewline`,
       `if (${succeeded}) { exit }`,
     ].join("; ");
   }
 
-  const exitCode = "__poracode_setup_exit";
+  const exitCode = "__axecode_setup_exit";
   const bashCommand = [
     lines.join(" && "),
     `${exitCode}=$?`,
-    `printf '\\033]777;poracode-shell-complete=${token}:%s\\007' "$${exitCode}"`,
+    `printf '\\033]777;axecode-shell-complete=${token}:%s\\007' "$${exitCode}"`,
     `exit "$${exitCode}"`,
   ].join("; ");
   // The interactive POSIX shell may be fish, whose assignment and conditional

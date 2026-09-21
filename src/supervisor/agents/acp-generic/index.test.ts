@@ -139,7 +139,7 @@ describe("createAcpGenericAdapter", () => {
           },
           wsl: {
             Ubuntu: {
-              binary: "/home/demo/.poracode/acp-registry/demo/server.par",
+              binary: "/home/demo/.axecode/acp-registry/demo/server.par",
               args: ["--uid="],
               env: { TARGET_ENV: "wsl" },
               version: "2.0.0",
@@ -176,7 +176,7 @@ describe("createAcpGenericAdapter", () => {
     const command = vi.mocked(createAcpStructuredSession).mock.calls.at(-1)?.[0];
     expect(command?.command).toMatch(/wsl\.exe$/iu);
     expect(command?.args).toContain("Ubuntu");
-    expect(command?.args.at(-1)).toContain("/home/demo/.poracode/acp-registry/demo/server.par");
+    expect(command?.args.at(-1)).toContain("/home/demo/.axecode/acp-registry/demo/server.par");
     expect(command?.args.at(-1)).toContain("--uid=");
     expect(command?.args.at(-1)).toContain("TARGET_ENV='wsl'");
   });
@@ -299,7 +299,7 @@ describe("createAcpGenericAdapter", () => {
   });
 
   it("uses ACP env-var auth methods to report missing auth", async () => {
-    const key = "__PORACODE_ACP_GENERIC_AUTH_METHOD_TEST__";
+    const key = "__AXECODE_ACP_GENERIC_AUTH_METHOD_TEST__";
     delete process.env[key];
     vi.mocked(probeAcpCapabilities).mockResolvedValue({
       authMethods: [
@@ -521,7 +521,7 @@ describe("createAcpGenericAdapter", () => {
   });
 
   it("envVar auth resolves authState from process.env at detection time", async () => {
-    const key = "__PORACODE_ACP_GENERIC_TEST__";
+    const key = "__AXECODE_ACP_GENERIC_TEST__";
     delete process.env[key];
     const adapterMissing = createAcpGenericAdapter({
       ...baseInstance,

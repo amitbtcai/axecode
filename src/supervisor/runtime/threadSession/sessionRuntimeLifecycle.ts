@@ -211,10 +211,10 @@ export class SessionRuntimeLifecycle {
           error,
         );
         captureSupervisorException(new Error("PTY output pipeline failed."), {
-          "poracode.feature_area": "thread-session-lifecycle",
-          "poracode.presentation": session.presentationMode ?? "terminal",
-          "poracode.provider": session.agentKind,
-          "poracode.runtime_kind": "pty",
+          "axecode.feature_area": "thread-session-lifecycle",
+          "axecode.presentation": session.presentationMode ?? "terminal",
+          "axecode.provider": session.agentKind,
+          "axecode.runtime_kind": "pty",
         });
       }
     });

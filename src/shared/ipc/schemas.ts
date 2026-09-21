@@ -72,7 +72,7 @@ export const copyImageToClipboardPayloadSchema = z.object({
 });
 
 export const readLocalImageFilePayloadSchema = z.object({
-  url: z.string().regex(/^(?:poracode|lightcode)-local:\/\//),
+  url: z.string().regex(/^(?:axecode|lightcode)-local:\/\//),
 });
 
 export const createProjectDirectoryPayloadSchema = z.object({

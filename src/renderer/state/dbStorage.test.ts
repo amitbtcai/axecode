@@ -30,7 +30,7 @@ describe("createDbStorage", () => {
     bridge.dbGetState.mockReset().mockResolvedValue(null);
     bridge.dbSetState.mockReset().mockResolvedValue(undefined);
     bridge.dbSyncAll.mockReset().mockResolvedValue(undefined);
-    window.poracode = {} as typeof window.poracode;
+    window.axecode = {} as typeof window.axecode;
   });
 
   it("skips duplicate app metadata writes before dbSyncAll", async () => {
@@ -45,18 +45,18 @@ describe("createDbStorage", () => {
     const view = { kind: "home" as const };
     const groupLayouts = {};
 
-    await storage.setItem("poracode-app-v2", {
+    await storage.setItem("axecode-app-v2", {
       state: { projects, threads, view, groupLayouts },
       version: 5,
     });
-    await storage.setItem("poracode-app-v2", {
+    await storage.setItem("axecode-app-v2", {
       state: { projects, threads, view, groupLayouts },
       version: 5,
     });
 
     expect(bridge.dbSyncAll).toHaveBeenCalledTimes(1);
 
-    await storage.setItem("poracode-app-v2", {
+    await storage.setItem("axecode-app-v2", {
       state: { projects, threads: [...threads], view, groupLayouts },
       version: 5,
     });
@@ -67,11 +67,11 @@ describe("createDbStorage", () => {
   it("still deduplicates generic persisted stores by serialized value", async () => {
     const storage = createDbStorage<{ collapsed: boolean }>();
 
-    await storage.setItem("poracode-thread-todo-dock-v1", {
+    await storage.setItem("axecode-thread-todo-dock-v1", {
       state: { collapsed: false },
       version: 1,
     });
-    await storage.setItem("poracode-thread-todo-dock-v1", {
+    await storage.setItem("axecode-thread-todo-dock-v1", {
       state: { collapsed: false },
       version: 1,
     });
@@ -86,20 +86,20 @@ describe("createDbStorage", () => {
     );
     const storage = createDbStorage<{ collapsed: boolean }>();
 
-    await expect(storage.getItem("poracode-thread-todo-dock-v1")).resolves.toEqual({
+    await expect(storage.getItem("axecode-thread-todo-dock-v1")).resolves.toEqual({
       state: { collapsed: true },
       version: 1,
     });
-    expect(bridge.dbGetState).toHaveBeenNthCalledWith(1, "poracode-thread-todo-dock-v1");
+    expect(bridge.dbGetState).toHaveBeenNthCalledWith(1, "axecode-thread-todo-dock-v1");
     expect(bridge.dbGetState).toHaveBeenNthCalledWith(2, "lightcode-thread-todo-dock-v1");
-    expect(bridge.dbSetState).toHaveBeenCalledWith("poracode-thread-todo-dock-v1", legacy);
+    expect(bridge.dbSetState).toHaveBeenCalledWith("axecode-thread-todo-dock-v1", legacy);
   });
 
   it("never writes the shared app snapshot from the quick composer window", async () => {
     bridge.windowKind = "quickComposer";
     const storage = createDbStorage();
 
-    await storage.setItem("poracode-app-v2", {
+    await storage.setItem("axecode-app-v2", {
       state: {
         projects: [{ id: "quick-composer-only" }],
         threads: [],
@@ -120,7 +120,7 @@ describe("dbStorage persistence error reporting", () => {
     bridge.dbSyncAll.mockReset().mockResolvedValue(undefined);
     captureRendererException.mockClear();
     vi.spyOn(console, "error").mockImplementation(() => {});
-    window.poracode = {} as typeof window.poracode;
+    window.axecode = {} as typeof window.axecode;
   });
 
   afterEach(() => {
@@ -131,7 +131,7 @@ describe("dbStorage persistence error reporting", () => {
     bridge.dbSyncAll.mockRejectedValue(new Error("db locked"));
     const storage = createDbStorage();
 
-    await storage.setItem("poracode-app-v2", {
+    await storage.setItem("axecode-app-v2", {
       state: { projects: [], threads: [], view: { kind: "home" }, groupLayouts: {} },
       version: 5,
     } as never);

@@ -56,7 +56,7 @@ function completedIds(events: ReturnType<typeof mapAcpSessionUpdate>): string[] 
 }
 
 describe("Antigravity read completion", () => {
-  it("settles a read when Poracode serves its fs/readTextFile", () => {
+  it("settles a read when AxeCode serves its fs/readTextFile", () => {
     const state = mapperState("t-fs-read");
     const first = itemIdOf(mapAcpSessionUpdate(readCall("call_1", "E:\\proj\\a.ts"), state));
     const second = itemIdOf(mapAcpSessionUpdate(readCall("call_2", "E:\\proj\\b.ts"), state));

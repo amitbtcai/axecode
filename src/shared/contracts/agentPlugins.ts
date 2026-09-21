@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { agentEnvSchema } from "../machines";
 
-/** Native provider package management, separate from Poracode's plugin packages. */
+/** Native provider package management, separate from AxeCode's plugin packages. */
 export const manageAgentPluginsPayloadSchema = z
   .object({
     agentKind: z.string().min(1).max(128),

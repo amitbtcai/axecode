@@ -285,7 +285,7 @@ export async function handleHttp(
     };
     if (
       req.method === "GET" &&
-      (url.pathname === "/.well-known/poracode/environment" ||
+      (url.pathname === "/.well-known/axecode/environment" ||
         url.pathname === "/.well-known/lightcode/environment")
     ) {
       writeJson(res, 200, descriptor(ctx));
@@ -490,7 +490,7 @@ export async function handleHttp(
       return;
     }
     // Serves local images (chat attachments, markdown images) to paired
-    // devices, standing in for the desktop-only `poracode-local` protocol.
+    // devices, standing in for the desktop-only `axecode-local` protocol.
     // <img> tags can't send Authorization headers, so this endpoint uniquely
     // also accepts the access token as an `access_token` query param; the
     // serving helper restricts reads to image file extensions.

@@ -100,7 +100,7 @@ describe("ExperimentCandidateCard", () => {
   beforeEach(() => {
     getExperimentCandidateStats.mockReset();
     __resetExperimentCandidateStatsCacheForTest();
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         getExperimentCandidateStats,

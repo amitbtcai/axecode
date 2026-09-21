@@ -72,7 +72,7 @@ export const threadSchema = z.object({
   slashCommands: z.array(agentSlashCommandSchema).optional(),
   /**
    * Id of the thread that created this thread as a child (e.g. via the
-   * `poracode` MCP `create_thread` tool). Persisted so child threads render
+   * `axecode` MCP `create_thread` tool). Persisted so child threads render
    * grouped with their parent in the sidebar; absent for user-created threads.
    */
   parentThreadId: z.string().min(1).optional(),
@@ -86,7 +86,7 @@ export interface ThreadRuntimeSnapshot {
   config?: z.infer<typeof threadConfigSchema>;
   /** Effective launch-time config after plugin and global MCP policy is applied. */
   launchConfig?: z.infer<typeof threadConfigSchema>;
-  /** Whether this live session launched with Poracode's read_thread tool available. */
+  /** Whether this live session launched with AxeCode's read_thread tool available. */
   threadMentionToolsAvailable?: boolean;
   sessionRef?: z.infer<typeof sessionRefSchema>;
   canResumeWithConfig: boolean;

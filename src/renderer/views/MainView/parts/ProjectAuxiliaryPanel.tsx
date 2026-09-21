@@ -437,12 +437,12 @@ export function ProjectAuxiliaryPanel(props: { includeTerminal: boolean; visible
         ) : undefined
       }
       usageHeaderActions={
-        <UsagePanelHeaderActions dragControlClass="poracode-overlay-header__controls" />
+        <UsagePanelHeaderActions dragControlClass="axecode-overlay-header__controls" />
       }
       docksHeaderActions={
         <ThreadDocksPlacementToggle
           placement={docksPlacement}
-          buttonClassName={`poracode-overlay-header__controls ${panelHeaderIconButtonClass}`}
+          buttonClassName={`axecode-overlay-header__controls ${panelHeaderIconButtonClass}`}
         />
       }
       showTerminalTab={props.includeTerminal}

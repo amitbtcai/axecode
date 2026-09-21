@@ -45,7 +45,7 @@ export interface OpenTabOptions {
   groupColor?: string;
 }
 
-/** Outbound (Poracode -> extension) request payloads, minus the correlation id. */
+/** Outbound (AxeCode -> extension) request payloads, minus the correlation id. */
 type RequestPayload =
   | { type: "listTabs" }
   | { type: "attach"; tabId?: number }
@@ -140,7 +140,7 @@ export class ExternalChromeConnection {
   }
 
   /**
-   * Ensure a workspace tab is attached. Defaults to a background Poracode-group
+   * Ensure a workspace tab is attached. Defaults to a background AxeCode-group
    * tab so the agent never steals the user's foreground; `attach(tabId)` opts
    * into driving one of the user's own tabs instead.
    */
@@ -276,7 +276,7 @@ export class ExternalChromeConnection {
     }
     if (type === "detached") {
       if (msg.tabId !== this.attachedTabId) return;
-      // The user closed the tab or dismissed the "Poracode is debugging"
+      // The user closed the tab or dismissed the "AxeCode is debugging"
       // banner. Drop the attachment so the next command re-attaches.
       this.attachedTabId = null;
       this.attachedUrl = undefined;

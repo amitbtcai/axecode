@@ -97,8 +97,8 @@ describe("toProjectRelativeDisplayPath", () => {
   it("relativizes a Windows worktree-absolute path to a project-relative path", () => {
     expect(
       toProjectRelativeDisplayPath(
-        "C:\\Users\\me\\.poracode\\worktrees\\repo-abc\\src\\renderer\\App.tsx",
-        { kind: "windows", path: "C:\\Users\\me\\.poracode\\worktrees\\repo-abc" },
+        "C:\\Users\\me\\.axecode\\worktrees\\repo-abc\\src\\renderer\\App.tsx",
+        { kind: "windows", path: "C:\\Users\\me\\.axecode\\worktrees\\repo-abc" },
       ),
     ).toBe("src/renderer/App.tsx");
   });
@@ -130,7 +130,7 @@ describe("toProjectRelativeDisplayPath", () => {
     expect(
       toProjectRelativeDisplayPath(outside, {
         kind: "windows",
-        path: "C:\\Users\\me\\.poracode\\worktrees\\repo-abc",
+        path: "C:\\Users\\me\\.axecode\\worktrees\\repo-abc",
       }),
     ).toBe(outside);
   });

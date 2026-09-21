@@ -210,7 +210,7 @@ export class MuseMspStructuredSession implements StructuredSessionHandle {
 
   async activate(): Promise<void> {
     if (this.disposed) throw new Error("Muse MSP session was disposed before activation.");
-    const result = await this.client.initialize("poracode", "1.0.0");
+    const result = await this.client.initialize("axecode", "1.0.0");
     if (result.schema.version !== MSP_SCHEMA_VERSION) {
       throw new Error(
         `Muse MSP schema version ${result.schema.version} is incompatible with supported version ${MSP_SCHEMA_VERSION}.`,

@@ -143,7 +143,7 @@ export function isPdfPath(path: string, mimeType?: string): boolean {
 
 /**
  * Encode an absolute filesystem path for use in a URL path (file:// or
- * poracode-local://). Segments are percent-encoded so spaces and literal `%`
+ * axecode-local://). Segments are percent-encoded so spaces and literal `%`
  * in folder names survive `decodeURIComponent`. Windows drive letters stay
  * unencoded (`/C:/Users/…`).
  */
@@ -184,7 +184,7 @@ export function toFileUrl(absolutePath: string): string {
 }
 
 /**
- * Build a `poracode-local://` URL for an absolute filesystem path.
+ * Build a `axecode-local://` URL for an absolute filesystem path.
  *
  * Anchors the path under a constant `local` host so standard-scheme parsing
  * does not eat `/Users` or the Windows drive letter as the host (see
@@ -192,7 +192,7 @@ export function toFileUrl(absolutePath: string): string {
  * names (e.g. Grok session dirs `E%3A%5Cwork…`) survives `decodeURIComponent`.
  */
 export function toLocalFileUrl(absolutePath: string): string {
-  return `poracode-local://local${encodeAbsolutePathForUrl(absolutePath)}`;
+  return `axecode-local://local${encodeAbsolutePathForUrl(absolutePath)}`;
 }
 
 /** Inverse of {@link toLocalFileUrl} — same rules as the main-process protocol handler. */

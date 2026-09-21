@@ -27,7 +27,7 @@ import { resolvePluginMcpServers } from "./pluginMcpRuntime";
 let root: string;
 
 beforeEach(async () => {
-  root = await mkdtemp(join(tmpdir(), "poracode-agent-plugins-"));
+  root = await mkdtemp(join(tmpdir(), "axecode-agent-plugins-"));
 });
 
 afterEach(async () => {
@@ -168,14 +168,14 @@ describe("component discovery", () => {
     const dir = await writePackage("missing-core", {
       manifest: manifest("missing-core", {
         extensions: {
-          "com.poracode.client": { coreSkill: "missing" },
+          "com.axecode.client": { coreSkill: "missing" },
         },
       }),
       skills: { present: skillBody("present") },
     });
 
     const result = loadPluginFromDirectory(dir, "bundled");
-    expect(result.plugin?.poracode.coreSkill).toBe("missing");
+    expect(result.plugin?.axecode.coreSkill).toBe("missing");
     expect(codes(result.diagnostics)).toEqual(["extension-unknown-skill"]);
   });
 
@@ -415,7 +415,7 @@ describe("mcp runtime", () => {
     const plugin = await writePackage("unsupported", {
       manifest: manifest("unsupported", {
         extensions: {
-          "com.poracode.client": {
+          "com.axecode.client": {
             platforms: ["darwin"],
             projectKinds: ["windows"],
           },
@@ -735,7 +735,7 @@ describe("shipped packages", () => {
       expect(result.diagnostics, `${name}: ${JSON.stringify(result.diagnostics)}`).toEqual([]);
       expect(result.plugin?.name).toBe(name);
       expect(result.plugin?.skills.length).toBeGreaterThan(0);
-      expect(result.plugin?.poracode.title).toBeTruthy();
+      expect(result.plugin?.axecode.title).toBeTruthy();
 
       // SkillsService rejects a SKILL.md whose frontmatter `name` is not the
       // folder name, and the Skills list then shows the rejection reason where
@@ -751,7 +751,7 @@ describe("shipped packages", () => {
 
         // The Skills list and the plugin detail page read their labels from the
         // manifest policy, so a skill missing one shows a bare folder name.
-        const policy = result.plugin?.poracode.skills[skill.folder];
+        const policy = result.plugin?.axecode.skills[skill.folder];
         expect(policy?.name, `${name}/${skill.folder} has no policy name`).toBeTruthy();
         expect(
           policy?.description,
@@ -761,7 +761,7 @@ describe("shipped packages", () => {
 
       // Every bundled package ships a core skill so @mention and a bound
       // built-in MCP have the same "how to work with these tools" entry point.
-      const core = result.plugin?.poracode.coreSkill;
+      const core = result.plugin?.axecode.coreSkill;
       expect(core, `${name} declares no core skill`).toBeTruthy();
       expect(
         result.plugin?.skills.some((skill) => skill.folder === core),
@@ -798,7 +798,7 @@ describe("shipped packages", () => {
     for (const [name, { folder, markers }] of Object.entries(supporting)) {
       const plugin = loadPluginFromDirectory(join(shippedDir, name), "bundled").plugin!;
       expect(
-        plugin.poracode.coreSkill,
+        plugin.axecode.coreSkill,
         `${name} supporting skill must not be the core one`,
       ).not.toBe(folder);
       const skill = plugin.skills.find((candidate) => candidate.folder === folder);
@@ -854,9 +854,9 @@ describe("shipped packages", () => {
 
     for (const [name, markers] of Object.entries(expectations)) {
       const plugin = loadPluginFromDirectory(join(shippedDir, name), "bundled").plugin!;
-      const coreSkill = plugin.skills.find((skill) => skill.folder === plugin.poracode.coreSkill);
+      const coreSkill = plugin.skills.find((skill) => skill.folder === plugin.axecode.coreSkill);
       expect(coreSkill, `${name} has no configured core skill`).toBeTruthy();
-      expect(plugin.poracode.examplePrompt, `${name} has no example prompt`).toBeTruthy();
+      expect(plugin.axecode.examplePrompt, `${name} has no example prompt`).toBeTruthy();
       const contents = readFileSync(join(coreSkill!.path, "SKILL.md"), "utf8");
       for (const marker of markers) {
         expect(contents, `${name} core skill lacks '${marker}'`).toContain(marker);

@@ -75,7 +75,7 @@ describe("isRasterDownsampleCandidate", () => {
   it("accepts ordinary rasters", () => {
     expect(isRasterDownsampleCandidate("https://x.test/shot.png")).toBe(true);
     expect(isRasterDownsampleCandidate("data:image/png;base64,AAA")).toBe(true);
-    expect(isRasterDownsampleCandidate("poracode-local://local/C:/tmp/a.webp")).toBe(true);
+    expect(isRasterDownsampleCandidate("axecode-local://local/C:/tmp/a.webp")).toBe(true);
   });
 });
 

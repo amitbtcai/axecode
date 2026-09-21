@@ -1,4 +1,4 @@
-import type { PoracodeChannel } from "../channel";
+import type { AxeCodeChannel } from "../channel";
 import type { RemoteThreadCommand } from "../contracts";
 import type { RemoteAccessPairingInfo } from "../remote";
 import type { SharedSettings } from "../settings";
@@ -23,24 +23,24 @@ import type {
 } from "./events";
 import type { QuickComposerSubmission } from "./schemas";
 
-export const PORACODE_WINDOW_KINDS = ["main", "browserExtract", "quickComposer"] as const;
-export type PoracodeWindowKind = (typeof PORACODE_WINDOW_KINDS)[number];
+export const AXECODE_WINDOW_KINDS = ["main", "browserExtract", "quickComposer"] as const;
+export type AxeCodeWindowKind = (typeof AXECODE_WINDOW_KINDS)[number];
 
 type ProcedureArgs<Name extends IpcProcedureName> =
   (typeof ipcProcedureMap)[Name]["__types"]["args"];
 
-export type PoracodeInvokeBridge = {
+export type AxeCodeInvokeBridge = {
   [Name in IpcProcedureName]: (...args: ProcedureArgs<Name>) => Promise<IpcProcedureResult<Name>>;
 };
 
-export type PoracodeBridge = PoracodeInvokeBridge & {
+export type AxeCodeBridge = AxeCodeInvokeBridge & {
   platform: NodeJS.Platform;
   appVersion: string;
   arch: string;
   chromeVersion: string;
   isDev: boolean;
-  windowKind: PoracodeWindowKind;
-  channel: PoracodeChannel;
+  windowKind: AxeCodeWindowKind;
+  channel: AxeCodeChannel;
   /**
    * Host user home directory (`os.homedir()`). Used to resolve Grok session
    * media paths (`~/.grok/sessions/…`) for chat markdown images. Optional so
@@ -81,7 +81,7 @@ export type PoracodeBridge = PoracodeInvokeBridge & {
 
 export function createInvokeBridge(
   invoke: (channel: string, ...args: unknown[]) => Promise<unknown>,
-): PoracodeInvokeBridge {
+): AxeCodeInvokeBridge {
   return createProcedureBridge((name, args) => {
     const procedure = ipcProcedureMap[name];
     return invoke(procedure.channel, ...args);
@@ -91,8 +91,8 @@ export function createInvokeBridge(
 /** Builds every typed procedure method while preserving its canonical name. */
 export function createProcedureBridge(
   invoke: (name: IpcProcedureName, args: unknown[]) => Promise<unknown>,
-): PoracodeInvokeBridge {
-  const bridge = {} as PoracodeInvokeBridge;
+): AxeCodeInvokeBridge {
+  const bridge = {} as AxeCodeInvokeBridge;
   const names = Object.keys(ipcProcedureMap) as IpcProcedureName[];
   for (const name of names) {
     (bridge as Record<IpcProcedureName, unknown>)[name] = (...args: unknown[]) =>

@@ -147,7 +147,7 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunk store", () => {
     const text = assemble(head);
     expect(text.startsWith("START")).toBe(true);
     expect(text.endsWith("END")).toBe(true);
-    expect(text).toContain("poracode elided");
+    expect(text).toContain("axecode elided");
     expect(text.length).toBeLessThanOrEqual(HEAD_CHARS + TAIL_CHARS + 300_000);
     expect(elidedChars()).toBeGreaterThan(0);
   });
@@ -160,11 +160,11 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunk store", () => {
 
     const text = assemble(head);
     const lines = text.split(NL);
-    const noticeIndex = lines.findIndex((l) => l.includes("poracode elided"));
+    const noticeIndex = lines.findIndex((l) => l.includes("axecode elided"));
 
     expect(noticeIndex).toBeGreaterThan(0);
     // The notice occupies a whole line, and its neighbours are intact log lines.
-    expect(lines[noticeIndex]!.startsWith("[... poracode elided")).toBe(true);
+    expect(lines[noticeIndex]!.startsWith("[... axecode elided")).toBe(true);
     expect(lines[noticeIndex]!.endsWith("...]")).toBe(true);
     expect(lines[noticeIndex - 1]).toMatch(/^2026-08-27T07:00:00\.000Z INFO build step \d{6} ok$/);
     expect(lines[noticeIndex + 1]).toMatch(/^2026-08-27T07:00:00\.000Z INFO build step \d{6} ok$/);
@@ -178,7 +178,7 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunk store", () => {
 
     expect(text.startsWith("A")).toBe(true);
     expect(text.endsWith("Z")).toBe(true);
-    expect(text).toContain("poracode elided");
+    expect(text).toContain("axecode elided");
   });
 
   it("keeps its bookkeeping consistent with the rows it retains", () => {

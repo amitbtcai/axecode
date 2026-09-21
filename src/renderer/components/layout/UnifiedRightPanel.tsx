@@ -150,7 +150,7 @@ export function UnifiedRightPanel(props: {
     handleResizeStart: handleSplitResizeStart,
     handleResizeKeyDown: handleSplitResizeKeyDown,
   } = useSplitPercent({
-    storageKey: "poracode-right-panel-split-percent",
+    storageKey: "axecode-right-panel-split-percent",
     orientation: "column",
     containerRef: splitContainerRef,
     paneRef: splitFirstPaneRef,
@@ -171,7 +171,7 @@ export function UnifiedRightPanel(props: {
     };
   };
 
-  const dragCtl = "poracode-overlay-header__controls";
+  const dragCtl = "axecode-overlay-header__controls";
   const labels = usePanelTabLabels();
   const tabs = [
     {
@@ -281,12 +281,12 @@ export function UnifiedRightPanel(props: {
 
   return (
     <div
-      data-poracode-panel=""
+      data-axecode-panel=""
       className="flex h-full min-h-0 flex-col bg-[var(--content-background)]"
     >
       <div
         ref={headerRowRef}
-        className={`poracode-overlay-header ${panelHeaderRowClass}`}
+        className={`axecode-overlay-header ${panelHeaderRowClass}`}
         data-active-tab={activeTab}
       >
         {/* Leading content is capped so the trailing controls always keep a
@@ -411,7 +411,7 @@ export function UnifiedRightPanel(props: {
             <Dropdown.Popover placement="bottom end">
               <Dropdown.Menu
                 aria-label={t`More`}
-                className="poracode-menu min-w-48"
+                className="axecode-menu min-w-48"
                 onAction={(key) => {
                   if (key === "lock") {
                     onToggleFollowsThread?.();
@@ -458,7 +458,7 @@ export function UnifiedRightPanel(props: {
         </button>
       </div>
       {hasSubagentTitle ? (
-        <div className="poracode-right-panel-subagent-meta flex h-6 shrink-0 items-center gap-2 border-b border-[color:var(--border)] px-3">
+        <div className="axecode-right-panel-subagent-meta flex h-6 shrink-0 items-center gap-2 border-b border-[color:var(--border)] px-3">
           <div className="min-w-0 flex-1">{subagentTitle}</div>
           {onCloseSubagent ? (
             <button
@@ -522,7 +522,7 @@ export function UnifiedRightPanel(props: {
                 {splitPlacement === "top" ? splitSection : layerStack}
               </div>
               <div
-                className="poracode-pane-divider-horizontal"
+                className="axecode-pane-divider-horizontal"
                 onPointerDown={handleSplitResizeStart}
                 onKeyDown={handleSplitResizeKeyDown}
                 role="separator"

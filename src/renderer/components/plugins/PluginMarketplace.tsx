@@ -46,10 +46,10 @@ export function PluginMarketplace(props: {
   const installed = props.plugins.filter(
     (entry) => resolveInstalledPluginState(entry.plugin, installedPlugins) !== undefined,
   );
-  const featured = matches.filter((entry) => entry.plugin.poracode.featured);
+  const featured = matches.filter((entry) => entry.plugin.axecode.featured);
   const sections = CATEGORY_ORDER.flatMap((category) => {
     const entries = matches.filter(
-      (entry) => entry.plugin.poracode.category === category && !entry.plugin.poracode.featured,
+      (entry) => entry.plugin.axecode.category === category && !entry.plugin.axecode.featured,
     );
     return entries.length > 0 ? [{ category, entries }] : [];
   });
@@ -199,7 +199,7 @@ function PluginCard(props: {
                 <Trans>Project</Trans>
               </PluginTag>
             ) : null}
-            {plugin.poracode.communityMaintained ? (
+            {plugin.axecode.communityMaintained ? (
               <PluginTag>
                 <Trans>Community</Trans>
               </PluginTag>

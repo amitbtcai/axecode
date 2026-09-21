@@ -39,7 +39,7 @@ describe.skipIf(!sqliteAvailable)("ContentPublishWatcher", () => {
 
   beforeEach(() => {
     if (nativeBindingEnv) {
-      process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
+      process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
     }
     dir = mkdtempSync(join(tmpdir(), "axecode-publish-"));
     initDatabase(join(dir, "state.sqlite"));
@@ -57,7 +57,7 @@ describe.skipIf(!sqliteAvailable)("ContentPublishWatcher", () => {
   afterEach(() => {
     closeDatabase();
     rmSync(dir, { recursive: true, force: true });
-    delete process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING;
+    delete process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING;
   });
 
   function makeWatcher(startThread: (payload: unknown) => Promise<unknown>) {

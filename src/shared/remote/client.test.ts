@@ -6,7 +6,7 @@ import {
   RemoteDesktopClient,
 } from "./client";
 import { defaultSharedSettings } from "../settings";
-import { PORACODE_REMOTE_PROTOCOL_VERSION } from "./protocol";
+import { AXECODE_REMOTE_PROTOCOL_VERSION } from "./protocol";
 
 describe("remote error classification", () => {
   it("separates transport failures from reachable application errors", () => {
@@ -80,7 +80,7 @@ describe("RemoteDesktopClient", () => {
     ).resolves.toMatchObject({ accessToken: "lc_access_test" });
     expect(body).toMatchObject({
       client: {
-        label: "Poracode web app",
+        label: "AxeCode web app",
         deviceType: "browser",
       },
     });
@@ -454,7 +454,7 @@ describe("RemoteDesktopClient", () => {
       "http://127.0.0.1:38987/",
       "lc_access_test",
       async (_url, init) => {
-        commandId = init?.headers?.["x-poracode-command-id"] ?? "";
+        commandId = init?.headers?.["x-axecode-command-id"] ?? "";
         return new Response(JSON.stringify({ ok: true }), {
           status: 200,
           headers: { "content-type": "application/json" },
@@ -729,7 +729,7 @@ describe("RemoteDesktopClient", () => {
       undefined,
       async (url, init) => {
         if (new URL(url).pathname !== "/api/threads/start") {
-          return descriptorResponse(PORACODE_REMOTE_PROTOCOL_VERSION, ["session:operate"]);
+          return descriptorResponse(AXECODE_REMOTE_PROTOCOL_VERSION, ["session:operate"]);
         }
         startBody = JSON.parse(typeof init?.body === "string" ? init.body : "{}") as unknown;
         return new Response(JSON.stringify({ threadId: "thread-1" }), {
@@ -756,12 +756,12 @@ describe("RemoteDesktopClient", () => {
     });
   });
 
-  it("falls back to the legacy environment endpoint when the Poracode endpoint is unavailable", async () => {
+  it("falls back to the legacy environment endpoint when the AxeCode endpoint is unavailable", async () => {
     const requestedPaths: string[] = [];
     const client = new RemoteDesktopClient("http://127.0.0.1:38987/", undefined, async (url) => {
       const pathname = new URL(url).pathname;
       requestedPaths.push(pathname);
-      if (pathname === "/.well-known/poracode/environment") {
+      if (pathname === "/.well-known/axecode/environment") {
         return new Response(
           JSON.stringify({ error: { code: "not_found", message: "Not found." } }),
           {
@@ -770,19 +770,19 @@ describe("RemoteDesktopClient", () => {
           },
         );
       }
-      return descriptorResponse(PORACODE_REMOTE_PROTOCOL_VERSION, ["session:read"]);
+      return descriptorResponse(AXECODE_REMOTE_PROTOCOL_VERSION, ["session:read"]);
     });
 
     await expect(client.environment()).resolves.toMatchObject({ desktopId: "desktop-1" });
     expect(requestedPaths).toEqual([
-      "/.well-known/poracode/environment",
+      "/.well-known/axecode/environment",
       "/.well-known/lightcode/environment",
     ]);
   });
 
   it("drops server-advertised scopes this build does not know instead of failing to parse", async () => {
     const client = new RemoteDesktopClient("http://127.0.0.1:38987/", undefined, async () =>
-      descriptorResponse(PORACODE_REMOTE_PROTOCOL_VERSION, [
+      descriptorResponse(AXECODE_REMOTE_PROTOCOL_VERSION, [
         "session:read",
         "session:operate",
         "future:capability",

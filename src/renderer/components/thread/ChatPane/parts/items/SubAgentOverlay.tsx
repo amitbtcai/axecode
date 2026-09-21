@@ -239,7 +239,7 @@ export function SubAgentHeaderText({
   if (part === "description") return description;
 
   return (
-    <span className="poracode-subagent-header-text flex min-w-0 flex-1 flex-col justify-center">
+    <span className="axecode-subagent-header-text flex min-w-0 flex-1 flex-col justify-center">
       {title}
       {description}
     </span>
@@ -309,7 +309,7 @@ function Shell({
     <div
       role="region"
       {...(hideHeader ? { "aria-label": title } : { "aria-labelledby": titleId })}
-      className="poracode-subagent-surface flex h-full min-h-0 flex-col bg-[var(--content-background)] text-[length:var(--lc-chat-font-size)]"
+      className="axecode-subagent-surface flex h-full min-h-0 flex-col bg-[var(--content-background)] text-[length:var(--lc-chat-font-size)]"
       style={guiChatFontCssVars(guiChatFontSize)}
     >
       {hideHeader ? null : (
@@ -394,7 +394,7 @@ function ChildList({
         }}
         scrollClassName="h-full min-h-0 overflow-y-auto [overflow-anchor:none] [scrollbar-gutter:stable]"
         scrollStyle={scrollFadeStyle}
-        contentClassName="poracode-subagent-list-content min-h-full px-3 pt-3"
+        contentClassName="axecode-subagent-list-content min-h-full px-3 pt-3"
         header={
           workflow ? (
             <WorkflowOverlayHeader workflow={workflow} progress={workflowProgress} />

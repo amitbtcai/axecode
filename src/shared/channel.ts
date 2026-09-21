@@ -1,33 +1,33 @@
-export type PoracodeChannel = "stable" | "nightly";
+export type AxeCodeChannel = "stable" | "nightly";
 
-export const PORACODE_CHANNELS: readonly PoracodeChannel[] = ["stable", "nightly"];
+export const AXECODE_CHANNELS: readonly AxeCodeChannel[] = ["stable", "nightly"];
 
-declare const __PORACODE_CHANNEL__: string | undefined;
+declare const __AXECODE_CHANNEL__: string | undefined;
 
-export function normalizeChannel(value: unknown): PoracodeChannel {
+export function normalizeChannel(value: unknown): AxeCodeChannel {
   return value === "nightly" ? "nightly" : "stable";
 }
 
-export function resolvePoracodeChannel(): PoracodeChannel {
-  return normalizeChannel(typeof __PORACODE_CHANNEL__ === "string" ? __PORACODE_CHANNEL__ : "");
+export function resolveAxeCodeChannel(): AxeCodeChannel {
+  return normalizeChannel(typeof __AXECODE_CHANNEL__ === "string" ? __AXECODE_CHANNEL__ : "");
 }
 
-export function productNameFor(channel: PoracodeChannel): string {
+export function productNameFor(channel: AxeCodeChannel): string {
   return channel === "nightly" ? "Axe Code Nightly" : "Axe Code";
 }
 
-export function appIdFor(channel: PoracodeChannel): string {
+export function appIdFor(channel: AxeCodeChannel): string {
   return channel === "nightly" ? "com.axecode.app.nightly" : "com.axecode.app";
 }
 
-export function userDataDirNameFor(channel: PoracodeChannel): string {
+export function userDataDirNameFor(channel: AxeCodeChannel): string {
   return channel === "nightly" ? ".axecode-nightly" : ".axecode";
 }
 
-export function updaterChannelFor(channel: PoracodeChannel): string | undefined {
+export function updaterChannelFor(channel: AxeCodeChannel): string | undefined {
   return channel === "nightly" ? "nightly" : undefined;
 }
 
-export function artifactPrefixFor(channel: PoracodeChannel): string {
+export function artifactPrefixFor(channel: AxeCodeChannel): string {
   return channel === "nightly" ? "AxeCode-Nightly" : "AxeCode";
 }

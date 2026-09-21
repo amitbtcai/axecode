@@ -385,7 +385,7 @@ function context(
   };
 }
 
-describe("Poracode app control tools — schedules", () => {
+describe("AxeCode app control tools — schedules", () => {
   it("creates a schedule with the calling thread's agent defaults", async () => {
     const { ctx, service } = context();
     await dispatchTool(
@@ -436,12 +436,12 @@ describe("Poracode app control tools — schedules", () => {
   });
 });
 
-describe("Poracode app control tools — threads", () => {
+describe("AxeCode app control tools — threads", () => {
   it("returns the calling thread with its project and worktree", async () => {
     const current = makeThread({
       id: thread.id,
       projectId: "project-1",
-      worktreePath: "/work/alpha/.poracode/worktrees/current",
+      worktreePath: "/work/alpha/.axecode/worktrees/current",
       worktreeBranch: "feature/current",
     });
     const projects = [{ id: "project-1", name: "Alpha" } as Project];
@@ -456,7 +456,7 @@ describe("Poracode app control tools — threads", () => {
     expect(result).toMatchObject({
       threadId: thread.id,
       projectName: "Alpha",
-      worktreePath: "/work/alpha/.poracode/worktrees/current",
+      worktreePath: "/work/alpha/.axecode/worktrees/current",
     });
   });
 
@@ -500,7 +500,7 @@ describe("Poracode app control tools — threads", () => {
   });
 
   it("filters threads to the calling thread's exact worktree", async () => {
-    const worktreePath = "/work/alpha/.poracode/worktrees/current";
+    const worktreePath = "/work/alpha/.axecode/worktrees/current";
     const threads = [
       makeThread({ id: thread.id, projectId: "project-1", worktreePath }),
       makeThread({ id: "same", projectId: "project-1", worktreePath }),
@@ -558,7 +558,7 @@ describe("Poracode app control tools — threads", () => {
       makeThread({
         id: "separate-worktree",
         projectId: "project-1",
-        worktreePath: "/work/alpha/.poracode/worktrees/feature",
+        worktreePath: "/work/alpha/.axecode/worktrees/feature",
       }),
       makeThread({ id: "other-project", projectId: "project-2" }),
     ];
@@ -642,7 +642,7 @@ describe("Poracode app control tools — threads", () => {
         agentKind: "codex",
         presentationMode: "gui",
         sessionRef: { providerSessionId: "sess-1", discoveredAt: "2026-01-01T00:00:00.000Z" },
-        worktreePath: "/work/alpha/.poracode/worktrees/wt",
+        worktreePath: "/work/alpha/.axecode/worktrees/wt",
       }),
     ];
     const projects = [
@@ -699,7 +699,7 @@ describe("Poracode app control tools — threads", () => {
     )) as { applied: string[]; note?: string };
 
     expect(result.applied).toEqual(["rename", "done", "acknowledge"]);
-    expect(result.note).toMatch(/No Poracode UI is connected/);
+    expect(result.note).toMatch(/No AxeCode UI is connected/);
     // Commands are still emitted (attempted), but no renderer received them.
     expect(emitRemoteThreadCommand).toHaveBeenCalled();
     expect(updateThreadRow).toHaveBeenCalledWith("a", expect.any(Function));
@@ -734,7 +734,7 @@ describe("Poracode app control tools — threads", () => {
       note?: string;
     };
     expect(result.opened).toBe(false);
-    expect(result.note).toMatch(/No Poracode UI is connected/);
+    expect(result.note).toMatch(/No AxeCode UI is connected/);
   });
 
   it("rejects unknown thread ids with a clear error", async () => {
@@ -778,7 +778,7 @@ describe("Poracode app control tools — threads", () => {
   });
 });
 
-describe("Poracode app control tools — projects", () => {
+describe("AxeCode app control tools — projects", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
     { id: "p2", name: "Beta", location: { kind: "posix", path: "/work/beta" } } as Project,
@@ -839,7 +839,7 @@ describe("Poracode app control tools — projects", () => {
   });
 });
 
-describe("Poracode app control tools — settings", () => {
+describe("AxeCode app control tools — settings", () => {
   function settingsWithSecret(): SharedSettings {
     return {
       ...defaultSharedSettings,
@@ -1025,7 +1025,7 @@ describe("Poracode app control tools — settings", () => {
   });
 });
 
-describe("Poracode app control tools — usage", () => {
+describe("AxeCode app control tools — usage", () => {
   it("passes providerId through and honors refresh", async () => {
     const usageResponse = { snapshots: [{ providerId: "claude" } as never], fromCache: false };
     const { ctx, supervisor } = context({ usageResponse });
@@ -1048,7 +1048,7 @@ describe("Poracode app control tools — usage", () => {
   });
 });
 
-describe("Poracode app control tools — search", () => {
+describe("AxeCode app control tools — search", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
   ];
@@ -1098,7 +1098,7 @@ describe("Poracode app control tools — search", () => {
   });
 });
 
-describe("Poracode app control tools — app", () => {
+describe("AxeCode app control tools — app", () => {
   it("reports read-only app facts without secrets", async () => {
     const projects = [
       { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
@@ -1122,7 +1122,7 @@ describe("Poracode app control tools — app", () => {
     expect(result.renderer).toBe("headless");
     expect(result.projectCount).toBe(1);
     expect(result.threadCount).toBe(1);
-    expect(result.mcpServer.name).toBe("poracode");
+    expect(result.mcpServer.name).toBe("axecode");
   });
 
   it("notify_user reports non-delivery when no display is connected", async () => {
@@ -1148,7 +1148,7 @@ describe("Poracode app control tools — app", () => {
   });
 });
 
-describe("Poracode app control tools — terminal / steer / rollback", () => {
+describe("AxeCode app control tools — terminal / steer / rollback", () => {
   it("explains the optimized @Terminal workflow to agents", () => {
     expect(APP_CONTROLS_MCP_INSTRUCTIONS).toContain("load the app-controls skill by name");
     expect(APP_CONTROLS_MCP_INSTRUCTIONS).toContain("load the terminal-inspection skill by name");
@@ -1203,16 +1203,16 @@ describe("Poracode app control tools — terminal / steer / rollback", () => {
       } as Project,
     ];
     const threads = [
-      makeThread({ id: thread.id, worktreePath: "C:\\Work\\Alpha\\.poracode\\worktrees\\fix" }),
+      makeThread({ id: thread.id, worktreePath: "C:\\Work\\Alpha\\.axecode\\worktrees\\fix" }),
     ];
     const terminals: TerminalShellSnapshot[] = [
       {
         terminalId: "shell:match",
         projectLocation: {
           kind: "windows",
-          path: "c:/work/alpha/.poracode/worktrees/fix/",
+          path: "c:/work/alpha/.axecode/worktrees/fix/",
         },
-        worktreePath: "C:\\Work\\Alpha\\.poracode\\worktrees\\fix",
+        worktreePath: "C:\\Work\\Alpha\\.axecode\\worktrees\\fix",
         outputLength: 42,
       },
       {
@@ -1224,9 +1224,9 @@ describe("Poracode app control tools — terminal / steer / rollback", () => {
         terminalId: "login:hidden",
         projectLocation: {
           kind: "windows",
-          path: "C:\\Work\\Alpha\\.poracode\\worktrees\\fix",
+          path: "C:\\Work\\Alpha\\.axecode\\worktrees\\fix",
         },
-        worktreePath: "C:\\Work\\Alpha\\.poracode\\worktrees\\fix",
+        worktreePath: "C:\\Work\\Alpha\\.axecode\\worktrees\\fix",
         outputLength: 5,
       },
     ];
@@ -1381,7 +1381,7 @@ describe("Poracode app control tools — terminal / steer / rollback", () => {
   });
 });
 
-describe("Poracode app control tools — agents", () => {
+describe("AxeCode app control tools — agents", () => {
   it("list_installed_agents projects native + WSL inventory and passes project distros", async () => {
     const projects = [
       { id: "p1", name: "Alpha", location: { kind: "wsl", distro: "Ubuntu" } } as Project,
@@ -1419,7 +1419,7 @@ describe("Poracode app control tools — agents", () => {
   });
 });
 
-describe("Poracode app control tools — files", () => {
+describe("AxeCode app control tools — files", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
   ];
@@ -1482,7 +1482,7 @@ describe("Poracode app control tools — files", () => {
     };
     const worktrees: GitWorktreeInfo[] = [
       {
-        path: "/work/alpha/.poracode/worktrees/wt",
+        path: "/work/alpha/.axecode/worktrees/wt",
         branch: "feature/x",
         commit: "a".repeat(40),
         isMain: false,
@@ -1491,11 +1491,11 @@ describe("Poracode app control tools — files", () => {
     const { ctx, supervisor } = context({ projects, readFile, worktrees });
     await dispatchTool(
       "read_project_file",
-      { projectId: "p1", path: "a.ts", worktreePath: "/work/alpha/.poracode/worktrees/wt" },
+      { projectId: "p1", path: "a.ts", worktreePath: "/work/alpha/.axecode/worktrees/wt" },
       ctx,
     );
     expect(supervisor.readProjectFile).toHaveBeenCalledWith({
-      projectLocation: { kind: "posix", path: "/work/alpha/.poracode/worktrees/wt" },
+      projectLocation: { kind: "posix", path: "/work/alpha/.axecode/worktrees/wt" },
       path: "a.ts",
     });
   });
@@ -1535,7 +1535,7 @@ describe("Poracode app control tools — files", () => {
   });
 });
 
-describe("Poracode app control tools — git", () => {
+describe("AxeCode app control tools — git", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
   ];
@@ -1586,7 +1586,7 @@ describe("Poracode app control tools — git", () => {
   it("git_status resolves a worktree location when worktreePath is given", async () => {
     const worktrees: GitWorktreeInfo[] = [
       {
-        path: "/work/alpha/.poracode/worktrees/wt",
+        path: "/work/alpha/.axecode/worktrees/wt",
         branch: "feature/x",
         commit: "a".repeat(40),
         isMain: false,
@@ -1595,11 +1595,11 @@ describe("Poracode app control tools — git", () => {
     const { ctx, supervisor } = context({ projects, worktrees });
     await dispatchTool(
       "git_status",
-      { projectId: "p1", worktreePath: "/work/alpha/.poracode/worktrees/wt" },
+      { projectId: "p1", worktreePath: "/work/alpha/.axecode/worktrees/wt" },
       ctx,
     );
     expect(supervisor.gitProjectSnapshot).toHaveBeenCalledWith({
-      projectLocation: { kind: "posix", path: "/work/alpha/.poracode/worktrees/wt" },
+      projectLocation: { kind: "posix", path: "/work/alpha/.axecode/worktrees/wt" },
       includeGhCheck: false,
     });
   });
@@ -1617,7 +1617,7 @@ describe("Poracode app control tools — git", () => {
   });
 
   it("remove_worktree refuses while an open thread references it, listing the blockers", async () => {
-    const worktreePath = "/work/alpha/.poracode/worktrees/wt";
+    const worktreePath = "/work/alpha/.axecode/worktrees/wt";
     const threads = [makeThread({ id: "blk", worktreePath, archived: false })];
     const { ctx, supervisor } = context({ projects, threads });
     await expect(
@@ -1627,7 +1627,7 @@ describe("Poracode app control tools — git", () => {
   });
 
   it("remove_worktree proceeds when only archived threads reference it", async () => {
-    const worktreePath = "/work/alpha/.poracode/worktrees/wt";
+    const worktreePath = "/work/alpha/.axecode/worktrees/wt";
     const threads = [makeThread({ id: "old", worktreePath, archived: true })];
     const { ctx, supervisor } = context({ projects, threads });
     await dispatchTool("remove_worktree", { projectId: "p1", worktreePath }, ctx);
@@ -1640,7 +1640,7 @@ describe("Poracode app control tools — git", () => {
   });
 
   it("merge_worktree resolves the worktree branch, source branch, and expected commit", async () => {
-    const worktreePath = "/work/alpha/.poracode/worktrees/wt";
+    const worktreePath = "/work/alpha/.axecode/worktrees/wt";
     const worktrees: GitWorktreeInfo[] = [
       { path: worktreePath, branch: "feature/x", commit: "a".repeat(40), isMain: false },
     ];
@@ -1660,7 +1660,7 @@ describe("Poracode app control tools — git", () => {
   });
 
   it("merge_worktree abort skips source-branch resolution", async () => {
-    const worktreePath = "/work/alpha/.poracode/worktrees/wt";
+    const worktreePath = "/work/alpha/.axecode/worktrees/wt";
     const { ctx, supervisor } = context({ projects });
     await dispatchTool("merge_worktree", { projectId: "p1", worktreePath, action: "abort" }, ctx);
     expect(supervisor.gitAbortMerge).toHaveBeenCalledWith({
@@ -1670,7 +1670,7 @@ describe("Poracode app control tools — git", () => {
   });
 });
 
-describe("Poracode app control tools — github", () => {
+describe("AxeCode app control tools — github", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
   ];
@@ -1719,7 +1719,7 @@ describe("Poracode app control tools — github", () => {
   it("gh_create_pr can run from a worktree checkout", async () => {
     const worktrees: GitWorktreeInfo[] = [
       {
-        path: "/work/alpha/.poracode/worktrees/wt",
+        path: "/work/alpha/.axecode/worktrees/wt",
         branch: "feature/x",
         commit: "a".repeat(40),
         isMain: false,
@@ -1748,7 +1748,7 @@ describe("Poracode app control tools — github", () => {
       "gh_create_pr",
       {
         projectId: "p1",
-        worktreePath: "/work/alpha/.poracode/worktrees/wt",
+        worktreePath: "/work/alpha/.axecode/worktrees/wt",
         branch: "feature/x",
         title: "New",
         body: "Body",
@@ -1757,7 +1757,7 @@ describe("Poracode app control tools — github", () => {
     );
     expect(supervisor.ghCreatePr).toHaveBeenCalledWith(
       expect.objectContaining({
-        projectLocation: { kind: "posix", path: "/work/alpha/.poracode/worktrees/wt" },
+        projectLocation: { kind: "posix", path: "/work/alpha/.axecode/worktrees/wt" },
         branch: "feature/x",
         baseBranch: "master",
       }),
@@ -1804,7 +1804,7 @@ describe("Poracode app control tools — github", () => {
   });
 });
 
-describe("Poracode app control tools — mcp servers", () => {
+describe("AxeCode app control tools — mcp servers", () => {
   function settingsWithMcpSecret(): SharedSettings {
     return {
       ...defaultSharedSettings,
@@ -1926,7 +1926,7 @@ describe("Poracode app control tools — mcp servers", () => {
         "add_mcp_server",
         {
           server: {
-            name: "poracode",
+            name: "axecode",
             transport: { type: "stdio", command: "run", args: [], env: {} },
           },
         },
@@ -2000,7 +2000,7 @@ describe("Poracode app control tools — mcp servers", () => {
   });
 });
 
-describe("Poracode app control tools — skills", () => {
+describe("AxeCode app control tools — skills", () => {
   const projects = [
     { id: "p1", name: "Alpha", location: { kind: "posix", path: "/work/alpha" } } as Project,
   ];
@@ -2082,7 +2082,7 @@ describe("Poracode app control tools — skills", () => {
   });
 
   it("read_skill returns enabled skill content by scanned id without accepting a path", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "poracode-read-skill-"));
+    const directory = await mkdtemp(join(tmpdir(), "axecode-read-skill-"));
     try {
       await writeFile(join(directory, "SKILL.md"), "---\nname: example\n---\n\nInstructions.\n");
       const skillScan: SkillScanResult = {
@@ -2159,7 +2159,7 @@ describe("Poracode app control tools — skills", () => {
   });
 
   it("read_skill accepts the same 1 MiB file-size boundary as skill scanning", async () => {
-    const directory = await mkdtemp(join(tmpdir(), "poracode-read-skill-large-"));
+    const directory = await mkdtemp(join(tmpdir(), "axecode-read-skill-large-"));
     try {
       const content = "x".repeat(65 * 1024);
       await writeFile(join(directory, "SKILL.md"), content);

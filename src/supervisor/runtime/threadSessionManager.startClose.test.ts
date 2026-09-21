@@ -83,7 +83,7 @@ function createManager(
     args: ["-NoLogo"],
   }),
 ): ThreadSessionManager {
-  const tempDir = mkdtempSync(join(tmpdir(), "poracode-start-close-"));
+  const tempDir = mkdtempSync(join(tmpdir(), "axecode-start-close-"));
   tempDirs.push(tempDir);
   const manager = new ThreadSessionManager({
     emit,
@@ -421,7 +421,7 @@ describe("ThreadSessionManager start guards", () => {
         message: "Structured runtime session creation failed.",
       }),
       expect.objectContaining({
-        "poracode.feature_area": "structured-runtime-session-creation",
+        "axecode.feature_area": "structured-runtime-session-creation",
       }),
     );
   });
@@ -865,7 +865,7 @@ describe("ThreadSessionManager fork mention handoff", () => {
     const manager = createManager("codex", adapter);
 
     await expect(manager.startThread(forkLaunchPayload())).rejects.toThrow(
-      "Thread mentions require the Poracode read_thread tool",
+      "Thread mentions require the AxeCode read_thread tool",
     );
   });
 });

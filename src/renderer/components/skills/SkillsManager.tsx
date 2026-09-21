@@ -104,12 +104,10 @@ export function SkillsManager(props: {
       .includes(normalizedQuery);
   });
   const managed = visibleSkills.filter(
-    (skill) => skill.origin === "managed" && skill.availability !== "poracode",
+    (skill) => skill.origin === "managed" && skill.availability !== "axecode",
   );
   const providerGroups = groupSkills(
-    visibleSkills.filter(
-      (skill) => skill.origin !== "managed" || skill.availability === "poracode",
-    ),
+    visibleSkills.filter((skill) => skill.origin !== "managed" || skill.availability === "axecode"),
     (skill) => `${skill.scope}:${skill.providerGroupId ?? skill.providerId}`,
   );
   const hasAnySkills = targetSkills.length > 0;
@@ -209,7 +207,7 @@ export function SkillsManager(props: {
             : t`the Windows user`;
     newThreadFromText(
       project.id,
-      t`/skill-creator-poracode Create a new managed skill for ${destinationLabel}.`,
+      t`/skill-creator-axecode Create a new managed skill for ${destinationLabel}.`,
       { bindLeadingSkill: true },
     );
     usePanelStore.getState().closeSettings();
@@ -457,8 +455,7 @@ export function SkillsManager(props: {
           </p>
           <p className="mt-1 max-w-md text-xs text-muted">
             <Trans>
-              Add a skill to .agents/skills or .poracode/skills, or import one from another
-              provider.
+              Add a skill to .agents/skills or .axecode/skills, or import one from another provider.
             </Trans>
           </p>
         </div>
@@ -577,7 +574,7 @@ function SkillRow(props: {
               {providerOwnedLabel}
             </span>
           ) : null}
-          {skill.availability === "poracode" ? (
+          {skill.availability === "axecode" ? (
             <span className="shrink-0 rounded bg-surface-secondary px-1.5 py-0.5 text-[10px] text-muted">
               <Trans>Axe Code only</Trans>
             </span>

@@ -448,7 +448,7 @@ export function isNewMuseGoal(goal: ProviderGoalState, state: MuseMspItemMapperS
 }
 
 /**
- * Maps incoming MSP `session/goalChanged` notifications to Poracode canonical goal runtime events.
+ * Maps incoming MSP `session/goalChanged` notifications to AxeCode canonical goal runtime events.
  *
  * If `goal` is null or cleared, emits a final cleared event and resets mapper goal tracking.
  * Otherwise emits `item.started` (fresh goal) or `item.updated` (existing goal update).

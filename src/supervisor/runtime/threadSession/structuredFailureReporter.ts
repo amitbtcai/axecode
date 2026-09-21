@@ -63,10 +63,10 @@ export class StructuredFailureReporter {
     captureSupervisorException(
       new StructuredRuntimeDiagnosticError(failureClass, session.agentKind),
       {
-        "poracode.feature_area": structuredRuntimeFeatureArea(failureClass),
-        "poracode.presentation": session.presentationMode ?? "terminal",
-        "poracode.provider": session.agentKind,
-        "poracode.runtime_kind": "structured",
+        "axecode.feature_area": structuredRuntimeFeatureArea(failureClass),
+        "axecode.presentation": session.presentationMode ?? "terminal",
+        "axecode.provider": session.agentKind,
+        "axecode.runtime_kind": "structured",
       },
     );
   }

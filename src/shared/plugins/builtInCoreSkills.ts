@@ -8,7 +8,7 @@ import outlook from "../../../resources/plugins/outlook/plugin.json";
 import subagentDelegation from "../../../resources/plugins/subagent-delegation/plugin.json";
 import terminal from "../../../resources/plugins/terminal/plugin.json";
 import { type BuiltInMcpServerId } from "../contracts/mcpServer";
-import { parsePluginManifest, parsePoracodeExtension } from "./spec";
+import { parsePluginManifest, parseAxeCodeExtension } from "./spec";
 
 /**
  * Bundled `resources/plugins` packages. A new folder there must be imported
@@ -37,9 +37,9 @@ function readBundledCoreSkill(raw: unknown): BundledPluginCoreSkill {
   if (!parsed.manifest) {
     throw new Error("bundled plugin.json is not a valid agent plugin manifest");
   }
-  const { extension } = parsePoracodeExtension(parsed.manifest);
+  const { extension } = parseAxeCodeExtension(parsed.manifest);
   if (!extension.coreSkill) {
-    throw new Error(`${parsed.manifest.name} plugin.json is missing com.poracode.client.coreSkill`);
+    throw new Error(`${parsed.manifest.name} plugin.json is missing com.axecode.client.coreSkill`);
   }
   return {
     pluginName: parsed.manifest.name,
@@ -54,7 +54,7 @@ export const BUNDLED_PLUGIN_CORE_SKILLS: readonly BundledPluginCoreSkill[] =
     left.pluginName.localeCompare(right.pluginName),
   );
 
-/** Core skills of every bundled plugin that binds this Poracode-owned MCP. */
+/** Core skills of every bundled plugin that binds this AxeCode-owned MCP. */
 export function coreSkillsForBuiltInMcp(id: BuiltInMcpServerId): readonly string[] {
   return BUNDLED_PLUGIN_CORE_SKILLS.filter((plugin) => plugin.builtInMcpServerIds.includes(id)).map(
     (plugin) => plugin.coreSkill,
@@ -63,7 +63,7 @@ export function coreSkillsForBuiltInMcp(id: BuiltInMcpServerId): readonly string
 
 /**
  * The one core skill for an MCP bound to a single plugin.
- * `app-controls` is shared by Poracode and Terminal — use
+ * `app-controls` is shared by AxeCode and Terminal — use
  * {@link coreSkillsForBuiltInMcp} there.
  */
 export function uniqueCoreSkillForBuiltInMcp(id: BuiltInMcpServerId): string {

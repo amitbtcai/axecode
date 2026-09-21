@@ -4,7 +4,7 @@ import { parseContextWindowTokens } from "@/shared/contextWindow";
 /** Agent-settings key storing the user's Codex context-window list as JSON. */
 export const CODEX_CONTEXT_WINDOWS_SETTING_KEY = "contextWindows";
 
-/** Poracode's default Codex context window. Codex's own CLI default is 272k. */
+/** AxeCode's default Codex context window. Codex's own CLI default is 272k. */
 export const DEFAULT_CODEX_CONTEXT_SIZE = "400k";
 
 const AUTO_COMPACT_RATIO = 0.95;

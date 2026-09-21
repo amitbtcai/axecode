@@ -199,7 +199,7 @@ describe("createToolCallWindowShift", () => {
     const nextKeys = appendRow(viewport, keys, "row-8");
     shift.sync(syncArgs({ wrap, viewport, keys: nextKeys }));
 
-    const ghost = wrap.querySelector(".poracode-tool-call-group-ghost")!;
+    const ghost = wrap.querySelector(".axecode-tool-call-group-ghost")!;
     expect(ghost).not.toBeNull();
     expect(ghost.getAttribute("aria-hidden")).toBe("true");
     expect(ghost).toHaveProperty("inert", true);
@@ -207,7 +207,7 @@ describe("createToolCallWindowShift", () => {
     expect(ghost.firstElementChild).toBe(outgoing);
     // Re-inserting an element restarts CSS animations, so the enter fade must go.
     expect(outgoing.classList.contains("animate-tool-call-enter")).toBe(false);
-    expect(wrap.classList.contains("poracode-tool-call-group-clip")).toBe(true);
+    expect(wrap.classList.contains("axecode-tool-call-group-clip")).toBe(true);
     expect(shift.isAnimating()).toBe(true);
 
     const [slide, fade] = created;
@@ -228,7 +228,7 @@ describe("createToolCallWindowShift", () => {
 
     expect(viewport.children).toHaveLength(8);
     // The ghost hangs off the wrapper, out of the viewport's flow.
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")!.parentElement).toBe(wrap);
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")!.parentElement).toBe(wrap);
   });
 
   it("rewinds one preallocated animation pair across a burst instead of allocating", () => {
@@ -249,7 +249,7 @@ describe("createToolCallWindowShift", () => {
     expect(slide!.currentTime).toBe(0);
     expect(fade!.currentTime).toBe(0);
     expect(slide!.plays).toBe(7); // creation + six rewinds
-    expect(wrap.querySelectorAll(".poracode-tool-call-group-ghost")).toHaveLength(1);
+    expect(wrap.querySelectorAll(".axecode-tool-call-group-ghost")).toHaveLength(1);
   });
 
   it("releases the ghost and the clip when the slide finishes", () => {
@@ -260,8 +260,8 @@ describe("createToolCallWindowShift", () => {
     shift.sync(syncArgs({ wrap, viewport, keys: nextKeys }));
 
     created[0]!.finish();
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")!.children).toHaveLength(0);
-    expect(wrap.classList.contains("poracode-tool-call-group-clip")).toBe(false);
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")!.children).toHaveLength(0);
+    expect(wrap.classList.contains("axecode-tool-call-group-clip")).toBe(false);
     expect(shift.isAnimating()).toBe(false);
   });
 
@@ -271,13 +271,13 @@ describe("createToolCallWindowShift", () => {
     shift.sync(syncArgs({ wrap, viewport, keys }));
     let next = appendRow(viewport, keys, "row-8");
     shift.sync(syncArgs({ wrap, viewport, keys: next }));
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")).not.toBeNull();
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")).not.toBeNull();
 
     // A row expands (or reduced motion kicks in): pitch is no longer uniform.
     next = appendRow(viewport, next, "row-9");
     shift.sync(syncArgs({ wrap, viewport, keys: next, enabled: false }));
 
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")).toBeNull();
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")).toBeNull();
     expect(created[0]!.cancels).toBe(1);
     expect(shift.isAnimating()).toBe(false);
   });
@@ -307,7 +307,7 @@ describe("createToolCallWindowShift", () => {
     shift.sync(syncArgs({ wrap, viewport, keys: [...keys, "row-4"] }));
 
     expect(created).toHaveLength(0);
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")).toBeNull();
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")).toBeNull();
   });
 
   it("does not animate a multi-row jump collapsed into one commit", () => {
@@ -370,7 +370,7 @@ describe("createToolCallWindowShift", () => {
 
     shift.dispose();
 
-    expect(wrap.querySelector(".poracode-tool-call-group-ghost")).toBeNull();
+    expect(wrap.querySelector(".axecode-tool-call-group-ghost")).toBeNull();
     expect(created[0]!.cancels).toBe(1);
     expect(created[1]!.cancels).toBe(1);
   });
@@ -383,11 +383,11 @@ describe("createToolCallWindowShift", () => {
       shift.sync(syncArgs({ wrap, viewport, keys }));
       const next = appendRow(viewport, keys, "row-8");
       shift.sync(syncArgs({ wrap, viewport, keys: next }));
-      expect(wrap.querySelector(".poracode-tool-call-group-ghost")).not.toBeNull();
+      expect(wrap.querySelector(".axecode-tool-call-group-ghost")).not.toBeNull();
 
       vi.advanceTimersByTime(2_000);
 
-      expect(wrap.querySelector(".poracode-tool-call-group-ghost")).toBeNull();
+      expect(wrap.querySelector(".axecode-tool-call-group-ghost")).toBeNull();
       expect(created[0]!.cancels).toBe(1);
     } finally {
       vi.useRealTimers();

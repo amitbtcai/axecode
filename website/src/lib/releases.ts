@@ -50,7 +50,7 @@ function buildReleaseInfo(release: GitHubReleaseResponse): ReleaseInfo {
 function githubHeaders(): Record<string, string> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github.v3+json",
-    "User-Agent": "Poracode-Website",
+    "User-Agent": "AxeCode-Website",
   };
   // Optional: required when the repo is private.
   const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN;

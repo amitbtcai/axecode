@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   appIdFor,
   artifactPrefixFor,
-  PORACODE_CHANNELS,
+  AXECODE_CHANNELS,
   productNameFor,
   updaterChannelFor,
   userDataDirNameFor,
@@ -10,7 +10,7 @@ import {
 
 describe("channel", () => {
   it("enumerates exactly stable and nightly", () => {
-    expect(PORACODE_CHANNELS).toEqual(["stable", "nightly"]);
+    expect(AXECODE_CHANNELS).toEqual(["stable", "nightly"]);
   });
 
   it("returns the right product names", () => {
@@ -40,30 +40,30 @@ describe("channel", () => {
   });
 });
 
-describe("resolvePoracodeChannel", () => {
+describe("resolveAxeCodeChannel", () => {
   afterEach(() => {
     vi.resetModules();
   });
 
-  it("defaults to stable when __PORACODE_CHANNEL__ is unset", async () => {
+  it("defaults to stable when __AXECODE_CHANNEL__ is unset", async () => {
     vi.resetModules();
     const mod = await import("./channel");
-    expect(mod.resolvePoracodeChannel()).toBe("stable");
+    expect(mod.resolveAxeCodeChannel()).toBe("stable");
   });
 
   it("returns nightly when the build-time constant is 'nightly'", async () => {
     vi.resetModules();
-    vi.stubGlobal("__PORACODE_CHANNEL__", "nightly");
+    vi.stubGlobal("__AXECODE_CHANNEL__", "nightly");
     const mod = await import("./channel");
-    expect(mod.resolvePoracodeChannel()).toBe("nightly");
+    expect(mod.resolveAxeCodeChannel()).toBe("nightly");
     vi.unstubAllGlobals();
   });
 
   it("falls back to stable for any unknown value", async () => {
     vi.resetModules();
-    vi.stubGlobal("__PORACODE_CHANNEL__", "beta");
+    vi.stubGlobal("__AXECODE_CHANNEL__", "beta");
     const mod = await import("./channel");
-    expect(mod.resolvePoracodeChannel()).toBe("stable");
+    expect(mod.resolveAxeCodeChannel()).toBe("stable");
     vi.unstubAllGlobals();
   });
 });

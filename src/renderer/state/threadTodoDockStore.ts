@@ -82,7 +82,7 @@ export const useThreadTodoDockStore = create<ThreadTodoDockStore>()(
         }),
     }),
     {
-      name: "poracode-thread-todo-dock-v1",
+      name: "axecode-thread-todo-dock-v1",
       // v3 dropped the per-thread `placement` field (and `defaultPlacement`):
       // composer-vs-right is now the global `threadDocksPlacement` setting.
       version: 3,

@@ -11,10 +11,10 @@ import {
 } from "./config";
 
 const ENV_KEYS = [
-  "PORACODE_REMOTE_ACCESS_ADVERTISED_HOST",
-  "PORACODE_REMOTE_ACCESS_HOST",
-  "PORACODE_REMOTE_ACCESS_PAIRING_APP_URL",
-  "PORACODE_REMOTE_ACCESS_PORT",
+  "AXECODE_REMOTE_ACCESS_ADVERTISED_HOST",
+  "AXECODE_REMOTE_ACCESS_HOST",
+  "AXECODE_REMOTE_ACCESS_PAIRING_APP_URL",
+  "AXECODE_REMOTE_ACCESS_PORT",
 ] as const;
 
 afterEach(() => {
@@ -42,15 +42,15 @@ describe("remote access config", () => {
   });
 
   it("accepts explicit overrides", () => {
-    process.env.PORACODE_REMOTE_ACCESS_ADVERTISED_HOST = "mobile-test.poracode.local";
-    process.env.PORACODE_REMOTE_ACCESS_HOST = "192.168.1.20";
-    process.env.PORACODE_REMOTE_ACCESS_PORT = "49999";
-    process.env.PORACODE_REMOTE_ACCESS_PAIRING_APP_URL = "https://preview.poracodeapp.com";
+    process.env.AXECODE_REMOTE_ACCESS_ADVERTISED_HOST = "mobile-test.axecode.local";
+    process.env.AXECODE_REMOTE_ACCESS_HOST = "192.168.1.20";
+    process.env.AXECODE_REMOTE_ACCESS_PORT = "49999";
+    process.env.AXECODE_REMOTE_ACCESS_PAIRING_APP_URL = "https://preview.axecodeapp.com";
 
-    expect(remoteAccessAdvertisedHost()).toBe("mobile-test.poracode.local");
+    expect(remoteAccessAdvertisedHost()).toBe("mobile-test.axecode.local");
     expect(remoteAccessHost()).toBe("192.168.1.20");
     expect(remoteAccessPort()).toBe(49999);
-    expect(remoteAccessPairingAppUrl()).toBe("https://preview.poracodeapp.com");
+    expect(remoteAccessPairingAppUrl()).toBe("https://preview.axecodeapp.com");
   });
 
   it("scans the dynamic/private range when no port is configured", async () => {
@@ -82,7 +82,7 @@ describe("remote access config", () => {
   });
 
   it("falls back to automatic selection for an invalid environment port", async () => {
-    process.env.PORACODE_REMOTE_ACCESS_PORT = "not-a-port";
+    process.env.AXECODE_REMOTE_ACCESS_PORT = "not-a-port";
 
     await expect(
       resolveRemoteAccessPort({

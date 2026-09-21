@@ -160,6 +160,18 @@ importers:
       '@aparajita/capacitor-secure-storage':
         specifier: ^8.0.0
         version: 8.0.0
+      '@axecode/activity-bridge':
+        specifier: file:native/activity-bridge
+        version: file:native/activity-bridge(@capacitor/core@8.5.0)
+      '@axecode/agents-usage':
+        specifier: workspace:*
+        version: link:packages/agents-usage
+      '@axecode/codex-protocol':
+        specifier: workspace:*
+        version: link:packages/codex-protocol
+      '@axecode/ssh-bridge':
+        specifier: file:native/ssh-bridge
+        version: file:native/ssh-bridge(@capacitor/core@8.5.0)
       '@capacitor/app':
         specifier: 8.1.1
         version: 8.1.1(@capacitor/core@8.5.0)
@@ -232,18 +244,6 @@ importers:
       '@opencode/client':
         specifier: 2.0.0
         version: 2.0.0(effect@4.0.0-rc.112)
-      '@poracode/activity-bridge':
-        specifier: file:native/activity-bridge
-        version: file:native/activity-bridge(@capacitor/core@8.5.0)
-      '@poracode/agents-usage':
-        specifier: workspace:*
-        version: link:packages/agents-usage
-      '@poracode/codex-protocol':
-        specifier: workspace:*
-        version: link:packages/codex-protocol
-      '@poracode/ssh-bridge':
-        specifier: file:native/ssh-bridge
-        version: file:native/ssh-bridge(@capacitor/core@8.5.0)
       '@sentry/electron':
         specifier: 7.17.0
         version: 7.17.0(@opentelemetry/core@2.8.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
@@ -731,6 +731,16 @@ packages:
   '@asamuzakjp/dom-selector@8.3.2':
     resolution: {integrity: sha512-93Z1N+BQNXysodoicpOIyNh2drHfz/CTf9nnT0FEx72GJcIiwgydD7tGAr78j41LsYn3hlRn+LdGPuBLn1Bl8Q==}
     engines: {node: ^22.13.0 || >=24.0.0}
+
+  '@axecode/activity-bridge@file:native/activity-bridge':
+    resolution: {directory: native/activity-bridge, type: directory}
+    peerDependencies:
+      '@capacitor/core': ^8.0.0
+
+  '@axecode/ssh-bridge@file:native/ssh-bridge':
+    resolution: {directory: native/ssh-bridge, type: directory}
+    peerDependencies:
+      '@capacitor/core': ^8.0.0
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -2318,16 +2328,6 @@ packages:
   '@peculiar/webcrypto@1.7.1':
     resolution: {integrity: sha512-ODOov0sGMJMf3jPonOkgGqPknTsu+DdQ7kD++gz8aI+aFMOMHFbWAA2taqXXVTdP+OTOQR/znGvSpmkeI0WTYQ==}
     engines: {node: '>=14.18.0'}
-
-  '@poracode/activity-bridge@file:native/activity-bridge':
-    resolution: {directory: native/activity-bridge, type: directory}
-    peerDependencies:
-      '@capacitor/core': ^8.0.0
-
-  '@poracode/ssh-bridge@file:native/ssh-bridge':
-    resolution: {directory: native/ssh-bridge, type: directory}
-    peerDependencies:
-      '@capacitor/core': ^8.0.0
 
   '@preact/signals-core@1.14.3':
     resolution: {integrity: sha512-m0K3vnbSLC5rHs2ZVfeAMvBtT1zIyq4mxx5OlNncSgMj5Iz6W5Rn3kPrDxAC+iIKmiVe0lSl6U37t5ZkEWoVAw==}
@@ -7555,6 +7555,14 @@ snapshots:
       is-potential-custom-element-name: 1.0.1
       lru-cache: 11.5.2
 
+  '@axecode/activity-bridge@file:native/activity-bridge(@capacitor/core@8.5.0)':
+    dependencies:
+      '@capacitor/core': 8.5.0
+
+  '@axecode/ssh-bridge@file:native/ssh-bridge(@capacitor/core@8.5.0)':
+    dependencies:
+      '@capacitor/core': 8.5.0
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -8971,14 +8979,6 @@ snapshots:
       '@peculiar/utils': 2.0.3
       tslib: 2.8.1
       webcrypto-core: 1.9.2
-
-  '@poracode/activity-bridge@file:native/activity-bridge(@capacitor/core@8.5.0)':
-    dependencies:
-      '@capacitor/core': 8.5.0
-
-  '@poracode/ssh-bridge@file:native/ssh-bridge(@capacitor/core@8.5.0)':
-    dependencies:
-      '@capacitor/core': 8.5.0
 
   '@preact/signals-core@1.14.3': {}
 

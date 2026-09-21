@@ -13,9 +13,9 @@ afterEach(() => {
 
 describe("MCP stdio cwd launcher", () => {
   it("preserves raw protocol traffic, cwd and env without limiting server capabilities", async () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-stdio-test-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-stdio-test-"));
     roots.push(root);
-    const script = `process.stdout.write(JSON.stringify({cwd:process.cwd(),env:process.env.FIXTURE,leaked:!!process.env.PORACODE_MCP_STDIO_CONFIG})+'\\n');process.stdin.pipe(process.stdout);`;
+    const script = `process.stdout.write(JSON.stringify({cwd:process.cwd(),env:process.env.FIXTURE,leaked:!!process.env.AXECODE_MCP_STDIO_CONFIG})+'\\n');process.stdin.pipe(process.stdout);`;
     const server = {
       transport: {
         type: "stdio",
@@ -31,7 +31,7 @@ describe("MCP stdio cwd launcher", () => {
       {
         env: {
           ...process.env,
-          PORACODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
+          AXECODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
             "base64url",
           ),
         },
@@ -62,7 +62,7 @@ describe("MCP stdio cwd launcher", () => {
   it.skipIf(process.platform !== "win32")(
     "launches Windows command shims with quoted arguments",
     async () => {
-      const root = mkdtempSync(join(tmpdir(), "poracode-stdio-cmd-"));
+      const root = mkdtempSync(join(tmpdir(), "axecode-stdio-cmd-"));
       roots.push(root);
       writeFileSync(
         join(root, "server.cjs"),
@@ -80,7 +80,7 @@ describe("MCP stdio cwd launcher", () => {
         {
           env: {
             ...process.env,
-            PORACODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
+            AXECODE_MCP_STDIO_CONFIG: Buffer.from(JSON.stringify({ version: 1, server })).toString(
               "base64url",
             ),
           },
@@ -106,7 +106,7 @@ describe("MCP stdio cwd launcher", () => {
       {
         env: {
           ...process.env,
-          PORACODE_MCP_STDIO_CONFIG: Buffer.from(
+          AXECODE_MCP_STDIO_CONFIG: Buffer.from(
             JSON.stringify({
               version: 0,
               server: { transport: { type: "stdio", command: "not-executed", args: [], env: {} } },

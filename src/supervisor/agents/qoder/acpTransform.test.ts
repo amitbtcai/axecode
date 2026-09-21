@@ -21,7 +21,7 @@ describe("transformQoderAcpSessionUpdate", () => {
     );
     expect((transformed.update as { rawInput: unknown }).rawInput).toEqual({
       status: "complete",
-      _poracodeCanonicalGoal: { action: "updated", status: "complete" },
+      _axecodeCanonicalGoal: { action: "updated", status: "complete" },
     });
   });
 

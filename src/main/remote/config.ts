@@ -1,6 +1,6 @@
 import { createServer, isIPv4 } from "node:net";
 import { networkInterfaces } from "node:os";
-import type { PoracodeChannel } from "@/shared/channel";
+import type { AxeCodeChannel } from "@/shared/channel";
 
 export const DEFAULT_REMOTE_ACCESS_PORT = 49152;
 const MAX_AUTO_REMOTE_ACCESS_PORT = 65535;
@@ -14,11 +14,11 @@ function readTrimmedEnv(name: string): string | undefined {
 }
 
 export function remoteAccessHost(): string {
-  return readTrimmedEnv("PORACODE_REMOTE_ACCESS_HOST") ?? DEFAULT_REMOTE_ACCESS_HOST;
+  return readTrimmedEnv("AXECODE_REMOTE_ACCESS_HOST") ?? DEFAULT_REMOTE_ACCESS_HOST;
 }
 
 export function remoteAccessPort(): number | undefined {
-  const raw = readTrimmedEnv("PORACODE_REMOTE_ACCESS_PORT");
+  const raw = readTrimmedEnv("AXECODE_REMOTE_ACCESS_PORT");
   if (!raw) return undefined;
   const explicit = Number(raw);
   return Number.isSafeInteger(explicit) && explicit >= 0 && explicit <= 65535
@@ -166,7 +166,7 @@ export function remoteAccessAdvertisedHost(input?: {
   readonly bindHost?: string;
   readonly interfaces?: NetworkInterfaceMap;
 }): string {
-  const explicit = readTrimmedEnv("PORACODE_REMOTE_ACCESS_ADVERTISED_HOST");
+  const explicit = readTrimmedEnv("AXECODE_REMOTE_ACCESS_ADVERTISED_HOST");
   if (explicit) return explicit;
 
   const bindHost = input?.bindHost ?? remoteAccessHost();
@@ -177,11 +177,11 @@ export function remoteAccessAdvertisedHost(input?: {
 }
 
 export function remoteAccessPairingAppUrl(): string | undefined {
-  return readTrimmedEnv("PORACODE_REMOTE_ACCESS_PAIRING_APP_URL");
+  return readTrimmedEnv("AXECODE_REMOTE_ACCESS_PAIRING_APP_URL");
 }
 
 /** Hosted pairing app production builds point at, per release channel. */
-export const PRODUCTION_PAIRING_APP_URL: Record<PoracodeChannel, string> = {
+export const PRODUCTION_PAIRING_APP_URL: Record<AxeCodeChannel, string> = {
   stable: "https://code.axeai.com",
   nightly: "https://code-nightly.axeai.com",
 };

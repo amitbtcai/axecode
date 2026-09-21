@@ -1,7 +1,7 @@
 {
-  "name": "@poracode/ssh-bridge",
+  "name": "@axecode/ssh-bridge",
   "version": "1.0.0",
-  "description": "Capacitor bridge exposing authenticated SSH commands, uploads, and loopback forwarding to Poracode mobile.",
+  "description": "Capacitor bridge exposing authenticated SSH commands, uploads, and loopback forwarding to AxeCode mobile.",
   "license": "Apache-2.0",
   "author": "Porabuild",
   "files": [
@@ -10,7 +10,7 @@
     "ios/Sources",
     "ios/Tests",
     "Package.swift",
-    "PoracodeSshBridge.podspec"
+    "AxeCodeSshBridge.podspec"
   ],
   "type": "module",
   "main": "src/index.ts",

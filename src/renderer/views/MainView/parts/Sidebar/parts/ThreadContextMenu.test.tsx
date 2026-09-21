@@ -15,7 +15,7 @@ vi.mock("@/renderer/bridge", () => ({
 
 const project: Project = {
   id: "p1",
-  name: "Poracode",
+  name: "AxeCode",
   location: { kind: "windows", path: "C:\\repo" },
   createdAt: "2026-07-01T00:00:00.000Z",
   scripts: { actions: [{ id: "build", name: "Build" }] },

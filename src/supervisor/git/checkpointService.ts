@@ -11,7 +11,7 @@ import type { WslBridgeClient } from "../wsl/bridge/client";
 import { execGit, removeWslPathViaBridge } from "./exec";
 
 const EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904";
-const REF_ROOT = "refs/poracode/checkpoints";
+const REF_ROOT = "refs/axecode/checkpoints";
 const LEGACY_REF_ROOT = "refs/lightcode/checkpoints";
 
 type CheckpointMetadata = FileCheckpointRecord | FileCheckpointTurn;
@@ -24,9 +24,9 @@ type CheckpointMetadata = FileCheckpointRecord | FileCheckpointTurn;
  */
 export const CHECKPOINT_FALLBACK_IDENT_ENV: Record<string, string> = {
   GIT_AUTHOR_NAME: "Axe Code",
-  GIT_AUTHOR_EMAIL: "checkpoints@poracode.local",
+  GIT_AUTHOR_EMAIL: "checkpoints@axecode.local",
   GIT_COMMITTER_NAME: "Axe Code",
-  GIT_COMMITTER_EMAIL: "checkpoints@poracode.local",
+  GIT_COMMITTER_EMAIL: "checkpoints@axecode.local",
 };
 
 const MISSING_IDENTITY_RE =
@@ -48,7 +48,7 @@ export function buildCheckpointCommitInput(
 ): { args: string[]; input: string } {
   return {
     args: ["commit-tree", tree, ...(head ? ["-p", head] : []), "-F", "-"],
-    input: `Poracode checkpoint\n\n${JSON.stringify(metadata)}\n`,
+    input: `AxeCode checkpoint\n\n${JSON.stringify(metadata)}\n`,
   };
 }
 
@@ -288,7 +288,7 @@ async function createTempIndexPath(projectLocation: ProjectLocation): Promise<st
   const indexPath = (
     await execGit(projectLocation, ["rev-parse", "--path-format=absolute", "--git-path", "index"])
   ).trim();
-  return `${indexPath}.poracode-${randomUUID()}`;
+  return `${indexPath}.axecode-${randomUUID()}`;
 }
 
 async function removeTempIndex(projectLocation: ProjectLocation, tempIndex: string): Promise<void> {

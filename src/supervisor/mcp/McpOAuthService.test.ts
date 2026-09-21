@@ -140,7 +140,7 @@ async function startFakeAuthServer(options: {
 }
 
 function makeService(): McpOAuthService {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-mcp-oauth-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-mcp-oauth-"));
   cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
   const service = new McpOAuthService({ baseDir: dir });
   cleanups.push(() => service.dispose());
@@ -148,7 +148,7 @@ function makeService(): McpOAuthService {
 }
 
 function tempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-mcp-oauth-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-mcp-oauth-"));
   cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
   return dir;
 }
@@ -397,7 +397,7 @@ describe("McpOAuthService", () => {
   });
 
   it("does not report credentials encrypted with an unavailable key as authenticated", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-mcp-oauth-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-mcp-oauth-"));
     cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
     const url = "https://mcp.vercel.com";
     const sealed = encryptSecret(dir, JSON.stringify({ access_token: "old" }));
@@ -418,7 +418,7 @@ describe("McpOAuthService", () => {
   });
 
   it("stops reporting expired tokens without a refresh token as authenticated", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-mcp-oauth-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-mcp-oauth-"));
     cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
     const url = "https://mcp.vercel.com";
     const sealed = encryptSecret(
@@ -452,7 +452,7 @@ describe("McpOAuthService", () => {
   });
 
   it("keeps reporting expired tokens with a refresh token as authenticated", () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-mcp-oauth-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-mcp-oauth-"));
     cleanups.push(() => rmSync(dir, { recursive: true, force: true }));
     const url = "https://mcp.vercel.com";
     const sealed = encryptSecret(

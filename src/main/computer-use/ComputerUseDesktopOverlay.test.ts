@@ -140,7 +140,7 @@ describe("ComputerUseDesktopOverlay", () => {
         transparent: true,
         focusable: false,
         frame: false,
-        title: "Poracode Computer Use Overlay",
+        title: "AxeCode Computer Use Overlay",
       });
       expect(window.setIgnoreMouseEvents).toHaveBeenCalledWith(true);
       expect(window.setAlwaysOnTop).toHaveBeenCalledWith(true, "screen-saver");
@@ -151,8 +151,8 @@ describe("ComputerUseDesktopOverlay", () => {
       const overlayHtml = decodeURIComponent(window.loadURL.mock.calls[0]![0].split(",", 2)[1]!);
       expect(overlayHtml).toContain("inset 0 0 0 2px rgba(92, 167, 255, 0.6)");
       expect(overlayHtml).toContain("inset 0 0 48px rgba(92, 167, 255, 0.08)");
-      expect(overlayHtml).toContain("Poracode using your computer | Esc to Exit");
-      expect(overlayHtml).toContain("<title>Poracode Computer Use Overlay</title>");
+      expect(overlayHtml).toContain("AxeCode using your computer | Esc to Exit");
+      expect(overlayHtml).toContain("<title>AxeCode Computer Use Overlay</title>");
       expect(overlayHtml).not.toContain("<button");
     }
     expect(electronMock.globalShortcut.register).toHaveBeenCalledWith(
@@ -210,8 +210,8 @@ describe("ComputerUseDesktopOverlay", () => {
     const overlayHtml = decodeURIComponent(
       targetOverlay!.loadURL.mock.calls.at(-1)![0].split(",", 2)[1]!,
     );
-    expect(overlayHtml).toContain("Poracode is controlling Notepad in the background");
-    expect(overlayHtml).toContain("<title>Poracode Computer Use Overlay</title>");
+    expect(overlayHtml).toContain("AxeCode is controlling Notepad in the background");
+    expect(overlayHtml).toContain("<title>AxeCode Computer Use Overlay</title>");
     expect(overlayHtml).toContain("Exit computer use");
     expect(overlayHtml).not.toContain("bottom: 16px");
     expect(overlayHtml).not.toContain("inset 0 0 0 2px");

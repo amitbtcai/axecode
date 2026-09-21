@@ -39,7 +39,7 @@ function makePlugin(
     source: options.source ?? "bundled",
     root: `/plugins/${name}`,
     manifest: { $schema: AGENT_PLUGINS_MANIFEST_SCHEMA_URL, name, version: "1.0.0" },
-    poracode: {
+    axecode: {
       category: "developer-tools",
       featured: false,
       communityMaintained: false,
@@ -213,8 +213,8 @@ describe("plugin catalog", () => {
   it("resolves the plugin core skill and provider-native aliases", () => {
     const plugin = {
       ...BROWSER_TOOLS,
-      poracode: {
-        ...BROWSER_TOOLS.poracode,
+      axecode: {
+        ...BROWSER_TOOLS.axecode,
         coreSkill: "browser-control",
         nativePluginNames: ["browser"],
       },
@@ -229,8 +229,8 @@ describe("plugin catalog", () => {
     const plugin = {
       ...GITHUB,
       name: "outlook",
-      poracode: {
-        ...GITHUB.poracode,
+      axecode: {
+        ...GITHUB.axecode,
         nativePluginNames: ["outlook-email", "outlook-calendar"],
       },
     };
@@ -261,7 +261,7 @@ describe("built-in tool plugins", () => {
       skills: { "terminal-inspection": {} },
       builtInMcpServerIds: ["app-controls"],
     });
-    terminal.poracode = { ...terminal.poracode, alwaysEnabled: true };
+    terminal.axecode = { ...terminal.axecode, alwaysEnabled: true };
 
     expect(isAlwaysEnabledPlugin(terminal)).toBe(true);
     expect(canDisablePlugin(terminal)).toBe(false);

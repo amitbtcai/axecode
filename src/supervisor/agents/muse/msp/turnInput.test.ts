@@ -20,13 +20,13 @@ describe("Muse MSP turn input", () => {
     // paths (readsImageAttachmentsFromHost: false) and the prompt formatter
     // embeds `@path` mentions in the prompt text, which the caller supplies.
     const parts = await buildMuseTurnInput(
-      "can you read this image?\n\n@/home/user/.poracode/attachments/image.png",
+      "can you read this image?\n\n@/home/user/.axecode/attachments/image.png",
       undefined,
     );
     expect(parts).toEqual([
       {
         type: "text",
-        text: "can you read this image?\n\n@/home/user/.poracode/attachments/image.png",
+        text: "can you read this image?\n\n@/home/user/.axecode/attachments/image.png",
       },
     ]);
     expect(parts.some((part) => part["type"] === "image")).toBe(false);

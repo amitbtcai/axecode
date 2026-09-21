@@ -310,7 +310,7 @@ describe("CrossagentMcpIngress", () => {
     });
     expect((await call.json()).result).toMatchObject({
       isError: true,
-      content: [{ type: "text", text: "Tool disabled by Poracode: steer_agent" }],
+      content: [{ type: "text", text: "Tool disabled by AxeCode: steer_agent" }],
     });
   });
 

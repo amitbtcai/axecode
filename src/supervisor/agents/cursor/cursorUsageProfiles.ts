@@ -1,4 +1,4 @@
-import { collectCursorFromApiKey, type HostPort, type UsageSnapshot } from "@poracode/agents-usage";
+import { collectCursorFromApiKey, type HostPort, type UsageSnapshot } from "@axecode/agents-usage";
 import { cursorProfileKind } from "@/shared/contracts";
 import type { SharedSettings } from "@/shared/settings";
 

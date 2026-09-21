@@ -18,7 +18,7 @@ const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const crateRoot = join(repoRoot, "native", "computer-use-helper");
 let resourcesRoot = join(repoRoot, "resources", "computer-use-helper");
 let cargoProfile = "release";
-const binaryName = "poracode-computer-use";
+const binaryName = "axecode-computer-use";
 const clientContractPath = join(repoRoot, "src", "shared", "contracts", "computerUse.ts");
 
 function clientProtocolVersion() {
@@ -120,7 +120,7 @@ function commandExists(command) {
 }
 
 function allowMissingHelper() {
-  return /^(1|true|yes)$/i.test(process.env.PORACODE_ALLOW_MISSING_COMPUTER_USE_HELPER ?? "");
+  return /^(1|true|yes)$/i.test(process.env.AXECODE_ALLOW_MISSING_COMPUTER_USE_HELPER ?? "");
 }
 
 function newestSourceMtime(path) {

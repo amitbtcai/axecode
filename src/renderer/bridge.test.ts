@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { PoracodeBridge } from "@/shared/ipc";
+import type { AxeCodeBridge } from "@/shared/ipc";
 import type { RemoteDesktopClient } from "@/shared/remote/client";
 import { readBridge } from "./bridge";
 import { registerRemoteProcedureHost, type RemoteProcedureHost } from "./remoteProcedureRouter";
@@ -19,9 +19,9 @@ describe("remote-aware renderer bridge", () => {
 
   it("routes allowlisted project procedures when a remote owner is resolved", async () => {
     const local = vi.fn<() => Promise<unknown>>(async () => ({ local: true }));
-    window.poracode = {
+    window.axecode = {
       getGitStatus: local,
-    } as unknown as PoracodeBridge;
+    } as unknown as AxeCodeBridge;
     const remote = vi.fn<RemoteDesktopClient["callRemoteProcedure"]>(async (procedure, payload) => {
       expect(procedure).toBe("getGitStatus");
       expect(payload).toEqual({
@@ -61,9 +61,9 @@ describe("remote-aware renderer bridge", () => {
       ["ghCancelWorkflowRun", { runId: 34 }],
       ["ghDeleteWorkflowRun", { runId: 34 }],
     ] as const;
-    window.poracode = Object.fromEntries(
+    window.axecode = Object.fromEntries(
       calls.map(([procedure]) => [procedure, local]),
-    ) as unknown as PoracodeBridge;
+    ) as unknown as AxeCodeBridge;
     const remote = vi.fn<RemoteDesktopClient["callRemoteProcedure"]>(async () => ({
       remote: true,
     }));
@@ -90,12 +90,12 @@ describe("remote-aware renderer bridge", () => {
 
   it("routes PR automation through the remote project owner", async () => {
     const local = vi.fn<() => Promise<unknown>>(async () => ({ local: true }));
-    window.poracode = {
+    window.axecode = {
       getPrWatch: local,
       checkPrWatch: local,
       upsertPrWatch: local,
       deletePrWatch: local,
-    } as unknown as PoracodeBridge;
+    } as unknown as AxeCodeBridge;
     const getPrWatch = vi.fn<RemoteDesktopClient["getPrWatch"]>(async () => null);
     const checkPrWatch = vi.fn<RemoteDesktopClient["checkPrWatch"]>(async () => {});
     const upsertPrWatch = vi.fn<RemoteDesktopClient["upsertPrWatch"]>(async (input) => {
@@ -146,12 +146,12 @@ describe("remote-aware renderer bridge", () => {
   });
 
   it("routes positional project-note calls and rewrites the projected project id", async () => {
-    const localGet = vi.fn<PoracodeBridge["dbGetProjectNotes"]>(async () => null);
-    const localSet = vi.fn<PoracodeBridge["dbSetProjectNotes"]>(async () => undefined);
-    window.poracode = {
+    const localGet = vi.fn<AxeCodeBridge["dbGetProjectNotes"]>(async () => null);
+    const localSet = vi.fn<AxeCodeBridge["dbSetProjectNotes"]>(async () => undefined);
+    window.axecode = {
       dbGetProjectNotes: localGet,
       dbSetProjectNotes: localSet,
-    } as unknown as PoracodeBridge;
+    } as unknown as AxeCodeBridge;
     const notes = {
       projectId: "project-1",
       doc: null,
@@ -180,9 +180,9 @@ describe("remote-aware renderer bridge", () => {
 
   it("falls through to the local bridge when the router declines the payload", async () => {
     const local = vi.fn<() => Promise<unknown>>(async () => ({ local: true }));
-    window.poracode = {
+    window.axecode = {
       getGitStatus: local,
-    } as unknown as PoracodeBridge;
+    } as unknown as AxeCodeBridge;
     registerRemoteProcedureHost(makeRemoteHost());
 
     await expect(
@@ -205,7 +205,7 @@ describe("remote-aware renderer bridge", () => {
         nativeReceiver = this;
       },
     });
-    window.poracode = source as unknown as PoracodeBridge;
+    window.axecode = source as unknown as AxeCodeBridge;
 
     await expect(
       readBridge().getGitStatus({

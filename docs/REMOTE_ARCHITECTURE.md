@@ -22,14 +22,14 @@ Four runtimes, already cleanly separated:
 Key facts that make this tractable (verified, not assumed):
 
 - `src/supervisor/*`, `src/main/db.ts`, `src/main/remote/*`,
-  `src/main/supervisor/SupervisorClient.ts`, `src/main/poracodeData.ts`,
+  `src/main/supervisor/SupervisorClient.ts`, `src/main/axecodeData.ts`,
   `src/main/sharedSettingsFile.ts` import **zero** Electron APIs.
 - `RemoteAccessServer` is already pure dependency-injection: it receives
   `callSupervisor`, `settings`, `browser?`, `dispatchThreadCommand?`,
   `gitSummaries?` as constructor options. Only the **wiring** in `main.ts` is
   Electron-specific.
 - The wire protocol (`src/shared/remote/protocol.ts`) is versioned
-  (`PORACODE_REMOTE_PROTOCOL_VERSION`), zod-validated, HTTP for control +
+  (`AXECODE_REMOTE_PROTOCOL_VERSION`), zod-validated, HTTP for control +
   WebSocket for the replayable event stream, with scoped bearer-token auth and
   persistent sessions.
 - The PWA already models **multiple desktops** (`storage.ts` Dexie schema,
@@ -100,7 +100,7 @@ gateway and renderer-dispatch; the headless host injects neither and treats the
 - `src/server/cli.ts`: standalone entry (`node dist/main/server.cjs`) that boots
   the host, prints the pairing URL, and shuts down cleanly on signals.
 - `src/server/headlessSecretKey.ts`: file-backed secret key (no OS keychain on a
-  server), env-overridable via `PORACODE_SECRET_STORAGE_KEY`.
+  server), env-overridable via `AXECODE_SECRET_STORAGE_KEY`.
 - New `server` tsdown entry + `pnpm run server` script.
 - **`main.ts` is untouched** — the desktop app's behavior is unchanged. The
   headless host reuses the existing, already-DI'd server.
@@ -225,8 +225,8 @@ Landed hardening since the first Phase 4 cut:
   prevent hijacking. Verified end-to-end over real sockets
   (`relayServer.test.ts`): HTTP control plane (descriptor + pairing exchange +
   WS-ticket) and the WebSocket event stream both tunnel correctly.
-  - The headless CLI opts in via `PORACODE_REMOTE_RELAY_URL` (+ a file-backed
-    `PORACODE_REMOTE_RELAY_SECRET`); it registers under its `desktopId` and
+  - The headless CLI opts in via `AXECODE_REMOTE_RELAY_URL` (+ a file-backed
+    `AXECODE_REMOTE_RELAY_SECRET`); it registers under its `desktopId` and
     prints its public relay URL.
 
   Still external (the deferred "managed cloud subscription"): hosting the relay,
@@ -386,7 +386,7 @@ with **zero console errors** on both the PWA and the desktop.
   - `pnpm run prepare:server-native` copies the current N-API prebuild into
     `dist/server-native/better_sqlite3.node` for callers that need a standalone file.
   - Operators can explicitly select a compatible SQLite 13 binary with
-    `PORACODE_BETTER_SQLITE3_NATIVE_BINDING`.
+    `AXECODE_BETTER_SQLITE3_NATIVE_BINDING`.
 
 - **HTTP-server boot is independent of native modules.** `RemoteAccessServer`
   binds and serves even if the supervisor (which needs `node-pty`) is degraded;

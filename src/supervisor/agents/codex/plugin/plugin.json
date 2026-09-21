@@ -1,7 +1,7 @@
 {
-  "name": "poracode-status",
+  "name": "axecode-status",
   "version": "1.1.4",
-  "description": "Forward Codex CLI lifecycle hooks to Poracode for sidebar status detection.",
-  "author": "Poracode",
+  "description": "Forward Codex CLI lifecycle hooks to AxeCode for sidebar status detection.",
+  "author": "AxeCode",
   "license": "Apache-2.0"
 }

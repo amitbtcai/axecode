@@ -1,4 +1,4 @@
-import { PORACODE_REMOTE_PROTOCOL_VERSION } from "./remote/protocol";
+import { AXECODE_REMOTE_PROTOCOL_VERSION } from "./remote/protocol";
 
 export const REMOTE_NODE_ENV_SCRIPT = String.raw`
 prepend_path_if_dir() {
@@ -10,11 +10,11 @@ prepend_path_if_dir() {
   fi
 }
 
-poracode_node_is_compatible() {
+axecode_node_is_compatible() {
   node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 24 || (major === 24 && minor >= 10) ? 0 : 1)' >/dev/null 2>&1
 }
 
-ensure_poracode_node() {
+ensure_axecode_node() {
   prepend_path_if_dir "$HOME/.local/bin"
   prepend_path_if_dir "$HOME/bin"
   prepend_path_if_dir "/opt/homebrew/bin"
@@ -22,7 +22,7 @@ ensure_poracode_node() {
   prepend_path_if_dir "/usr/bin"
   prepend_path_if_dir "/bin"
 
-  if command -v node >/dev/null 2>&1 && poracode_node_is_compatible; then
+  if command -v node >/dev/null 2>&1 && axecode_node_is_compatible; then
     return 0
   fi
 
@@ -60,20 +60,20 @@ ensure_poracode_node() {
     nvm use --silent default >/dev/null 2>&1 || nvm use --silent node >/dev/null 2>&1 || nvm use --silent --lts >/dev/null 2>&1 || true
   fi
   if ! command -v node >/dev/null 2>&1 && [ -d "$NVM_DIR/versions/node" ]; then
-    for PORACODE_NODE_BIN in "$NVM_DIR"/versions/node/*/bin; do
-      prepend_path_if_dir "$PORACODE_NODE_BIN"
+    for AXECODE_NODE_BIN in "$NVM_DIR"/versions/node/*/bin; do
+      prepend_path_if_dir "$AXECODE_NODE_BIN"
     done
   fi
 
-  command -v node >/dev/null 2>&1 && poracode_node_is_compatible
+  command -v node >/dev/null 2>&1 && axecode_node_is_compatible
 }
 `;
 
 export const PROBE_REMOTE_RUNTIME_SCRIPT = String.raw`set -eu
 ${REMOTE_NODE_ENV_SCRIPT}
 HASH="$1"
-RUNTIME="$HOME/.poracode/ssh/runtime/$HASH"
-ensure_poracode_node || {
+RUNTIME="$HOME/.axecode/ssh/runtime/$HASH"
+ensure_axecode_node || {
   printf 'Axe Code SSH requires Node 24.10 or newer on the remote host.\n' >&2
   exit 41
 }
@@ -85,7 +85,7 @@ fi
 `;
 
 export const PREPARE_REMOTE_UPLOAD_SCRIPT = String.raw`set -eu
-mkdir -p "$HOME/.poracode/ssh/uploads" "$HOME/.poracode/ssh/runtime"
+mkdir -p "$HOME/.axecode/ssh/uploads" "$HOME/.axecode/ssh/runtime"
 `;
 
 export const INSTALL_REMOTE_RUNTIME_SCRIPT = String.raw`set -eu
@@ -94,7 +94,7 @@ HASH="$1"
 case "$HASH" in
   *[!0-9a-f]*|'') printf 'Invalid Axe Code runtime hash.\n' >&2; exit 2 ;;
 esac
-ensure_poracode_node || {
+ensure_axecode_node || {
   printf 'Axe Code SSH requires Node 24.10 or newer on the remote host.\n' >&2
   exit 41
 }
@@ -102,7 +102,7 @@ command -v npm >/dev/null 2>&1 || {
   printf 'Axe Code SSH requires npm on the remote host.\n' >&2
   exit 42
 }
-BASE="$HOME/.poracode/ssh"
+BASE="$HOME/.axecode/ssh"
 ARCHIVE="$BASE/uploads/$HASH.tar.gz"
 FINAL="$BASE/runtime/$HASH"
 STAGE="$BASE/runtime/.staging-$HASH-$$"
@@ -117,9 +117,9 @@ tar -xzf "$ARCHIVE" -C "$STAGE"
   cd "$STAGE"
   npm install --omit=dev --no-audit --no-fund --loglevel=error
 )
-mkdir -p "$HOME/.poracode/agent-plugins"
+mkdir -p "$HOME/.axecode/agent-plugins"
 if [ -d "$STAGE/agent-plugins" ]; then
-  cp -R "$STAGE/agent-plugins/." "$HOME/.poracode/agent-plugins/"
+  cp -R "$STAGE/agent-plugins/." "$HOME/.axecode/agent-plugins/"
 fi
 printf '%s\n' "$HASH" >"$STAGE/.ready"
 if [ -d "$FINAL" ]; then
@@ -145,12 +145,12 @@ esac
 case "$RUNTIME_HASH" in
   *[!0-9a-f]*|'') printf 'Invalid Axe Code runtime hash.\n' >&2; exit 2 ;;
 esac
-ensure_poracode_node || {
+ensure_axecode_node || {
   printf 'Axe Code SSH requires Node 24.10 or newer on the remote host.\n' >&2
   exit 41
 }
 NODE="$(command -v node)"
-BASE="$HOME/.poracode/ssh"
+BASE="$HOME/.axecode/ssh"
 RUNTIME="$BASE/runtime/$RUNTIME_HASH"
 STATE="$BASE/hosts/$CONNECTION_ID"
 PID_FILE="$STATE/pid"
@@ -167,7 +167,7 @@ server_ready() {
 const http = require("node:http");
 const port = Number(process.argv[2]);
 const appVersion = process.argv[3];
-const req = http.get({ host: "127.0.0.1", port, path: "/.well-known/poracode/environment", timeout: 800 }, (res) => {
+const req = http.get({ host: "127.0.0.1", port, path: "/.well-known/axecode/environment", timeout: 800 }, (res) => {
   let body = "";
   res.setEncoding("utf8");
   res.on("data", (chunk) => { body += chunk; });
@@ -176,7 +176,7 @@ const req = http.get({ host: "127.0.0.1", port, path: "/.well-known/poracode/env
       const descriptor = JSON.parse(body);
       process.exit(
         res.statusCode === 200 &&
-        descriptor.protocolVersion === ${PORACODE_REMOTE_PROTOCOL_VERSION} &&
+        descriptor.protocolVersion === ${AXECODE_REMOTE_PROTOCOL_VERSION} &&
         descriptor.hostMode === "helper" &&
         descriptor.appVersion === appVersion
           ? 0
@@ -221,14 +221,14 @@ else
   rm -f "$PID_FILE" "$PORT_FILE" "$RUNTIME_FILE"
   PORT="$(pick_port)" || { printf 'No remote loopback port is available for Axe Code.\n' >&2; exit 46; }
   nohup env \
-    PORACODE_BASE_DIR="$DATA_DIR" \
-    PORACODE_REMOTE_ACCESS_HOST=127.0.0.1 \
-    PORACODE_REMOTE_ACCESS_ADVERTISED_HOST=127.0.0.1 \
-    PORACODE_REMOTE_ACCESS_PORT="$PORT" \
-    PORACODE_APP_VERSION="$APP_VERSION" \
-    PORACODE_WSL_HELPERS_DIR="$RUNTIME/wsl-helpers" \
-    PORACODE_BUNDLED_SKILLS_DIR="$RUNTIME/skills" \
-    PORACODE_BUNDLED_PLUGINS_DIR="$RUNTIME/plugins" \
+    AXECODE_BASE_DIR="$DATA_DIR" \
+    AXECODE_REMOTE_ACCESS_HOST=127.0.0.1 \
+    AXECODE_REMOTE_ACCESS_ADVERTISED_HOST=127.0.0.1 \
+    AXECODE_REMOTE_ACCESS_PORT="$PORT" \
+    AXECODE_APP_VERSION="$APP_VERSION" \
+    AXECODE_WSL_HELPERS_DIR="$RUNTIME/wsl-helpers" \
+    AXECODE_BUNDLED_SKILLS_DIR="$RUNTIME/skills" \
+    AXECODE_BUNDLED_PLUGINS_DIR="$RUNTIME/plugins" \
     "$NODE" "$RUNTIME/server.cjs" >>"$LOG_FILE" 2>&1 </dev/null &
   PID="$!"
   printf '%s\n' "$PID" >"$PID_FILE"
@@ -257,10 +257,10 @@ export const PAIR_REMOTE_SERVER_SCRIPT = String.raw`set -eu
 ${REMOTE_NODE_ENV_SCRIPT}
 CONNECTION_ID="$1"
 RUNTIME_HASH="$2"
-ensure_poracode_node || exit 41
+ensure_axecode_node || exit 41
 NODE="$(command -v node)"
-BASE="$HOME/.poracode/ssh"
+BASE="$HOME/.axecode/ssh"
 RUNTIME="$BASE/runtime/$RUNTIME_HASH"
 DATA_DIR="$BASE/hosts/$CONNECTION_ID/data"
-PORACODE_BASE_DIR="$DATA_DIR" exec "$NODE" "$RUNTIME/server.cjs" pair --json
+AXECODE_BASE_DIR="$DATA_DIR" exec "$NODE" "$RUNTIME/server.cjs" pair --json
 `;

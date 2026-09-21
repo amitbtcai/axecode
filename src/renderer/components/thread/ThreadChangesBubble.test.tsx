@@ -18,8 +18,8 @@ vi.mock("@heroui/react", () => {
 function makeStatus(overrides: Partial<GitStatusResult> = {}): GitStatusResult {
   return {
     isRepo: true,
-    branch: "poracode/fix-pwa-worktree-setup",
-    tracking: "origin/poracode/fix-pwa-worktree-setup",
+    branch: "axecode/fix-pwa-worktree-setup",
+    tracking: "origin/axecode/fix-pwa-worktree-setup",
     hasRemote: true,
     remoteInfo: null,
     ahead: 0,
@@ -49,7 +49,7 @@ describe("ThreadChangesBubble", () => {
   });
 
   it("keeps a clean worktree visible as an icon-only glass control with its name in a tooltip", () => {
-    const worktreePath = "/repo/.poracode/worktrees/poracode-fix-pwa-worktree-setup";
+    const worktreePath = "/repo/.axecode/worktrees/axecode-fix-pwa-worktree-setup";
     useGitStore.setState({
       worktreeStatuses: {
         [worktreePath]: makeStatus(),
@@ -60,21 +60,17 @@ describe("ThreadChangesBubble", () => {
       <ThreadChangesBubble
         projectId="project-1"
         worktreePath={worktreePath}
-        worktreeName="poracode/fix-pwa-worktree-setup"
+        worktreeName="axecode/fix-pwa-worktree-setup"
       />,
     );
 
     const bubble = screen.getByRole("button", { name: "Review changes" });
 
-    expect(bubble).toHaveClass(
-      "poracode-floating-chrome",
-      "poracode-floating-chrome--bubble",
-      "w-7",
-    );
+    expect(bubble).toHaveClass("axecode-floating-chrome", "axecode-floating-chrome--bubble", "w-7");
     // Positioning belongs to the composer's shared bubble wrapper, not the bubble.
     expect(bubble).not.toHaveClass("absolute");
     expect(bubble.querySelector(".lucide-git-fork")).not.toBeNull();
-    expect(screen.getByRole("tooltip")).toHaveTextContent("poracode/fix-pwa-worktree-setup");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("axecode/fix-pwa-worktree-setup");
   });
 
   it("shows worktree changes beside the icon and opens Git review for that worktree", () => {
@@ -113,7 +109,7 @@ describe("ThreadChangesBubble", () => {
           number: 427,
           state: "open",
           title: "Fix thread tool menu",
-          url: "https://github.com/poracode/poracode/pull/427",
+          url: "https://github.com/axecode/axecode/pull/427",
           baseBranch: "master",
           isDraft: false,
           checksStatus: "PENDING",
@@ -144,7 +140,7 @@ describe("ThreadChangesBubble", () => {
           number: 427,
           state: "open",
           title: "Fix thread tool menu",
-          url: "https://github.com/poracode/poracode/pull/427",
+          url: "https://github.com/axecode/axecode/pull/427",
           baseBranch: "master",
           isDraft: false,
           checksStatus: "SUCCESS",

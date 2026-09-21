@@ -240,7 +240,7 @@ export interface AcpStructuredSessionOptions {
   mcpServers?: readonly ResolvedMcpServer[];
   /**
    * MCP transports the adapter knows this agent supports even though it
-   * advertises no `mcpCapabilities` in `initialize`. Poracode's built-in MCP
+   * advertises no `mcpCapabilities` in `initialize`. AxeCode's built-in MCP
    * servers (browser, Crossagents, computer use, app controls) are all HTTP,
    * so an agent that stays silent about transports would otherwise get none of
    * them. Applied only when the agent advertises nothing, and the session
@@ -337,7 +337,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
   /** Reads referenced local images for the canonical mapper (per-session cache). */
   private readonly resolveLocalImage: (pathOrFileUri: string) => string | undefined;
   private planModeToolTrackerInstance: AcpPlanModeToolTracker | undefined;
-  /** Poracode thread id (stable identifier we report in RuntimeEvents). */
+  /** AxeCode thread id (stable identifier we report in RuntimeEvents). */
   private readonly threadId: string;
   private readonly stderrChunks: string[];
   private listener: StructuredSessionListener | undefined;
@@ -483,7 +483,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
   private bufferedRuntimeEvents: RuntimeEvent[] = [];
   /**
    * True while `loadSession` is replaying historical `session/update`
-   * notifications. Poracode persists thread history in its own DB, so
+   * notifications. AxeCode persists thread history in its own DB, so
    * surfacing the replay as new canonical events would duplicate every
    * message in the chat pane. We drop ACP→canonical mapping for the duration
    * and let normal mapping resume once the load completes.
@@ -812,7 +812,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
     console.log("[acp] sending initialize...");
     const initResult = await this.connection.initialize({
       protocolVersion: PROTOCOL_VERSION,
-      clientInfo: { name: "poracode", version: "0.1.0" },
+      clientInfo: { name: "axecode", version: "0.1.0" },
       clientCapabilities: {
         fs: {
           readTextFile: this.fsTextCapability,
@@ -841,7 +841,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
    * Phase 2: Create or resume an ACP session.
    *
    * The agent's response includes its available modes and models.
-   * We store them to map Poracode's `ThreadConfig` to the correct
+   * We store them to map AxeCode's `ThreadConfig` to the correct
    * ACP mode/model IDs (which vary per agent).
    */
   /** See {@link gateAcpMcpServers}; adds launch-time logging of what was dropped. */
@@ -1179,7 +1179,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
         return;
       }
 
-      // Map stopReason to Poracode status
+      // Map stopReason to AxeCode status
       const normalizedStopReason = normalizeAcpStopReason(result.stopReason, {
         interruptRequested: this.currentTurnInterruptRequested,
         recentAgentText: this.recentInterruptAckTextTail,
@@ -1672,7 +1672,7 @@ export class AcpStructuredSession implements StructuredSessionHandle {
     // existing behaviour, and the canonical channel runs in parallel.
     //
     // During session resume/load the agent may replay persisted history as
-    // `session/update` notifications. Poracode already has those messages
+    // `session/update` notifications. AxeCode already has those messages
     // in its own DB, so we skip canonical mapping for the replay window to
     // avoid duplicating every message in the chat pane.
     const suppressInterruptedOutput =

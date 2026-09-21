@@ -215,14 +215,14 @@ describe("runAgentLoginCommand", () => {
     runAgentLoginCommand({
       label: "Claude Code",
       command: "claude auth login",
-      env: { CLAUDE_CONFIG_DIR: "C:\\Users\\sdsle\\.poracode\\claude-profiles\\home" },
+      env: { CLAUDE_CONFIG_DIR: "C:\\Users\\sdsle\\.axecode\\claude-profiles\\home" },
       project: windowsProject,
     });
 
     const script = writeScriptToShellMock.mock.calls[0]?.[1] ?? "";
     // PowerShell can't run `KEY=value command`; it must assign $env: first.
     expect(script).toContain(
-      "Clear-Host; $env:CLAUDE_CONFIG_DIR = 'C:\\Users\\sdsle\\.poracode\\claude-profiles\\home'; claude auth login",
+      "Clear-Host; $env:CLAUDE_CONFIG_DIR = 'C:\\Users\\sdsle\\.axecode\\claude-profiles\\home'; claude auth login",
     );
     expect(script).not.toContain("CLAUDE_CONFIG_DIR=C:");
     expect(startShellWithCurrentSettingsMock).toHaveBeenCalledWith(
@@ -429,13 +429,13 @@ describe("runAgentLoginCommand", () => {
 
     const shellId = loginTerminalStore.open.mock.calls[0]?.[0].shellId;
     const script = writeScriptToShellMock.mock.calls[0]?.[1] ?? "";
-    const token = /poracode-login-complete=([^:]+):/u.exec(script)?.[1];
+    const token = /axecode-login-complete=([^:]+):/u.exec(script)?.[1];
     expect(token).toBeTruthy();
 
     emit({
       type: "thread-output",
       threadId: shellId!,
-      data: `\u001B]777;poracode-login-complete=${token}:1\u0007`,
+      data: `\u001B]777;axecode-login-complete=${token}:1\u0007`,
       outputLength: 0,
     });
     vi.advanceTimersByTime(1200);
@@ -454,13 +454,13 @@ describe("runAgentLoginCommand", () => {
 
     const shellId = loginTerminalStore.open.mock.calls[0]?.[0].shellId;
     const script = writeScriptToShellMock.mock.calls[0]?.[1] ?? "";
-    const token = /poracode-login-complete=([^:]+):/u.exec(script)?.[1];
+    const token = /axecode-login-complete=([^:]+):/u.exec(script)?.[1];
     expect(token).toBeTruthy();
 
     emit({
       type: "thread-output",
       threadId: shellId!,
-      data: `\u001B]777;poracode-login-complete=${token}:0\u0007`,
+      data: `\u001B]777;axecode-login-complete=${token}:0\u0007`,
       outputLength: 0,
     });
 
@@ -482,7 +482,7 @@ describe("runAgentLoginCommand", () => {
 
     const innerScript = unwrapBashScript(script);
     expect(innerScript).toContain("https://opencode.ai/install | bash");
-    expect(innerScript).toContain("printf '\\033]777;poracode-login-complete=lc_");
+    expect(innerScript).toContain("printf '\\033]777;axecode-login-complete=lc_");
     expect(innerScript).toContain('"$__lc_exit"');
   });
 
@@ -496,7 +496,7 @@ describe("runAgentLoginCommand", () => {
     runAgentInstallCommand({ label: "Antigravity", command, project: posixProject });
 
     const innerScript = unwrapBashScript(writeScriptToShellMock.mock.calls[0]?.[1] ?? "");
-    expect(innerScript.indexOf("poracode-login-complete=")).toBeGreaterThan(
+    expect(innerScript.indexOf("axecode-login-complete=")).toBeGreaterThan(
       innerScript.indexOf(command),
     );
   });
@@ -510,7 +510,7 @@ describe("runAgentLoginCommand", () => {
     runAgentInstallCommand({ label: "Antigravity", command, project: windowsProject });
 
     const script = writeScriptToShellMock.mock.calls[0]?.[1] ?? "";
-    expect(script.indexOf("poracode-login-complete=")).toBeGreaterThan(script.indexOf(command));
+    expect(script.indexOf("axecode-login-complete=")).toBeGreaterThan(script.indexOf(command));
     expect(script).toContain("$lcExit");
   });
 

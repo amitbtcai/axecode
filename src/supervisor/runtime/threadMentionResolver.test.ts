@@ -8,7 +8,7 @@ import {
 } from "./threadMentionResolver";
 
 const referenceText = (threadId: string) =>
-  `[thread mention] The user referenced another Poracode thread (thread_id: ${JSON.stringify(threadId)}). Read its conversation with the poracode MCP tool read_thread using this thread_id (get_thread returns metadata). Fetch additional pages only if needed.`;
+  `[thread mention] The user referenced another AxeCode thread (thread_id: ${JSON.stringify(threadId)}). Read its conversation with the axecode MCP tool read_thread using this thread_id (get_thread returns metadata). Fetch additional pages only if needed.`;
 
 describe("resolveThreadMentionSegments", () => {
   it("rewrites thread mentions into on-demand MCP reference text", async () => {

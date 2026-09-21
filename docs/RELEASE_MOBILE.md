@@ -32,7 +32,7 @@ reads the three-integer marketing version from `package.json` (or a
 
 ## Public URLs
 
-These URLs are Poracode's hosted-PWA, legal, and verified-link acceptance gates.
+These URLs are AxeCode's hosted-PWA, legal, and verified-link acceptance gates.
 Internal TestFlight and Play installation can work without the association
 endpoints, but the links must be live before testing universal/app links or
 using them as store metadata:
@@ -51,11 +51,11 @@ serves. The association files are emitted into `dist/mobile/.well-known/` by
 `scripts/finalize-mobile-build.mjs` at build time — configure these when
 running the deploy:
 
-| Variable                                           | Value                                                    |
-| -------------------------------------------------- | -------------------------------------------------------- |
-| `PORACODE_MOBILE_APPLE_TEAM_ID`                    | Apple Developer Team ID                                  |
-| `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS` | Play App Signing SHA-256 fingerprint(s), comma separated |
-| `PORACODE_MOBILE_APP_ID`                           | Optional; defaults to `com.axecode.mobile`               |
+| Variable                                          | Value                                                    |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| `AXECODE_MOBILE_APPLE_TEAM_ID`                    | Apple Developer Team ID                                  |
+| `AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS` | Play App Signing SHA-256 fingerprint(s), comma separated |
+| `AXECODE_MOBILE_APP_ID`                           | Optional; defaults to `com.axecode.mobile`               |
 
 Both endpoints intentionally return valid empty associations until the account
 values exist. After configuration, verify a direct 200 response with
@@ -88,7 +88,7 @@ new browser subscription the next time it connects.
 The `mobile-android` and `mobile-ios` environments are used by the native
 release workflow (`release-mobile.yml`); the `mobile-web` environment is used by
 the standalone PWA workflow (`release-pwa.yml`). Set
-`PORACODE_MOBILE_APP_HOST=code.axeai.com` in all three and `PLAY_TRACK=internal`
+`AXECODE_MOBILE_APP_HOST=code.axeai.com` in all three and `PLAY_TRACK=internal`
 in `mobile-android`. Each environment requires approval from the repository
 owner and only accepts deployments from `master` or a `mobile-v*` tag. The
 workflows pin third-party actions to immutable commits and scope publisher
@@ -114,7 +114,7 @@ Create one long-lived upload keystore, keep an offline backup, and add:
 - `ANDROID_KEY_ALIAS`
 - `ANDROID_KEY_PASSWORD`
 - `ANDROID_GOOGLE_SERVICES_JSON_BASE64`
-- `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS` after Play processes the
+- `AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS` after Play processes the
   first manually uploaded AAB
 - `PLAY_SERVICE_ACCOUNT_JSON` only after the first AAB has been uploaded manually
 
@@ -151,13 +151,13 @@ backups.
 3. Create an Admin team App Store Connect API key and add the GitHub secrets
    above. Do not use an individual API key because Xcode automatic provisioning
    cannot use it.
-4. Create the App Store Connect app record: platform iOS, name `Poracode`, bundle
+4. Create the App Store Connect app record: platform iOS, name `AxeCode`, bundle
    ID `com.axecode.mobile`, primary language English (U.S.), and a unique
    SKU such as `axecode-ios`.
 5. Set Privacy Policy URL to `https://axeai.com/code/privacy` and Support URL to
    `https://axeai.com/code/support`.
 6. Complete App Privacy, age rating, content-rights, and export-compliance
-   questions. Do not automatically answer “no encryption”: Poracode includes an
+   questions. Do not automatically answer “no encryption”: AxeCode includes an
    SSH client and SwiftCrypto, so the encryption/export answer must be reviewed
    in App Store Connect.
 7. Add an internal tester group and enable automatic distribution if uploaded
@@ -169,13 +169,13 @@ backups.
 
 Beta description:
 
-> Poracode for iPhone and iPad is the mobile companion for the Poracode desktop
+> AxeCode for iPhone and iPad is the mobile companion for the AxeCode desktop
 > app. Pair with a desktop to monitor coding agents, reply when they need input,
 > review work, and receive optional status notifications away from your desk.
 
 What to Test:
 
-> Pair with a Poracode desktop by scanning its QR code or entering the endpoint
+> Pair with a AxeCode desktop by scanning its QR code or entering the endpoint
 > and token. Verify project/thread navigation, terminal and native-chat updates,
 > sending a reply, camera and local-network permission prompts, background
 > notifications, universal links, and Live Activity status. Report the desktop
@@ -185,14 +185,14 @@ Feedback email: `support@axeai.com`
 
 Review note:
 
-> Poracode is a companion client and requires a reachable Poracode desktop.
+> AxeCode is a companion client and requires a reachable AxeCode desktop.
 > Provide Beta App Review with a dedicated reachable desktop endpoint and
 > pairing token; do not submit a short-lived QR code as static credentials.
 
 ## Google Play one-time setup
 
 1. Complete Play Console developer enrollment and create an app named
-   `Poracode`, default language English (United States), package
+   `AxeCode`, default language English (United States), package
    `com.axecode.mobile`, app/game = App, free.
 2. Generate one upload key, back it up, and add its encoded
    keystore/password/alias values to the GitHub environment. Select Play App
@@ -215,7 +215,7 @@ Review note:
    JSON key as `PLAY_SERVICE_ACCOUNT_JSON`. Later workflow runs publish to the
    configured track automatically.
 
-Store listing name: `Poracode`
+Store listing name: `AxeCode`
 
 Short description:
 
@@ -223,16 +223,16 @@ Short description:
 
 Full description:
 
-> Poracode is the mobile companion for the Poracode desktop app. Pair your phone
+> AxeCode is the mobile companion for the AxeCode desktop app. Pair your phone
 > with a desktop you control to follow active coding sessions, read terminal and
 > native chat output, respond when an agent needs input, inspect project work,
-> and receive optional status notifications. Poracode supports local-network and
-> HTTPS desktop connections. A running Poracode desktop is required; the mobile
+> and receive optional status notifications. AxeCode supports local-network and
+> HTTPS desktop connections. A running AxeCode desktop is required; the mobile
 > app does not provide a hosted coding-agent account.
 
 Initial release note:
 
-> First beta: pair with Poracode desktop, monitor and steer agent threads, scan
+> First beta: pair with AxeCode desktop, monitor and steer agent threads, scan
 > pairing QR codes, and receive optional status notifications.
 
 Privacy policy: `https://axeai.com/code/privacy`

@@ -487,7 +487,7 @@ describe("ThreadView", () => {
   it("strips Electron IPC framing from launch errors before surfacing them", async () => {
     bridge.startThread.mockRejectedValueOnce(
       new Error(
-        "Error invoking remote method 'poracode:start-thread': Error: This conversation can't be resumed.",
+        "Error invoking remote method 'axecode:start-thread': Error: This conversation can't be resumed.",
       ),
     );
     const onLaunchFailed = vi.fn<(message: string) => void>();
@@ -1522,7 +1522,7 @@ describe("ThreadView", () => {
     expect(placementButtons).toHaveLength(1);
     expect(screen.getByLabelText("Background tasks")).toContainElement(placementButtons[0]!);
     const backgroundDock = screen.getByLabelText("Background tasks");
-    expect(backgroundDock.querySelector(".poracode-pixel-loader")).not.toBeNull();
+    expect(backgroundDock.querySelector(".axecode-pixel-loader")).not.toBeNull();
     expect(backgroundDock.querySelector("svg.lucide-terminal")).toBeNull();
 
     fireEvent.click(placementButtons[0]!);
@@ -1536,7 +1536,7 @@ describe("ThreadView", () => {
     // and reads "Hide", because clicking any of them hides the panel.
     expect(screen.getByRole("button", { name: "Hide Plan" })).toBeInTheDocument();
     const backgroundBubble = screen.getByRole("button", { name: "Hide Background tasks" });
-    expect(backgroundBubble).toHaveClass("poracode-floating-chrome--bubble");
+    expect(backgroundBubble).toHaveClass("axecode-floating-chrome--bubble");
     expect(backgroundBubble).toHaveAttribute("aria-pressed", "true");
     expect(backgroundBubble.querySelector("svg.lucide-activity")).toHaveClass(
       "motion-safe:animate-pulse",
@@ -1928,8 +1928,8 @@ describe("ThreadView", () => {
       });
 
       const headerTrigger = screen.getByRole("button", { name: "Show thread tools" });
-      const headerMenu = headerTrigger.closest("[data-poracode-thread-tool-rail]");
-      const toolMenu = headerMenu?.querySelector("[data-poracode-thread-tool-menu]");
+      const headerMenu = headerTrigger.closest("[data-axecode-thread-tool-rail]");
+      const toolMenu = headerMenu?.querySelector("[data-axecode-thread-tool-menu]");
       const doneButton = screen.getByRole("button", { name: "Mark done" });
 
       expect(headerMenu).toHaveAttribute("data-placement", "header");
@@ -1981,7 +1981,7 @@ describe("ThreadView", () => {
       status: "launching",
       attention: "none",
       canResumeWithConfig: false,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
       archived: false,
       done: false,
       starred: false,

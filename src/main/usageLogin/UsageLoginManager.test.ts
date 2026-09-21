@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { allUsageProviderDescriptors } from "@poracode/agents-usage";
+import { allUsageProviderDescriptors } from "@axecode/agents-usage";
 import { getUsageSecret, hasUsageSecret, setUsageSecret } from "@/shared/usageSecretStore";
 import { startUsageLoginCookieMirror } from "./UsageLoginCookieMirror";
 import { PROVIDER_CONFIGS } from "./providerLoginConfigs";

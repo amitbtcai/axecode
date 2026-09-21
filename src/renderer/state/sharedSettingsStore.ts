@@ -54,7 +54,7 @@ import {
   type MachineScopeModes,
 } from "@/shared/machineSettings";
 
-const STORAGE_KEY = "poracode-shared-settings";
+const STORAGE_KEY = "axecode-shared-settings";
 
 interface SharedSettingsState extends SharedSettings {
   sharedSettingsHydrated: boolean;
@@ -230,7 +230,7 @@ interface SharedSettingsState extends SharedSettings {
 
 const RECENT_MODELS_LIMIT = 16;
 function hasBridge(): boolean {
-  return typeof window !== "undefined" && window.poracode !== undefined;
+  return typeof window !== "undefined" && window.axecode !== undefined;
 }
 
 function loadFallbackSettings(): SharedSettings {

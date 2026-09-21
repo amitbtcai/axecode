@@ -42,7 +42,7 @@ describe("buildForkMentionLaunchInput", () => {
   });
 });
 
-const originalPoracode = window.poracode;
+const originalAxeCode = window.axecode;
 
 function extracted(overrides: Partial<ExtractContextResult> = {}): ExtractContextResult {
   return {
@@ -58,12 +58,12 @@ describe("buildHandoffLaunchInput", () => {
   let saveHandoffContext: ReturnType<typeof vi.fn<() => Promise<string>>>;
 
   beforeEach(() => {
-    saveHandoffContext = vi.fn<() => Promise<string>>(async () => "/repo/.poracode/handoff.md");
-    window.poracode = { saveHandoffContext } as unknown as typeof window.poracode;
+    saveHandoffContext = vi.fn<() => Promise<string>>(async () => "/repo/.axecode/handoff.md");
+    window.axecode = { saveHandoffContext } as unknown as typeof window.axecode;
   });
 
   afterEach(() => {
-    window.poracode = originalPoracode;
+    window.axecode = originalAxeCode;
   });
 
   it("introduces a provider summary as a context file", async () => {
@@ -79,7 +79,7 @@ describe("buildHandoffLaunchInput", () => {
     );
     expect(launch.segments).toEqual([
       expect.objectContaining({ kind: "text" }),
-      { kind: "attachment", path: "/repo/.poracode/handoff.md", mimeType: "text/markdown" },
+      { kind: "attachment", path: "/repo/.axecode/handoff.md", mimeType: "text/markdown" },
       { kind: "text", content: "\n\n" },
       { kind: "text", content: "Continue" },
     ]);

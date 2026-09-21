@@ -12,7 +12,7 @@ on:
         required: true
         type: string
       channel:
-        description: "Poracode release channel (stable | nightly)"
+        description: "AxeCode release channel (stable | nightly)"
         required: true
         type: string
       sentry_environment:
@@ -172,7 +172,7 @@ jobs:
         run: pnpm run build
         shell: bash
         env:
-          PORACODE_CHANNEL: ${{ inputs.channel }}
+          AXECODE_CHANNEL: ${{ inputs.channel }}
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
           SENTRY_ENVIRONMENT: ${{ inputs.sentry_environment }}
           POSTHOG_ENABLED: ${{ vars.POSTHOG_ENABLED || '1' }}
@@ -221,7 +221,7 @@ jobs:
           node scripts/build-desktop-artifact.mjs --platform "${{ matrix.platform }}" --skip-build
         shell: bash
         env:
-          PORACODE_CHANNEL: ${{ inputs.channel }}
+          AXECODE_CHANNEL: ${{ inputs.channel }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
@@ -232,7 +232,7 @@ jobs:
           node scripts/build-desktop-artifact.mjs --platform mac --skip-build
         shell: bash
         env:
-          PORACODE_CHANNEL: ${{ inputs.channel }}
+          AXECODE_CHANNEL: ${{ inputs.channel }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # macOS Developer ID signing: do NOT set CSC_LINK/CSC_KEY_PASSWORD —
           # the identity is discovered from the keychain prepared above.
@@ -268,7 +268,7 @@ jobs:
                 exit 1
               fi
 
-              helper="$app/Contents/Resources/computer-use-helper/darwin-universal/poracode-computer-use"
+              helper="$app/Contents/Resources/computer-use-helper/darwin-universal/axecode-computer-use"
               codesign --verify --strict --verbose=4 "$helper"
               helper_signature="$(codesign -d --verbose=4 "$helper" 2>&1)"
               if ! grep -q 'flags=.*runtime' <<<"$helper_signature"; then
@@ -307,7 +307,7 @@ jobs:
             exit 1
           fi
 
-          verify_root="$(mktemp -d "${RUNNER_TEMP}/poracode-update-verify.XXXXXX")"
+          verify_root="$(mktemp -d "${RUNNER_TEMP}/axecode-update-verify.XXXXXX")"
           trap 'rm -rf "$verify_root"' EXIT
           zip_index=0
           for zip in "${zips[@]}"; do

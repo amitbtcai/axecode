@@ -87,7 +87,7 @@ describe("ChatScrollControls", () => {
       expect(slot).toContainElement(button);
       expect(container).not.toContainElement(button);
       // Shares the composer bubble material instead of floating over the pane.
-      expect(button).toHaveClass("poracode-floating-chrome--bubble", "size-7", "rounded-full");
+      expect(button).toHaveClass("axecode-floating-chrome--bubble", "size-7", "rounded-full");
       expect(button).not.toHaveClass("absolute");
     } finally {
       useComposerBubbleSlotStore.getState().setSlot("thread-1", null);

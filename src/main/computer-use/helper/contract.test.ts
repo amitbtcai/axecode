@@ -13,10 +13,10 @@ import {
 
 const crateRoot = join(process.cwd(), "native", "computer-use-helper");
 const binaryName =
-  process.platform === "win32" ? "poracode-computer-use.exe" : "poracode-computer-use";
+  process.platform === "win32" ? "axecode-computer-use.exe" : "axecode-computer-use";
 const helperBinary = [
   resolveComputerUseHelperBinaryPath(join(process.cwd(), "resources", "computer-use-helper")),
-  process.env.PORACODE_COMPUTER_USE_HELPER_PATH,
+  process.env.AXECODE_COMPUTER_USE_HELPER_PATH,
   join(crateRoot, "target", "debug", binaryName),
   join(crateRoot, "target", "release", binaryName),
 ].find((candidate): candidate is string => typeof candidate === "string" && existsSync(candidate));
@@ -42,9 +42,9 @@ describe("computer-use helper contract", () => {
   });
 
   it("keeps helper targets aligned with the packaged platform matrix", () => {
-    const helperRoot = mkdtempSync(join(tmpdir(), "poracode-computer-use-targets-"));
-    const originalOverride = process.env.PORACODE_COMPUTER_USE_HELPER_PATH;
-    delete process.env.PORACODE_COMPUTER_USE_HELPER_PATH;
+    const helperRoot = mkdtempSync(join(tmpdir(), "axecode-computer-use-targets-"));
+    const originalOverride = process.env.AXECODE_COMPUTER_USE_HELPER_PATH;
+    delete process.env.AXECODE_COMPUTER_USE_HELPER_PATH;
     try {
       const targets = [
         { platform: "win32" as const, arch: "x64", id: "win32-x64", executable: true },
@@ -65,17 +65,11 @@ describe("computer-use helper contract", () => {
         const directory = join(helperRoot, target.id);
         mkdirSync(directory, { recursive: true });
         writeFileSync(
-          join(
-            directory,
-            target.executable ? "poracode-computer-use.exe" : "poracode-computer-use",
-          ),
+          join(directory, target.executable ? "axecode-computer-use.exe" : "axecode-computer-use"),
           "helper",
         );
         expect(resolveComputerUseHelperBinaryPath(helperRoot, target.platform, target.arch)).toBe(
-          join(
-            directory,
-            target.executable ? "poracode-computer-use.exe" : "poracode-computer-use",
-          ),
+          join(directory, target.executable ? "axecode-computer-use.exe" : "axecode-computer-use"),
         );
       }
       expect(resolveComputerUseHelperBinaryPath(helperRoot, "linux", "arm64")).toBeNull();
@@ -102,9 +96,9 @@ describe("computer-use helper contract", () => {
       expect(artifactSource).toContain('linux: ["x64"]');
     } finally {
       if (originalOverride === undefined) {
-        delete process.env.PORACODE_COMPUTER_USE_HELPER_PATH;
+        delete process.env.AXECODE_COMPUTER_USE_HELPER_PATH;
       } else {
-        process.env.PORACODE_COMPUTER_USE_HELPER_PATH = originalOverride;
+        process.env.AXECODE_COMPUTER_USE_HELPER_PATH = originalOverride;
       }
       rmSync(helperRoot, { recursive: true, force: true });
     }

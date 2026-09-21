@@ -77,15 +77,15 @@ import {
 } from "./pluginSkillPolicy";
 
 const SKILL_FILE = "SKILL.md";
-const MANIFEST_FILE = ".poracode-skill.json";
+const MANIFEST_FILE = ".axecode-skill.json";
 /** Root id/label for read-only skills shipped with the app (resources/skills). */
-export const BUNDLED_PROVIDER_ID = "poracode-built-in";
+export const BUNDLED_PROVIDER_ID = "axecode-built-in";
 const BUNDLED_PROVIDER_LABEL = "Axe Code built-ins";
-const PORACODE_PROVIDER_GROUP_ID = "poracode";
-const PORACODE_PROVIDER_GROUP_LABEL = "Axe Code";
+const AXECODE_PROVIDER_GROUP_ID = "axecode";
+const AXECODE_PROVIDER_GROUP_LABEL = "Axe Code";
 
-const PORACODE_PROVIDER_GROUP_ORDER = -1;
-const DISABLED_SUFFIX = ".poracode-disabled";
+const AXECODE_PROVIDER_GROUP_ORDER = -1;
+const DISABLED_SUFFIX = ".axecode-disabled";
 const MAX_SKILL_FILE_BYTES = 1024 * 1024;
 const SKILLS_SH_URL = "https://www.skills.sh/";
 const SKILLS_DIRECTORY_URL = "https://www.skillsdirectory.com/";
@@ -172,7 +172,7 @@ export interface SkillsServiceOptions {
   /** Agent Plugins packages discovered by the supervisor's plugin registry. */
   /**
    * Packages visible for a scan. The project path scopes the repository's own
-   * `.poracode/plugins` root; omitting it reads the app-global roots only.
+   * `.axecode/plugins` root; omitting it reads the app-global roots only.
    */
   readPlugins?: (projectFsPath?: string) => readonly LoadedPlugin[];
   hostPlatform?: NodeJS.Platform;
@@ -765,7 +765,7 @@ export class SkillsService {
     ) {
       throw new Error(`A managed skill named ${skillId} already exists.`);
     }
-    const stagingPath = join(destinationRoot.fsPath, `.poracode-marketplace-${randomUUID()}`);
+    const stagingPath = join(destinationRoot.fsPath, `.axecode-marketplace-${randomUUID()}`);
     const backups: Array<{ original: string; backup: string }> = [];
     try {
       await mkdir(stagingPath, { recursive: true });
@@ -812,7 +812,7 @@ export class SkillsService {
       });
       for (const original of [destination, disabledDestination]) {
         if (!(await pathExists(original))) continue;
-        const backup = join(dirname(original), `.poracode-backup-${randomUUID()}`);
+        const backup = join(dirname(original), `.axecode-backup-${randomUUID()}`);
         await rename(original, backup);
         backups.push({ original, backup });
       }
@@ -883,7 +883,7 @@ export class SkillsService {
           .filter(
             (skill) =>
               skill.origin === "managed" &&
-              skill.availability !== "poracode" &&
+              skill.availability !== "axecode" &&
               skill.valid &&
               externalKeys.has(`${skill.scope}:${skill.name.toLowerCase()}`),
           )
@@ -1005,8 +1005,8 @@ export class SkillsService {
         if (leftScope !== rightScope) return leftScope - rightScope;
         const declaredRootOrder = adapter.skillSupport?.precedence?.[left.scope] ?? [];
         const rootOrder = declaredRootOrder.includes("agents")
-          ? declaredRootOrder.flatMap((id) => (id === "agents" ? ["poracode", id] : [id]))
-          : [...declaredRootOrder, "poracode"];
+          ? declaredRootOrder.flatMap((id) => (id === "agents" ? ["axecode", id] : [id]))
+          : [...declaredRootOrder, "axecode"];
         const leftRoot = rootOrder.indexOf(left.providerId);
         const rightRoot = rootOrder.indexOf(right.providerId);
         if (leftRoot >= 0 || rightRoot >= 0) {
@@ -1014,7 +1014,7 @@ export class SkillsService {
           const normalizedRight = rightRoot < 0 ? rootOrder.length : rightRoot;
           if (normalizedLeft !== normalizedRight) return normalizedLeft - normalizedRight;
         }
-        // Poracode-only skills take precedence over the shared `.agents` root;
+        // AxeCode-only skills take precedence over the shared `.agents` root;
         // all other provider-declared ordering stays intact. App-bundled
         // defaults remain the final fallback.
         const originWeight = (skill: SkillEntry) =>
@@ -1022,7 +1022,7 @@ export class SkillsService {
             ? 3
             : skill.origin !== "managed"
               ? 0
-              : skill.availability === "poracode"
+              : skill.availability === "axecode"
                 ? 1
                 : 2;
         return originWeight(left) - originWeight(right);
@@ -1061,7 +1061,7 @@ export class SkillsService {
           `A skill named ${basename(payload.absolutePath)} already exists in the destination.`,
         );
       }
-      displacedProjection = join(disabledRoot(root.fsPath), `.poracode-enable-${randomUUID()}`);
+      displacedProjection = join(disabledRoot(root.fsPath), `.axecode-enable-${randomUUID()}`);
       await this.ensureDirectory(environment, dirname(displacedProjection));
       await this.moveSkillPath(environment, destination, displacedProjection);
     }
@@ -1115,7 +1115,7 @@ export class SkillsService {
     const payload = deleteSkillPayloadSchema.parse(input);
     const environment = await this.resolveEnvironment(payload.projectLocation, payload.wslDistro);
     this.mutableRootForPath(payload.absolutePath, await this.roots(environment));
-    const backup = join(dirname(payload.absolutePath), `.poracode-delete-${randomUUID()}`);
+    const backup = join(dirname(payload.absolutePath), `.axecode-delete-${randomUUID()}`);
     await rename(payload.absolutePath, backup);
     try {
       await this.syncProjections(environment);
@@ -1159,7 +1159,7 @@ export class SkillsService {
       for (const item of prepared) {
         for (const original of [item.destination, item.disabledDestination]) {
           if (!(await pathExists(original))) continue;
-          const backup = join(dirname(original), `.poracode-backup-${randomUUID()}`);
+          const backup = join(dirname(original), `.axecode-backup-${randomUUID()}`);
           await rename(original, backup);
           item.backups.push({ original, backup });
         }
@@ -1390,14 +1390,14 @@ export class SkillsService {
     if (!segment.pluginId || !nativePlugins?.length) return undefined;
     const plugin = this.readPlugins().find((candidate) => candidate.name === segment.pluginId);
     if (!plugin) return undefined;
-    const policy = plugin.poracode.skills[segment.name];
+    const policy = plugin.axecode.skills[segment.name];
     const requestedPluginName = policy?.nativePluginName;
     const native = requestedPluginName
       ? nativePlugins.find((candidate) => candidate.name === requestedPluginName)
       : nativePlugins.find((candidate) => pluginNativeNames(plugin).includes(candidate.name));
     const isCoreSkill = getPluginCoreSkill(plugin)?.folder === segment.name;
     const skillName =
-      policy?.nativeSkill ?? (isCoreSkill ? plugin.poracode.nativeCoreSkill : undefined);
+      policy?.nativeSkill ?? (isCoreSkill ? plugin.axecode.nativeCoreSkill : undefined);
     return native && skillName ? { plugin: native, skillName } : undefined;
   }
 
@@ -1464,7 +1464,7 @@ export class SkillsService {
       environment,
       destination,
       disabledDestination,
-      stagingPath: join(destinationRoot.fsPath, `.poracode-import-${randomUUID()}`),
+      stagingPath: join(destinationRoot.fsPath, `.axecode-import-${randomUUID()}`),
       ...(sourceHash ? { sourceHash } : {}),
       backups: [],
     };
@@ -1528,7 +1528,7 @@ export class SkillsService {
     } catch {
       return moves;
     }
-    for (const availability of ["shared", "poracode"] as const) {
+    for (const availability of ["shared", "axecode"] as const) {
       const managedRoot = await this.resolvedManagedRoot(environment, "global", availability);
       const sourceRoot = enabled ? disabledRoot(managedRoot.fsPath) : managedRoot.fsPath;
       const destinationRoot = enabled ? managedRoot.fsPath : disabledRoot(managedRoot.fsPath);
@@ -1676,13 +1676,24 @@ export class SkillsService {
   ): Promise<LocatedRoot[]> {
     let roots: LocatedRoot[] = [
       this.managedRoot(environment, "global", "shared"),
-      this.managedRoot(environment, "global", "poracode"),
+      this.managedRoot(environment, "global", "axecode"),
     ];
     if (environment.projectFsPath) {
-      roots.push(
-        this.managedRoot(environment, "project", "shared"),
-        this.managedRoot(environment, "project", "poracode"),
-      );
+      const projectManaged = this.managedRoot(environment, "project", "axecode");
+      roots.push(this.managedRoot(environment, "project", "shared"), projectManaged);
+      // Poracode-era projects keep managed skills under `.poracode/skills`.
+      const legacyFsPath = join(environment.projectFsPath, ".poracode", "skills");
+      if (normalizePath(legacyFsPath) !== normalizePath(projectManaged.fsPath)) {
+        roots.push({
+          ...projectManaged,
+          fsPath: legacyFsPath,
+          displayPath: posix.join(
+            environment.projectDisplayPath!.replace(/\\/gu, "/"),
+            ".poracode",
+            "skills",
+          ),
+        });
+      }
     }
     const bundledRoot = this.bundledRoot();
     if (bundledRoot) roots.push(bundledRoot);
@@ -1756,22 +1767,22 @@ export class SkillsService {
     const displayBase =
       scope === "global" ? environment.homeDisplayPath : environment.projectDisplayPath!;
     return {
-      providerId: availability === "poracode" ? "poracode" : "agents",
-      providerLabel: availability === "poracode" ? "Axe Code only" : "Shared agents",
-      ...(availability === "poracode"
+      providerId: availability === "axecode" ? "axecode" : "agents",
+      providerLabel: availability === "axecode" ? "Axe Code only" : "Shared agents",
+      ...(availability === "axecode"
         ? {
-            providerGroupId: PORACODE_PROVIDER_GROUP_ID,
-            providerGroupLabel: PORACODE_PROVIDER_GROUP_LABEL,
-            providerGroupOrder: PORACODE_PROVIDER_GROUP_ORDER,
+            providerGroupId: AXECODE_PROVIDER_GROUP_ID,
+            providerGroupLabel: AXECODE_PROVIDER_GROUP_LABEL,
+            providerGroupOrder: AXECODE_PROVIDER_GROUP_ORDER,
           }
         : {}),
       scope,
       scopeLabel: scope === "global" ? "Global" : environment.projectLabel!,
       availability,
-      fsPath: join(base, availability === "poracode" ? ".poracode" : ".agents", "skills"),
+      fsPath: join(base, availability === "axecode" ? ".axecode" : ".agents", "skills"),
       displayPath: posix.join(
         displayBase.replace(/\\/gu, "/"),
-        availability === "poracode" ? ".poracode" : ".agents",
+        availability === "axecode" ? ".axecode" : ".agents",
         "skills",
       ),
       origin: "managed",
@@ -1791,19 +1802,19 @@ export class SkillsService {
 
   /**
    * Read-only skills shipped with the app (`resources/skills`, surfaced via
-   * `PORACODE_BUNDLED_SKILLS_DIR`). Always host-side paths, even for WSL
+   * `AXECODE_BUNDLED_SKILLS_DIR`). Always host-side paths, even for WSL
    * environments — the supervisor reads them directly and delivers them
    * through prompt injection or terminal path hints.
    */
   private bundledRoot(): LocatedRoot | undefined {
-    const dir = this.env.PORACODE_BUNDLED_SKILLS_DIR?.trim();
+    const dir = this.env.AXECODE_BUNDLED_SKILLS_DIR?.trim();
     if (!dir) return undefined;
     return {
       providerId: BUNDLED_PROVIDER_ID,
       providerLabel: BUNDLED_PROVIDER_LABEL,
-      providerGroupId: PORACODE_PROVIDER_GROUP_ID,
-      providerGroupLabel: PORACODE_PROVIDER_GROUP_LABEL,
-      providerGroupOrder: PORACODE_PROVIDER_GROUP_ORDER,
+      providerGroupId: AXECODE_PROVIDER_GROUP_ID,
+      providerGroupLabel: AXECODE_PROVIDER_GROUP_LABEL,
+      providerGroupOrder: AXECODE_PROVIDER_GROUP_ORDER,
       scope: "global",
       scopeLabel: "Global",
       fsPath: dir,
@@ -1828,7 +1839,7 @@ export class SkillsService {
 
   private pluginLocatedRoots(projectFsPath?: string): LocatedRoot[] {
     return this.pluginSkillRoots(projectFsPath).map(({ plugin, skillsRoot }) => {
-      const label = plugin.poracode.title ?? plugin.name;
+      const label = plugin.axecode.title ?? plugin.name;
       return {
         providerId: pluginSkillProviderId(plugin.name),
         providerLabel: label,
@@ -2125,7 +2136,7 @@ export class SkillsService {
       if (scope === "project" && !environment.projectFsPath) continue;
       const managedRoot = await this.resolvedManagedRoot(environment, scope, "shared");
       const managed = await this.scanRootState(managedRoot, managedRoot.fsPath, true, []);
-      // Provider projection roots receive shared skills only. Poracode-only
+      // Provider projection roots receive shared skills only. AxeCode-only
       // and bundled skills are delivered through prompt injection or path hints.
       const sourceByFolder = new Map(
         managed.filter((skill) => skill.valid).map((skill) => [skill.folderName, skill]),
@@ -2154,7 +2165,7 @@ export class SkillsService {
   /**
    * Projection declarations can disappear when a provider starts scanning the
    * canonical `.agents/skills` root itself. Remove only copies carrying
-   * Poracode's projection manifest; ordinary provider skills remain untouched.
+   * AxeCode's projection manifest; ordinary provider skills remain untouched.
    */
   private async removeRetiredProjectionCopies(environment: ResolvedEnvironment): Promise<void> {
     const rawProjections = this.projectionRoots(environment);
@@ -2186,7 +2197,7 @@ export class SkillsService {
   /**
    * Sync one projection target. Current provider versions receive directory
    * links to the canonical skill; older/unknown versions and link failures
-   * receive physical copies carrying a Poracode projection manifest.
+   * receive physical copies carrying a AxeCode projection manifest.
    */
   private async projectInto(
     root: LocatedRoot,

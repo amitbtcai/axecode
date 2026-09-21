@@ -145,7 +145,7 @@ Download the latest release for your platform from the [releases page](https://g
 
 Contributions are welcome! Please open an [issue](https://github.com/amitbtcai/axecode/issues) first to discuss what you'd like to change.
 
-Axe Code is a fork of [Poracode](https://github.com/Porabuild/Poracode). Huge thanks to the Poracode authors and contributors for the foundation this project builds on. If your fix or feature benefits upstream, we encourage you to contribute to Poracode as well — improvements are welcome in either project.
+Axe Code is a fork of [AxeCode](https://github.com/Porabuild/AxeCode). Huge thanks to the AxeCode authors and contributors for the foundation this project builds on. If your fix or feature benefits upstream, we encourage you to contribute to AxeCode as well — improvements are welcome in either project.
 
 ## License
 

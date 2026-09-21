@@ -24,8 +24,8 @@ import { sharedSettingsSchema } from "../settings";
 // peers, while the client reports an explicit unsupported error when an older
 // host does not advertise the procedures.
 // v10 supports authoritative content stream replacement during reconnect recovery.
-export const PORACODE_REMOTE_PROTOCOL_VERSION = 10;
-export const REMOTE_COMMAND_ID_HEADER = "x-poracode-command-id";
+export const AXECODE_REMOTE_PROTOCOL_VERSION = 10;
+export const REMOTE_COMMAND_ID_HEADER = "x-axecode-command-id";
 
 export const remoteAccessScopeSchema = z.enum([
   "session:read",
@@ -116,7 +116,7 @@ export const remoteClientMetadataSchema = z.object({
 export type RemoteClientMetadata = z.infer<typeof remoteClientMetadataSchema>;
 
 export const remoteEnvironmentDescriptorSchema = z.object({
-  protocolVersion: z.literal(PORACODE_REMOTE_PROTOCOL_VERSION),
+  protocolVersion: z.literal(AXECODE_REMOTE_PROTOCOL_VERSION),
   /**
    * Process hosting the shared remote-access server. Optional on the wire for
    * protocol-v1 servers released before standalone helpers advertised it.

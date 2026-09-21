@@ -107,7 +107,7 @@ describe("sdkCanonicalMapping — prompt content", () => {
             {
               kind: "image",
               mimeType: "image/png",
-              dataUrl: "poracode-local://local/C:/tmp/image.png",
+              dataUrl: "axecode-local://local/C:/tmp/image.png",
               path: "C:\\tmp\\image.png",
               name: "image.png",
               source: "attachment",

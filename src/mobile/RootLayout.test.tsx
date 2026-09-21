@@ -204,7 +204,7 @@ vi.mock("./views/ThreadsView", () => ({
 describe("mobile RootLayout", () => {
   beforeEach(() => {
     closeImageLightbox();
-    localStorage.removeItem("poracode-mobile.sidebar-width");
+    localStorage.removeItem("axecode-mobile.sidebar-width");
     routerMock.navigate.mockReset();
     routerMock.pathname = "/threads";
     routerMock.pendingPathname = null;
@@ -387,7 +387,7 @@ describe("mobile RootLayout", () => {
 
   it("resizes and persists the wide-shell sidebar", () => {
     mediaMock.isWide = true;
-    localStorage.setItem("poracode-mobile.sidebar-width", "360");
+    localStorage.setItem("axecode-mobile.sidebar-width", "360");
 
     const { container } = render(<RootLayout />);
     const shell = container.querySelector<HTMLElement>(".m-shell--wide");
@@ -396,13 +396,13 @@ describe("mobile RootLayout", () => {
 
     fireEvent.keyDown(resizeHandle, { key: "ArrowRight" });
     expect(shell?.style.getPropertyValue("--m-sidebar-width")).toBe("384px");
-    expect(localStorage.getItem("poracode-mobile.sidebar-width")).toBe("384");
+    expect(localStorage.getItem("axecode-mobile.sidebar-width")).toBe("384");
 
     fireEvent.mouseDown(resizeHandle, { button: 0, clientX: 384 });
     fireEvent.mouseMove(document, { clientX: 424 });
     fireEvent.mouseUp(document, { clientX: 424 });
     expect(shell?.style.getPropertyValue("--m-sidebar-width")).toBe("424px");
-    expect(localStorage.getItem("poracode-mobile.sidebar-width")).toBe("424");
+    expect(localStorage.getItem("axecode-mobile.sidebar-width")).toBe("424");
   });
 
   it("hosts the shared file editor in the desktop PWA content pane", () => {

@@ -121,7 +121,7 @@ export function EffortContextMenu(props: EffortContextMenuProps) {
       isDisabled={isDisabled ?? false}
       size="sm"
       variant="ghost"
-      className="poracode-composer-menu poracode-composer-effort-control min-w-0 px-2.5"
+      className="axecode-composer-menu axecode-composer-effort-control min-w-0 px-2.5"
       {...(mobile ? { onPress: () => handleOpenChange(true) } : {})}
     >
       {icon}
@@ -129,7 +129,7 @@ export function EffortContextMenu(props: EffortContextMenuProps) {
         data-collapse-tier={collapseTier}
         className={
           hideLabelOnWrap
-            ? `poracode-composer-label-hideable truncate${forceHideLabel ? " is-hidden" : ""}`
+            ? `axecode-composer-label-hideable truncate${forceHideLabel ? " is-hidden" : ""}`
             : "truncate"
         }
       >
@@ -139,7 +139,7 @@ export function EffortContextMenu(props: EffortContextMenuProps) {
         data-collapse-tier={collapseTier}
         className={
           hideLabelOnWrap
-            ? `poracode-composer-label-hideable size-3.5 text-muted${forceHideLabel ? " is-hidden" : ""}`
+            ? `axecode-composer-label-hideable size-3.5 text-muted${forceHideLabel ? " is-hidden" : ""}`
             : "size-3.5 text-muted"
         }
       />
@@ -317,7 +317,7 @@ function Column(props: {
       </Header>
       <ListBox
         aria-label={label}
-        className="poracode-menu max-h-60 overflow-y-auto"
+        className="axecode-menu max-h-60 overflow-y-auto"
         items={options as LabeledOption[]}
         selectedKeys={value ? new Set([value]) : new Set<string>()}
         selectionMode="single"

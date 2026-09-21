@@ -2,7 +2,7 @@ import type { WebContents } from "electron";
 
 type PageExecutor = Pick<WebContents, "executeJavaScript">;
 
-const DRIVER_GLOBAL = "__poracodeBrowserDriver";
+const DRIVER_GLOBAL = "__axecodeBrowserDriver";
 // Reinstall a driver injected before stale-reference validation was added.
 const DRIVER_VERSION = 2;
 

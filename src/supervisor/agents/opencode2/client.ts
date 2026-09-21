@@ -383,7 +383,7 @@ async function acquireOpenCode2ServerInner(
 
 /**
  * Supervisor shutdown helper. Releases pool bookkeeping, then terminates
- * only Poracode-spawned `opencode2 serve` processes still tracked in
+ * only AxeCode-spawned `opencode2 serve` processes still tracked in
  * {@link disposeSpawnedOpenCode2ServerHandles}. Does not touch unrelated
  * `opencode2` processes the user started outside the app.
  */

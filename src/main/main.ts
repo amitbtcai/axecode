@@ -29,7 +29,7 @@ import {
   initDatabase,
   onProjectThreadDataChanged,
 } from "./db";
-import { cleanupOrphanedAttachments, preparePoracodeDataRoot } from "./poracodeData";
+import { cleanupOrphanedAttachments, prepareAxeCodeDataRoot } from "./axecodeData";
 import { createLocalIpcHandlers, showAddFilesDialog } from "./ipc/localHandlers";
 import { registerIpcHandlers } from "./ipc/registerHandlers";
 import { createSleepInhibitor } from "./sleepInhibitor";
@@ -70,14 +70,14 @@ import { createTray, type TrayHandle } from "./tray";
 import { readKeybindingsFile } from "./keybindingsFile";
 import { QuickComposerShortcutManager } from "./quickComposerShortcut";
 import { shouldStartMinimized, syncWindowsStartupRegistration } from "./startupSettings";
-import { type PoracodePaths, resolvePoracodeBaseDir } from "@/shared/poracodePaths";
+import { type AxeCodePaths, resolveAxeCodeBaseDir } from "@/shared/axecodePaths";
 import {
   incrementCrossagentSelectionUsage,
   removeCrossagentRoutingOverride,
   upsertCrossagentRoutingOverride,
 } from "@/shared/crossagentRanking";
 import { getAppName } from "@/shared/appName";
-import { productNameFor, resolvePoracodeChannel } from "@/shared/channel";
+import { productNameFor, resolveAxeCodeChannel } from "@/shared/channel";
 import {
   IPC_EVENT_CHANNELS,
   IPC_WINDOW_CHANNELS,
@@ -125,8 +125,8 @@ import {
 import { shouldUseMockKeychain } from "./mockKeychain";
 
 const isDev = Boolean(process.env.VITE_DEV_SERVER_URL);
-const channel = resolvePoracodeChannel();
-const baseDirOverride = process.env.PORACODE_BASE_DIR;
+const channel = resolveAxeCodeChannel();
+const baseDirOverride = process.env.AXECODE_BASE_DIR;
 const legacyBaseDirOverride = process.env.LIGHTCODE_BASE_DIR?.trim() || undefined;
 const defaultElectronUserDataDir = app.getPath("userData");
 const legacyElectronUserDataDir = legacyBaseDirOverride
@@ -143,8 +143,8 @@ if (preserveLegacySafeStorageIdentity) {
   app.setPath("userData", defaultElectronUserDataDir);
 }
 
-if (process.env.PORACODE_CDP_PORT) {
-  app.commandLine.appendSwitch("remote-debugging-port", process.env.PORACODE_CDP_PORT);
+if (process.env.AXECODE_CDP_PORT) {
+  app.commandLine.appendSwitch("remote-debugging-port", process.env.AXECODE_CDP_PORT);
 }
 
 // Isolated smoke runs replace HOME so they cannot read developer credentials.
@@ -176,11 +176,11 @@ if (baseDirOverride) {
 }
 
 const hasSingleInstanceLock = isDev || app.requestSingleInstanceLock();
-let poracodePaths: PoracodePaths | null = null;
+let axecodePaths: AxeCodePaths | null = null;
 if (hasSingleInstanceLock) {
   const electronUserDataDir = app.getPath("userData");
-  poracodePaths = preparePoracodeDataRoot(
-    baseDirOverride ?? (isDev ? join(homedir(), ".poracode-dev") : resolvePoracodeBaseDir(channel)),
+  axecodePaths = prepareAxeCodeDataRoot(
+    baseDirOverride ?? (isDev ? join(homedir(), ".axecode-dev") : resolveAxeCodeBaseDir(channel)),
     {
       channel,
       electronUserDataDir,
@@ -199,12 +199,12 @@ const sentryEnabled = initializeMainSentry({ appVersion: app.getVersion(), isDev
 // Sentry's Electron integration also hooks these, but only when a DSN is
 // configured and initialization succeeded; this guarantees coverage otherwise.
 process.on("uncaughtException", (error) => {
-  console.error("[poracode] uncaught exception:", error);
-  captureMainException(error, { "poracode.feature_area": "main" });
+  console.error("[axecode] uncaught exception:", error);
+  captureMainException(error, { "axecode.feature_area": "main" });
 });
 process.on("unhandledRejection", (reason) => {
-  console.error("[poracode] unhandled rejection:", reason);
-  captureMainException(reason, { "poracode.feature_area": "main" });
+  console.error("[axecode] unhandled rejection:", reason);
+  captureMainException(reason, { "axecode.feature_area": "main" });
 });
 const posthogEnabled = process.env.POSTHOG_ENABLED !== "0";
 const posthogKey = posthogEnabled ? (process.env.POSTHOG_KEY ?? "").trim() : "";
@@ -249,17 +249,17 @@ function captureRendererProcessGone(
   captureMainException(
     new Error(`Electron renderer process gone (${diagnostic.bucket})`),
     {
-      "poracode.feature_area": featureArea,
-      "poracode.process": "renderer",
+      "axecode.feature_area": featureArea,
+      "axecode.process": "renderer",
     },
     diagnostic.fingerprint,
   );
 }
 
 function isCloseToTrayEnabled(): boolean {
-  if (!poracodePaths) return false;
+  if (!axecodePaths) return false;
   try {
-    return readSharedSettingsFile(poracodePaths.settingsPath).closeToTray;
+    return readSharedSettingsFile(axecodePaths.settingsPath).closeToTray;
   } catch {
     return false;
   }
@@ -276,9 +276,9 @@ function resolveWindowChromeOptions(): {
 } {
   let mode: "system" | "light" | "dark" = "dark";
   let wantGlass = false;
-  if (poracodePaths) {
+  if (axecodePaths) {
     try {
-      const settings = readSharedSettingsFile(poracodePaths.settingsPath);
+      const settings = readSharedSettingsFile(axecodePaths.settingsPath);
       mode = settings.themeMode;
       wantGlass = settings.sidebarTranslucency === true;
     } catch {
@@ -292,11 +292,11 @@ function resolveWindowChromeOptions(): {
 }
 
 function primeBrowserAllowFlags(settings?: SharedSettings): void {
-  if (!poracodePaths) return;
+  if (!axecodePaths) return;
   let allowEval = false;
   let allowDataAccess = false;
   try {
-    const s = settings ?? readSharedSettingsFile(poracodePaths.settingsPath);
+    const s = settings ?? readSharedSettingsFile(axecodePaths.settingsPath);
     allowEval = s.browser?.allowEval === true;
     allowDataAccess = s.browser?.allowDataAccess === true;
   } catch {
@@ -316,14 +316,14 @@ function primeBrowserAllowFlags(settings?: SharedSettings): void {
 let lastAppliedLaunchAtStartup: boolean | null = null;
 
 function syncStartupSettings(settings?: SharedSettings): void {
-  if (!poracodePaths) return;
+  if (!axecodePaths) return;
   try {
-    const s = settings ?? readSharedSettingsFile(poracodePaths.settingsPath);
+    const s = settings ?? readSharedSettingsFile(axecodePaths.settingsPath);
     if (s.launchAtStartup === lastAppliedLaunchAtStartup) return;
     syncWindowsStartupRegistration(app, s, process.platform, isDev);
     lastAppliedLaunchAtStartup = s.launchAtStartup;
   } catch (error) {
-    console.warn("[poracode] failed to update Windows startup registration", error);
+    console.warn("[axecode] failed to update Windows startup registration", error);
   }
 }
 
@@ -335,7 +335,7 @@ function handleSharedSettingsChanged(settings: SharedSettings): void {
 function recordCrossagentSelectionPreference(
   event: Extract<SupervisorEvent, { type: "crossagent-selection-used" }>,
 ): void {
-  const settingsPath = requirePoracodePaths().settingsPath;
+  const settingsPath = requireAxeCodePaths().settingsPath;
   const current = readSharedSettingsFile(settingsPath);
   const next = {
     ...current,
@@ -352,7 +352,7 @@ function recordCrossagentSelectionPreference(
 function updateCrossagentRoutingOverride(
   event: Extract<SupervisorEvent, { type: "crossagent-routing-override-changed" }>,
 ): void {
-  const settingsPath = requirePoracodePaths().settingsPath;
+  const settingsPath = requireAxeCodePaths().settingsPath;
   const current = readSharedSettingsFile(settingsPath);
   const next = {
     ...current,
@@ -438,7 +438,7 @@ function commonAppWindowOptions() {
     posthogKey,
     sentryEnabled,
     browserUserAgent,
-    openDevTools: process.env.PORACODE_DISABLE_DEVTOOLS !== "1",
+    openDevTools: process.env.AXECODE_DISABLE_DEVTOOLS !== "1",
     ...(process.env.VITE_DEV_SERVER_URL ? { devServerUrl: process.env.VITE_DEV_SERVER_URL } : {}),
   };
 }
@@ -621,20 +621,20 @@ const sleepInhibitor = createSleepInhibitor();
 // ingress) so it survives ingress restarts and is released on quit.
 const computerUseWakeLock = new ComputerUseWakeLock();
 
-function requirePoracodePaths(): PoracodePaths {
-  if (!poracodePaths) {
-    throw new Error("Poracode paths are not initialized.");
+function requireAxeCodePaths(): AxeCodePaths {
+  if (!axecodePaths) {
+    throw new Error("AxeCode paths are not initialized.");
   }
-  return poracodePaths;
+  return axecodePaths;
 }
 
 function updatePowerSaveBlocker(): void {
-  if (!poracodePaths) {
+  if (!axecodePaths) {
     sleepInhibitor.setActive(workingThreads.size > 0);
     computerUseWakeLock.setEnabled(defaultSharedSettings.computerUseKeepAwake);
     return;
   }
-  const settings = readSharedSettingsFile(poracodePaths.settingsPath);
+  const settings = readSharedSettingsFile(axecodePaths.settingsPath);
   sleepInhibitor.setActive(shouldPreventSystemSleep(settings, workingThreads.size));
   // Every settings write funnels through here, so toggling the setting off
   // releases an already-held wake lock immediately.
@@ -667,9 +667,9 @@ if (!hasSingleInstanceLock) {
   app.on("second-instance", (_event, commandLine) => {
     if (!app.isReady()) return;
     if (
-      poracodePaths &&
+      axecodePaths &&
       shouldStartMinimized(
-        readSharedSettingsFile(poracodePaths.settingsPath),
+        readSharedSettingsFile(axecodePaths.settingsPath),
         commandLine,
         process.platform,
       )
@@ -693,7 +693,7 @@ if (!hasSingleInstanceLock) {
       const browserSession = electronSession.fromPartition(BROWSER_SESSION_PARTITION);
       browserSession.setUserAgent(browserUserAgent);
 
-      const paths = requirePoracodePaths();
+      const paths = requireAxeCodePaths();
       // Re-seal an already-signed-in provider's cookie whenever the live jar
       // refreshes it, so providers with session-scoped auth cookies (Alibaba's
       // console) don't age out of the one snapshot taken at sign-in.
@@ -711,10 +711,10 @@ if (!hasSingleInstanceLock) {
         windowsJobObjectManager = manager;
         jobObjectReady = manager.start().catch((error) => {
           console.error(
-            "[poracode] Windows Job Object helper unavailable:",
+            "[axecode] Windows Job Object helper unavailable:",
             error instanceof Error ? error.message : String(error),
           );
-          captureMainException(error, { "poracode.feature_area": "process-lifecycle" });
+          captureMainException(error, { "axecode.feature_area": "process-lifecycle" });
           if (windowsJobObjectManager === manager) {
             windowsJobObjectManager = null;
           }
@@ -768,23 +768,23 @@ if (!hasSingleInstanceLock) {
           const env: Record<string, string> = {};
           const browserInfo = browserMcpIngress?.getInfo();
           if (browserInfo) {
-            env.PORACODE_BROWSER_MCP_URL = browserInfo.url;
-            env.PORACODE_BROWSER_MCP_TOKEN = browserInfo.token;
+            env.AXECODE_BROWSER_MCP_URL = browserInfo.url;
+            env.AXECODE_BROWSER_MCP_TOKEN = browserInfo.token;
           }
           const chromeInfo = chromeMcpIngress?.getInfo();
           if (chromeInfo) {
-            env.PORACODE_CHROME_MCP_URL = chromeInfo.url;
-            env.PORACODE_CHROME_MCP_TOKEN = chromeInfo.token;
+            env.AXECODE_CHROME_MCP_URL = chromeInfo.url;
+            env.AXECODE_CHROME_MCP_TOKEN = chromeInfo.token;
           }
           const computerUseInfo = computerUseMcpIngress?.getInfo();
           if (computerUseInfo) {
-            env.PORACODE_COMPUTER_USE_MCP_URL = computerUseInfo.url;
-            env.PORACODE_COMPUTER_USE_MCP_TOKEN = computerUseInfo.token;
+            env.AXECODE_COMPUTER_USE_MCP_URL = computerUseInfo.url;
+            env.AXECODE_COMPUTER_USE_MCP_TOKEN = computerUseInfo.token;
           }
           const appControlsInfo = appControlsMcpIngress?.getInfo();
           if (appControlsInfo) {
-            env.PORACODE_APP_CONTROLS_MCP_URL = appControlsInfo.url;
-            env.PORACODE_APP_CONTROLS_MCP_TOKEN = appControlsInfo.token;
+            env.AXECODE_APP_CONTROLS_MCP_URL = appControlsInfo.url;
+            env.AXECODE_APP_CONTROLS_MCP_TOKEN = appControlsInfo.token;
           }
           return env;
         },
@@ -799,7 +799,7 @@ if (!hasSingleInstanceLock) {
             try {
               recordCrossagentSelectionPreference(event);
             } catch (error) {
-              captureMainException(error, { "poracode.feature_area": "crossagents-routing" });
+              captureMainException(error, { "axecode.feature_area": "crossagents-routing" });
             }
             return;
           }
@@ -810,7 +810,7 @@ if (!hasSingleInstanceLock) {
             } catch (error) {
               errorMessage =
                 error instanceof Error ? error.message : "Unable to save the routing preference";
-              captureMainException(error, { "poracode.feature_area": "crossagents-routing" });
+              captureMainException(error, { "axecode.feature_area": "crossagents-routing" });
             }
             void supervisorClient
               .call("confirmCrossagentRoutingOverride", {
@@ -819,7 +819,7 @@ if (!hasSingleInstanceLock) {
                 ...(errorMessage ? { error: errorMessage } : {}),
               })
               .catch((error) => {
-                captureMainException(error, { "poracode.feature_area": "crossagents-routing" });
+                captureMainException(error, { "axecode.feature_area": "crossagents-routing" });
               });
             return;
           }
@@ -860,7 +860,7 @@ if (!hasSingleInstanceLock) {
         },
         ensureHomeProject: ensureHomeProjectRow,
         getProject: dbGetProject,
-        getSharedSettings: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+        getSharedSettings: () => readSharedSettingsFile(requireAxeCodePaths().settingsPath),
         upsertThread: dbUpsertThread,
         deleteThread: dbDeleteThread,
         threadExists: (threadId) => dbGetThread(threadId) != null,
@@ -880,7 +880,7 @@ if (!hasSingleInstanceLock) {
         sendThreadCommand: (command) => emitRemoteThreadCommand(command),
         ensureHomeProject: ensureHomeProjectRow,
         getProject: dbGetProject,
-        getSharedSettings: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+        getSharedSettings: () => readSharedSettingsFile(requireAxeCodePaths().settingsPath),
         upsertThread: dbUpsertThread,
         threadExists: (threadId) => dbGetThread(threadId) != null,
       });
@@ -900,7 +900,7 @@ if (!hasSingleInstanceLock) {
       const sharedAppControlsDeps = buildSharedAppControlsIngressDeps({
         call: (name, payload) => supervisorClient.call(name, payload),
         sendThreadCommand: emitRemoteThreadCommand,
-        getSharedSettings: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+        getSharedSettings: () => readSharedSettingsFile(requireAxeCodePaths().settingsPath),
         publishProjectsChanged,
       });
       prWatchService = createDevicePrWatchService({
@@ -919,7 +919,7 @@ if (!hasSingleInstanceLock) {
             .call("ghGetPrReviewComments", { projectLocation: project.location, prNumber })
             .then((result) => result.threads),
         getMergeMethod: () =>
-          readSharedSettingsFile(requirePoracodePaths().settingsPath).prMergeMethod,
+          readSharedSettingsFile(requireAxeCodePaths().settingsPath).prMergeMethod,
         mergePr: (project, prNumber, method) =>
           supervisorClient.call("ghMergePr", {
             projectLocation: project.location,
@@ -954,7 +954,7 @@ if (!hasSingleInstanceLock) {
         },
         ...buildPrWatchExecutionDeps({
           call: (name, payload) => supervisorClient.call(name, payload),
-          getSharedSettings: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+          getSharedSettings: () => readSharedSettingsFile(requireAxeCodePaths().settingsPath),
         }),
       });
       gitStateService = new GitStateService({
@@ -978,9 +978,9 @@ if (!hasSingleInstanceLock) {
         getProjectNotes: dbGetProjectNotes,
         ...sharedAppControlsDeps,
         settings: {
-          read: () => readSharedSettingsFile(requirePoracodePaths().settingsPath),
+          read: () => readSharedSettingsFile(requireAxeCodePaths().settingsPath),
           write: (next) => {
-            writeSharedSettingsFile(requirePoracodePaths().settingsPath, next);
+            writeSharedSettingsFile(requireAxeCodePaths().settingsPath, next);
             updatePowerSaveBlocker();
             handleSharedSettingsChanged(next);
             mainWindow?.webContents.send(IPC_EVENT_CHANNELS.sharedSettingsChanged, next);
@@ -1054,19 +1054,19 @@ if (!hasSingleInstanceLock) {
       chromeMcpIngress.setConnectionAccessor(() => chromeBridgeServer?.getConnection() ?? null);
       primeBrowserAllowFlags(initialSettings);
       const mcpInfoReady = browserMcpIngress.start().catch((err) => {
-        console.error("[poracode] browser MCP ingress failed to start:", err);
+        console.error("[axecode] browser MCP ingress failed to start:", err);
         return null;
       });
       const chromeMcpReady = chromeMcpIngress.start().catch((err) => {
-        console.error("[poracode] chrome MCP ingress failed to start:", err);
+        console.error("[axecode] chrome MCP ingress failed to start:", err);
         return null;
       });
       const appControlsMcpReady = appControlsMcpIngress.start().catch((err) => {
-        console.error("[poracode] app controls MCP ingress failed to start:", err);
+        console.error("[axecode] app controls MCP ingress failed to start:", err);
         return null;
       });
       chromeBridgeServer.start().catch((err) => {
-        console.error("[poracode] chrome bridge server failed to start:", err);
+        console.error("[axecode] chrome bridge server failed to start:", err);
       });
       const computerUseHelperRoot = app.isPackaged
         ? join(process.resourcesPath, "computer-use-helper")
@@ -1099,7 +1099,7 @@ if (!hasSingleInstanceLock) {
             for (const threadId of threadIds) {
               void supervisorClient.call("interruptThread", { threadId }).catch((error) => {
                 console.error(
-                  `[poracode] failed to interrupt computer-use thread ${threadId}:`,
+                  `[axecode] failed to interrupt computer-use thread ${threadId}:`,
                   error,
                 );
               });
@@ -1110,13 +1110,13 @@ if (!hasSingleInstanceLock) {
           driverOptions: {
             helperRootDir: computerUseHelperRoot,
             stateDir: join(app.getPath("userData"), "computer-use"),
-            warn: (message) => console.warn(`[poracode] ${message}`),
+            warn: (message) => console.warn(`[axecode] ${message}`),
           },
           onActivity: (event) => computerUseDesktopOverlay?.setActivity(event),
           isDisplayKeptAwake: () => computerUseWakeLock.isHeld(),
         });
         computerUseMcpInfoReady = computerUseMcpIngress.start().catch((err) => {
-          console.error("[poracode] computer use MCP ingress failed to start:", err);
+          console.error("[axecode] computer use MCP ingress failed to start:", err);
           return null;
         });
       }
@@ -1165,16 +1165,16 @@ if (!hasSingleInstanceLock) {
         (accelerator) => {
           tray?.setQuickComposerShortcut(accelerator);
           if (accelerator) {
-            console.log(`[poracode] registered ${accelerator} for quick composer`);
+            console.log(`[axecode] registered ${accelerator} for quick composer`);
           }
         },
       );
       try {
         quickComposerShortcutManager.apply(
-          readKeybindingsFile(requirePoracodePaths().keybindingsPath).file,
+          readKeybindingsFile(requireAxeCodePaths().keybindingsPath).file,
         );
       } catch (error) {
-        console.warn("[poracode] failed to register the quick composer shortcut", error);
+        console.warn("[axecode] failed to register the quick composer shortcut", error);
       }
 
       registerIpcHandlers({
@@ -1188,7 +1188,7 @@ if (!hasSingleInstanceLock) {
           startTailscale: controller.startTailscale,
           setRemoteAccessAdvertisedUrl: controller.setAdvertisedUrl,
           sshConnectionManager,
-          requirePoracodePaths,
+          requireAxeCodePaths,
           legacyElectronUserDataDir,
           ...(legacyBaseDirOverride ? { legacyBaseDir: legacyBaseDirOverride } : {}),
           updatePowerSaveBlocker,
@@ -1271,10 +1271,10 @@ if (!hasSingleInstanceLock) {
       await jobObjectReady;
 
       const hookDebugOn =
-        Boolean(process.env.PORACODE_HOOK_DEBUG) && process.env.PORACODE_HOOK_DEBUG !== "0";
+        Boolean(process.env.AXECODE_HOOK_DEBUG) && process.env.AXECODE_HOOK_DEBUG !== "0";
       if (hookDebugOn) {
         console.log(
-          "[poracode] PORACODE_HOOK_DEBUG is on — watch for [supervisor] hook-debug lines (HookIngress, WSL bridge, L1/L2 spawn, envelopes).",
+          "[axecode] AXECODE_HOOK_DEBUG is on — watch for [supervisor] hook-debug lines (HookIngress, WSL bridge, L1/L2 spawn, envelopes).",
         );
       }
 
@@ -1297,7 +1297,7 @@ if (!hasSingleInstanceLock) {
 
       initialMainWindow.once("ready-to-show", () => {
         setTimeout(() => {
-          const attachmentPaths = requirePoracodePaths();
+          const attachmentPaths = requireAxeCodePaths();
           cleanupOrphanedAttachments(
             attachmentPaths.attachmentsDir,
             dbGetThreads().map((thread) => thread.id),
@@ -1316,8 +1316,8 @@ if (!hasSingleInstanceLock) {
             clearTimeout(debounce);
           }
           debounce = setTimeout(() => {
-            console.log("[poracode] supervisor changed, restarting…");
-            supervisorClient.start(requirePoracodePaths().baseDir);
+            console.log("[axecode] supervisor changed, restarting…");
+            supervisorClient.start(requireAxeCodePaths().baseDir);
           }, 200);
         });
       }
@@ -1371,8 +1371,8 @@ if (!hasSingleInstanceLock) {
       });
     })
     .catch((error: unknown) => {
-      console.error("[poracode] failed to initialize:", error);
-      captureMainException(error, { "poracode.feature_area": "main-initialization" });
+      console.error("[axecode] failed to initialize:", error);
+      captureMainException(error, { "axecode.feature_area": "main-initialization" });
       app.quit();
     });
 }

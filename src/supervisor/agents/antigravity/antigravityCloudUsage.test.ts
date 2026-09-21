@@ -1,4 +1,4 @@
-import type { HostPort, HttpRequest, HttpResponse } from "@poracode/agents-usage";
+import type { HostPort, HttpRequest, HttpResponse } from "@axecode/agents-usage";
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   ANTIGRAVITY_GOOGLE_TOKEN_URI,

@@ -6,7 +6,7 @@ describe("page driver installation and references", () => {
   it("replaces the previous unversioned driver and executes in one browser round trip", async () => {
     const oldResolve = vi.fn<() => string>(() => "#wrong");
     const window = {
-      __poracodeBrowserDriver: { resolveRefToSelector: oldResolve },
+      __axecodeBrowserDriver: { resolveRefToSelector: oldResolve },
       __lcRefs: new Map([["@e1", { id: "target", isConnected: true }]]),
     };
     const executeJavaScript = vi.fn<(script: string) => Promise<unknown>>(async (script: string) =>

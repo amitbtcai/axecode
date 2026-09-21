@@ -11,7 +11,7 @@ import { friendlyError } from "@/shared/messages";
 import { SettingRow } from "./SettingsForm";
 
 /**
- * Poracode's own built-in MCP servers. They are host features rather than
+ * AxeCode's own built-in MCP servers. They are host features rather than
  * provider features, so any agent panel that opts into this section offers the
  * same set.
  */

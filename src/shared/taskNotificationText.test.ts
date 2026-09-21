@@ -11,7 +11,7 @@ const MARKDOWN_UPDATE = `# Background Task Update: \`442d457c-fbe7-4201-8f05-53f
 
 The task exited with the following message:
 \`\`\`text
-RUN  v4.0.18 E:/work/lightcode/.poracode/worktrees/fix-pnpm-global-shims-windows
+RUN  v4.0.18 E:/work/lightcode/.axecode/worktrees/fix-pnpm-global-shims-windows
 
  ✓ src/supervisor/agents/codex/windowsExecutable.test.ts (1 test) 8ms
 

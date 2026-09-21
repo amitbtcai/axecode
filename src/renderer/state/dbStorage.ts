@@ -10,23 +10,23 @@ import type { Project, Thread, AppView } from "@/shared/contracts";
  * it as committed. Reporting is the minimum so the loss is observable.
  */
 function reportPersistError(operation: string, error: unknown): void {
-  console.error(`[poracode] failed to persist ${operation}:`, error);
+  console.error(`[axecode] failed to persist ${operation}:`, error);
   captureRendererException(error, { featureArea: "app-state-persistence" });
 }
 
 /**
  * Raw string-level storage backend backed by SQLite via IPC.
  *
- * For the main app store ("poracode-app-v2"), it maps the Zustand persist
+ * For the main app store ("axecode-app-v2"), it maps the Zustand persist
  * format to/from individual SQLite rows (projects, threads, view).
  * For other stores, it uses the generic key-value `app_state` table.
  */
 function hasBridge(): boolean {
-  return typeof window !== "undefined" && window.poracode !== undefined;
+  return typeof window !== "undefined" && window.axecode !== undefined;
 }
 
-const APP_STORE_NAME = "poracode-app-v2";
-const CURRENT_STORAGE_PREFIX = "poracode";
+const APP_STORE_NAME = "axecode-app-v2";
+const CURRENT_STORAGE_PREFIX = "axecode";
 const LEGACY_STORAGE_PREFIX = "lightcode";
 const lastStorageValues = new Map<string, StorageValue<unknown>>();
 const lastStorageJson = new Map<string, string>();
@@ -118,7 +118,7 @@ async function loadAppStore(): Promise<StorageValue<unknown> | null> {
   let groupLayouts: Record<string, unknown> = {};
   const groupLayoutsJson = await readBridge().dbGetState("groupLayouts");
   if (import.meta.env.DEV) {
-    performance.measure("poracode:database hydration", { start: startedAt });
+    performance.measure("axecode:database hydration", { start: startedAt });
   }
   if (groupLayoutsJson) {
     try {

@@ -321,7 +321,7 @@ describe("ThreadComposerSection", () => {
           ...guiThread,
           status: "launching",
           sessionRef: undefined,
-          worktreeBranch: "poracode/feature",
+          worktreeBranch: "axecode/feature",
         },
       }),
     );
@@ -352,8 +352,8 @@ describe("ThreadComposerSection", () => {
       composerElement({
         thread: {
           ...guiThread,
-          worktreePath: "C:\\repo\\.poracode\\worktrees\\feature",
-          worktreeBranch: "poracode/feature",
+          worktreePath: "C:\\repo\\.axecode\\worktrees\\feature",
+          worktreeBranch: "axecode/feature",
         },
       }),
     );
@@ -891,7 +891,7 @@ describe("ThreadComposerSection", () => {
     await waitFor(() => expect(screen.getByRole("textbox")).toHaveTextContent("reverted draft"));
     expect(screen.getByAltText("reverted.png")).toHaveAttribute(
       "src",
-      "poracode-local://local/C:/attachments/reverted.png",
+      "axecode-local://local/C:/attachments/reverted.png",
     );
     expect(useAppStore.getState().threadDraftContents[guiThread.id]).toBeUndefined();
     fireEvent.click(screen.getByText("send"));
@@ -1066,7 +1066,7 @@ describe("ThreadComposerSection", () => {
       await waitFor(() => {
         expect(screen.getByAltText("Image 1.png")).toHaveAttribute(
           "src",
-          "poracode-local://local/C:/attachments/thread-gui-idle/image-1.png",
+          "axecode-local://local/C:/attachments/thread-gui-idle/image-1.png",
         );
       });
       expect(screen.getByRole("textbox")).toHaveTextContent("unsent note");
@@ -1397,7 +1397,7 @@ describe("ThreadComposerSection", () => {
       expect(revokeObjectURL).toHaveBeenCalledWith("blob:app/pasted-1");
       expect(screen.getByAltText("Image 1.png")).toHaveAttribute(
         "src",
-        "poracode-local://local/C:/attachments/thread-gui-idle/image-1.png",
+        "axecode-local://local/C:/attachments/thread-gui-idle/image-1.png",
       );
     } finally {
       Reflect.deleteProperty(URL, "createObjectURL");

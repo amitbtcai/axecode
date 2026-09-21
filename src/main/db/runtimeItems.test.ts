@@ -58,9 +58,9 @@ describe.skipIf(!sqliteAvailable)("runtimeItems incremental persistence", () => 
 
   beforeEach(() => {
     if (nativeBindingEnv) {
-      process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
+      process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
     }
-    dir = mkdtempSync(join(tmpdir(), "poracode-runtime-db-test-"));
+    dir = mkdtempSync(join(tmpdir(), "axecode-runtime-db-test-"));
     initDatabase(join(dir, "state.sqlite"));
     dbUpsertProject(
       {
@@ -77,7 +77,7 @@ describe.skipIf(!sqliteAvailable)("runtimeItems incremental persistence", () => 
   afterEach(() => {
     closeDatabase();
     rmSync(dir, { recursive: true, force: true });
-    delete process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING;
+    delete process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING;
   });
 
   it("replaces pre-snapshot chunked streams and preserves other streams", () => {
@@ -791,7 +791,7 @@ describe.skipIf(!sqliteAvailable)("runtimeItems incremental persistence", () => 
     const output = dbGetThreadRuntimeItems("thread-1")[0]!.streams.command_output!;
 
     expect(output).toBe(megabyte.repeat(3));
-    expect(output).not.toContain("poracode elided");
+    expect(output).not.toContain("axecode elided");
   });
 
   it("bounds a runaway command output while keeping its head and tail", () => {
@@ -842,7 +842,7 @@ describe.skipIf(!sqliteAvailable)("runtimeItems incremental persistence", () => 
     expect(output.length).toBeGreaterThan(HEAD_CHARS + TAIL_CHARS - 600_000);
     expect(output.startsWith("FIRST-LINE ")).toBe(true);
     expect(output.endsWith(" LAST-LINE")).toBe(true);
-    expect(output).toContain("poracode elided");
+    expect(output).toContain("axecode elided");
   });
 
   it("drops a completed reasoning item whose text only ever arrived as chunks", () => {

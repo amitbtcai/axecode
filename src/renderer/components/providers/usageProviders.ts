@@ -1,6 +1,6 @@
-import { antigravityWindowId } from "@poracode/agents-usage/antigravity";
-import { allUsageProviderDescriptors } from "@poracode/agents-usage/providers";
-import type { UsageSnapshot, UsageWindow } from "@poracode/agents-usage/types";
+import { antigravityWindowId } from "@axecode/agents-usage/antigravity";
+import { allUsageProviderDescriptors } from "@axecode/agents-usage/providers";
+import type { UsageSnapshot, UsageWindow } from "@axecode/agents-usage/types";
 import {
   baseAgentKind,
   claudeProfileKind,

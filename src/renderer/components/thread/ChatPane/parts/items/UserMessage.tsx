@@ -253,7 +253,7 @@ export const UserMessage = memo(function UserMessage({
         ? "max-h-[50vh] overflow-y-auto"
         : "";
   const baseBodyClass = `min-w-0 leading-snug ${!isRemote && checkpointRevert ? "pr-12" : "pr-7"} ${collapseClass}`;
-  const inlineBodyClass = `${baseBodyClass} poracode-user-message-inline-content whitespace-pre-wrap break-words text-[length:var(--lc-chat-font-size)] text-foreground`;
+  const inlineBodyClass = `${baseBodyClass} axecode-user-message-inline-content whitespace-pre-wrap break-words text-[length:var(--lc-chat-font-size)] text-foreground`;
 
   let bodyContent: ReactNode = null;
   let bodyClass = baseBodyClass;
@@ -347,7 +347,7 @@ export const UserMessage = memo(function UserMessage({
         </>
       ) : null}
       {!isRemote ? (
-        <div className="poracode-message-action-strip absolute right-2 top-2 z-10 flex items-center gap-0.5 opacity-0 transition-opacity group-hover/checkpoint:opacity-100 focus-within:opacity-100">
+        <div className="axecode-message-action-strip absolute right-2 top-2 z-10 flex items-center gap-0.5 opacity-0 transition-opacity group-hover/checkpoint:opacity-100 focus-within:opacity-100">
           {checkpointRevert ? (
             <CheckpointRevertButton
               itemId={checkpointRevert.itemId}
@@ -540,15 +540,15 @@ function UserMessageSlashChip({
   const resolvedAriaLabel = pluginId ? label : skillName ? t`Skill: ${skill}` : undefined;
   return (
     <span
-      className="poracode-slash-chip mr-1.5"
+      className="axecode-slash-chip mr-1.5"
       title={title ?? label}
       {...(resolvedAriaLabel ? { "aria-label": resolvedAriaLabel } : {})}
       {...(skillName ? { "data-skill-name": skillName } : {})}
       {...(mcpName ? { "data-mcp-name": mcpName } : {})}
       {...(pluginId ? { "data-plugin-id": pluginId } : {})}
     >
-      <span className="poracode-slash-chip__slash">{icon}</span>
-      <span className="poracode-slash-chip__name">{label}</span>
+      <span className="axecode-slash-chip__slash">{icon}</span>
+      <span className="axecode-slash-chip__name">{label}</span>
     </span>
   );
 }
@@ -589,14 +589,14 @@ function UserMessageThreadChip({
       <Tooltip.Trigger className="max-w-full align-middle" tabIndex={-1} role="none">
         <button
           type="button"
-          className="poracode-slash-chip poracode-thread-mention-chip mr-1.5"
+          className="axecode-slash-chip axecode-thread-mention-chip mr-1.5"
           aria-label={t`Open ${label}`}
           data-thread-mention-id={threadId}
           {...(threadTitle ? { "data-thread-mention-title": threadTitle } : {})}
           onClick={handleClick}
         >
-          <span className="poracode-slash-chip__slash">{icon}</span>
-          <span className="poracode-slash-chip__name">{label}</span>
+          <span className="axecode-slash-chip__slash">{icon}</span>
+          <span className="axecode-slash-chip__name">{label}</span>
         </button>
       </Tooltip.Trigger>
       <Tooltip.Content placement="top" className="pointer-events-none max-w-sm break-words">

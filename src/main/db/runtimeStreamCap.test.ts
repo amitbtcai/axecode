@@ -17,7 +17,7 @@ describe("joinWithElision", () => {
     expect(lines[0]).toBe("first");
     expect(lines[1]).toBe("second");
     // The partial lines on both sides of the gap are dropped, not shown broken.
-    expect(lines[2]).toBe("[... poracode elided 1234 characters of earlier output ...]");
+    expect(lines[2]).toBe("[... axecode elided 1234 characters of earlier output ...]");
     expect(lines[3]).toBe("ninth");
     expect(lines[4]).toBe("tenth");
   });

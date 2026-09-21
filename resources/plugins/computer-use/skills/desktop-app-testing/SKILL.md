@@ -1,6 +1,6 @@
 ---
 name: desktop-app-testing
-description: "Walk a native Windows, macOS, or Linux app through a flow with Poracode's desktop control and verify each step from the window itself."
+description: "Walk a native Windows, macOS, or Linux app through a flow with AxeCode's desktop control and verify each step from the window itself."
 ---
 
 # Desktop App Testing

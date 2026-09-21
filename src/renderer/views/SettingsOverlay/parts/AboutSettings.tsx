@@ -100,7 +100,7 @@ function UpdateButton() {
             // Updater failures already surface via onUpdateStatus (toast). This
             // catch only keeps an IPC transport rejection from bubbling to the
             // window as an unhandled rejection, which renders the crash screen.
-            console.error("[poracode][updates] check-for-update failed", error);
+            console.error("[axecode][updates] check-for-update failed", error);
           })
       }
     >

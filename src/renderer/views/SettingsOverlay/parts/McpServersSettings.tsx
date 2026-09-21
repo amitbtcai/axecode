@@ -37,7 +37,7 @@ export function McpServersSettings() {
   const plugins = useLocalizedPluginCatalog(workspaceProject?.location);
   const managedBuiltIns = plugins.reduce<Partial<Record<BuiltInMcpServerId, string>>>(
     (acc, entry) => {
-      for (const id of entry.plugin.poracode.builtInMcpServerIds) {
+      for (const id of entry.plugin.axecode.builtInMcpServerIds) {
         acc[id] = entry.name;
       }
       return acc;

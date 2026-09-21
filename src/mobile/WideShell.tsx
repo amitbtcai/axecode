@@ -27,7 +27,7 @@ const DesktopWorkspacePanel = lazy(() =>
   })),
 );
 
-const SIDEBAR_WIDTH_KEY = "poracode-mobile.sidebar-width";
+const SIDEBAR_WIDTH_KEY = "axecode-mobile.sidebar-width";
 const SIDEBAR_MIN_WIDTH = 200;
 const SIDEBAR_MAX_WIDTH = 500;
 const SIDEBAR_MIN_CONTENT_WIDTH = 320;

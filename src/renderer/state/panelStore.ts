@@ -199,9 +199,9 @@ interface PanelState {
  * installs keep their state; the slice under PERSIST_KEY takes over on the first
  * write and wins on every launch where it exists.
  */
-const LEGACY_GIT_CONTEXT_KEY = "poracode-git-panel-context";
-const LEGACY_DRAWER_WIDTH_KEY = "poracode-browser-drawer-width";
-const PERSIST_KEY = "poracode-panel";
+const LEGACY_GIT_CONTEXT_KEY = "axecode-git-panel-context";
+const LEGACY_DRAWER_WIDTH_KEY = "axecode-browser-drawer-width";
+const PERSIST_KEY = "axecode-panel";
 const DEFAULT_DRAWER_WIDTH = 640;
 const MIN_DRAWER_WIDTH = 420;
 const MAX_DRAWER_WIDTH = 1400;

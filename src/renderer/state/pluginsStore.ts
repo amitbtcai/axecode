@@ -12,7 +12,7 @@ import { readBridge } from "@/renderer/bridge";
  * into the plugin folder and refresh.
  *
  * Discovery is scoped: the app-global roots (bundled + the user plugin folder)
- * are shared by every project, while a project's own `.poracode/plugins` root
+ * are shared by every project, while a project's own `.axecode/plugins` root
  * is only visible to that project. Lists are therefore kept per scope, keyed by
  * the project path, with `""` for the app-global scope.
  */

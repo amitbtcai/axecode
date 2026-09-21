@@ -288,8 +288,8 @@ export class ServerInstance {
     if (this.failureReported) return;
     this.failureReported = true;
     captureSupervisorException(new Error(message), {
-      "poracode.feature_area": "language-server",
-      "poracode.runtime_kind": "structured",
+      "axecode.feature_area": "language-server",
+      "axecode.runtime_kind": "structured",
     });
   }
 

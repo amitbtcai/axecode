@@ -242,7 +242,7 @@ export class OpenCode2Session implements StructuredSessionHandle {
 
     const createSession = (client: OpenCode2Client) =>
       client.session.create({
-        title: `poracode/${this.threadId.slice(0, 8)}`,
+        title: `axecode/${this.threadId.slice(0, 8)}`,
         location: { directory: this.directory },
         permissions: buildOpenCode2SessionPermissions(config.approvalPolicy),
       });

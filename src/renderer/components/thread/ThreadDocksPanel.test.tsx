@@ -182,8 +182,8 @@ describe("ThreadDocksPanel", () => {
       </AppProvider>,
     );
 
-    const row = container.querySelector(".poracode-subagent-dock-row");
-    expect(row?.querySelector(".poracode-pixel-loader")).not.toBeNull();
+    const row = container.querySelector(".axecode-subagent-dock-row");
+    expect(row?.querySelector(".axecode-pixel-loader")).not.toBeNull();
     expect(row).not.toHaveClass("bg-accent/10");
   });
 

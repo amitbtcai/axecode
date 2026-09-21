@@ -15,19 +15,17 @@ describe("GitService experiment snapshots", () => {
     vi.spyOn(internals.worktreeService, "listWorktrees").mockResolvedValue({
       worktrees: [
         { path: "/repo", branch: "main", isMain: true },
-        { path: "/worktrees/one", branch: "poracode/one", isMain: false },
-        { path: "/worktrees/two", branch: "poracode/two", isMain: false },
+        { path: "/worktrees/one", branch: "axecode/one", isMain: false },
+        { path: "/worktrees/two", branch: "axecode/two", isMain: false },
       ],
     });
     vi.spyOn(internals.worktreeService, "getWorktreeOwner").mockImplementation(
       async (_location, branch) => ({
-        ownerToken: branch === "poracode/one" ? "owner-one" : "owner-two",
+        ownerToken: branch === "axecode/one" ? "owner-one" : "owner-two",
       }),
     );
     vi.spyOn(internals.statusService, "getStatusSummary").mockImplementation(async (location) => ({
-      branch: (location as { path: string }).path.endsWith("/one")
-        ? "poracode/one"
-        : "poracode/two",
+      branch: (location as { path: string }).path.endsWith("/one") ? "axecode/one" : "axecode/two",
     }));
     const pending: Array<(result: { diff: string; headCommit: string }) => void> = [];
     vi.spyOn(internals.experimentService, "getCandidateDiff").mockImplementation(
@@ -46,13 +44,13 @@ describe("GitService experiment snapshots", () => {
         candidates: [
           {
             threadId: "thread-one",
-            branch: "poracode/one",
+            branch: "axecode/one",
             ownerToken: "owner-one",
             worktreePath: "/worktrees/one",
           },
           {
             threadId: "thread-two",
-            branch: "poracode/two",
+            branch: "axecode/two",
             ownerToken: "owner-two",
             worktreePath: "/worktrees/two",
           },

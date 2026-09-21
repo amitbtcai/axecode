@@ -192,7 +192,7 @@ export function SidebarFlatThreadList(props: { sortMode: ThreadSortMode }) {
       {visibleProjects.length > 1 || workspaceProjects.length > visibleProjects.length ? (
         // Filter and new-thread share one head row; the new-thread control
         // collapses to an icon button (tooltip) when the row is narrow.
-        <div className="poracode-flat-list-head flex shrink-0 items-center gap-1 pb-0.5">
+        <div className="axecode-flat-list-head flex shrink-0 items-center gap-1 pb-0.5">
           <div className="min-w-0 flex-1">
             <SidebarProjectFilter
               projects={workspaceProjects}

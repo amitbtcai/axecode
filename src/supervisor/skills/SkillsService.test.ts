@@ -54,7 +54,7 @@ function fakePluginPackage(name: string, root: string, skills: readonly string[]
     source: "bundled",
     root,
     manifest: { $schema: AGENT_PLUGINS_MANIFEST_SCHEMA_URL, name, version: "1.0.0" },
-    poracode: {
+    axecode: {
       category: "developer-tools",
       featured: false,
       communityMaintained: false,
@@ -88,8 +88,8 @@ describe("SkillsService", () => {
   let adapters: ReadonlyMap<string, AgentAdapter>;
 
   beforeEach(async () => {
-    vi.stubEnv("PORACODE_BUNDLED_SKILLS_DIR", "");
-    root = await mkdtemp(join(tmpdir(), "poracode-skills-"));
+    vi.stubEnv("AXECODE_BUNDLED_SKILLS_DIR", "");
+    root = await mkdtemp(join(tmpdir(), "axecode-skills-"));
     home = join(root, "home");
     projectPath = join(root, "project");
     await mkdir(projectPath, { recursive: true });
@@ -190,7 +190,7 @@ describe("SkillsService", () => {
     ).toMatchObject({ importState: "already-imported" });
   });
 
-  it("imports Poracode-only skills without projecting them into provider folders", async () => {
+  it("imports AxeCode-only skills without projecting them into provider folders", async () => {
     const source = join(home, ".claude", "skills", "private-review");
     await writeSkill(source, "private-review", "Private review");
 
@@ -199,7 +199,7 @@ describe("SkillsService", () => {
         {
           sourcePath: source,
           destinationScope: "global",
-          availability: "poracode",
+          availability: "axecode",
           mode: "copy",
           replace: false,
           projectLocation,
@@ -207,7 +207,7 @@ describe("SkillsService", () => {
       ],
     });
 
-    expect(result.imported).toEqual([join(home, ".poracode", "skills", "private-review")]);
+    expect(result.imported).toEqual([join(home, ".axecode", "skills", "private-review")]);
     await expect(
       readFile(join(home, ".claude", "skills", "private-review", "SKILL.md"), "utf8"),
     ).resolves.toContain("Private review");
@@ -220,8 +220,8 @@ describe("SkillsService", () => {
     const scan = await service.scan({ projectLocation, agentKind: "claude" });
     const privateSkill = scan.skills.find((skill) => skill.name === "private-review");
     expect(privateSkill).toMatchObject({
-      providerId: "poracode",
-      availability: "poracode",
+      providerId: "axecode",
+      availability: "axecode",
       origin: "managed",
     });
     expect(scan.effectiveSkillIds).toContain(privateSkill!.id);
@@ -231,7 +231,7 @@ describe("SkillsService", () => {
       name: "private-review",
       path: privateSkill!.skillFilePath,
       invocation: "/private-review",
-      provider: "Poracode only",
+      provider: "AxeCode only",
       scope: "global" as const,
     };
     await expect(
@@ -263,10 +263,10 @@ describe("SkillsService", () => {
     expect(
       duplicateScan.skills.find((skill) => duplicateScan.effectiveSkillIds.includes(skill.id))
         ?.providerId,
-    ).toBe("poracode");
+    ).toBe("axecode");
   });
 
-  it("stores project-scoped Poracode-only skills in .poracode/skills", async () => {
+  it("stores project-scoped AxeCode-only skills in .axecode/skills", async () => {
     const source = join(projectPath, ".claude", "skills", "project-private");
     await writeSkill(source, "project-private");
 
@@ -275,7 +275,7 @@ describe("SkillsService", () => {
         {
           sourcePath: source,
           destinationScope: "project",
-          availability: "poracode",
+          availability: "axecode",
           mode: "copy",
           replace: false,
           projectLocation,
@@ -283,7 +283,7 @@ describe("SkillsService", () => {
       ],
     });
 
-    expect(result.imported).toEqual([join(projectPath, ".poracode", "skills", "project-private")]);
+    expect(result.imported).toEqual([join(projectPath, ".axecode", "skills", "project-private")]);
   });
 
   it("reads folded YAML descriptions used by provider skills", async () => {
@@ -337,14 +337,14 @@ describe("SkillsService", () => {
     const bundledService = new SkillsService({
       adapters,
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
 
     const scan = await bundledService.scan({ projectLocation, agentKind: "claude" });
     const bundled = scan.skills.find((skill) => skill.name === "skill-creator");
     expect(bundled).toMatchObject({
-      providerId: "poracode-built-in",
-      providerGroupId: "poracode",
+      providerId: "axecode-built-in",
+      providerGroupId: "axecode",
       providerGroupLabel: "Axe Code",
       providerGroupOrder: -1,
       origin: "built-in",
@@ -602,8 +602,8 @@ describe("SkillsService", () => {
   });
 
   it("canonicalizes WSL aliases before applying bundled plugin policy", async () => {
-    const pluginRoot = "E:\\Poracode\\resources\\plugins\\browser-tools";
-    const pluginWslSkillsRoot = "/mnt/e/Poracode/resources/plugins/browser-tools/skills";
+    const pluginRoot = "E:\\AxeCode\\resources\\plugins\\browser-tools";
+    const pluginWslSkillsRoot = "/mnt/e/AxeCode/resources/plugins/browser-tools/skills";
     const plugin = fakePluginPackage("browser-tools", pluginRoot, ["browser-control"]);
     const wslProject: ProjectLocation = {
       kind: "wsl",
@@ -624,7 +624,7 @@ describe("SkillsService", () => {
           path === "/tmp/plugin-alias/SKILL.md"
             ? `${pluginWslSkillsRoot}/browser-control/SKILL.md`
             : path === "/tmp/mixed-case-alias/SKILL.md"
-              ? "/MNT/E/PORACODE/RESOURCES/PLUGINS/BROWSER-TOOLS/SKILLS/BROWSER-CONTROL/SKILL.MD"
+              ? "/MNT/E/AXECODE/RESOURCES/PLUGINS/BROWSER-TOOLS/SKILLS/BROWSER-CONTROL/SKILL.MD"
               : path,
         ),
     });
@@ -667,8 +667,8 @@ describe("SkillsService", () => {
     // the case-insensitive `/mnt` paths. That comparison must not leak its
     // case folding into the relative path, or `SKILL.md` stops matching and an
     // enabled skill is silently stripped from the prompt.
-    const pluginRoot = "E:\\Poracode\\resources\\plugins\\browser-tools";
-    const pluginWslSkillsRoot = "/mnt/e/Poracode/resources/plugins/browser-tools/skills";
+    const pluginRoot = "E:\\AxeCode\\resources\\plugins\\browser-tools";
+    const pluginWslSkillsRoot = "/mnt/e/AxeCode/resources/plugins/browser-tools/skills";
     const plugin = fakePluginPackage("browser-tools", pluginRoot, ["browser-control"]);
     const bundledService = new SkillsService({
       adapters,
@@ -716,7 +716,7 @@ describe("SkillsService", () => {
       homeDirectory: () => home,
       readInstalledPlugins: () => ({}),
       readPlugins: () => [
-        fakePluginPackage("browser-tools", "E:\\Poracode\\resources\\plugins\\browser-tools", [
+        fakePluginPackage("browser-tools", "E:\\AxeCode\\resources\\plugins\\browser-tools", [
           "browser-control",
         ]),
       ],
@@ -740,7 +740,7 @@ describe("SkillsService", () => {
     const pluginSkill = {
       ...userSkill,
       name: "browser-control",
-      path: "/mnt/e/Poracode/resources/plugins/browser-tools/skills/browser-control/SKILL.md",
+      path: "/mnt/e/AxeCode/resources/plugins/browser-tools/skills/browser-control/SKILL.md",
       invocation: "/browser-control",
     };
 
@@ -875,7 +875,7 @@ describe("SkillsService", () => {
     const bundledService = new SkillsService({
       adapters,
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
 
     const scan = await bundledService.scan({ projectLocation, agentKind: "claude" });
@@ -1164,7 +1164,7 @@ describe("SkillsService", () => {
     const readerService = new SkillsService({
       adapters: new Map([["reader", agentsReader]]),
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
     const displayHome = home.replaceAll("\\", "/");
 
@@ -1198,7 +1198,7 @@ describe("SkillsService", () => {
             name: "skill-creator",
             path: `${bundledDir.replaceAll("\\", "/")}/skill-creator/SKILL.md`,
             invocation: "/skill-creator",
-            provider: "Poracode built-ins",
+            provider: "AxeCode built-ins",
             scope: "global",
           },
         ],
@@ -1215,7 +1215,7 @@ describe("SkillsService", () => {
     const bundledService = new SkillsService({
       adapters,
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
 
     await bundledService.prepareForLaunch(projectLocation, "claude");
@@ -1230,7 +1230,7 @@ describe("SkillsService", () => {
     const scan = await bundledService.scan({ projectLocation, agentKind: "claude" });
     expect(
       scan.skills.filter((skill) => skill.name === "skill-creator").map((s) => s.providerId),
-    ).toEqual(["poracode-built-in"]);
+    ).toEqual(["axecode-built-in"]);
   });
 
   it("removes stale bundled projections left in shared skill folders", async () => {
@@ -1239,15 +1239,15 @@ describe("SkillsService", () => {
     const bundledService = new SkillsService({
       adapters,
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
     const mirrored = join(home, ".agents", "skills", "skill-creator");
-    const disabledDir = join(home, ".agents", "skills.poracode-disabled");
+    const disabledDir = join(home, ".agents", "skills.axecode-disabled");
     const disabledMirror = join(disabledDir, "skill-creator");
     for (const path of [mirrored, disabledMirror]) {
       await writeSkill(path, "skill-creator", "Stale projection");
       await writeFile(
-        join(path, ".poracode-skill.json"),
+        join(path, ".axecode-skill.json"),
         JSON.stringify({
           version: 1,
           mode: "projection",
@@ -1274,7 +1274,7 @@ describe("SkillsService", () => {
     const bundledService = new SkillsService({
       adapters,
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
     const displayHome = home.replaceAll("\\", "/");
     const bundledSegment = {
@@ -1282,7 +1282,7 @@ describe("SkillsService", () => {
       name: "skill-creator",
       path: `${bundledDir.replaceAll("\\", "/")}/skill-creator/SKILL.md`,
       invocation: "/skill-creator",
-      provider: "Poracode built-ins",
+      provider: "AxeCode built-ins",
       scope: "global" as const,
     };
 
@@ -1339,7 +1339,7 @@ describe("SkillsService", () => {
     const readerService = new SkillsService({
       adapters: new Map([["reader", reader]]),
       homeDirectory: () => home,
-      env: { PORACODE_BUNDLED_SKILLS_DIR: bundledDir },
+      env: { AXECODE_BUNDLED_SKILLS_DIR: bundledDir },
     });
     expect(
       await readerService.rewriteTerminalSkillSegments({
@@ -1449,7 +1449,7 @@ describe("SkillsService", () => {
     const projection = join(projectPath, ".claude", "skills", "testing");
     expect(await readFile(join(projection, "SKILL.md"), "utf8")).toContain("testing");
     expect(
-      JSON.parse(await readFile(join(projection, ".poracode-skill.json"), "utf8")),
+      JSON.parse(await readFile(join(projection, ".axecode-skill.json"), "utf8")),
     ).toMatchObject({ mode: "projection", sourcePath: managed });
 
     await service.setEnabled({ absolutePath: managed, enabled: false, projectLocation });
@@ -1500,7 +1500,7 @@ describe("SkillsService", () => {
     await linkedService.prepareForLaunch(projectLocation, "claude");
     expect((await lstat(projection)).isSymbolicLink()).toBe(false);
     expect(
-      JSON.parse(await readFile(join(projection, ".poracode-skill.json"), "utf8")),
+      JSON.parse(await readFile(join(projection, ".axecode-skill.json"), "utf8")),
     ).toMatchObject({ mode: "projection", sourcePath: managed });
 
     providerVersion = "2.1.203";
@@ -1516,7 +1516,7 @@ describe("SkillsService", () => {
     });
   });
 
-  it("removes retired Poracode projections without deleting provider-owned skills", async () => {
+  it("removes retired AxeCode projections without deleting provider-owned skills", async () => {
     const grok = {
       kind: "grok",
       label: "Grok",
@@ -1548,7 +1548,7 @@ describe("SkillsService", () => {
     await writeSkill(managed, "testing");
     await writeSkill(retiredProjection, "testing");
     await writeFile(
-      join(retiredProjection, ".poracode-skill.json"),
+      join(retiredProjection, ".axecode-skill.json"),
       JSON.stringify({
         version: 1,
         mode: "projection",
@@ -1572,7 +1572,7 @@ describe("SkillsService", () => {
     await writeSkill(provider, "testing");
 
     await service.setEnabled({ absolutePath: provider, enabled: false, projectLocation });
-    const disabled = join(projectPath, ".claude", "skills.poracode-disabled", "testing");
+    const disabled = join(projectPath, ".claude", "skills.axecode-disabled", "testing");
     await expect(readFile(join(provider, "SKILL.md"), "utf8")).rejects.toMatchObject({
       code: "ENOENT",
     });
@@ -1580,7 +1580,7 @@ describe("SkillsService", () => {
 
     await writeSkill(provider, "testing");
     await writeFile(
-      join(provider, ".poracode-skill.json"),
+      join(provider, ".axecode-skill.json"),
       JSON.stringify({ version: 1, mode: "projection", sourcePath: managed, sourceHash: "stale" }),
       "utf8",
     );
@@ -1612,8 +1612,8 @@ describe("SkillsService", () => {
     expect((await lstat(linked!)).isSymbolicLink()).toBe(true);
     await service.setEnabled({ absolutePath: source, enabled: false, projectLocation });
 
-    const disabledSource = join(home, ".claude", "skills.poracode-disabled", "linked-review");
-    const disabledLink = join(home, ".agents", "skills.poracode-disabled", "linked-review");
+    const disabledSource = join(home, ".claude", "skills.axecode-disabled", "linked-review");
+    const disabledLink = join(home, ".agents", "skills.axecode-disabled", "linked-review");
     await expect(lstat(linked!)).rejects.toMatchObject({ code: "ENOENT" });
     expect((await lstat(disabledLink)).isSymbolicLink()).toBe(true);
     expect(await realpath(disabledLink)).toBe(await realpath(disabledSource));
@@ -1661,7 +1661,7 @@ describe("SkillsService", () => {
     expect((await lstat(linked!)).isSymbolicLink()).toBe(true);
     expect(await realpath(linked!)).toBe(await realpath(source));
     await expect(
-      lstat(join(home, ".agents", "skills.poracode-disabled", "linked-review")),
+      lstat(join(home, ".agents", "skills.axecode-disabled", "linked-review")),
     ).rejects.toMatchObject({ code: "ENOENT" });
   });
 
@@ -1687,7 +1687,7 @@ describe("SkillsService", () => {
     await service.prepareForLaunch(projectLocation);
 
     expect(await readFile(join(provider, "SKILL.md"), "utf8")).toContain("Provider version");
-    await expect(readFile(join(provider, ".poracode-skill.json"), "utf8")).rejects.toMatchObject({
+    await expect(readFile(join(provider, ".axecode-skill.json"), "utf8")).rejects.toMatchObject({
       code: "ENOENT",
     });
   });
@@ -2059,10 +2059,10 @@ describe("SkillsService", () => {
       marketplace: "skills-sh",
       marketplaceSkillId: "example/skills/unique-managed-skill",
       destinationScope: "global",
-      availability: "poracode",
+      availability: "axecode",
       replace: false,
     });
-    expect(privateResult.installed).toBe(join(home, ".poracode", "skills", "unique-managed-skill"));
+    expect(privateResult.installed).toBe(join(home, ".axecode", "skills", "unique-managed-skill"));
   });
 
   it("lists Skills Directory through its public registry", async () => {

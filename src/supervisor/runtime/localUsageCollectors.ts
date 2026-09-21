@@ -1,4 +1,4 @@
-import type { HostPort, UsageSnapshot } from "@poracode/agents-usage";
+import type { HostPort, UsageSnapshot } from "@axecode/agents-usage";
 import { scanAntigravityUsage } from "../agents/antigravity/antigravityUsageScanner";
 import { scanOpenCodeUsage } from "./openCodeUsageScanner";
 

@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 /**
- * Gemini CLI lifecycle hook forwarder for Poracode.
+ * Gemini CLI lifecycle hook forwarder for AxeCode.
  *
  * Gemini hooks communicate via JSON stdin/stdout. This script writes only a
  * final JSON object to stdout, and sends diagnostics to stderr when
- * PORACODE_HOOK_DEBUG is enabled.
+ * AXECODE_HOOK_DEBUG is enabled.
  *
- * Generic plumbing lives in the shared `poracode-hook-runtime.mjs` sibling.
+ * Generic plumbing lives in the shared `axecode-hook-runtime.mjs` sibling.
  */
 
 import {
   copyStringExtra,
   readPluginVersionFromManifest,
   runForwarder,
-} from "./poracode-hook-runtime.mjs";
+} from "./axecode-hook-runtime.mjs";
 
 const PLUGIN_VERSION = readPluginVersionFromManifest(import.meta.url);
 

@@ -2,7 +2,7 @@ import { isRemoteSession, readBridge } from "@/renderer/bridge";
 
 /** Read originals through the desktop bridge for local URLs, or fetch remote/inline URLs. */
 export async function fetchImageBytes(src: string): Promise<Uint8Array<ArrayBuffer>> {
-  if (/^(?:poracode|lightcode)-local:\/\//.test(src)) {
+  if (/^(?:axecode|lightcode)-local:\/\//.test(src)) {
     return new Uint8Array(await readBridge().readLocalImageFile({ url: src }));
   }
   // Images can display without CORS permission, but renderer fetch cannot read their bytes.

@@ -65,8 +65,8 @@ export function ThreadGoalDock({
         className={`flex min-w-0 items-center gap-x-2 leading-5 ${placement === "right" ? "flex-wrap gap-y-0.5" : ""}`}
       >
         {isActive ? (
-          <span className="poracode-goal-active-icon shrink-0" aria-hidden="true">
-            <span className="poracode-goal-active-icon__ring" />
+          <span className="axecode-goal-active-icon shrink-0" aria-hidden="true">
+            <span className="axecode-goal-active-icon__ring" />
             <StatusIcon className={`size-3.5 ${statusIconClass}`} />
           </span>
         ) : (

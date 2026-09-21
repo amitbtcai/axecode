@@ -13,7 +13,7 @@ import {
 } from "@/shared/contracts";
 import { renderWithI18n as render } from "@/renderer/testUtils/i18n";
 import { useRemoteServersStore } from "@/renderer/state/remoteServersStore";
-import type { PoracodeBridge } from "@/shared/ipc";
+import type { AxeCodeBridge } from "@/shared/ipc";
 import { McpServersManager, type McpImportProjectTarget } from "./McpServersManager";
 
 const bridge = vi.hoisted(() => ({
@@ -24,15 +24,15 @@ const bridge = vi.hoisted(() => ({
       (payload: DiscoverExternalMcpServersPayload) => Promise<DiscoverExternalMcpServersResult>
     >(),
   probeMcpServer: vi.fn<(payload: McpProbePayload) => Promise<McpProbeResult>>(),
-  getMcpOauthStatus: vi.fn<PoracodeBridge["getMcpOauthStatus"]>(async () => ({
+  getMcpOauthStatus: vi.fn<AxeCodeBridge["getMcpOauthStatus"]>(async () => ({
     authenticatedUrls: [],
   })),
   beginMcpServerOauth: vi.fn<(payload: McpOauthBeginPayload) => Promise<McpOauthBeginResult>>(),
-  openExternalNative: vi.fn<PoracodeBridge["openExternalNative"]>(async () => undefined),
-  waitMcpServerOauth: vi.fn<PoracodeBridge["waitMcpServerOauth"]>(async () => ({
+  openExternalNative: vi.fn<AxeCodeBridge["openExternalNative"]>(async () => undefined),
+  waitMcpServerOauth: vi.fn<AxeCodeBridge["waitMcpServerOauth"]>(async () => ({
     status: "authorized",
   })),
-  clearMcpServerOauth: vi.fn<PoracodeBridge["clearMcpServerOauth"]>(async () => undefined),
+  clearMcpServerOauth: vi.fn<AxeCodeBridge["clearMcpServerOauth"]>(async () => undefined),
 }));
 
 vi.mock("@/renderer/bridge", () => ({

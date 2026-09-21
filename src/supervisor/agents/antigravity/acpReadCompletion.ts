@@ -9,7 +9,7 @@
  * rows alone paint as running for the whole turn.
  *
  * Two signals settle a pending read, both safe when reads run in parallel:
- *  - Poracode served the `fs/readTextFile` the tool issued for that path —
+ *  - AxeCode served the `fs/readTextFile` the tool issued for that path —
  *    exact and per call (`client_view_file`).
  *  - The model produced text or a thought — it can only continue once every
  *    pending tool result is in, so all reads are done (`view_file`, which the

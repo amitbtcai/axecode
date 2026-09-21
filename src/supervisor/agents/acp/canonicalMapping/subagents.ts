@@ -18,30 +18,30 @@ import { firstNonEmptyLine, normalizeToolText } from "./contentExtraction";
 import type { ActiveAcpSubAgent, AcpMapperState, AcpToolCallItemState } from "./state";
 import { newItemId } from "./state";
 
-export const PORACODE_ACP_PARENT_TOOL_CALL_ID_META_KEY = "poracodeParentToolCallId";
+export const AXECODE_ACP_PARENT_TOOL_CALL_ID_META_KEY = "axecodeParentToolCallId";
 /**
  * Provider-boundary assertion that this tool call belongs to the foreground
  * agent. Without it, the generic ACP fallback may infer that a newly-started
  * subagent is nested under the most recently active subagent.
  */
-export const PORACODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY = "poracodeTopLevelToolCall";
-export const PORACODE_ACP_DETACHED_SUBAGENT_META_KEY = "poracodeDetachedSubAgent";
-export const PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY = "poracodeDetachedSubAgentActivity";
-export const PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY = "poracodeNewAssistantItem";
-export const PORACODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY = "poracodeSynthesizeSubAgentResult";
-export const PORACODE_ACP_SUBAGENT_PROGRESS_META_KEY = "poracodeSubAgentProgress";
-export const PORACODE_ACP_SUBAGENT_STATUS_META_KEY = "poracodeSubAgentStatus";
+export const AXECODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY = "axecodeTopLevelToolCall";
+export const AXECODE_ACP_DETACHED_SUBAGENT_META_KEY = "axecodeDetachedSubAgent";
+export const AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY = "axecodeDetachedSubAgentActivity";
+export const AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY = "axecodeNewAssistantItem";
+export const AXECODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY = "axecodeSynthesizeSubAgentResult";
+export const AXECODE_ACP_SUBAGENT_PROGRESS_META_KEY = "axecodeSubAgentProgress";
+export const AXECODE_ACP_SUBAGENT_STATUS_META_KEY = "axecodeSubAgentStatus";
 
 export function readAcpSubAgentProgressMeta(meta: unknown): ToolCallProgress | undefined {
   if (!meta || typeof meta !== "object" || Array.isArray(meta)) return undefined;
-  const progress = (meta as Record<string, unknown>)[PORACODE_ACP_SUBAGENT_PROGRESS_META_KEY];
+  const progress = (meta as Record<string, unknown>)[AXECODE_ACP_SUBAGENT_PROGRESS_META_KEY];
   const parsed = toolCallProgressSchema.safeParse(progress);
   return parsed.success ? parsed.data : undefined;
 }
 
 export function readAcpSubAgentStatusMeta(meta: unknown): SubAgentStatus | undefined {
   if (!meta || typeof meta !== "object" || Array.isArray(meta)) return undefined;
-  const status = (meta as Record<string, unknown>)[PORACODE_ACP_SUBAGENT_STATUS_META_KEY];
+  const status = (meta as Record<string, unknown>)[AXECODE_ACP_SUBAGENT_STATUS_META_KEY];
   const parsed = subAgentStatusSchema.safeParse(status);
   return parsed.success ? parsed.data : undefined;
 }
@@ -141,8 +141,8 @@ export function getActiveSubAgentForNotification(
     update._meta && typeof update._meta === "object" && !Array.isArray(update._meta)
       ? (update._meta as Record<string, unknown>)
       : undefined;
-  if (meta?.[PORACODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY] === true) return undefined;
-  const explicitToolCallId = meta?.[PORACODE_ACP_PARENT_TOOL_CALL_ID_META_KEY];
+  if (meta?.[AXECODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY] === true) return undefined;
+  const explicitToolCallId = meta?.[AXECODE_ACP_PARENT_TOOL_CALL_ID_META_KEY];
   if (typeof explicitToolCallId === "string") {
     return state.activeSubAgents.find((active) => active.toolCallId === explicitToolCallId);
   }
@@ -170,7 +170,7 @@ export function getDetachedSubAgentToolCallIdForNotification(
     update._meta && typeof update._meta === "object" && !Array.isArray(update._meta)
       ? (update._meta as Record<string, unknown>)
       : undefined;
-  const activityToolCallId = meta?.[PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY];
+  const activityToolCallId = meta?.[AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY];
   if (
     typeof activityToolCallId === "string" &&
     state.toolCallItems.get(activityToolCallId)?.detached === true
@@ -205,7 +205,7 @@ export function selectActiveSubAgentForToolCall(
     toolCall._meta && typeof toolCall._meta === "object" && !Array.isArray(toolCall._meta)
       ? (toolCall._meta as Record<string, unknown>)
       : undefined;
-  if (typeof meta?.[PORACODE_ACP_PARENT_TOOL_CALL_ID_META_KEY] === "string") return fallback;
+  if (typeof meta?.[AXECODE_ACP_PARENT_TOOL_CALL_ID_META_KEY] === "string") return fallback;
   const candidates = state.activeSubAgents.filter(
     (active) => state.toolCallItems.get(active.toolCallId)?.detached !== true,
   );

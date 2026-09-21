@@ -81,10 +81,10 @@ export function migrateLegacyBrowserRoute(buildBasePath: string): void {
   const nextUrl = legacyBrowserRouteUrl(
     window.location.href,
     buildBasePath,
-    atEntryPath ? state.__poracode_route : undefined,
+    atEntryPath ? state.__axecode_route : undefined,
   );
   if (!nextUrl) return;
   const nextState = { ...state };
-  delete nextState.__poracode_route;
+  delete nextState.__axecode_route;
   window.history.replaceState(nextState, "", nextUrl);
 }

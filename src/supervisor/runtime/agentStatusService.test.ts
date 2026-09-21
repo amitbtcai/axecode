@@ -27,7 +27,7 @@ import {
 const tempDirs: string[] = [];
 
 function makeTempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-agent-status-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-agent-status-"));
   tempDirs.push(dir);
   return dir;
 }

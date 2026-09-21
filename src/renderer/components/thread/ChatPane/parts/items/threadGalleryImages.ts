@@ -34,7 +34,7 @@ export interface ThreadGalleryResolvers {
   imageUrlForPath?: ((path: string) => string) | undefined;
   /** Resolve a host-held image reference (remote desktop image endpoint). */
   remoteImageRefUrl?: ((ref: RemoteImageRefValue) => string) | undefined;
-  /** Resolve a `poracode-local://` URL on a remote client. */
+  /** Resolve a `axecode-local://` URL on a remote client. */
   remoteLocalImageUrl?: ((url: string) => string) | undefined;
   /** Project / worktree filesystem root for project-relative markdown images. */
   projectRoot?: string | undefined;
@@ -305,7 +305,7 @@ function resolveMarkdownImageTarget(
   });
   if (rewritten) return mapLocalUrlToDisplay(rewritten, resolvers);
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
-  if (trimmed.startsWith("poracode-local://")) return mapLocalUrlToDisplay(trimmed, resolvers);
+  if (trimmed.startsWith("axecode-local://")) return mapLocalUrlToDisplay(trimmed, resolvers);
   // Absolute filesystem paths that skipped the pre-parse rewrite.
   if (isAbsoluteFsPath(trimmed)) return mapLocalUrlToDisplay(toLocalFileUrl(trimmed), resolvers);
   return null;
@@ -320,14 +320,14 @@ function resolveHtmlImageTarget(rawUrl: string, resolvers: ThreadGalleryResolver
   const trimmed = rawUrl.trim();
   if (!trimmed || isStrippedScheme(trimmed)) return null;
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
-  if (trimmed.startsWith("poracode-local://")) return mapLocalUrlToDisplay(trimmed, resolvers);
+  if (trimmed.startsWith("axecode-local://")) return mapLocalUrlToDisplay(trimmed, resolvers);
   if (isAbsoluteFsPath(trimmed)) return mapLocalUrlToDisplay(toLocalFileUrl(trimmed), resolvers);
   return null;
 }
 
 /**
  * Schemes the transcript sanitizer strips from `<img src>` (only `http`,
- * `https`, and locally-added `poracode-local` survive). Gallery targets with
+ * `https`, and locally-added `axecode-local` survive). Gallery targets with
  * these schemes would never paint, so they are excluded.
  */
 function isStrippedScheme(url: string): boolean {
@@ -338,16 +338,16 @@ function isAbsoluteFsPath(value: string): boolean {
   return /^[A-Za-z]:[\\/]/.test(value) || value.startsWith("\\\\") || value.startsWith("/");
 }
 
-function mapLocalUrlToDisplay(poracodeLocalUrl: string, resolvers: ThreadGalleryResolvers): string {
+function mapLocalUrlToDisplay(axecodeLocalUrl: string, resolvers: ThreadGalleryResolvers): string {
   // Remote PWA: swap the local scheme for the desktop's authenticated endpoint.
-  if (poracodeLocalUrl.startsWith("poracode-local://") && resolvers.remoteLocalImageUrl) {
-    const mapped = resolvers.remoteLocalImageUrl(poracodeLocalUrl);
+  if (axecodeLocalUrl.startsWith("axecode-local://") && resolvers.remoteLocalImageUrl) {
+    const mapped = resolvers.remoteLocalImageUrl(axecodeLocalUrl);
     if (mapped) return mapped;
   }
-  // Desktop (no remote resolver installed) keeps `poracode-local://` untouched
+  // Desktop (no remote resolver installed) keeps `axecode-local://` untouched
   // for the privileged protocol handler; remote clients map via the global
   // resolver installed by the mobile bridge.
-  return resolveLocalImageDisplayUrl(poracodeLocalUrl);
+  return resolveLocalImageDisplayUrl(axecodeLocalUrl);
 }
 
 interface GalleryStoreShape {

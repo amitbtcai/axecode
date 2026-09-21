@@ -180,7 +180,7 @@ export function ComposerAddMenu(props: {
     <Button
       isIconOnly
       aria-label={t`Add attachment or capability`}
-      className="poracode-composer-menu min-w-9 px-2"
+      className="axecode-composer-menu min-w-9 px-2"
       size="sm"
       variant="ghost"
       {...(mobile ? { onPress: () => setIsOpen(true) } : {})}
@@ -357,7 +357,7 @@ export function ComposerAddMenu(props: {
               experiment.onToggle(!experiment.enabled);
             }
           }}
-          className="poracode-menu min-w-52"
+          className="axecode-menu min-w-52"
         >
           {showFileOption ? (
             <Dropdown.Item id="file" textValue={t`File`}>
@@ -407,7 +407,7 @@ export function ComposerAddMenu(props: {
                     <div
                       role="list"
                       aria-label={t`Plugins`}
-                      className="poracode-menu max-h-72 min-w-56 overflow-y-auto p-1"
+                      className="axecode-menu max-h-72 min-w-56 overflow-y-auto p-1"
                     >
                       {visiblePlugins.map((server) => {
                         const Icon = server.descriptor.icon;
@@ -443,7 +443,7 @@ export function ComposerAddMenu(props: {
                       selectionMode="multiple"
                       selectedKeys={pluginSelectedKeys}
                       onSelectionChange={handlePluginSelection}
-                      className="poracode-menu max-h-72 min-w-56 overflow-y-auto"
+                      className="axecode-menu max-h-72 min-w-56 overflow-y-auto"
                     >
                       {visiblePlugins.map((server) => {
                         const Icon = server.descriptor.icon;

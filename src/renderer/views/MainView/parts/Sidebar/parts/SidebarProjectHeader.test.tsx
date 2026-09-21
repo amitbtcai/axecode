@@ -41,7 +41,7 @@ vi.mock("@heroui/react", () => {
 
 const project: Project = {
   id: "project-1",
-  name: "Mac Poracode",
+  name: "Mac AxeCode",
   location: { kind: "posix", path: "/repo" },
   createdAt: "2026-07-01T00:00:00.000Z",
   remoteServerId: "desktop-1",
@@ -50,7 +50,7 @@ const project: Project = {
 
 const server: RemoteServerRecord = {
   desktopId: "desktop-1",
-  label: "Poracode on H1FCM6T4GX",
+  label: "AxeCode on H1FCM6T4GX",
   endpoint: "http://192.168.1.10:49152/",
   accessToken: "token",
   scopes: ["projects:manage"],
@@ -104,11 +104,11 @@ describe("SidebarProjectHeader", () => {
     resetPanelAndTerminalState();
   });
 
-  it("shows the bare server name without the Poracode brand prefix", () => {
+  it("shows the bare server name without the AxeCode brand prefix", () => {
     renderHeader();
 
     expect(screen.getByText("H1FCM6T4GX")).toBeInTheDocument();
-    expect(screen.queryByText("Poracode on H1FCM6T4GX")).not.toBeInTheDocument();
+    expect(screen.queryByText("AxeCode on H1FCM6T4GX")).not.toBeInTheDocument();
   });
 
   it("lights the connection dot green while the remote server is online", () => {
@@ -125,7 +125,7 @@ describe("SidebarProjectHeader", () => {
     );
 
     expect(screen.getByTitle("Offline")).toHaveClass("bg-default-400");
-    expect(container.querySelector(".poracode-sidebar-project-nudge")).toHaveClass("opacity-50");
+    expect(container.querySelector(".axecode-sidebar-project-nudge")).toHaveClass("opacity-50");
     expect(screen.queryByText("git-status")).not.toBeInTheDocument();
     expect(screen.queryByText("sync-status")).not.toBeInTheDocument();
   });

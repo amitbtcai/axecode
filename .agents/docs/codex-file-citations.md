@@ -3,8 +3,8 @@
 ## Provenance (investigated 2026-09-09)
 
 The reported raw `:codex-file-citation{path="..." purpose="output"}` is already
-present in the saved assistant response, before Poracode renders it. The affected
-session identifies `originator: poracode`, Codex CLI `0.149.0`, and `gpt-6-astra`.
+present in the saved assistant response, before AxeCode renders it. The affected
+session identifies `originator: axecode`, Codex CLI `0.149.0`, and `gpt-6-astra`.
 The session's tool outputs show the model reading artifact skill instructions
 that request this exact syntax before the first affected answer.
 
@@ -33,7 +33,7 @@ Fetched official documentation:
 - [Codex App Server](https://developers.openai.com/codex/app-server):
   `agentMessage` contains accumulated `text`; `item/agentMessage/delta` appends
   text. The documented item does not define an artifact citation annotation
-  payload. Poracode's mapper preserves that text in canonical messages.
+  payload. AxeCode's mapper preserves that text in canonical messages.
 - [Citation Formatting](https://developers.openai.com/api/docs/guides/citation-formatting):
   clients must extract and render model citation syntax. Its examples cover the
   separate `\ue200cite…\ue201` family, not this local-file directive.
@@ -86,7 +86,7 @@ start from the previously stored response shape and exercise both render paths,
 actual file-open callbacks, literal examples, and streaming completion.
 
 The internal Markdown link boundary uses a distinct `v2/` payload for newly
-generated links: `https://poracode.local/path/v2/<encoded-path>`, with optional
+generated links: `https://axecode.local/path/v2/<encoded-path>`, with optional
 `line` and `endLine` query fields. Folder links use the matching `folder/v2/`
 prefix. The path is encoded independently, so a POSIX filename ending in
 `:2026` or `:20-26` is never interpreted as line metadata. Literal question
@@ -94,8 +94,8 @@ marks, hashes, and percent sequences remain part of the encoded path.
 
 Both producers (provider formatting and generic path autolinking) use
 `pathRefUrl`; both consumers (full Markdown anchors and the lazy fallback)
-use `parsePathRefUrl`. Legacy HTTP links and `poracode:path:` /
-`poracode:folder:` sentinels retain their previous interpretation. Unsupported
+use `parsePathRefUrl`. Legacy HTTP links and `axecode:path:` /
+`axecode:folder:` sentinels retain their previous interpretation. Unsupported
 versions and malformed v2 payloads are rejected. This explicitly versions the
 derived link representation without changing the saved transcript or database
 version; stored legacy links are covered by decoder and renderer regressions.

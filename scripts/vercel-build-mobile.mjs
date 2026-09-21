@@ -14,8 +14,8 @@ const result = spawnSync("pnpm", ["run", "build:mobile"], {
   stdio: "inherit",
   env: {
     ...process.env,
-    PORACODE_MOBILE_CHANNEL: channel,
-    PORACODE_MOBILE_BASE_PATH: basePath,
+    AXECODE_MOBILE_CHANNEL: channel,
+    AXECODE_MOBILE_BASE_PATH: basePath,
     npm_config_enable_global_virtual_store: "false",
     npm_config_node_linker: "isolated",
     pnpm_config_verify_deps_before_run: "false",

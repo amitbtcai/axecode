@@ -14,7 +14,7 @@ import {
   useThreadAgentStatuses,
 } from "./uiSelectors";
 
-const worktreePath = "/repo/.poracode/worktrees/feature";
+const worktreePath = "/repo/.axecode/worktrees/feature";
 
 beforeEach(() => {
   useSharedSettings.setState({ terminalPosition: "bottom" });

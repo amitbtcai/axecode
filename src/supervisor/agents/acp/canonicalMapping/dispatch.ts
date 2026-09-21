@@ -34,10 +34,10 @@ import {
   isAcpSubAgentToolCall,
   isTaskCompleteSummary,
   isUpdateTopicTool,
-  PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY,
-  PORACODE_ACP_DETACHED_SUBAGENT_META_KEY,
-  PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY,
-  PORACODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY,
+  AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY,
+  AXECODE_ACP_DETACHED_SUBAGENT_META_KEY,
+  AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY,
+  AXECODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY,
   readAcpSubAgentProgressMeta,
   readAcpSubAgentStatusMeta,
   removeActiveSubAgent,
@@ -194,7 +194,7 @@ export function mapAcpSessionUpdate(
         update._meta && typeof update._meta === "object" && !Array.isArray(update._meta)
           ? (update._meta as Record<string, unknown>)
           : undefined;
-      if (messageMeta?.[PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY] === true) {
+      if (messageMeta?.[AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY] === true) {
         events.push(...closeAllOpenContentItems(state));
       }
       const content = (update as { content?: ContentBlock }).content;
@@ -363,7 +363,7 @@ export function mapAcpSessionUpdate(
         update._meta && typeof update._meta === "object" && !Array.isArray(update._meta)
           ? (update._meta as Record<string, unknown>)
           : undefined;
-      if (thoughtMeta?.[PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY] === true) {
+      if (thoughtMeta?.[AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY] === true) {
         events.push(...closeAllOpenContentItems(state));
       }
       if (!contentState.openReasoningItemId) {
@@ -529,7 +529,7 @@ export function mapAcpSessionUpdate(
         isSubAgent &&
         (rawInput?.background === true ||
           rawInput?.run_in_background === true ||
-          meta?.[PORACODE_ACP_DETACHED_SUBAGENT_META_KEY] === true);
+          meta?.[AXECODE_ACP_DETACHED_SUBAGENT_META_KEY] === true);
       const payload = buildAcpToolCallPayload(
         itemType,
         toolCall,
@@ -623,13 +623,13 @@ export function mapAcpSessionUpdate(
       if (
         updateRawInput?.background === true ||
         updateRawInput?.run_in_background === true ||
-        updateMeta?.[PORACODE_ACP_DETACHED_SUBAGENT_META_KEY] === true
+        updateMeta?.[AXECODE_ACP_DETACHED_SUBAGENT_META_KEY] === true
       ) {
         item.detached = true;
       }
       const isTerminal = toolCall.status === "completed" || toolCall.status === "failed";
       const hasTopLevelDetachedReply =
-        updateMeta?.[PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY] === toolCall.toolCallId &&
+        updateMeta?.[AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY] === toolCall.toolCallId &&
         hasOpenContentItems(state);
       const status =
         toolCall.status === "completed"
@@ -650,7 +650,7 @@ export function mapAcpSessionUpdate(
       const hasOpenSubAgentContent =
         item.isSubAgent &&
         isTerminal &&
-        updateMeta?.[PORACODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY] !== true &&
+        updateMeta?.[AXECODE_ACP_SYNTHESIZE_SUBAGENT_RESULT_META_KEY] !== true &&
         (hasOpenContentItems(state, activeSubAgent?.toolCallId) || hasTopLevelDetachedReply);
       const subAgentProgress =
         item.isSubAgent && !hasOpenSubAgentContent

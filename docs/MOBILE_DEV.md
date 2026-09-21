@@ -22,8 +22,8 @@ helper:
 | `dev:ios:app` / `dev:android:app` | target-resolving `cap run <platform> --live-reload`      | —       |
 | `android-reverse-server-port.mjs` | Android only: keeps `adb reverse tcp:49152` applied      | —       |
 
-`dev:mobile:server` sets `PORACODE_IS_DEV=1` and pins
-`PORACODE_REMOTE_ACCESS_PORT=49152` for the simulator forwarding helpers. Dev
+`dev:mobile:server` sets `AXECODE_IS_DEV=1` and pins
+`AXECODE_REMOTE_ACCESS_PORT=49152` for the simulator forwarding helpers. Dev
 mode turns on two conveniences in the server (see
 [Why dev mode matters](#why-dev-mode-matters)): loopback advertising + loopback
 CORS. **No manual env vars are needed** — pairing works against
@@ -31,8 +31,8 @@ CORS. **No manual env vars are needed** — pairing works against
 
 The iOS and Android launch wrappers pass an explicit native target so Capacitor
 does not stop at an interactive device picker under `concurrently`. Override the
-automatic choice with `PORACODE_IOS_TARGET=<simulator-udid>` or
-`PORACODE_ANDROID_TARGET=<device-or-avd-id>`.
+automatic choice with `AXECODE_IOS_TARGET=<simulator-udid>` or
+`AXECODE_ANDROID_TARGET=<device-or-avd-id>`.
 
 The endpoint is the **same on both platforms**: the iOS simulator shares the
 Mac's loopback natively, and on Android the reverse-port helper maps the
@@ -41,7 +41,7 @@ emulators and USB devices; it re-applies automatically when a device boots or
 restarts). Capacitor itself forwards only the Vite port (`--forwardPorts` takes
 a single pair), which is why the server port has its own helper.
 
-The server's data dir is `~/.poracode`. Override with `PORACODE_BASE_DIR` to run
+The server's data dir is `~/.axecode`. Override with `AXECODE_BASE_DIR` to run
 an isolated instance (avoids the single-instance lock clash with a running
 desktop app or a second server).
 
@@ -49,7 +49,7 @@ desktop app or a second server).
 
 1. Grab the pairing token — the server prints it at startup:
    ```
-   [poracode-server] pair a device:   http://127.0.0.1:49152/pair#token=lc_pair_…
+   [axecode-server] pair a device:   http://127.0.0.1:49152/pair#token=lc_pair_…
    ```
    Need a fresh one (10-min TTL, in-memory only)? Send `SIGUSR2`:
    ```bash
@@ -67,7 +67,7 @@ up/down arrows move focus between the two fields reliably.
 
 ## Why dev mode matters
 
-Two things break dev pairing on a stock (non-dev) server; `PORACODE_IS_DEV=1`
+Two things break dev pairing on a stock (non-dev) server; `AXECODE_IS_DEV=1`
 fixes both:
 
 - **iOS ATS** (`ios/App/App/Info.plist` → `NSAllowsLocalNetworking`) permits
@@ -117,13 +117,13 @@ access app) — do not point pairing links there.
 
 **To make links actually route into the app (ops — needs secrets):**
 
-1. **Apple Team ID** — set `PORACODE_MOBILE_APPLE_TEAM_ID` (+ Android
-   `PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS`) at build time so the
+1. **Apple Team ID** — set `AXECODE_MOBILE_APPLE_TEAM_ID` (+ Android
+   `AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS`) at build time so the
    emitted AASA/assetlinks are **non-empty** (AASA `appIDs =
 <team>.com.axecode.mobile`, components match `/pair*` and `/app*`).
 2. **Desktop** — packaged builds mint
    `https://code.axeai.com/pair?host=…#token=…` QR/links by default. Set
-   `PORACODE_REMOTE_ACCESS_PAIRING_APP_URL` only to override that host.
+   `AXECODE_REMOTE_ACCESS_PAIRING_APP_URL` only to override that host.
 3. Rebuild the app (`cap sync` + `pnpm run dev:ios`) so the entitlement +
    plugin ship. Universal-link routing **cannot be exercised in the
    simulator** until the app is built with the entitlement _and_ the AASA is
@@ -134,14 +134,14 @@ access app) — do not point pairing links there.
 - **"Load failed" on Pair** → almost always ATS or CORS (see [Why dev mode
   matters](#why-dev-mode-matters)). Confirm the server advertised loopback
   (`grep "listening at" server log` → `http://127.0.0.1:49152/`) and that you
-  ran with `PORACODE_IS_DEV=1`. Sanity-check CORS:
+  ran with `AXECODE_IS_DEV=1`. Sanity-check CORS:
   ```bash
   curl -s -D - -o /dev/null -H "Origin: http://localhost:3100" \
-    http://127.0.0.1:49152/.well-known/poracode/environment | grep -i access-control
+    http://127.0.0.1:49152/.well-known/axecode/environment | grep -i access-control
   ```
-- **"data dir … is in use by another Poracode process (pid N)"** → a desktop
+- **"data dir … is in use by another AxeCode process (pid N)"** → a desktop
   app or a prior server holds the lock. Kill it (`kill N`) or run with a separate
-  `PORACODE_BASE_DIR`.
+  `AXECODE_BASE_DIR`.
 - **Invalid pairing token** → tokens are single-use and expire in 10 min; mint a
   fresh one with `SIGUSR2` (above).
 - **`@capacitor/app` not found at runtime in the sim** → the plugin is native;

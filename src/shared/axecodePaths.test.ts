@@ -1,0 +1,34 @@
+import { homedir } from "node:os";
+import { join } from "node:path";
+import { describe, expect, it } from "vitest";
+import { resolveAxeCodeBaseDir, resolveAxeCodePaths } from "./axecodePaths";
+
+describe("axecodePaths", () => {
+  it("derives the default base dir under the user home", () => {
+    expect(resolveAxeCodeBaseDir("stable")).toBe(join(homedir(), ".axecode"));
+  });
+
+  it("returns the nightly base dir when the channel is nightly", () => {
+    expect(resolveAxeCodeBaseDir("nightly")).toBe(join(homedir(), ".axecode-nightly"));
+  });
+
+  it("derives all persisted paths from the provided base dir", () => {
+    const baseDir = join("tmp", "axecode");
+    expect(resolveAxeCodePaths(baseDir)).toEqual({
+      baseDir,
+      dbPath: join(baseDir, "state.sqlite"),
+      settingsPath: join(baseDir, "settings.json"),
+      keybindingsPath: join(baseDir, "keybindings.json"),
+      worktreesDir: join(baseDir, "worktrees"),
+      attachmentsDir: join(baseDir, "attachments"),
+      logsDir: join(baseDir, "logs"),
+      terminalLogsDir: join(baseDir, "logs", "terminal"),
+      cacheDir: join(baseDir, "cache"),
+      statusCachePath: join(baseDir, "cache", "agent-status-cache.json"),
+      agentPluginsDir: join(baseDir, "agent-plugins"),
+      pluginsDir: join(baseDir, "plugins"),
+      pluginDataDir: join(baseDir, "plugin-data"),
+      acpIconsDir: join(baseDir, "cache", "acp-icons"),
+    });
+  });
+});

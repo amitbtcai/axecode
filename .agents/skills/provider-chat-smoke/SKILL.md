@@ -1,6 +1,6 @@
 ---
 name: provider-chat-smoke
-description: Smoke test real Poracode provider chat threads and ACP sessions end to end. Use when validating Qwen Code, Kimi Code, or another structured/ACP provider; testing chat turn handling, steer, Stop, question or permission tools, live model changes, session resume, ACP handshake/capabilities, or provider-chat regressions.
+description: Smoke test real AxeCode provider chat threads and ACP sessions end to end. Use when validating Qwen Code, Kimi Code, or another structured/ACP provider; testing chat turn handling, steer, Stop, question or permission tools, live model changes, session resume, ACP handshake/capabilities, or provider-chat regressions.
 ---
 
 # Provider Chat Smoke
@@ -44,7 +44,7 @@ For a real ACP provider, prove the full path rather than only the rendered reply
 3. Confirm `session/update` messages produce the expected canonical runtime items: user message, reasoning, assistant message, tool call, and tool result/command result when applicable.
 4. Confirm each blocking request receives exactly one `request.resolved` outcome: `answered` for a question, `declined` for a rejected approval, or `cancelled` for an abandoned request.
 5. For the model gate, prove the update reached the live ACP session config (not merely the picker): inspect the persisted thread config and ensure the next turn uses it.
-6. Reopen the session and verify replayed ACP history does not duplicate Poracode’s persisted chat items.
+6. Reopen the session and verify replayed ACP history does not duplicate AxeCode’s persisted chat items.
 
 Capture session identity and configs without copying credentials, bearer tokens, or raw sensitive environment values into artifacts.
 
@@ -67,16 +67,16 @@ Cover every branch below with focused tests/mocks when the live provider does no
 ### Provider-route failure signatures
 
 When a live turn fails, classify the error before writing the verdict — some
-rejections come from the provider's own model routing, not from Poracode:
+rejections come from the provider's own model routing, not from AxeCode:
 
 - `provider-private history is incompatible with the active route: retained
 media history is unsupported …` — the provider's model route refused media in
-  the conversation history. Poracode delivered an image the route cannot take;
+  the conversation history. AxeCode delivered an image the route cannot take;
   fix delivery (path mention + `readsImageAttachmentsFromHost: false`), not the
   error handling.
 - `session … is already in use` (`sessionInUse`) — another live host holds the
   provider-side session lock, typically an orphaned WSL host that teardown
-  failed to kill. Poracode must surface this as a turn error, never hang.
+  failed to kill. AxeCode must surface this as a turn error, never hang.
 - A slow resume of a large session is provider-side while runtime records keep
   streaming; a hang is "working" with **no** item activity and **no** records.
 

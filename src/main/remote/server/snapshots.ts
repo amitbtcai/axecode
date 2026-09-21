@@ -1,5 +1,5 @@
 import {
-  PORACODE_REMOTE_PROTOCOL_VERSION,
+  AXECODE_REMOTE_PROTOCOL_VERSION,
   REMOTE_STANDARD_SCOPES,
   remoteAgentStatusesSchema,
   remoteEnvironmentDescriptorSchema,
@@ -49,7 +49,7 @@ export function descriptor(ctx: RemoteServerContext): RemoteEnvironmentDescripto
       ? process.platform
       : undefined;
   return remoteEnvironmentDescriptorSchema.parse({
-    protocolVersion: PORACODE_REMOTE_PROTOCOL_VERSION,
+    protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION,
     hostMode: ctx.options.hostMode ?? "desktop",
     desktopId: ctx.options.identity.desktopId,
     label: ctx.options.identity.label,

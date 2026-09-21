@@ -117,14 +117,14 @@ describe("macOS Claude keychain helpers", () => {
   it("hashes non-default config dirs into the service name", () => {
     expect(
       claudeKeychainServiceNames({
-        CLAUDE_CONFIG_DIR: "/tmp/poracode-claude",
+        CLAUDE_CONFIG_DIR: "/tmp/axecode-claude",
         CLAUDE_SECURESTORAGE_CONFIG_DIR: undefined,
         CLAUDE_CODE_CUSTOM_OAUTH_URL: "https://claude.example.test",
       }),
     ).toEqual([
-      "Claude Code-credentials-a76f884d",
-      "Claude Code-custom-oauth-credentials-a76f884d",
-      "Claude Code-local-oauth-credentials-a76f884d",
+      "Claude Code-credentials-12f8bb1c",
+      "Claude Code-custom-oauth-credentials-12f8bb1c",
+      "Claude Code-local-oauth-credentials-12f8bb1c",
     ]);
   });
 

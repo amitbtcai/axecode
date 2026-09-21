@@ -176,14 +176,14 @@ describe("deriveCodexStructuredState", () => {
     expect(
       parseCodexSocketMessage({
         jsonrpc: "2.0",
-        id: "poracode-1",
+        id: "axecode-1",
         result: {
           ok: true,
         },
       }),
     ).toEqual({
       kind: "response",
-      id: "poracode-1",
+      id: "axecode-1",
       result: {
         ok: true,
       },
@@ -3553,7 +3553,7 @@ describe("createCodexAdapter handleOscNotification", () => {
 });
 
 describe("codexIntentFor", () => {
-  it("maps hook events to Poracode intents", () => {
+  it("maps hook events to AxeCode intents", () => {
     expect(codexIntentFor("SessionStart", { hook_event_name: "SessionStart" }, false)).toBe(
       "session.started",
     );

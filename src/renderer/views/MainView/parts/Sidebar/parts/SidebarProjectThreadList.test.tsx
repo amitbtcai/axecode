@@ -68,7 +68,7 @@ const homeProject: Project = {
 
 const localProject: Project = {
   id: "local-1",
-  name: "Poracode",
+  name: "AxeCode",
   location: { kind: "windows", path: "C:\\repo" },
   createdAt: "2026-07-01T00:00:00.000Z",
   workspaceId: "w1",
@@ -118,7 +118,7 @@ describe("SidebarProjectThreadList", () => {
 
     render(<SidebarProjectThreadList project={localProject} sortMode="updated" />);
 
-    expect(screen.getByText(/thread:p1 in Poracode/)).toBeInTheDocument();
-    expect(screen.getByText(/thread:p2 in Poracode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p1 in AxeCode/)).toBeInTheDocument();
+    expect(screen.getByText(/thread:p2 in AxeCode/)).toBeInTheDocument();
   });
 });

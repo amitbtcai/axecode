@@ -1,7 +1,7 @@
 import { dbGetState, dbSetState } from "../db";
 import { BrowserWindow, screen, type RenderProcessGoneDetails } from "electron";
-import type { PoracodeChannel } from "@/shared/channel";
-import type { PoracodeWindowKind } from "@/shared/ipc";
+import type { AxeCodeChannel } from "@/shared/channel";
+import type { AxeCodeWindowKind } from "@/shared/ipc";
 import type { RendererProcessGoneIntent } from "@/main/diagnostics/processGone";
 import { installSessionPermissions } from "../browser/permissions";
 import { supportsNativeWindowMaterial, syncNativeThemeForMaterial } from "./windowMaterial";
@@ -56,14 +56,14 @@ function saveWindowBounds(window: BrowserWindow, stateKey: string): void {
 
 export interface CreateMainWindowOptions {
   title: string;
-  windowKind?: PoracodeWindowKind;
+  windowKind?: AxeCodeWindowKind;
   boundsStateKey?: string | null;
   defaultWidth?: number;
   defaultHeight?: number;
   minWidth?: number;
   minHeight?: number;
   isDev: boolean;
-  channel: PoracodeChannel;
+  channel: AxeCodeChannel;
   preloadPath: string;
   rendererHtmlPath: string;
   appVersion: string;
@@ -159,7 +159,7 @@ export function createMainWindow(options: CreateMainWindowOptions): BrowserWindo
     },
   });
   installSessionPermissions(window.webContents.session);
-  if (options.isDev && process.env.PORACODE_PROFILE_STARTUP === "1") {
+  if (options.isDev && process.env.AXECODE_PROFILE_STARTUP === "1") {
     console.log(`[startup] ${Date.now()} window-created`);
     window.once("ready-to-show", () => console.log(`[startup] ${Date.now()} window-ready`));
     window.webContents.on("console-message", (details) => {

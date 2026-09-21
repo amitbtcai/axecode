@@ -29,8 +29,8 @@ import { relativePolicyPath } from "./pathContainment";
  * Turns `mcp.json` declarations into the provider-agnostic `McpServer` records
  * the launch pipeline already understands.
  *
- * This is what makes plugins work across every provider Poracode supports:
- * Poracode is the Agent Plugins client, and once a declaration becomes an
+ * This is what makes plugins work across every provider AxeCode supports:
+ * AxeCode is the Agent Plugins client, and once a declaration becomes an
  * `McpServer` the existing per-provider translators in
  * `src/supervisor/agents/userMcp/translate.ts` emit native config for Claude,
  * Codex, Gemini, OpenCode, and ACP. The provider never needs to know the Agent
@@ -38,7 +38,7 @@ import { relativePolicyPath } from "./pathContainment";
  *
  * Known limitation: for remote servers the provider CLI owns the HTTP client, so
  * the specification's "do not forward configured headers across origins on
- * redirect" rule can only be enforced in Poracode's own probe path
+ * redirect" rule can only be enforced in AxeCode's own probe path
  * (`src/supervisor/mcp/probeMcpServer.ts`), not inside the provider process.
  *
  * @see https://agent-plugins.org/client-implementers/mcp-runtime
@@ -205,7 +205,7 @@ export function resolvePluginMcpServers(
     // the per-thread composer toggle stays the enablement truth for those, so
     // being installed by default never forces Browser/Chrome/Computer Use on.
     if (!isBuiltInToolPlugin(plugin)) {
-      plugin.poracode.builtInMcpServerIds.forEach((id) => builtInMcpServerIds.add(id));
+      plugin.axecode.builtInMcpServerIds.forEach((id) => builtInMcpServerIds.add(id));
     }
 
     const data = pluginDataDirectory(context.pluginDataRoot, plugin.name);

@@ -13,7 +13,7 @@ import { commandCodeHasStoredCredentials } from "./session";
 // Command Code's CLI runs a background self-updater on EVERY invocation: when a
 // newer npm version exists it spawns a detached `cmd.exe`/`npm i <tgz>` (see the
 // CLI's `spawnBackgroundUpdate`), which Windows 11 surfaces as a stray terminal
-// window — re-triggered by each launch-time detection probe. Poracode owns
+// window — re-triggered by each launch-time detection probe. AxeCode owns
 // agent updates (Settings update button → `command-code update`), so we set
 // `COMMANDCODE_SKIP_UPDATES` on every command-code spawn we make (detection
 // probes, PTY launches, one-shots) to suppress the CLI's own updater. The CLI
@@ -24,7 +24,7 @@ const COMMANDCODE_SKIP_UPDATES_ENV: Record<string, string> = {
   COMMANDCODE_SKIP_UPDATES: "1",
 };
 
-const COMMANDCODE_EFFORT_PROBE_VALUE = "__poracode_capability_probe__";
+const COMMANDCODE_EFFORT_PROBE_VALUE = "__axecode_capability_probe__";
 const COMMANDCODE_EFFORT_SENTINEL_ATTEMPTS = 2;
 const COMMANDCODE_EFFORT_PROBE_CONCURRENCY = 24;
 const COMMANDCODE_EFFORT_CACHE_SIZE = 8;
@@ -407,7 +407,7 @@ export const defaultCommandCodeCapabilities: AgentCapability = {
   presentationModes: ["terminal"],
   defaultApprovalPolicy: "yolo",
   bypassPermissions: { approvalPolicy: "yolo" },
-  // A session-local mod supplies Poracode MCP tools to the terminal runtime.
+  // A session-local mod supplies AxeCode MCP tools to the terminal runtime.
   mcpScope: { terminal: "launch", gui: "none" },
   settingDefs: [],
 };

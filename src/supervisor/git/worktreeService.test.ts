@@ -71,7 +71,7 @@ describe("GitWorktreeService pull", () => {
 
     expect(commands).toEqual([
       "rev-parse --verify --quiet stash@{0}",
-      "stash push -u -m Poracode: before pull from origin",
+      "stash push -u -m AxeCode: before pull from origin",
       "rev-parse --verify --quiet stash@{0}",
       "pull --no-rebase origin",
       "stash apply --index stash-sha",
@@ -107,7 +107,7 @@ describe("GitWorktreeService branch validation", () => {
     vi.clearAllMocks();
   });
 
-  it.each(["feature/valid", "poracode/candidate-1", "release/v1.2.3"])(
+  it.each(["feature/valid", "axecode/candidate-1", "release/v1.2.3"])(
     "accepts a valid branch name: %s",
     (branch) => {
       expect(isValidGitBranchName(branch)).toBe(true);
@@ -144,7 +144,7 @@ describe("GitWorktreeService branch validation", () => {
   it("recognizes an existing branch while probing without diagnostics", async () => {
     mocks.execGit.mockImplementation(async (_location, args) => {
       if (args[0] === "rev-parse") return `${"a".repeat(40)}\n`;
-      if (args[0] === "reflog") return "poracode experiment owner experiment-1\n";
+      if (args[0] === "reflog") return "axecode experiment owner experiment-1\n";
       return "";
     });
 
@@ -194,7 +194,7 @@ describe("GitWorktreeService experiment batches", () => {
     });
     const candidates = Array.from({ length: 4 }, (_, index) => ({
       threadId: `thread-${index + 1}`,
-      branch: `poracode/candidate-${index + 1}`,
+      branch: `axecode/candidate-${index + 1}`,
       ownerToken: `experiment:thread-${index + 1}`,
     }));
 
@@ -230,11 +230,11 @@ describe("GitWorktreeService experiment batches", () => {
           "",
           "worktree /worktrees/one",
           `HEAD ${baseCommit}`,
-          "branch refs/heads/poracode/one",
+          "branch refs/heads/axecode/one",
           "",
           "worktree /worktrees/two",
           `HEAD ${baseCommit}`,
-          "branch refs/heads/poracode/two",
+          "branch refs/heads/axecode/two",
           "",
         ].join("\n");
       }
@@ -250,13 +250,13 @@ describe("GitWorktreeService experiment batches", () => {
       candidates: [
         {
           threadId: "thread-one",
-          branch: "poracode/one",
+          branch: "axecode/one",
           ownerToken: "owner-one",
           worktreePath: "/worktrees/one",
         },
         {
           threadId: "thread-two",
-          branch: "poracode/two",
+          branch: "axecode/two",
           ownerToken: "owner-two",
           worktreePath: "/worktrees/two",
         },
@@ -285,7 +285,7 @@ describe("GitWorktreeService experiment batches", () => {
           "",
           "worktree /worktrees/one",
           `HEAD ${baseCommit}`,
-          "branch refs/heads/poracode/one",
+          "branch refs/heads/axecode/one",
           "",
         ].join("\n");
       }
@@ -301,7 +301,7 @@ describe("GitWorktreeService experiment batches", () => {
         candidates: [
           {
             threadId: "thread-one",
-            branch: "poracode/one",
+            branch: "axecode/one",
             ownerToken: "owner-one",
             worktreePath: "/worktrees/one",
           },

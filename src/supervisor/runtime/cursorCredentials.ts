@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
-import type { OAuthToken } from "@poracode/agents-usage";
+import type { OAuthToken } from "@axecode/agents-usage";
 
 const execFileAsync = promisify(execFile);
 const KEYCHAIN_TIMEOUT_MS = 5_000;

@@ -1,4 +1,4 @@
-import { type PoracodeChannel, productNameFor, resolvePoracodeChannel } from "@/shared/channel";
+import { type AxeCodeChannel, productNameFor, resolveAxeCodeChannel } from "@/shared/channel";
 
 function jsonForScript(value: string): string {
   return JSON.stringify(value).replaceAll("<", "\\u003c");
@@ -24,7 +24,7 @@ function buildDarkPageShell(input: {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#070709" />
-  <title>${productNameFor(resolvePoracodeChannel())}</title>${input.headExtra ?? ""}
+  <title>${productNameFor(resolveAxeCodeChannel())}</title>${input.headExtra ?? ""}
   <style>
 ${input.css}
   </style>
@@ -109,8 +109,8 @@ export function buildLocalPairingPageHtml(input: { readonly httpBaseUrl: string 
     }`,
     body: `  <div class="app">
     <main>
-      <h1>${productNameFor(resolvePoracodeChannel())}</h1>
-      <p>The mobile web app bundle is not available from this desktop build. Rebuild ${productNameFor(resolvePoracodeChannel())} so <span class="inline-code">mobile.html</span> is included in the renderer output, then open the pairing link again.</p>
+      <h1>${productNameFor(resolveAxeCodeChannel())}</h1>
+      <p>The mobile web app bundle is not available from this desktop build. Rebuild ${productNameFor(resolveAxeCodeChannel())} so <span class="inline-code">mobile.html</span> is included in the renderer output, then open the pairing link again.</p>
       <p>Desktop endpoint</p>
       <code class="endpoint" id="endpoint"></code>
     </main>
@@ -170,11 +170,11 @@ export function buildForwardEnterErrorPageHtml(): string {
 // Pairing from a nightly desktop installs a nightly PWA: same identity rules as
 // the hosted build (scripts/finalize-mobile-build.mjs), so the two never look
 // alike on a home screen.
-function pairingIconBaseName(channel: PoracodeChannel): string {
+function pairingIconBaseName(channel: AxeCodeChannel): string {
   return channel === "nightly" ? "icon-nightly" : "icon";
 }
 
-function buildPairingManifest(channel: PoracodeChannel): string {
+function buildPairingManifest(channel: AxeCodeChannel): string {
   const icon = pairingIconBaseName(channel);
   const name = productNameFor(channel);
   return JSON.stringify({
@@ -207,12 +207,12 @@ function buildPairingManifest(channel: PoracodeChannel): string {
 }
 
 export function buildLocalPairingManifestJson(
-  channel: PoracodeChannel = resolvePoracodeChannel(),
+  channel: AxeCodeChannel = resolveAxeCodeChannel(),
 ): string {
   return buildPairingManifest(channel);
 }
 
-const LOCAL_PAIRING_SERVICE_WORKER_JS = `const CACHE_NAME = "poracode-remote-local-__PORACODE_LOCAL_BUILD_VERSION__";
+const LOCAL_PAIRING_SERVICE_WORKER_JS = `const CACHE_NAME = "axecode-remote-local-__AXECODE_LOCAL_BUILD_VERSION__";
 const LEGACY_CACHE_NAME = "lightcode-remote-local-v1";
 const NAVIGATION_FALLBACK_DELAY_MS = 500;
 const SHELL_URLS = ["/app", "/manifest.webmanifest", "/app-icon.svg"];
@@ -229,7 +229,7 @@ self.addEventListener("activate", (event) => {
       caches.keys().then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key.startsWith("poracode-remote-local-") && key !== CACHE_NAME)
+            .filter((key) => key.startsWith("axecode-remote-local-") && key !== CACHE_NAME)
             .map((key) => caches.delete(key)),
         ),
       ),
@@ -264,9 +264,9 @@ self.addEventListener("push", (event) => {
       if (windows.some((client) => client.visibilityState === "visible")) return;
       return self.registration.showNotification(payload.title, {
         body: payload.body,
-        icon: "__PORACODE_LOCAL_NOTIFICATION_ICON__",
-        badge: "__PORACODE_LOCAL_NOTIFICATION_ICON__",
-        tag: \`poracode-thread-\${payload.threadId}\`,
+        icon: "__AXECODE_LOCAL_NOTIFICATION_ICON__",
+        badge: "__AXECODE_LOCAL_NOTIFICATION_ICON__",
+        tag: \`axecode-thread-\${payload.threadId}\`,
         data: { url: payload.url },
       });
     }),
@@ -299,7 +299,7 @@ self.addEventListener("fetch", (event) => {
   const isPwaStaticRequest =
     url.pathname.startsWith("/assets/") ||
     url.pathname.startsWith("/icons/") ||
-    url.pathname.startsWith("/poracode-ssh-runtime/") ||
+    url.pathname.startsWith("/axecode-ssh-runtime/") ||
     url.pathname === "/manifest.webmanifest" ||
     url.pathname === "/app-icon.svg" ||
     url.pathname === "/notification.mp3";
@@ -365,14 +365,14 @@ self.addEventListener("fetch", (event) => {
 
 export function buildLocalPairingServiceWorkerJs(
   appVersion: string,
-  channel: PoracodeChannel = resolvePoracodeChannel(),
+  channel: AxeCodeChannel = resolveAxeCodeChannel(),
 ): string {
   const buildVersion = appVersion.replace(/[^a-zA-Z0-9._-]/g, "-");
   return LOCAL_PAIRING_SERVICE_WORKER_JS.replace(
-    "__PORACODE_LOCAL_BUILD_VERSION__",
+    "__AXECODE_LOCAL_BUILD_VERSION__",
     buildVersion,
   ).replaceAll(
-    "__PORACODE_LOCAL_NOTIFICATION_ICON__",
+    "__AXECODE_LOCAL_NOTIFICATION_ICON__",
     `/icons/${pairingIconBaseName(channel)}-192.png`,
   );
 }
@@ -389,14 +389,12 @@ const PAIRING_ICON_GLYPH = `  <g transform="translate(187 235) scale(3.3)" fill=
     <path d="M0.0463391 165.242L94.1125 0.500409C94.2762 0.213784 94.7089 0.423656 94.5886 0.731324L38.778 143.501C38.7144 143.663 38.8206 143.842 38.9929 143.863L83.2019 149.225C83.5024 149.262 83.517 149.695 83.2197 149.752L0.325476 165.638C0.102957 165.68 -0.066612 165.44 0.0463391 165.242Z"/>
   </g>`;
 
-const PAIRING_ICON_TILE: Record<
-  PoracodeChannel,
-  { readonly fill: string; readonly glyph: string }
-> = {
-  stable: { fill: "#060AE6", glyph: "#FFFFFF" },
-  // Matches branding/assets/axecode-icon-nightly's teal gradient tile.
-  nightly: { fill: "url(#nightlyTile)", glyph: "#0B1220" },
-};
+const PAIRING_ICON_TILE: Record<AxeCodeChannel, { readonly fill: string; readonly glyph: string }> =
+  {
+    stable: { fill: "#060AE6", glyph: "#FFFFFF" },
+    // Matches branding/assets/axecode-icon-nightly's teal gradient tile.
+    nightly: { fill: "url(#nightlyTile)", glyph: "#0B1220" },
+  };
 
 const NIGHTLY_TILE_DEFS = `  <defs>
     <linearGradient id="nightlyTile" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
@@ -407,7 +405,7 @@ const NIGHTLY_TILE_DEFS = `  <defs>
 `;
 
 export function buildLocalPairingIconSvg(
-  channel: PoracodeChannel = resolvePoracodeChannel(),
+  channel: AxeCodeChannel = resolveAxeCodeChannel(),
 ): string {
   const tile = PAIRING_ICON_TILE[channel];
   const defs = channel === "nightly" ? NIGHTLY_TILE_DEFS : "";

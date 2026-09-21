@@ -29,11 +29,11 @@ afterEach(async () => {
 });
 
 function makeRepo(): { dir: string; location: ProjectLocation } {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-checkpoints-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-checkpoints-"));
   tempDirs.push(dir);
   git(dir, "init");
   git(dir, "config", "user.email", "test@example.com");
-  git(dir, "config", "user.name", "Poracode Test");
+  git(dir, "config", "user.name", "AxeCode Test");
   git(dir, "config", "core.autocrlf", "false");
   writeFileSync(join(dir, "README.md"), "before\n");
   git(dir, "add", "README.md");
@@ -92,7 +92,7 @@ describe.skipIf(!hasGit())("GitCheckpointService", () => {
     expect(after.baseRef).toBe(before.ref);
     expect(after.changedFiles.map((file) => file.path).sort()).toEqual(["README.md", "new.txt"]);
     expect(git(dir, "log", "-1", "--format=%an <%ae>", before.ref).trim()).toBe(
-      "Poracode Test <test@example.com>",
+      "AxeCode Test <test@example.com>",
     );
 
     await service.restore({
@@ -139,7 +139,7 @@ describe.skipIf(!hasGit())("GitCheckpointService", () => {
       });
 
       expect(git(dir, "log", "-1", "--format=%an <%ae>", checkpoint.ref).trim()).toBe(
-        "Axe Code <checkpoints@poracode.local>",
+        "Axe Code <checkpoints@axecode.local>",
       );
       await expect(
         service.list({ threadId: "thread-1", projectLocation: location }),
@@ -171,7 +171,7 @@ describe.skipIf(!hasGit())("GitCheckpointService", () => {
       checkpointItemId: "user-1",
       projectLocation: location,
     });
-    const legacyRef = checkpoint.ref.replace("refs/poracode/", "refs/lightcode/");
+    const legacyRef = checkpoint.ref.replace("refs/axecode/", "refs/lightcode/");
     git(dir, "update-ref", legacyRef, checkpoint.commit);
     git(dir, "update-ref", "-d", checkpoint.ref);
 

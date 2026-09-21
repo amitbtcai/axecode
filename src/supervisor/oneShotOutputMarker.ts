@@ -4,7 +4,7 @@ import { quotePosixShellArg, type CommandSpec } from "./agents/base";
  * Sentinel echoed as the first thing our one-shot script runs, so login-shell
  * noise emitted *before* it can be discarded when the output is parsed.
  */
-export const ONE_SHOT_OUTPUT_MARKER = "__PORACODE_ONESHOT_OUTPUT__";
+export const ONE_SHOT_OUTPUT_MARKER = "__AXECODE_ONESHOT_OUTPUT__";
 
 /**
  * One-shot generation (titles, commit messages, PR summaries, context

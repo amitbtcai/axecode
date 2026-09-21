@@ -5,7 +5,7 @@ interface OpenCode2ModelRef {
 }
 
 /**
- * Split Poracode's composite model id (`providerID/model-id`) into V2's
+ * Split AxeCode's composite model id (`providerID/model-id`) into V2's
  * model ref, mapping `config.effort` onto the model's `variant` (V2's
  * reasoning-effort ladder, e.g. low/high/max).
  */

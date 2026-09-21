@@ -50,7 +50,7 @@ export function stashXtermInstance(terminalId: string, instance: CachedXtermInst
 
 export function createXtermScreen(): HTMLElement {
   const screen = document.createElement("div");
-  screen.dataset.poracodeXtermScreen = "";
+  screen.dataset.axecodeXtermScreen = "";
   screen.style.width = "100%";
   screen.style.height = "100%";
   return screen;

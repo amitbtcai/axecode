@@ -33,7 +33,7 @@ export const useAppStore = create<AppStoreState>()(
         ...createSubAgentOverlaySlice(...a),
       }),
       {
-        name: "poracode-app-v2",
+        name: "axecode-app-v2",
         version: 5,
         storage: createDbStorage(),
         migrate: (persistedState) => {

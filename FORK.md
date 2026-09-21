@@ -1,6 +1,6 @@
-# Axe Code — Fork of Porabuild/Poracode
+# Axe Code — Fork of Porabuild/AxeCode
 
-Forked from https://github.com/Porabuild/Poracode (Apache-2.0) @ v1.8.0.
+Forked from https://github.com/Porabuild/AxeCode (Apache-2.0) @ v1.8.0.
 Rebranded as **Axe Code**. Upstream stays synced via the `upstream` remote.
 
 ## Environment (REQUIRED — re-run if shell resets)
@@ -31,9 +31,9 @@ Baseline tag: `upstream-baseline`
 
 | Term        | Files | Notes                                   |
 | ----------- | ----- | --------------------------------------- |
-| `Poracode`  | 555   |                                         |
-| `poracode`  | 909   |                                         |
-| `PORACODE`  | 234   | env vars                                |
+| `AxeCode`   | 555   |                                         |
+| `axecode`   | 909   |                                         |
+| `AXECODE`   | 234   | env vars                                |
 | `Porabuild` | 18    | org / publish owner                     |
 | `Lightcode` | 38    | **LIVE MIGRATION CODE — DO NOT RENAME** |
 
@@ -44,14 +44,14 @@ By directory: `src` 972, `resources` 40, `scripts` 27, `native` 20, `website` 19
 ### `lightcode` is live, not dead
 
 - `src/renderer/state/dbStorage.ts:30` — `LEGACY_STORAGE_PREFIX = "lightcode"`, DB migration
-- `src/renderer/utils/imageActions.ts:5` — matches `poracode|lightcode-local://` image URLs
+- `src/renderer/utils/imageActions.ts:5` — matches `axecode|lightcode-local://` image URLs
 - `src/renderer/theme/themePresets.ts:384` — legacy theme id fallback
 
 Renaming these breaks user-data migration and local image loading. Preserve verbatim.
 
 ## Branding seam (why this fork can stay synced)
 
-Upstream already abstracted branding for their own Lightcode -> Poracode rename:
+Upstream already abstracted branding for their own Lightcode -> AxeCode rename:
 
 - `src/shared/channel.ts` — runtime brand values
 - `scripts/electron-builder.shared.cjs` — packaging mirror of the same
@@ -92,7 +92,7 @@ Edited only the branding seam, so upstream merges stay mechanical:
 - `package.json`: name `axecode`, homepage `axeai.com/code`, author `AxeAI`
 - `branding/contact.json`: support contact (now `https://x.com/AxeAI_com`)
 - Tests updated to the new literals: `RemoteAccessServer` (PWA manifest name),
-  `probeCwd`, `poracodePaths`, `poracodeData.migrate`
+  `probeCwd`, `axecodePaths`, `axecodeData.migrate`
 
 Verified: typecheck, lint, 10945 tests, unsigned mac DMG arm64+x64,
 bundle `com.axecode.app`, `app-update.yml` -> `amitbtcai/axecode`,
@@ -102,7 +102,7 @@ bundle `com.axecode.app`, `app-update.yml` -> `amitbtcai/axecode`,
 
 electron-builder derives it from the **staged package.json `name`**, which
 `build-desktop-artifact.mjs:177` copies from root `package.json`. Renaming only
-`productNameFor()` left it as `poracode-updater`; root `name: axecode` fixed it.
+`productNameFor()` left it as `axecode-updater`; root `name: axecode` fixed it.
 
 ### Gotcha: macExecutableNameFor
 
@@ -182,7 +182,7 @@ links minted by packaged builds pointed at upstream's hosted PWA.
   trusted CORS origins). Both constants live in `src/main/remote/config.ts` so
   the headless server (`createHeadlessRemoteHost`) applies the same defaults —
   upstream only wired them for the desktop, which left headless servers
-  CORS-rejecting the hosted PWA unless `PORACODE_REMOTE_ACCESS_PAIRING_APP_URL`
+  CORS-rejecting the hosted PWA unless `AXECODE_REMOTE_ACCESS_PAIRING_APP_URL`
   was set by hand.
 - `security.ts` answers Private Network Access preflights
   (`Access-Control-Allow-Private-Network`) for trusted origins — required by
@@ -197,25 +197,25 @@ links minted by packaged builds pointed at upstream's hosted PWA.
   `capacitor.config.json`, `project.pbxproj` (`...mobile.activities` for the
   Live Activity extension), Android `applicationId`/`namespace`, `strings.xml`,
   AASA/assetlinks default in `finalize-mobile-build.mjs` and the website AASA
-  route. Java package moved `com.poracode.app` → `com.axecode.mobile`;
-  `ic_stat_poracode` → `ic_stat_axecode`.
+  route. Java package moved `com.axecode.app` → `com.axecode.mobile`;
+  `ic_stat_axecode` → `ic_stat_axecode`.
 - Universal-link host: `code.axeai.com` in `configure-mobile-native.mjs`
   (`DEFAULT_MOBILE_APP_HOST`), iOS `applinks:`/`webcredentials:` entitlements,
   and Android intent filters.
-- AASA `appIDs` stay empty until `PORACODE_MOBILE_APPLE_TEAM_ID` is set at
+- AASA `appIDs` stay empty until `AXECODE_MOBILE_APPLE_TEAM_ID` is set at
   build time — PWA pairing works regardless.
-- **Left as-is on purpose:** `PoracodeActivities` target/dir names, `@poracode/*`
-  package scope, `PORACODE_*` env vars, `lc_pair_` token prefix,
-  `/.well-known/{poracode,lightcode}/environment` probe paths,
-  `x-poracode-command-id`, `__poracode*` wire fields, `lightcode-mobile`
-  IndexedDB, `poracode-remote-local-*` SW caches, `poracode-local://` — all are
+- **Left as-is on purpose:** `AxeCodeActivities` target/dir names, `@axecode/*`
+  package scope, `AXECODE_*` env vars, `lc_pair_` token prefix,
+  `/.well-known/{axecode,lightcode}/environment` probe paths,
+  `x-axecode-command-id`, `__axecode*` wire fields, `lightcode-mobile`
+  IndexedDB, `axecode-remote-local-*` SW caches, `axecode-local://` — all are
   wire tokens or persisted identity; renaming breaks interop or orphans state.
 - Docs updated: `docs/MOBILE_DEV.md`, `docs/RELEASE_MOBILE.md`.
 
 ## GitHub
 
 - **https://github.com/amitbtcai/axecode** (public, `master`)
-- `origin` -> fork, `upstream` -> Porabuild/Poracode
+- `origin` -> fork, `upstream` -> Porabuild/AxeCode
 - Baseline tag `upstream-baseline` pushed for diffing against upstream
 
 ## Syncing with upstream
@@ -270,7 +270,7 @@ renderer files rebranded:
 
 Catalog conflicts are ~8 lines: upstream superseded the string, so theirs wins.
 Source conflicts look like upstream rewriting a `<Trans>` block — take their
-structure, swap "Poracode" back to "Axe Code".
+structure, swap "AxeCode" back to "Axe Code".
 
 ### THE CATALOG RULE (most important thing here)
 
@@ -306,7 +306,7 @@ Specific things upstream changes that can bite:
 - **`channel.config-parity.test.ts`** — fails if `src/shared/channel.ts` and
   `scripts/electron-builder.shared.cjs` drift apart
 - **New user-facing strings** — upstream adds them constantly; they say
-  "Poracode" and need the same treatment
+  "AxeCode" and need the same treatment
 - **`.lightcode` / `lightcode-local://`** — if a merge removes or renames these,
   that is upstream dropping legacy migration; confirm before accepting
 
@@ -318,7 +318,7 @@ binaries. To keep merges cheap:
 
 - Prefer editing the seam (`channel.ts`, `electron-builder.shared.cjs`) over
   touching upstream files
-- Never rename identifiers for cosmetics (`poracode-local://`, `.poracode`
+- Never rename identifiers for cosmetics (`axecode-local://`, `.axecode`
   paths, MCP client names) — zero user benefit, real breakage risk
 - If you must touch an upstream file, keep the diff to the specific lines
 

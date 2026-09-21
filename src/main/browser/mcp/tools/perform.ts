@@ -51,10 +51,10 @@ export function readPerformSteps(
   });
   for (const step of steps) {
     if (disabledTools.includes(step.action as string))
-      throw new Error(`Tool disabled by Poracode: ${step.action}`);
+      throw new Error(`Tool disabled by AxeCode: ${step.action}`);
   }
   if (payload.observe !== "none" && disabledTools.includes("snapshot"))
-    throw new Error("Tool disabled by Poracode: snapshot; use observe:none");
+    throw new Error("Tool disabled by AxeCode: snapshot; use observe:none");
   return steps;
 }
 

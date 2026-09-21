@@ -1,6 +1,6 @@
 import { app } from "electron";
-import type { PoracodeChannel } from "@/shared/channel";
-import type { PoracodeDiagnosticTags, SentryEventLike } from "@/shared/diagnostics/sentryPrivacy";
+import type { AxeCodeChannel } from "@/shared/channel";
+import type { AxeCodeDiagnosticTags, SentryEventLike } from "@/shared/diagnostics/sentryPrivacy";
 import {
   readBuildSentryDsn,
   readBuildSentryEnvironment,
@@ -25,7 +25,7 @@ let mainSentry: MainSentryModule | null | undefined;
 export type MainSentryOptions = {
   appVersion: string;
   isDev: boolean;
-  channel: PoracodeChannel;
+  channel: AxeCodeChannel;
 };
 
 function loadMainSentry(): MainSentryModule | null {
@@ -38,7 +38,7 @@ function loadMainSentry(): MainSentryModule | null {
   } catch (error) {
     mainSentry = null;
     console.warn(
-      "[poracode] Sentry main process integration unavailable:",
+      "[axecode] Sentry main process integration unavailable:",
       error instanceof Error ? error.message : String(error),
     );
   }
@@ -63,16 +63,16 @@ function shouldEnableSentry(options: MainSentryOptions): boolean {
   return shouldEnableSentryReporting(readSentryDsn(), options.isDev);
 }
 
-function buildBaseTags(options: MainSentryOptions): PoracodeDiagnosticTags {
+function buildBaseTags(options: MainSentryOptions): AxeCodeDiagnosticTags {
   return {
-    "poracode.app_version": options.appVersion,
-    "poracode.arch": process.arch,
-    "poracode.channel": options.channel,
-    "poracode.chrome": process.versions.chrome ?? "unknown",
-    "poracode.electron": process.versions.electron ?? "unknown",
-    "poracode.node": process.versions.node,
-    "poracode.platform": process.platform,
-    "poracode.process": "main",
+    "axecode.app_version": options.appVersion,
+    "axecode.arch": process.arch,
+    "axecode.channel": options.channel,
+    "axecode.chrome": process.versions.chrome ?? "unknown",
+    "axecode.electron": process.versions.electron ?? "unknown",
+    "axecode.node": process.versions.node,
+    "axecode.platform": process.platform,
+    "axecode.process": "main",
   };
 }
 
@@ -93,7 +93,7 @@ export function initializeMainSentry(options: MainSentryOptions): boolean {
 
   Sentry.init({
     dsn,
-    release: `poracode@${options.appVersion}`,
+    release: `axecode@${options.appVersion}`,
     environment: readSentryEnvironment(options),
     sendDefaultPii: false,
     enableLogs: false,
@@ -121,7 +121,7 @@ export function initializeMainSentry(options: MainSentryOptions): boolean {
     },
   });
 
-  Sentry.setContext("poracode", {
+  Sentry.setContext("axecode", {
     appVersion: options.appVersion,
     channel: options.channel,
     packaged: app.isPackaged,
@@ -133,7 +133,7 @@ export function initializeMainSentry(options: MainSentryOptions): boolean {
 
 export function captureMainException(
   error: unknown,
-  tags?: PoracodeDiagnosticTags,
+  tags?: AxeCodeDiagnosticTags,
   fingerprint?: string[],
 ): void {
   const Sentry = loadMainSentry();

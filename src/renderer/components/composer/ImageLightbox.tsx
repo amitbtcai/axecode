@@ -14,7 +14,7 @@ import { ImageLightboxActions } from "./ImageLightboxActions";
 
 /** A pre-resolved image for the lightbox: a renderable URL plus an accessible label. */
 export interface LightboxImage {
-  /** Renderable image URL — a `data:`, `poracode-local://`, or remote URL. */
+  /** Renderable image URL — a `data:`, `axecode-local://`, or remote URL. */
   src: string;
   /** Accessible label / alt text. */
   alt?: string;
@@ -102,7 +102,7 @@ export const ImageLightboxHost = memo(function ImageLightboxHost() {
 
 /**
  * Source-agnostic fullscreen image viewer. Accepts already-resolved image URLs
- * (`data:`, `poracode-local://`, remote) so it can be reused for chat-generated
+ * (`data:`, `axecode-local://`, remote) so it can be reused for chat-generated
  * images as well as composer attachments. Supports keyboard nav and prev/next
  * chrome for multi-image galleries; a single image renders without that chrome.
  */
@@ -208,13 +208,13 @@ export function ImageLightboxView(props: {
 
   return createPortal(
     <div // eslint-disable-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- backdrop click-to-dismiss is mouse-only by design; Escape (handled via the useEffect above) is the keyboard equivalent
-      className="poracode-image-lightbox"
+      className="axecode-image-lightbox"
       onClick={(event) => {
         const target = event.target;
         if (
           target === event.currentTarget ||
           (target instanceof HTMLElement &&
-            target.classList.contains("poracode-image-lightbox__stage"))
+            target.classList.contains("axecode-image-lightbox__stage"))
         ) {
           onClose();
         }
@@ -225,7 +225,7 @@ export function ImageLightboxView(props: {
     >
       <button
         type="button"
-        className="poracode-image-lightbox__close"
+        className="axecode-image-lightbox__close"
         aria-label={t`Close preview`}
         onClick={onClose}
       >
@@ -235,7 +235,7 @@ export function ImageLightboxView(props: {
       {images.length > 1 ? (
         <button
           type="button"
-          className="poracode-image-lightbox__nav poracode-image-lightbox__nav--prev"
+          className="axecode-image-lightbox__nav axecode-image-lightbox__nav--prev"
           aria-label={t`Previous image`}
           onClick={(e) => {
             e.stopPropagation();
@@ -246,11 +246,11 @@ export function ImageLightboxView(props: {
         </button>
       ) : null}
 
-      <div ref={stageRef} className="poracode-image-lightbox__stage">
+      <div ref={stageRef} className="axecode-image-lightbox__stage">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- the image supports pointer-drag panning; keyboard image navigation remains on the dialog */}
         <img
           ref={imageRef}
-          className={`poracode-image-lightbox__image${scale > MIN_SCALE ? " poracode-image-lightbox__image--zoomed" : ""}`}
+          className={`axecode-image-lightbox__image${scale > MIN_SCALE ? " axecode-image-lightbox__image--zoomed" : ""}`}
           src={current.src}
           alt={current.alt ?? ""}
           style={{
@@ -269,7 +269,7 @@ export function ImageLightboxView(props: {
       {images.length > 1 ? (
         <button
           type="button"
-          className="poracode-image-lightbox__nav poracode-image-lightbox__nav--next"
+          className="axecode-image-lightbox__nav axecode-image-lightbox__nav--next"
           aria-label={t`Next image`}
           onClick={(e) => {
             e.stopPropagation();
@@ -280,11 +280,11 @@ export function ImageLightboxView(props: {
         </button>
       ) : null}
 
-      <div className="poracode-image-lightbox__footer">
-        <div className="poracode-image-lightbox__zoom">
+      <div className="axecode-image-lightbox__footer">
+        <div className="axecode-image-lightbox__zoom">
           <button
             type="button"
-            className="poracode-image-lightbox__zoom-button"
+            className="axecode-image-lightbox__zoom-button"
             aria-label={t`Zoom out`}
             disabled={scale <= MIN_SCALE}
             onClick={(event) => {
@@ -294,12 +294,12 @@ export function ImageLightboxView(props: {
           >
             <ZoomOut className="size-4" />
           </button>
-          <span className="poracode-image-lightbox__zoom-value" aria-live="polite">
+          <span className="axecode-image-lightbox__zoom-value" aria-live="polite">
             {Math.round(scale * 100)}%
           </span>
           <button
             type="button"
-            className="poracode-image-lightbox__zoom-button"
+            className="axecode-image-lightbox__zoom-button"
             aria-label={t`Zoom in`}
             disabled={scale >= MAX_SCALE}
             onClick={(event) => {
@@ -312,7 +312,7 @@ export function ImageLightboxView(props: {
           <ImageLightboxActions image={current} />
         </div>
         {images.length > 1 ? (
-          <span className="poracode-image-lightbox__counter">
+          <span className="axecode-image-lightbox__counter">
             {index + 1} / {images.length}
           </span>
         ) : null}

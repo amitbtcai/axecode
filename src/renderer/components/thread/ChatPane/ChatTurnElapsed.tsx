@@ -40,8 +40,8 @@ export function ChatWorktreeProvisioningFooter() {
         <div className="inline-flex items-center gap-1.5 text-[length:var(--lc-chat-font-size-meta)] text-foreground-muted">
           <span
             ref={textRef}
-            className="poracode-thinking-text"
-            data-poracode-shimmer-text={text}
+            className="axecode-thinking-text"
+            data-axecode-shimmer-text={text}
             aria-live="polite"
           >
             {text}
@@ -64,8 +64,8 @@ export function ChatConnectingFooter() {
         <div className="inline-flex items-center gap-1.5 text-[length:var(--lc-chat-font-size-meta)] text-foreground-muted">
           <span
             ref={textRef}
-            className="poracode-thinking-text"
-            data-poracode-shimmer-text={text}
+            className="axecode-thinking-text"
+            data-axecode-shimmer-text={text}
             aria-live="polite"
           >
             {text}
@@ -135,7 +135,7 @@ function LiveWorkingFor({ startedAt, isPaused }: { startedAt: number; isPaused: 
       const elapsed = formatElapsed(elapsedSeconds);
       const text = elapsedSeconds < 1 ? "" : t`Working for ${elapsed}`;
       node.textContent = text;
-      node.dataset.poracodeShimmerText = text;
+      node.dataset.axecodeShimmerText = text;
     };
 
     if (isPaused) {
@@ -160,6 +160,6 @@ function LiveWorkingFor({ startedAt, isPaused }: { startedAt: number; isPaused: 
 
   const isThinking = !isPaused;
   useShimmerRef(textRef, isThinking);
-  const className = isThinking ? "poracode-thinking-text" : "text-muted";
+  const className = isThinking ? "axecode-thinking-text" : "text-muted";
   return <span ref={textRef} className={className} aria-live="polite" />;
 }

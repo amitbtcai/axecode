@@ -174,7 +174,7 @@ describe("mcpToolFilterProxy", () => {
 
     expect(result.isError).toBe(true);
     expect(result.content).toEqual([
-      { type: "text", text: "Tool disabled by Poracode: secret-beta" },
+      { type: "text", text: "Tool disabled by AxeCode: secret-beta" },
     ]);
     expect(upstream.calls.some((call) => call.name === "secret-beta")).toBe(false);
   });

@@ -59,7 +59,7 @@ export function createUpstreamTransport(server: Pick<McpServer, "transport">): T
 export async function startFilterProxy(options: FilterProxyOptions): Promise<FilterProxy> {
   const { serverName, upstreamTransport, downstreamTransport } = options;
   const disabled = new Set(options.disabledTools);
-  const client = new Client({ name: "poracode-mcp-filter", version: "1.0.0" });
+  const client = new Client({ name: "axecode-mcp-filter", version: "1.0.0" });
   // Protocol.connect() chains a pre-existing transport.onclose, so install
   // this before connect: when the upstream server goes away the proxy closes
   // its downstream transport instead of leaving the agent CLI hanging.
@@ -92,7 +92,7 @@ export async function startFilterProxy(options: FilterProxyOptions): Promise<Fil
     if (disabled.has(name)) {
       return {
         isError: true,
-        content: [{ type: "text", text: `Tool disabled by Poracode: ${name}` }],
+        content: [{ type: "text", text: `Tool disabled by AxeCode: ${name}` }],
       };
     }
     return await client.callTool(request.params, {

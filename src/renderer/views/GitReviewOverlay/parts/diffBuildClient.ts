@@ -102,8 +102,8 @@ export function buildInWorker(
   // synchronous builder there. Electron retains the worker path.
   if (
     typeof Worker === "undefined" ||
-    import.meta.env.VITE_PORACODE_BUILD_TARGET === "mobile" ||
-    window.poracode?.appVersion === "remote"
+    import.meta.env.VITE_AXECODE_BUILD_TARGET === "mobile" ||
+    window.axecode?.appVersion === "remote"
   ) {
     return Promise.resolve(buildOnMainThread(items, resolvedTheme));
   }

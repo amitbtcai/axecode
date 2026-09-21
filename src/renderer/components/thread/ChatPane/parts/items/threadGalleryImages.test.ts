@@ -50,7 +50,7 @@ describe("threadGalleryImages", () => {
     expect(gallery.length).toBe(2);
     expect(gallery[0]!.alt).toBe("b.jpg");
     expect(gallery[1]!.alt).toBe("a.png");
-    expect(gallery[0]!.src).toContain("poracode-local://");
+    expect(gallery[0]!.src).toContain("axecode-local://");
   });
 
   it("collects later thread items before earlier items", () => {
@@ -159,7 +159,7 @@ describe("threadGalleryImages", () => {
         status: "success",
         result: {
           image: {
-            __poracodeImageRef: {
+            __axecodeImageRef: {
               threadId: "t",
               itemId: "t1",
               path: ["result", "image"],
@@ -196,7 +196,7 @@ describe("threadGalleryImages", () => {
       projectRoot: "/proj",
     });
     expect(out.length).toBe(1);
-    expect(out[0]!.src).toContain("poracode-local://");
+    expect(out[0]!.src).toContain("axecode-local://");
   });
 
   it("does not hide remote image resolver failures", () => {
@@ -306,7 +306,7 @@ describe("threadGalleryImages", () => {
   it("resolves absolute HTML img paths but not root-relative ones (renderer parity)", () => {
     const absolute = extractMarkdownGalleryImages('<img src="/tmp/a.png" alt="a">', {});
     expect(absolute.length).toBe(1);
-    expect(absolute[0]!.src).toContain("poracode-local://");
+    expect(absolute[0]!.src).toContain("axecode-local://");
     expect(extractMarkdownGalleryImages('<img src="images/a.png" alt="a">', {}).length).toBe(0);
   });
 

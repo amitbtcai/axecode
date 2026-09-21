@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import { resolvePoracodePaths } from "@/shared/poracodePaths";
+import { resolveAxeCodePaths } from "@/shared/axecodePaths";
 import { FAST_MODE_CACHE_FILENAME } from "./fastModeCacheCore";
 
 /**
@@ -11,13 +11,10 @@ import { FAST_MODE_CACHE_FILENAME } from "./fastModeCacheCore";
  * `refreshAgentStatuses` clears it to re-check.
  *
  * Honors the injected data dir (matching the rest of the supervisor) so dev runs
- * (`~/.poracode-dev`) and prod don't read/write each other's cache.
+ * (`~/.axecode-dev`) and prod don't read/write each other's cache.
  */
 export function resolveFastModeCachePath(): string {
-  return join(
-    resolvePoracodePaths(process.env.PORACODE_DATA_DIR).cacheDir,
-    FAST_MODE_CACHE_FILENAME,
-  );
+  return join(resolveAxeCodePaths(process.env.AXECODE_DATA_DIR).cacheDir, FAST_MODE_CACHE_FILENAME);
 }
 
 /** Cleared on explicit refresh so an org enabling/disabling fast is picked up. */

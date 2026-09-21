@@ -55,13 +55,13 @@ describe("MuseMspClient", () => {
   it("handshakes with initialize then the bare initialized notification", async () => {
     const transport = new FakeTransport();
     const client = new MuseMspClient(transport, 1_000);
-    const pending = client.initialize("poracode_probe", "1.0.0");
+    const pending = client.initialize("axecode_probe", "1.0.0");
     expect(transport.written).toEqual([
       {
         jsonrpc: "2.0",
         id: 1,
         method: "initialize",
-        params: { clientInfo: { name: "poracode_probe", version: "1.0.0" } },
+        params: { clientInfo: { name: "axecode_probe", version: "1.0.0" } },
       },
     ]);
     transport.deliver({

@@ -629,7 +629,7 @@ describe("dynamic Command Code effort discovery", () => {
   it("parses supported efforts and models without adjustable effort", () => {
     expect(
       parseCommandCodeModelEfforts(
-        'Unknown effort "__poracode_capability_probe__". Supported: low, medium, xhigh.',
+        'Unknown effort "__axecode_capability_probe__". Supported: low, medium, xhigh.',
       ),
     ).toEqual(["low", "medium", "xhigh"]);
     expect(parseCommandCodeModelEfforts("Kimi K3 has no adjustable reasoning effort.")).toEqual([]);
@@ -789,17 +789,17 @@ describe("sanitizeCommandCodeCwd", () => {
   // the raw path is sanitized — deterministic, and matching the verified
   // on-disk layout produced by @sindresorhus/slugify.
   it("maps a project cwd to command-code's projects/<dir> name", () => {
-    expect(sanitizeCommandCodeCwd("/Users/test-fixture-xyz/work/poracode")).toBe(
-      "users-test-fixture-xyz-work-poracode",
+    expect(sanitizeCommandCodeCwd("/Users/test-fixture-xyz/work/axecode")).toBe(
+      "users-test-fixture-xyz-work-axecode",
     );
   });
 
   it("lowercases and collapses dots and slashes (worktree + temp paths)", () => {
     expect(
       sanitizeCommandCodeCwd(
-        "/Users/test-fixture-xyz/.poracode/worktrees/lc-bbea/lc-golden-pixel-8f39b4b5",
+        "/Users/test-fixture-xyz/.axecode/worktrees/lc-bbea/lc-golden-pixel-8f39b4b5",
       ),
-    ).toBe("users-test-fixture-xyz-poracode-worktrees-lc-bbea-lc-golden-pixel-8f39b4b5");
+    ).toBe("users-test-fixture-xyz-axecode-worktrees-lc-bbea-lc-golden-pixel-8f39b4b5");
     expect(sanitizeCommandCodeCwd("/private/var/T/cc-dbg-ca.ppww")).toBe(
       "private-var-t-cc-dbg-ca-ppww",
     );

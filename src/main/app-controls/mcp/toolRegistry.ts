@@ -47,7 +47,7 @@ if (!APP_CONTROLS_CORE_SKILL || !TERMINAL_CORE_SKILL) {
 }
 
 export const APP_CONTROLS_MCP_INSTRUCTIONS =
-  "Poracode app controls. " +
+  "AxeCode app controls. " +
   `For threads, git, pull requests, and schedules, ${loadPluginCoreSkillPhrase(APP_CONTROLS_CORE_SKILL)}. ` +
   `When reading the Terminal panel, ${loadPluginCoreSkillPhrase(TERMINAL_CORE_SKILL)}. ` +
   "Read and control the running app: device schedules " +
@@ -76,7 +76,7 @@ export const APP_CONTROLS_MCP_INSTRUCTIONS =
   "confirmation for destructive actions and pull-request merges. update_settings changes apply " +
   "immediately app-wide. " +
   "Secrets are never exposed: get_settings redacts profile credentials and update_settings " +
-  "refuses to touch them. Schedules run only while the device is awake and Poracode is open. " +
+  "refuses to touch them. Schedules run only while the device is awake and AxeCode is open. " +
   "You cannot stop, interrupt, or wait on your own thread. Treat @Terminal, or its localized " +
   "equivalent inserted by the composer, as a request to inspect the integrated Terminal panel " +
   "the user opened for the caller's current worktree. It does not mean the agent's own TUI, an " +

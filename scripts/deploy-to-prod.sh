@@ -246,7 +246,7 @@ NEW_APP="$(find "$MOUNT" -maxdepth 1 -name '*.app' | head -1)"
 [ -n "$NEW_APP" ] || { hdiutil detach "$MOUNT" -quiet; die "no .app in DMG"; }
 info "found bundle: $(basename "$NEW_APP")"
 
-# Only ever touch the app being installed — a running Poracode instance is a
+# Only ever touch the app being installed — a running AxeCode instance is a
 # separate bundle and is left alone.
 if [ -e "$APP_PATH" ]; then
   info "will replace: $APP_PATH"

@@ -1,5 +1,5 @@
-import type { PoracodeChannel } from "@/shared/channel";
-import type { PoracodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
+import type { AxeCodeChannel } from "@/shared/channel";
+import type { AxeCodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
 
 export type UpdateOperation = "check" | "download";
 
@@ -81,7 +81,7 @@ function isManifest404(error: unknown, operation: UpdateOperation): boolean {
 export function classifyUpdateFailure(
   error: unknown,
   operation: UpdateOperation,
-  channel: PoracodeChannel,
+  channel: AxeCodeChannel,
 ): ClassifiedUpdateFailure {
   const code = errorCode(error);
   const message = errorMessage(error);
@@ -129,15 +129,15 @@ function normalizePlatform(platform: NodeJS.Platform): string {
 }
 
 export function buildUpdateDiagnosticTags(
-  channel: PoracodeChannel,
+  channel: AxeCodeChannel,
   operation: UpdateOperation,
   outcome: UpdateFailureKind,
   platform: NodeJS.Platform = process.platform,
-): PoracodeDiagnosticTags {
+): AxeCodeDiagnosticTags {
   return {
-    "poracode.feature_area": "updates",
-    "poracode.channel": channel,
-    "poracode.platform": normalizePlatform(platform),
+    "axecode.feature_area": "updates",
+    "axecode.channel": channel,
+    "axecode.platform": normalizePlatform(platform),
     "event.origin": `updater.${operation}.${outcome}`,
   };
 }

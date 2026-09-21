@@ -13,7 +13,7 @@ type PlainTextNode =
 // Consume the entire explicit path link before ordinary URL/path detection.
 // This keeps the lazy renderer's fallback from exposing internal hrefs or
 // splitting filenames with spaces into unrelated path chips.
-const MARKDOWN_PATH_LINK_SOURCE = String.raw`\[(?:\\.|[^\]\\\r\n])*\]\((https://poracode\.local/(?:path|folder)/[^\s)]+)\)`;
+const MARKDOWN_PATH_LINK_SOURCE = String.raw`\[(?:\\.|[^\]\\\r\n])*\]\((https://axecode\.local/(?:path|folder)/[^\s)]+)\)`;
 
 export function tokenizePlainText(
   text: string,

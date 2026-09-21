@@ -36,10 +36,10 @@ describe("StructuredFailureReporter", () => {
         name: "StructuredRuntimeDiagnosticError",
       }),
       {
-        "poracode.feature_area": "structured-runtime-turn",
-        "poracode.presentation": "gui",
-        "poracode.provider": "codex",
-        "poracode.runtime_kind": "structured",
+        "axecode.feature_area": "structured-runtime-turn",
+        "axecode.presentation": "gui",
+        "axecode.provider": "codex",
+        "axecode.runtime_kind": "structured",
       },
     );
 
@@ -60,7 +60,7 @@ describe("StructuredFailureReporter", () => {
         name: "StructuredRuntimeDiagnosticError",
       }),
       expect.objectContaining({
-        "poracode.feature_area": "structured-runtime-transport",
+        "axecode.feature_area": "structured-runtime-transport",
       }),
     );
   });

@@ -23,7 +23,7 @@ export function resolveComputerUseHelperBinaryPath(
   platform: NodeJS.Platform = process.platform,
   arch: string = process.arch,
 ): string | null {
-  const override = process.env.PORACODE_COMPUTER_USE_HELPER_PATH?.trim();
+  const override = process.env.AXECODE_COMPUTER_USE_HELPER_PATH?.trim();
   if (override) return isAbsolute(override) && isFile(override) ? override : null;
 
   const directory = platformDirectory(platform, arch);
@@ -39,7 +39,7 @@ export function resolveComputerUseHelperBinaryPath(
   const binary = join(
     helperRootDir,
     directory,
-    platform === "win32" ? "poracode-computer-use.exe" : "poracode-computer-use",
+    platform === "win32" ? "axecode-computer-use.exe" : "axecode-computer-use",
   );
   return isFile(binary) ? binary : null;
 }

@@ -4,17 +4,19 @@ import { pluginDiagnostic, type PluginDiagnostic } from "./diagnostics";
 import type { AgentPluginManifest } from "./manifest";
 
 /**
- * Poracode's client extension namespace.
+ * AxeCode's client extension namespace.
  *
  * The specification defines exactly two component types — skills and `mcp.json`
  * servers — and reserves `extensions` with reverse-domain keys for anything a
- * client needs on top. Poracode keeps that surface deliberately small: display
+ * client needs on top. AxeCode keeps that surface deliberately small: display
  * metadata and host/project support, nothing that duplicates a component type.
  *
  * @see https://agent-plugins.org/specification
  */
 
-export const PORACODE_EXTENSION_NAMESPACE = "com.poracode.client";
+export const AXECODE_EXTENSION_NAMESPACE = "com.axecode.client";
+/** Poracode-era plugin manifests declare their extras under the old namespace. */
+export const LEGACY_AXECODE_EXTENSION_NAMESPACE = "com.poracode.client";
 
 export const pluginCategorySchema = z.enum([
   "automation",
@@ -43,7 +45,7 @@ export const pluginSkillPolicySchema = z
   .strict();
 export type PluginSkillPolicyEntry = z.infer<typeof pluginSkillPolicySchema>;
 
-export const poracodePluginExtensionSchema = z
+export const axecodePluginExtensionSchema = z
   .object({
     /** Display title. The spec's `name` is an identifier, not a label. */
     title: z.string().min(1).optional(),
@@ -80,15 +82,15 @@ export const poracodePluginExtensionSchema = z
     nativePluginNames: z.array(z.string().min(1)).default([]),
     /** Core skill folder inside the provider-native replacement package. */
     nativeCoreSkill: z.string().min(1).optional(),
-    /** Poracode-owned MCP servers supplied as part of this plugin bundle. */
+    /** AxeCode-owned MCP servers supplied as part of this plugin bundle. */
     builtInMcpServerIds: z.array(z.enum(BUILT_IN_MCP_SERVER_IDS)).default([]),
     /** Keyed by skill folder name under `skills/`. */
     skills: z.record(z.string().min(1), pluginSkillPolicySchema).default({}),
   })
   .strict();
-export type PoracodePluginExtension = z.infer<typeof poracodePluginExtensionSchema>;
+export type AxeCodePluginExtension = z.infer<typeof axecodePluginExtensionSchema>;
 
-export const EMPTY_PORACODE_EXTENSION: PoracodePluginExtension = {
+export const EMPTY_AXECODE_EXTENSION: AxeCodePluginExtension = {
   category: "developer-tools",
   featured: false,
   communityMaintained: false,
@@ -99,32 +101,34 @@ export const EMPTY_PORACODE_EXTENSION: PoracodePluginExtension = {
   skills: {},
 };
 
-export interface ParsedPoracodeExtension {
-  extension: PoracodePluginExtension;
+export interface ParsedAxeCodeExtension {
+  extension: AxeCodePluginExtension;
   diagnostics: PluginDiagnostic[];
 }
 
 /**
- * Reads Poracode's namespace out of a validated manifest.
+ * Reads AxeCode's namespace out of a validated manifest.
  *
- * A malformed block degrades to "no Poracode extras" with a warning; it never
+ * A malformed block degrades to "no AxeCode extras" with a warning; it never
  * rejects the plugin, because the spec-defined components are still valid.
  */
-export function parsePoracodeExtension(manifest: AgentPluginManifest): ParsedPoracodeExtension {
-  const raw = manifest.extensions?.[PORACODE_EXTENSION_NAMESPACE];
-  if (raw === undefined) return { extension: EMPTY_PORACODE_EXTENSION, diagnostics: [] };
+export function parseAxeCodeExtension(manifest: AgentPluginManifest): ParsedAxeCodeExtension {
+  const raw =
+    manifest.extensions?.[AXECODE_EXTENSION_NAMESPACE] ??
+    manifest.extensions?.[LEGACY_AXECODE_EXTENSION_NAMESPACE];
+  if (raw === undefined) return { extension: EMPTY_AXECODE_EXTENSION, diagnostics: [] };
 
-  const parsed = poracodePluginExtensionSchema.safeParse(raw);
+  const parsed = axecodePluginExtensionSchema.safeParse(raw);
   if (!parsed.success) {
     return {
-      extension: EMPTY_PORACODE_EXTENSION,
+      extension: EMPTY_AXECODE_EXTENSION,
       diagnostics: [
         pluginDiagnostic(
           "warning",
           "plugin",
           "extension-invalid",
-          `Ignoring '${PORACODE_EXTENSION_NAMESPACE}' extension: ${parsed.error.issues[0]?.message ?? "invalid"}`,
-          PORACODE_EXTENSION_NAMESPACE,
+          `Ignoring '${AXECODE_EXTENSION_NAMESPACE}' extension: ${parsed.error.issues[0]?.message ?? "invalid"}`,
+          AXECODE_EXTENSION_NAMESPACE,
         ),
       ],
     };

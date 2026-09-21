@@ -125,8 +125,8 @@ function makeAgentStatus(overrides: Partial<AgentStatus> = {}): AgentStatus {
 
 const draftProject: Project = {
   id: "project-1",
-  name: "Poracode",
-  location: { kind: "posix", path: "/tmp/poracode" },
+  name: "AxeCode",
+  location: { kind: "posix", path: "/tmp/axecode" },
   createdAt: new Date().toISOString(),
 };
 
@@ -137,7 +137,7 @@ async function renderThread(thread: Thread, agentStatus: AgentStatus) {
         <ThreadView
           thread={thread}
           agentStatus={agentStatus}
-          projectLocation={{ kind: "posix", path: "/tmp/poracode" }}
+          projectLocation={{ kind: "posix", path: "/tmp/axecode" }}
         />
       </AppProvider>,
     );
@@ -363,7 +363,7 @@ describe("ThreadSlashCommands", () => {
     expect(screen.getByText("/help")).toBeInTheDocument();
   });
 
-  it("shows Poracode Codex server commands instead of CLI commands in GUI chat composer", async () => {
+  it("shows AxeCode Codex server commands instead of CLI commands in GUI chat composer", async () => {
     const baseCapabilities = makeAgentStatus().capabilities;
     await renderThread(
       makeThread({
@@ -400,7 +400,7 @@ describe("ThreadSlashCommands", () => {
     expect(screen.queryByText("/status")).not.toBeInTheDocument();
   });
 
-  it("shows Poracode Codex server commands instead of CLI commands in GUI draft composer", async () => {
+  it("shows AxeCode Codex server commands instead of CLI commands in GUI draft composer", async () => {
     const baseCapabilities = makeAgentStatus().capabilities;
     await renderDraftComposer(
       makeAgentStatus({
@@ -543,7 +543,7 @@ describe("ThreadSlashCommands", () => {
             skillName: "skill-creator",
             skillPath: "/bundled/skill-creator/SKILL.md",
             skillInvocation: "Use the skill-creator skill.",
-            skillProvider: "Poracode built-ins",
+            skillProvider: "AxeCode built-ins",
             skillScope: "global",
           },
         ],
@@ -554,7 +554,7 @@ describe("ThreadSlashCommands", () => {
         name: "skill-creator",
         path: "/bundled/skill-creator/SKILL.md",
         invocation: "Use the skill-creator skill.",
-        provider: "Poracode built-ins",
+        provider: "AxeCode built-ins",
         scope: "global",
       },
       { kind: "text", content: " Create a new managed skill." },
@@ -585,7 +585,7 @@ describe("ThreadSlashCommands", () => {
           skillName: "skill-creator",
           skillPath: "/bundled/skill-creator/SKILL.md",
           skillInvocation: "/skill-creator",
-          skillProvider: "Poracode built-ins",
+          skillProvider: "AxeCode built-ins",
           skillScope: "global",
         },
       ]),
@@ -1219,7 +1219,7 @@ describe("ThreadSlashCommands", () => {
       const restoredThumb = await screen.findByAltText("Image 1.png");
       expect(restoredThumb).toHaveAttribute(
         "src",
-        "poracode-local://local/C:/attachments/draft-project-1/image-1.png",
+        "axecode-local://local/C:/attachments/draft-project-1/image-1.png",
       );
       expect(useAppStore.getState().draftContents[draftProject.id]).toBeUndefined();
       unmountRestored();

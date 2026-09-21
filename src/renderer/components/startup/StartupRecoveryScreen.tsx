@@ -10,7 +10,7 @@ interface StartupRecoveryScreenProps {
 }
 
 function reportActionFailure(action: string, error: unknown): void {
-  console.error(`[poracode][startup-recovery] ${action} failed`, error);
+  console.error(`[axecode][startup-recovery] ${action} failed`, error);
 }
 
 export function StartupRecoveryScreen(props: StartupRecoveryScreenProps) {

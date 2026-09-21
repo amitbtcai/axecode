@@ -695,8 +695,12 @@ msgstr "@scope/plugin@version"
 #~ msgstr "/skill-creator Создайте новый управляемый навык для {destinationLabel}."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
-msgstr "/skill-creator-poracode Создайте новый управляемый навык для {destinationLabel}."
+msgid "/skill-creator-axecode Create a new managed skill for {destinationLabel}."
+msgstr "/skill-creator-axecode Создайте новый управляемый навык для {destinationLabel}."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
+#~ msgstr "/skill-creator-poracode Создайте новый управляемый навык для {destinationLabel}."
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
@@ -993,8 +997,12 @@ msgid "Add a project to use GitHub Actions."
 msgstr "Добавьте проект, чтобы использовать GitHub Actions."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
-msgstr "Добавьте навык в .agents/skills или .poracode/skills либо импортируйте его из другого провайдера."
+msgid "Add a skill to .agents/skills or .axecode/skills, or import one from another provider."
+msgstr "Добавьте навык в .agents/skills или .axecode/skills либо импортируйте его из другого провайдера."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
+#~ msgstr "Добавьте навык в .agents/skills или .poracode/skills либо импортируйте его из другого провайдера."
 
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "Add a skill to .agents/skills or import one from another provider."
@@ -4664,8 +4672,12 @@ msgid "Development"
 msgstr "Разработка"
 
 #: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
-msgid "Development-only overrides. Only visible in the PORACODE DEV build."
-msgstr "Переопределения только для разработки. Видны только в сборке PORACODE DEV."
+msgid "Development-only overrides. Only visible in the AXECODE DEV build."
+msgstr "Переопределения только для разработки. Видны только в сборке AXECODE DEV."
+
+#: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
+#~ msgid "Development-only overrides. Only visible in the PORACODE DEV build."
+#~ msgstr "Переопределения только для разработки. Видны только в сборке PORACODE DEV."
 
 #: src/renderer/views/SettingsOverlay/parts/AudioSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -15176,8 +15188,13 @@ msgstr "Используйте буквы, цифры, точки, дефисы 
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
-msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
-msgstr "Используйте одну глобальную папку или вкладывайте worktree внутрь каждого проекта в .poracode/worktrees."
+msgid "Use one global folder, or nest worktrees inside each project at .axecode/worktrees."
+msgstr "Используйте одну глобальную папку или вкладывайте worktree внутрь каждого проекта в .axecode/worktrees."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
+#~ msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
+#~ msgstr "Используйте одну глобальную папку или вкладывайте worktree внутрь каждого проекта в .poracode/worktrees."
 
 #: src/renderer/components/providers/opencode2/OpenCode2PluginCards.tsx
 msgid "Use OpenCode’s CLI to update terminal-only packages."

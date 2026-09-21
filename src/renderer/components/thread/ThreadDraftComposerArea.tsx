@@ -150,7 +150,7 @@ function HookInstallProposal(props: {
       props.presentationMode !== "terminal" ||
       dismissed ||
       typeof window === "undefined" ||
-      !window.poracode?.getAgentHookPluginStatuses
+      !window.axecode?.getAgentHookPluginStatuses
     ) {
       setStatus(undefined);
       return;
@@ -329,7 +329,7 @@ export function ThreadDraftComposerArea(props: {
   const [experimentBaseBranch, setExperimentBaseBranch] = useState<string | null>(null);
   const isRemoteSurface = isRemoteSession();
   const usesRemoteTransport = props.isRemote === true || isRemoteSurface;
-  const isQuickComposer = window.poracode ? isQuickComposerWindow() : false;
+  const isQuickComposer = window.axecode ? isQuickComposerWindow() : false;
   const showVoiceInputButton =
     useSharedSettings((s) => s.audio.showVoiceInputButton) && !isRemoteSurface;
   // Persistent (standing-default) composer MCP enablement, keyed by MCP id.

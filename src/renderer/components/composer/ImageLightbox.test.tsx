@@ -30,7 +30,7 @@ function openPreview() {
   render(
     <ImageLightboxView
       images={[
-        { src: "poracode-local:///C:/images/sample.png", alt: "sample.png" },
+        { src: "axecode-local:///C:/images/sample.png", alt: "sample.png" },
         { src: "data:image/png;base64,iVBORw==", alt: "Generated landscape" },
       ]}
       initialIndex={0}
@@ -80,10 +80,10 @@ describe("image preview toolbar", () => {
     fireEvent.click(screen.getByRole("button", { name: "Copy image" }));
     await waitFor(() => expect(copyImageToClipboard).toHaveBeenCalledWith({ data: png }));
     expect(readLocalImageFile).toHaveBeenCalledWith({
-      url: "poracode-local:///C:/images/sample.png",
+      url: "axecode-local:///C:/images/sample.png",
     });
     expect(onClose).not.toHaveBeenCalled();
-    expect(document.querySelector(".poracode-image-lightbox__image")).toHaveStyle({
+    expect(document.querySelector(".axecode-image-lightbox__image")).toHaveStyle({
       transform: "translate3d(0px, 0px, 0) scale(1.5)",
     });
   });
@@ -110,14 +110,12 @@ describe("image preview toolbar", () => {
   it("keeps gallery keyboard navigation and Escape available from the toolbar", () => {
     const onClose = openPreview();
     const copy = screen.getByRole("button", { name: "Copy image" });
-    expect(copy.closest(".poracode-image-lightbox__footer")).not.toBeNull();
+    expect(copy.closest(".axecode-image-lightbox__footer")).not.toBeNull();
     expect(
-      screen
-        .getByRole("button", { name: "Save image" })
-        .closest(".poracode-image-lightbox__footer"),
+      screen.getByRole("button", { name: "Save image" }).closest(".axecode-image-lightbox__footer"),
     ).not.toBeNull();
     fireEvent.keyDown(copy, { key: "ArrowRight" });
-    expect(document.querySelector(".poracode-image-lightbox__image")).toHaveAttribute(
+    expect(document.querySelector(".axecode-image-lightbox__image")).toHaveAttribute(
       "alt",
       "Generated landscape",
     );

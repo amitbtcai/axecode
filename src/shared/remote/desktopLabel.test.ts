@@ -8,7 +8,7 @@ describe("desktopTitle", () => {
   });
 
   it("strips legacy prefixes from desktops paired before each rebrand", () => {
-    expect(desktopTitle("Poracode on Mac")).toBe("Mac");
+    expect(desktopTitle("AxeCode on Mac")).toBe("Mac");
     expect(desktopTitle("Lightcode on Mac")).toBe("Mac");
   });
 

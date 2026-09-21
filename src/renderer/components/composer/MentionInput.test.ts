@@ -305,14 +305,14 @@ describe("buildMentionResults", () => {
           threadId: "thread-gpu",
           title: "Add full GPU support for macOS and Linux",
           updatedAt: "2026-08-29T00:00:00.000Z",
-          worktreeName: "poracode-feature-gpu-support-b127b363",
+          worktreeName: "axecode-feature-gpu-support-b127b363",
         },
         {
           threadId: "thread-gpu-ws",
           title: "Add full GPU support for macOS and Linux",
           updatedAt: "2026-08-29T00:00:00.000Z",
           projectName: "Lightcode",
-          worktreeName: "poracode-feature-gpu-support-b127b363",
+          worktreeName: "axecode-feature-gpu-support-b127b363",
         },
       ],
     );
@@ -322,13 +322,13 @@ describe("buildMentionResults", () => {
         type: "thread",
         path: "thread-gpu",
         name: "Add full GPU support for macOS and Linux",
-        detail: "poracode-feature-gpu-support-b127b363",
+        detail: "axecode-feature-gpu-support-b127b363",
       },
       {
         type: "thread",
         path: "thread-gpu-ws",
         name: "Add full GPU support for macOS and Linux",
-        detail: "Lightcode · poracode-feature-gpu-support-b127b363",
+        detail: "Lightcode · axecode-feature-gpu-support-b127b363",
       },
     ]);
   });
@@ -410,7 +410,7 @@ describe("buildMentionResults", () => {
     expect(chip).not.toBeNull();
     expect(chip).toHaveAttribute("data-thread-mention-id", "thread-1");
     expect(chip).toHaveAttribute("data-thread-mention-title", "Fix the composer");
-    expect(chip).toHaveClass("poracode-thread-mention-chip");
+    expect(chip).toHaveClass("axecode-thread-mention-chip");
     expect(chip).toHaveAttribute("title", "Fix the composer");
     expect(ref.current?.serializeSegments()).toEqual([
       { kind: "thread", threadId: "thread-1", title: "Fix the composer" },

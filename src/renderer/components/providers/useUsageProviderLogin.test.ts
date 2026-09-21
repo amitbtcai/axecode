@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
-import type { UsageSnapshot } from "@poracode/agents-usage";
+import type { UsageSnapshot } from "@axecode/agents-usage";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { AgentStatus } from "@/shared/contracts";
 import { useAgentStatusesStore } from "@/renderer/state/agentStatusesStore";

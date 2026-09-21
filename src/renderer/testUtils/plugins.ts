@@ -1,6 +1,6 @@
 import type { LoadedPlugin } from "@/shared/contracts";
 import { BUNDLED_PLUGIN_MANIFESTS } from "@/shared/plugins/builtInCoreSkills";
-import { parsePluginManifest, parsePoracodeExtension } from "@/shared/plugins/spec";
+import { parsePluginManifest, parseAxeCodeExtension } from "@/shared/plugins/spec";
 import { usePlugins } from "@/renderer/state/pluginsStore";
 
 /**
@@ -24,14 +24,14 @@ function toLoadedPlugin(raw: unknown): LoadedPlugin {
     );
   }
   const manifest = parsed.manifest;
-  const { extension } = parsePoracodeExtension(manifest);
+  const { extension } = parseAxeCodeExtension(manifest);
   const root = `/resources/plugins/${manifest.name}`;
   return {
     name: manifest.name,
     source: "bundled",
     root,
     manifest,
-    poracode: extension,
+    axecode: extension,
     skills: Object.keys(extension.skills).map((folder) => ({
       folder,
       path: `${root}/skills/${folder}`,
@@ -49,7 +49,7 @@ export function seedBuiltInPlugins(): LoadedPlugin[] {
   const plugins = loadBuiltInPluginFixtures();
   usePlugins.setState({
     pluginsByScope: { "": plugins },
-    userPluginsDir: "/home/test/.poracode/plugins",
+    userPluginsDir: "/home/test/.axecode/plugins",
     loadedScopes: { "": true },
     loading: {},
     error: undefined,

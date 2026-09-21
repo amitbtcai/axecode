@@ -36,19 +36,19 @@ import { useSharedSettings } from "@/renderer/state/sharedSettingsStore";
 import { CloneProjectModal } from "./CloneProjectModal";
 
 const ONE_ACCOUNT: GhListAccountsResult = {
-  accounts: [{ host: "github.com", login: "poracode", active: true }],
+  accounts: [{ host: "github.com", login: "axecode", active: true }],
 };
 const ONE_REPO: GhListReposResult = {
   repos: [
     {
-      nameWithOwner: "poracode/poracode",
-      owner: "poracode",
-      name: "poracode",
+      nameWithOwner: "axecode/axecode",
+      owner: "axecode",
+      name: "axecode",
       description: "agents",
       isPrivate: false,
       isFork: false,
-      sshUrl: "git@github.com:poracode/poracode.git",
-      httpsUrl: "https://github.com/poracode/poracode.git",
+      sshUrl: "git@github.com:axecode/axecode.git",
+      httpsUrl: "https://github.com/axecode/axecode.git",
       pushedAt: "2026-06-01T00:00:00Z",
     },
   ],
@@ -80,9 +80,9 @@ describe("CloneProjectModal", () => {
     const cloneButton = await screen.findByRole("button", { name: "Clone" });
     expect(cloneButton).toBeDisabled();
 
-    fireEvent.click(await screen.findByText("poracode/poracode"));
+    fireEvent.click(await screen.findByText("axecode/axecode"));
 
-    await waitFor(() => expect(screen.getByLabelText("Folder name")).toHaveValue("poracode"));
+    await waitFor(() => expect(screen.getByLabelText("Folder name")).toHaveValue("axecode"));
     await waitFor(() => expect(cloneButton).toBeEnabled());
 
     fireEvent.click(cloneButton);
@@ -91,11 +91,11 @@ describe("CloneProjectModal", () => {
       expect(mocks.commitCloneProject).toHaveBeenCalledWith({
         choice: { kind: "native" },
         parentDir: "/Users/me",
-        name: "poracode",
+        name: "axecode",
         source: {
           kind: "github",
-          nameWithOwner: "poracode/poracode",
-          account: { host: "github.com", login: "poracode" },
+          nameWithOwner: "axecode/axecode",
+          account: { host: "github.com", login: "axecode" },
         },
       }),
     );
@@ -146,11 +146,11 @@ describe("CloneProjectModal", () => {
     usePanelStore.getState().openCloneProjectModal();
     render(<CloneProjectModal />);
 
-    fireEvent.click(await screen.findByText("poracode/poracode"));
+    fireEvent.click(await screen.findByText("axecode/axecode"));
     fireEvent.click(await screen.findByRole("button", { name: "Clone" }));
 
     // The form is replaced by a loading view naming what's being cloned.
-    await waitFor(() => expect(screen.getByText(/Cloning poracode\/poracode/)).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText(/Cloning axecode\/axecode/)).toBeInTheDocument());
     expect(screen.getByRole("button", { name: "Cloning…" })).toBeDisabled();
     expect(screen.queryByLabelText("Folder name")).not.toBeInTheDocument();
 

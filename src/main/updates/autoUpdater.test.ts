@@ -135,9 +135,9 @@ describe("createAutoUpdaterController", () => {
       message: "Updater check failed: required-manifest-missing.",
     });
     expect(reportError.mock.calls[0]?.[1]).toEqual({
-      "poracode.feature_area": "updates",
-      "poracode.channel": "stable",
-      "poracode.platform": process.platform,
+      "axecode.feature_area": "updates",
+      "axecode.channel": "stable",
+      "axecode.platform": process.platform,
       "event.origin": "updater.check.required-manifest-missing",
     });
   });
@@ -192,7 +192,7 @@ describe("createAutoUpdaterController", () => {
       messageKey: "update.serviceUnavailable",
     });
     expect(warn).toHaveBeenCalledOnce();
-    expect(warn).toHaveBeenCalledWith("[poracode] updater check transient failure after retries.");
+    expect(warn).toHaveBeenCalledWith("[axecode] updater check transient failure after retries.");
     warn.mockRestore();
   });
 
@@ -213,7 +213,7 @@ describe("createAutoUpdaterController", () => {
     const controller = createAutoUpdaterController(vi.fn(), "stable", false, reportError);
     controller.initialize();
     const failure = new Error(
-      "Code signature invalid for /Users/person/private/Poracode.zip from https://example.test",
+      "Code signature invalid for /Users/person/private/AxeCode.zip from https://example.test",
     );
     autoUpdaterMock.downloadUpdate.mockImplementationOnce(async () => {
       autoUpdaterMock.emit("error", failure);

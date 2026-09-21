@@ -1,4 +1,4 @@
-/* Poracode brand type — Geist (Vercel, SIL OFL), bundled for offline use. */
+/* AxeCode brand type — Geist (Vercel, SIL OFL), bundled for offline use. */
 @font-face {
   font-family: "Geist";
   src: url("../renderer/fonts/Geist-Variable.woff2") format("woff2");
@@ -15,12 +15,12 @@
 }
 
 :root {
-  --poracode-modal-radius: 0.7rem;
+  --axecode-modal-radius: 0.7rem;
 }
 
 .modal__dialog:not(.modal__dialog--cover):not(.modal__dialog--full),
 .alert-dialog__dialog:not(.alert-dialog__dialog--cover) {
-  border-radius: var(--poracode-modal-radius);
+  border-radius: var(--axecode-modal-radius);
 }
 
 /* Icon + title on the same row for every Modal/AlertDialog header that leads
@@ -83,7 +83,7 @@
   inherits: false;
 }
 
-@keyframes poracode-composer-border-spin {
+@keyframes axecode-composer-border-spin {
   from {
     transform: translate(-50%, -50%) rotate(0deg);
   }
@@ -92,7 +92,7 @@
   }
 }
 
-@keyframes poracode-ring-spin-1 {
+@keyframes axecode-ring-spin-1 {
   from {
     --ring-angle-1: 0deg;
   }
@@ -101,7 +101,7 @@
   }
 }
 
-@keyframes poracode-ring-spin-2 {
+@keyframes axecode-ring-spin-2 {
   from {
     --ring-angle-2: 360deg;
   }
@@ -110,7 +110,7 @@
   }
 }
 
-@keyframes poracode-lightning-glow {
+@keyframes axecode-lightning-glow {
   0%,
   100% {
     box-shadow:
@@ -145,7 +145,7 @@
    parent's `filter: drop-shadow()`, which would re-rasterize every frame).
    Both pseudos are layer-promoted so the work stays out of ancestor
    paint layers. */
-@keyframes poracode-goal-shine-spin {
+@keyframes axecode-goal-shine-spin {
   from {
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
@@ -154,7 +154,7 @@
   }
 }
 
-@keyframes poracode-goal-active-pulse {
+@keyframes axecode-goal-active-pulse {
   0%,
   100% {
     opacity: 0.45;
@@ -164,7 +164,7 @@
   }
 }
 
-.poracode-goal-active-icon {
+.axecode-goal-active-icon {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -180,7 +180,7 @@
   transform: translateZ(0);
 }
 
-.poracode-goal-active-icon__ring {
+.axecode-goal-active-icon__ring {
   position: absolute;
   inset: -3px;
   border-radius: 50%;
@@ -194,7 +194,7 @@
   overflow: hidden;
 }
 
-.poracode-goal-active-icon__ring::before {
+.axecode-goal-active-icon__ring::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -207,7 +207,7 @@
     transparent 140deg,
     transparent 360deg
   );
-  animation: poracode-goal-shine-spin 1.6s linear infinite;
+  animation: axecode-goal-shine-spin 1.6s linear infinite;
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
@@ -215,7 +215,7 @@
 /* Outer halo pulse. Replaces the parent's animated `filter: drop-shadow()`
    with an opacity-animated radial-gradient sphere — same soft glow, but
    only `opacity` changes (compositor-friendly, no per-frame paint). */
-.poracode-goal-active-icon::after {
+.axecode-goal-active-icon::after {
   content: "";
   position: absolute;
   inset: -6px;
@@ -227,7 +227,7 @@
     transparent 80%
   );
   z-index: -1;
-  animation: poracode-goal-active-pulse 2.4s ease-in-out infinite;
+  animation: axecode-goal-active-pulse 2.4s ease-in-out infinite;
   will-change: opacity;
   pointer-events: none;
 }
@@ -389,7 +389,7 @@
    the panel. Derived by darkening --content-background (the surface these controls
    render on) a fixed fraction toward black, NOT by mixing toward --foreground:
    a toward-fg step darkens by a fraction of the gap to fg, so themes with a dark
-   foreground (e.g. Poracode light, fg ~L0.21) over-darken and read heavy. Scaling
+   foreground (e.g. AxeCode light, fg ~L0.21) over-darken and read heavy. Scaling
    the panel's own luminance toward black is foreground-independent, so the fill
    lands at a uniform ~1.28:1 across every light preset. Dark keeps HeroUI's stock
    fill, so this is light-only. */
@@ -452,7 +452,7 @@
 }
 
 /* ── Compact list-box menu ──────────────────────────
-   App-wide override applied by adding `poracode-menu`
+   App-wide override applied by adding `axecode-menu`
    to a ListBox (or any container with `.list-box-item`
    descendants). Tightens HeroUI defaults (which target
    touch UI) for the dense desktop dropdown rows used by
@@ -460,14 +460,14 @@
    etc. Keeps the indicator-aware right padding so the
    absolute-positioned checkmark never overlaps an
    `ms-auto` hint on the same row. */
-.poracode-menu.list-box,
-.poracode-menu .list-box {
+.axecode-menu.list-box,
+.axecode-menu .list-box {
   padding: 0;
   margin: 0;
   gap: 0;
 }
 
-.poracode-menu .list-box-item {
+.axecode-menu .list-box-item {
   min-height: 1.75rem;
   padding: 0.125rem 0.5rem;
   gap: 0.5rem;
@@ -476,8 +476,8 @@
 }
 
 /* HeroUI's .label hardcodes text-sm (14px); make it inherit so
-   the poracode-menu item font-size actually wins. */
-.poracode-menu .list-box-item [data-slot="label"] {
+   the axecode-menu item font-size actually wins. */
+.axecode-menu .list-box-item [data-slot="label"] {
   font-size: inherit;
 }
 
@@ -487,7 +487,7 @@
    `<div role="option">` rows pick up the same sizing and hover
    colors as HeroUI's listbox items. Mark the keyboard-active row
    with `data-active="true"` for the focused background. */
-.poracode-menu-item {
+.axecode-menu-item {
   min-height: 1.75rem;
   padding: 0.125rem 0.5rem;
   gap: 0.5rem;
@@ -496,40 +496,40 @@
 }
 
 @media (hover: hover) {
-  .poracode-menu-item:hover {
+  .axecode-menu-item:hover {
     background-color: var(--default);
   }
 }
 
-.poracode-menu-item[data-active="true"] {
+.axecode-menu-item[data-active="true"] {
   background-color: var(--default);
 }
 
 /* Custom virtualized model rows do not inherit HeroUI's press state. Give
    touch and pointer presses a stronger fill before the selected model closes
    the responsive menu. */
-.poracode-model-menu-listbox .poracode-menu-item:active {
+.axecode-model-menu-listbox .axecode-menu-item:active {
   background-color: var(--row-active);
 }
 
-.poracode-menu .list-box-item:has(.list-box-item__indicator) {
+.axecode-menu .list-box-item:has(.list-box-item__indicator) {
   padding-right: 1.75rem;
 }
 
-/* Inner padding for popover dialogs that host a poracode-menu.
+/* Inner padding for popover dialogs that host a axecode-menu.
    HeroUI's default `p-4` (16px) is too generous for dense menus;
    menus that need flush content (search bar over list) opt out by
    setting their own `!p-0`, which beats this non-important rule. */
-.popover__dialog:has(.poracode-menu) {
+.popover__dialog:has(.axecode-menu) {
   padding: 0.375rem;
 }
 
-/* Section header (HeroUI <Header>) preceding a poracode-menu
+/* Section header (HeroUI <Header>) preceding a axecode-menu
    listbox gains a 4px gap so the first row doesn't sit flush
    against the header's bottom border. Uses `~` (general sibling)
    because React Aria injects focus-scope `<span>` and `<template>`
    nodes between the Header and the listbox. */
-[data-slot="header"]:has(~ .poracode-menu) {
+[data-slot="header"]:has(~ .axecode-menu) {
   margin-bottom: 0.25rem;
   padding-left: 0.5rem;
 }
@@ -591,7 +591,7 @@
 }
 
 /* Switches and sliders are continuous controls, so their geometry stays pill-
-   shaped even though Poracode intentionally uses a sharp global --radius for
+   shaped even though AxeCode intentionally uses a sharp global --radius for
    fields, menus, and cards. HeroUI derives rounded-xl/rounded-lg from that
    global token; component-scoped radii preserve the pre-refactor controls
    without softening the rest of the interface. */
@@ -718,10 +718,10 @@
   .dark,
   [data-theme="dark"] {
     color-scheme: dark;
-    /* Poracode "moonlight" — dark/cool surfaces, indigo accent. */
+    /* AxeCode "moonlight" — dark/cool surfaces, indigo accent. */
     --background: #070709;
     /* Primary text is a neutral off-white (no blue/violet chroma) so active
-       rows and chat prose read clean and "clear" like the Poracode Legacy
+       rows and chat prose read clean and "clear" like the AxeCode Legacy
        theme. The moonlight coolness lives in the surfaces/accent, not the
        text — a tinted foreground made active text look violet. */
     --foreground: #fafafa;
@@ -842,7 +842,7 @@
   [data-focus-visible="true"],
   [class*="focus-ring"],
   [class*="focus-field-ring"],
-  [class*="poracode-mention-input"],
+  [class*="axecode-mention-input"],
   [class*="lc-notes-prose"]
 ) {
   @apply focus-ring;
@@ -1012,13 +1012,13 @@ html[data-window-kind="quickComposer"] #root {
   padding: 8px;
 }
 
-.quick-composer-root .quick-composer-frame .poracode-composer-shell {
+.quick-composer-root .quick-composer-frame .axecode-composer-shell {
   border-radius: 1.4rem;
   background: var(--composer-surface);
   box-shadow: 0 3px 12px -8px rgb(0 0 0 / 0.72) !important;
 }
 
-.quick-composer-root--sending .quick-composer-frame .poracode-composer-shell {
+.quick-composer-root--sending .quick-composer-frame .axecode-composer-shell {
   border-color: color-mix(in oklab, var(--accent) 52%, transparent);
   box-shadow:
     0 8px 22px -12px rgb(0 0 0 / 0.72),
@@ -1052,7 +1052,7 @@ html[data-window-kind="quickComposer"] #root {
   width: 100%;
 }
 
-.poracode-shell {
+.axecode-shell {
   position: relative;
   box-sizing: border-box;
   padding-top: env(titlebar-area-height, 0px);
@@ -1061,12 +1061,12 @@ html[data-window-kind="quickComposer"] #root {
 
 /* macOS: add padding for traffic lights when titlebar-area-height is not available */
 @supports not (env: titlebar-area-height) {
-  .poracode-shell {
+  .axecode-shell {
     padding-top: 0;
   }
 }
 
-.poracode-drag-region {
+.axecode-drag-region {
   position: absolute;
   top: env(titlebar-area-y, 0px);
   left: env(titlebar-area-x, 0px);
@@ -1078,7 +1078,7 @@ html[data-window-kind="quickComposer"] #root {
   z-index: 10;
 }
 
-.poracode-content-drag-region {
+.axecode-content-drag-region {
   position: absolute;
   top: 0;
   left: 0;
@@ -1090,7 +1090,7 @@ html[data-window-kind="quickComposer"] #root {
   z-index: 10;
 }
 
-.poracode-content-over-drag-region {
+.axecode-content-over-drag-region {
   position: relative;
   -webkit-app-region: no-drag;
   app-region: no-drag;
@@ -1124,39 +1124,39 @@ html[data-native-material="on"] {
   background: transparent !important;
 }
 html[data-native-material="on"] body,
-html[data-native-material="on"] .poracode-shell {
+html[data-native-material="on"] .axecode-shell {
   background: transparent;
 }
-html[data-native-material="on"] .poracode-shell main {
+html[data-native-material="on"] .axecode-shell main {
   background: var(--content-background);
 }
 html[data-sidebar-glass="on"][data-theme="dark"]
-  .poracode-sidebar-aside:not(.poracode-sidebar-aside--overlay) {
+  .axecode-sidebar-aside:not(.axecode-sidebar-aside--overlay) {
   /* The regular dark-theme active wash is intentionally strong on opaque
      lists. On glass it reads as a bright solid slab, so let more of the
      sidebar material show through while retaining separation from hover. */
   --row-active: color-mix(in oklab, var(--foreground) 12%, transparent);
 }
 /* Faint tint so sidebar text/icons stay legible over the live OS blur. The
-   sidebar header (shared .poracode-overlay-header class) is forced transparent
+   sidebar header (shared .axecode-overlay-header class) is forced transparent
    so the aside's single tint layer shows through instead of stacking. */
-html[data-native-material="on"] .poracode-sidebar-aside {
+html[data-native-material="on"] .axecode-sidebar-aside {
   background: var(--sidebar-glass-tint);
 }
-html[data-native-material="on"] .poracode-sidebar-aside .poracode-overlay-header {
+html[data-native-material="on"] .axecode-sidebar-aside .axecode-overlay-header {
   background: transparent;
 }
 /* The floating overlay sidebar sits over dimmed content, where a translucent
    tint reads muddy and hurts legibility — paint it fully opaque (the glass tint
    at 100%). Docked sidebars keep the translucent tint set above. */
-html[data-native-material="on"] .poracode-sidebar-aside--overlay {
+html[data-native-material="on"] .axecode-sidebar-aside--overlay {
   background: var(--content-background);
 }
 /* While the overlay sidebar slides out and snaps to the collapsed rail, the
    spacer that reserves the rail's slot is briefly uncovered. Give it the same
    glass tint as the docked collapsed rail so the strip never flashes raw
    acrylic before the rail paints in. */
-html[data-native-material="on"] .poracode-sidebar-spacer {
+html[data-native-material="on"] .axecode-sidebar-spacer {
   background: var(--sidebar-glass-tint);
 }
 /* Windows-only frosting bump. DWM acrylic blurs whatever sits behind the window,
@@ -1212,17 +1212,17 @@ html[data-platform="win32"][data-theme="dark"] {
   );
   --floating-chrome-backdrop: blur(10px) saturate(130%);
 }
-html:is([data-platform="darwin"], [data-platform="win32"]) .poracode-floating-chrome {
+html:is([data-platform="darwin"], [data-platform="win32"]) .axecode-floating-chrome {
   border-color: color-mix(in oklab, var(--foreground) 8%, transparent);
   background-image: none;
   backdrop-filter: var(--floating-chrome-backdrop);
   -webkit-backdrop-filter: var(--floating-chrome-backdrop);
   box-shadow: 0 2px 10px rgb(0 0 0 / 0.18);
 }
-.poracode-floating-chrome--active {
+.axecode-floating-chrome--active {
   background-color: var(--floating-chrome-active-surface);
 }
-html:is([data-platform="darwin"], [data-platform="win32"]) .poracode-floating-chrome--active {
+html:is([data-platform="darwin"], [data-platform="win32"]) .axecode-floating-chrome--active {
   border-color: color-mix(in oklab, var(--foreground) 12%, transparent);
 }
 
@@ -1230,21 +1230,21 @@ html:is([data-platform="darwin"], [data-platform="win32"]) .poracode-floating-ch
    layer of it over the blurred pane (the color is a tint, not a fill) — with a
    barely-there edge that firms up on hover. The platform glass rule above is
    matched in specificity so this wins by order on every platform. */
-html .poracode-floating-chrome.poracode-floating-chrome--bubble {
+html .axecode-floating-chrome.axecode-floating-chrome--bubble {
   background-color: color-mix(in oklab, var(--composer-surface) 70%, transparent);
   border-color: color-mix(in oklab, var(--foreground) 2%, transparent);
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.1),
     0 3px 10px rgb(0 0 0 / 0.14);
 }
-html .poracode-floating-chrome.poracode-floating-chrome--bubble:hover {
+html .axecode-floating-chrome.axecode-floating-chrome--bubble:hover {
   border-color: color-mix(in oklab, var(--foreground) 5%, transparent);
 }
 /* Bubble whose panel is open: the sidebar Git badge idiom (`bg-accent/15
    hover:bg-accent/25`) — a violet-steered theme wash over the same translucent
    composer layer, so the open state reads as selected, not just lit. The glyph
    keeps its own tone; only the glass and edge take the wash. */
-html .poracode-floating-chrome.poracode-floating-chrome--bubble-active {
+html .axecode-floating-chrome.axecode-floating-chrome--bubble-active {
   background-color: color-mix(
     in oklab,
     color-mix(in oklab, var(--composer-surface) 70%, transparent) 85%,
@@ -1252,7 +1252,7 @@ html .poracode-floating-chrome.poracode-floating-chrome--bubble-active {
   );
   border-color: color-mix(in oklab, var(--floating-chrome-selected-accent) 18%, transparent);
 }
-html .poracode-floating-chrome.poracode-floating-chrome--bubble-active:hover {
+html .axecode-floating-chrome.axecode-floating-chrome--bubble-active:hover {
   background-color: color-mix(
     in oklab,
     color-mix(in oklab, var(--composer-surface) 70%, transparent) 75%,
@@ -1262,7 +1262,7 @@ html .poracode-floating-chrome.poracode-floating-chrome--bubble-active:hover {
 }
 
 /* 2. In-app fallback: opaque window, faux-translucent gradient sidebar. */
-html[data-sidebar-glass="on"]:not([data-native-material="on"]) .poracode-sidebar-aside {
+html[data-sidebar-glass="on"]:not([data-native-material="on"]) .axecode-sidebar-aside {
   background: linear-gradient(
     180deg,
     color-mix(in oklab, var(--sidebar-background) 90%, transparent) 0%,
@@ -1273,13 +1273,13 @@ html[data-sidebar-glass="on"]:not([data-native-material="on"]) .poracode-sidebar
     inset 0 1px 0 color-mix(in oklab, var(--foreground) 9%, transparent);
 }
 html[data-sidebar-glass="on"]:not([data-native-material="on"])
-  .poracode-sidebar-aside
-  .poracode-overlay-header {
+  .axecode-sidebar-aside
+  .axecode-overlay-header {
   background: transparent;
 }
 /* In-app fallback overlay sidebar: opaque too — it floats over dimmed content,
    so the faux-glass tint/blur used for the docked fallback would read muddy. */
-html[data-sidebar-glass="on"]:not([data-native-material="on"]) .poracode-sidebar-aside--overlay {
+html[data-sidebar-glass="on"]:not([data-native-material="on"]) .axecode-sidebar-aside--overlay {
   background: var(--sidebar-background);
 }
 
@@ -1288,14 +1288,14 @@ html[data-sidebar-glass="on"]:not([data-native-material="on"]) .poracode-sidebar
    opaque surface (`overlaySidebarSurfaceClass`); clear it inside the sidebar
    column so the aside's single glass tint shows through and the header (already
    transparent) matches — no seam. Docked tool panels use the same surface class
-   but live outside `.poracode-sidebar-aside`, so they stay opaque. */
-html[data-sidebar-glass="on"] .poracode-sidebar-aside .poracode-overlay-surface {
+   but live outside `.axecode-sidebar-aside`, so they stay opaque. */
+html[data-sidebar-glass="on"] .axecode-sidebar-aside .axecode-overlay-surface {
   background: transparent;
 }
 /* For overlays that actually have a glass sidebar, let the OverlayShell cover
    pass the native blur through (its opaque <main> still covers the content).
    Plain dialogs without a sidebar keep their opaque backdrop. */
-html[data-native-material="on"] [data-overlay-surface]:has(.poracode-sidebar-aside) {
+html[data-native-material="on"] [data-overlay-surface]:has(.axecode-sidebar-aside) {
   background: transparent;
 }
 /* …and hide the base app behind such an overlay so the overlay's translucent
@@ -1306,14 +1306,14 @@ html[data-native-material="on"] [data-overlay-surface]:has(.poracode-sidebar-asi
    the overlay is fully shown) so on open/close the base app fades in/out with
    the overlay instead of flashing bare desktop underneath. */
 html[data-native-material="on"]
-  #root:has([data-overlay-surface][data-overlay-visible] .poracode-sidebar-aside)
-  .poracode-shell {
+  #root:has([data-overlay-surface][data-overlay-visible] .axecode-sidebar-aside)
+  .axecode-shell {
   visibility: hidden;
 }
 html[data-native-material="on"]
-  #root:has([data-overlay-surface][data-overlay-visible] .poracode-sidebar-aside)
+  #root:has([data-overlay-surface][data-overlay-visible] .axecode-sidebar-aside)
   [data-overlay-surface]
-  .poracode-shell {
+  .axecode-shell {
   visibility: visible;
 }
 
@@ -1321,11 +1321,11 @@ html[data-native-material="on"]
    The renderer also gates this in JS, so this is a first-paint safety net. */
 @media (prefers-reduced-transparency: reduce) {
   html[data-native-material="on"] body,
-  html[data-native-material="on"] .poracode-shell {
+  html[data-native-material="on"] .axecode-shell {
     background: var(--content-background);
   }
-  html[data-sidebar-glass="on"] .poracode-sidebar-aside:not(.poracode-sidebar-aside--overlay),
-  html[data-native-material="on"] .poracode-sidebar-aside:not(.poracode-sidebar-aside--overlay) {
+  html[data-sidebar-glass="on"] .axecode-sidebar-aside:not(.axecode-sidebar-aside--overlay),
+  html[data-native-material="on"] .axecode-sidebar-aside:not(.axecode-sidebar-aside--overlay) {
     background: transparent;
     backdrop-filter: none;
     box-shadow: none;
@@ -1333,7 +1333,7 @@ html[data-native-material="on"]
   /* Floating chrome leans hard on backdrop blur, so paint the pills solid when
      reduced transparency is requested. Set this on the element rather than the
      token so it wins over the platform-specific dark-theme overrides above. */
-  .poracode-floating-chrome {
+  .axecode-floating-chrome {
     background: var(--sidebar-background);
     background-image: none;
     backdrop-filter: none;
@@ -1341,44 +1341,44 @@ html[data-native-material="on"]
   }
 }
 
-/* Counterpart to .poracode-content-over-drag-region: used on pane headers
+/* Counterpart to .axecode-content-over-drag-region: used on pane headers
    when the pane can't be reordered (single-pane layouts), so the header
    acts as the window drag region instead of a dnd handle. macOS-only —
    Windows/Linux use the OS-provided titleBarOverlay for window dragging.
-   Interactive children opt out via .poracode-overlay-header__controls. */
-.poracode-content-over-drag-region--drag {
+   Interactive children opt out via .axecode-overlay-header__controls. */
+.axecode-content-over-drag-region--drag {
   position: relative;
   user-select: none;
   z-index: 20;
 }
-html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
+html[data-platform="darwin"] .axecode-content-over-drag-region--drag {
   -webkit-app-region: drag;
   app-region: drag;
 }
 /* Defeat the drag region whenever the header lives inside an overlay surface
    (rendered above main content via OverlayShell). The single-pane drag
    handle is a main-content-only affordance. */
-[data-overlay-surface] .poracode-content-over-drag-region--drag {
+[data-overlay-surface] .axecode-content-over-drag-region--drag {
   -webkit-app-region: no-drag;
   app-region: no-drag;
 }
 
-.poracode-git-diff-content {
+.axecode-git-diff-content {
   contain: layout paint;
 }
 
-.poracode-git-diff-body {
+.axecode-git-diff-body {
   content-visibility: auto;
   contain-intrinsic-size: auto 260px;
 }
 
-.poracode-window-header {
+.axecode-window-header {
   background: var(--window-header-background);
 }
 
 /* Hairline = panel border (full height/width). The handle is only a wide hit target with no
    visible affordance; hover accent is the long shared border (see rules below). */
-.poracode-resize-handle {
+.axecode-resize-handle {
   /* 2× default hit area; negative margins keep layout close to 1px hairline. */
   width: 12px;
   margin-left: -8px;
@@ -1389,7 +1389,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   flex-shrink: 0;
 }
 
-.poracode-resize-handle-horizontal {
+.axecode-resize-handle-horizontal {
   height: 12px;
   margin-top: -8px;
   margin-bottom: -4px;
@@ -1403,7 +1403,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
    fixed aside (which clips its children), so it cannot straddle the shared
    border with negative margins. Keep the hit area inside the panel's left
    gutter and draw the hover accent over the border itself. */
-.poracode-resize-handle-overlay {
+.axecode-resize-handle-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -1412,7 +1412,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   z-index: 20;
 }
 
-.poracode-resize-handle-overlay::after {
+.axecode-resize-handle-overlay::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1423,22 +1423,22 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   transition: background 0.15s;
 }
 
-.poracode-resize-handle-overlay:hover::after,
-.poracode-resize-handle-overlay:focus-visible::after {
+.axecode-resize-handle-overlay:hover::after,
+.axecode-resize-handle-overlay:focus-visible::after {
   background: var(--accent);
 }
 
 /* Right / git / bottom terminal: [handle][aside] or [horizontal handle][aside] */
-.poracode-resize-handle[aria-label="Resize terminal panel"]:hover + aside,
-.poracode-resize-handle[aria-label="Resize git panel"]:hover + aside {
+.axecode-resize-handle[aria-label="Resize terminal panel"]:hover + aside,
+.axecode-resize-handle[aria-label="Resize git panel"]:hover + aside {
   border-left-color: var(--accent);
 }
 
-.poracode-resize-handle-horizontal[aria-label="Resize terminal panel"]:hover + aside {
+.axecode-resize-handle-horizontal[aria-label="Resize terminal panel"]:hover + aside {
   border-top-color: var(--accent);
 }
 
-.poracode-pane-divider {
+.axecode-pane-divider {
   width: 8px;
   cursor: col-resize;
   position: relative;
@@ -1446,7 +1446,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   flex-shrink: 0;
 }
 
-.poracode-pane-divider::after {
+.axecode-pane-divider::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1460,18 +1460,18 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
     width 0.15s;
 }
 
-.poracode-pane-divider:hover::after,
-.poracode-pane-divider.is-highlighted::after {
+.axecode-pane-divider:hover::after,
+.axecode-pane-divider.is-highlighted::after {
   width: 2px;
   background: var(--accent);
 }
 
-.poracode-pane-divider-drop-zone {
+.axecode-pane-divider-drop-zone {
   position: absolute;
   inset: 0;
 }
 
-.poracode-pane-divider-drop-zone--vertical.is-highlighted::after {
+.axecode-pane-divider-drop-zone--vertical.is-highlighted::after {
   content: "";
   position: absolute;
   top: 0;
@@ -1482,14 +1482,14 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   background: var(--accent);
 }
 
-.poracode-pane-divider-horizontal {
+.axecode-pane-divider-horizontal {
   height: 8px;
   cursor: row-resize;
   position: relative;
   z-index: 5;
 }
 
-.poracode-pane-divider-horizontal::after {
+.axecode-pane-divider-horizontal::after {
   content: "";
   position: absolute;
   left: 0;
@@ -1503,13 +1503,13 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
     height 0.15s;
 }
 
-.poracode-pane-divider-horizontal:hover::after,
-.poracode-pane-divider-horizontal.is-highlighted::after {
+.axecode-pane-divider-horizontal:hover::after,
+.axecode-pane-divider-horizontal.is-highlighted::after {
   height: 2px;
   background: var(--accent);
 }
 
-.poracode-pane-divider-drop-zone--horizontal.is-highlighted::after {
+.axecode-pane-divider-drop-zone--horizontal.is-highlighted::after {
   content: "";
   position: absolute;
   right: 0;
@@ -1521,7 +1521,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
 }
 
 /* --- Unified provider icon styles --- */
-.poracode-provider-icon {
+.axecode-provider-icon {
   display: inline-flex;
   position: relative;
   align-items: center;
@@ -1534,17 +1534,17 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   isolation: isolate;
 }
 
-.poracode-provider-icon__svg {
+.axecode-provider-icon__svg {
   width: 100%;
   height: 100%;
   overflow: visible;
 }
 
-.poracode-provider-icon__fill {
+.axecode-provider-icon__fill {
   fill: currentColor;
 }
 
-.poracode-provider-icon__mask {
+.axecode-provider-icon__mask {
   width: 100%;
   height: 100%;
   background: currentColor;
@@ -1556,7 +1556,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   -webkit-mask-size: contain;
 }
 
-.poracode-provider-icon--external .poracode-provider-icon__mask {
+.axecode-provider-icon--external .axecode-provider-icon__mask {
   width: 88%;
   height: 88%;
 }
@@ -1565,7 +1565,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
    `mask-image` (set inline from the provider's path data or icon URL). An
    inner `__mask-scan-band` carries the gradient and animates `transform`, so
    the shine runs entirely on the compositor — no paint per frame. */
-.poracode-provider-icon__mask-scan {
+.axecode-provider-icon__mask-scan {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -1581,7 +1581,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   transform: translate3d(0, 0, 0);
 }
 
-.poracode-provider-icon__mask-scan::before {
+.axecode-provider-icon__mask-scan::before {
   content: "";
   position: absolute;
   top: 0;
@@ -1604,17 +1604,17 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
      actually changes, so a 120Hz ProMotion panel draws ~20 frames/s here instead
      of ~120 — a ~6x cut in GPU compositing for a sweep this subtle and slow.
      32 steps / 1.6s = 20fps. Raise the step count for a smoother sweep. */
-  animation: poracode-provider-icon-mask-scan 1.6s steps(32, jump-end) infinite;
+  animation: axecode-provider-icon-mask-scan 1.6s steps(32, jump-end) infinite;
   will-change: transform;
 }
 
-.poracode-provider-icon--external .poracode-provider-icon__mask-scan {
+.axecode-provider-icon--external .axecode-provider-icon__mask-scan {
   inset: 6%;
   width: auto;
   height: auto;
 }
 
-.poracode-provider-icon__generic {
+.axecode-provider-icon__generic {
   display: flex;
   /* Match the 88% footprint of external mask icons so the bordered letter
      doesn't read bigger than the brand icons it sits beside in list rows. */
@@ -1629,7 +1629,7 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
   line-height: 1;
 }
 
-@keyframes poracode-provider-icon-mask-scan {
+@keyframes axecode-provider-icon-mask-scan {
   from {
     transform: translate3d(-33.333%, 0, 0);
   }
@@ -1642,15 +1642,15 @@ html[data-platform="darwin"] .poracode-content-over-drag-region--drag {
    unfocused (attributes toggled by uiAnimationActivity.ts). This preserves the
    working signal in a visible background window without paying the foreground
    compositor cost. */
-html[data-app-hidden] .poracode-provider-icon__mask-scan::before,
-html[data-app-unfocused] .poracode-provider-icon__mask-scan::before {
+html[data-app-hidden] .axecode-provider-icon__mask-scan::before,
+html[data-app-unfocused] .axecode-provider-icon__mask-scan::before {
   animation-timing-function: steps(8, jump-end);
 }
 
-html[data-app-hidden] .poracode-provider-icon--attention,
-html[data-app-unfocused] .poracode-provider-icon--attention,
-html[data-app-hidden] .poracode-provider-icon--finished,
-html[data-app-unfocused] .poracode-provider-icon--finished {
+html[data-app-hidden] .axecode-provider-icon--attention,
+html[data-app-unfocused] .axecode-provider-icon--attention,
+html[data-app-hidden] .axecode-provider-icon--finished,
+html[data-app-unfocused] .axecode-provider-icon--finished {
   animation-timing-function: steps(9, jump-end);
 }
 
@@ -1659,39 +1659,39 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    are JS-driven via thinkingAnimator.ts, which checks prefers-reduced-motion
    itself and paints a single static frame.) */
 @media (prefers-reduced-motion: reduce) {
-  .poracode-provider-icon__mask-scan::before,
-  .poracode-provider-icon--attention,
-  .poracode-provider-icon--finished {
+  .axecode-provider-icon__mask-scan::before,
+  .axecode-provider-icon--attention,
+  .axecode-provider-icon--finished {
     animation: none;
   }
 }
 
-.poracode-provider-icon__shell {
+.axecode-provider-icon__shell {
   fill: currentColor;
   opacity: 0.32;
 }
 
-.poracode-provider-icon__scan {
+.axecode-provider-icon__scan {
   opacity: 0.95;
 }
 
-.poracode-provider-icon--inactive {
+.axecode-provider-icon--inactive {
   color: color-mix(in oklab, var(--muted) 94%, var(--foreground));
   opacity: 0.78;
 }
 
-.poracode-provider-icon--active {
+.axecode-provider-icon--active {
   color: var(--foreground);
   filter: drop-shadow(0 0 0.35rem color-mix(in oklab, var(--foreground) 18%, transparent));
 }
 
-.poracode-provider-icon--working {
+.axecode-provider-icon--working {
   color: color-mix(in oklab, var(--working-tone) 92%, var(--white));
 }
 
-.poracode-provider-icon--working .poracode-provider-icon__svg,
-.poracode-provider-icon--working
-  .poracode-provider-icon__mask:not(.poracode-provider-icon__mask-scan) {
+.axecode-provider-icon--working .axecode-provider-icon__svg,
+.axecode-provider-icon--working
+  .axecode-provider-icon__mask:not(.axecode-provider-icon__mask-scan) {
   filter: drop-shadow(0 0 0.25rem color-mix(in oklab, var(--working-tone) 45%, transparent))
     drop-shadow(0 0 0.5rem color-mix(in oklab, var(--working-tone) 22%, transparent));
   /* Promote to a compositor layer ONLY while working — the glow drop-shadow and
@@ -1702,23 +1702,23 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   transform: translate3d(0, 0, 0);
 }
 
-.poracode-provider-icon--error {
+.axecode-provider-icon--error {
   color: var(--danger);
   filter: drop-shadow(0 0 0.45rem color-mix(in oklab, var(--danger) 35%, transparent));
 }
 
-.poracode-provider-icon--attention {
+.axecode-provider-icon--attention {
   color: var(--warning);
-  animation: poracode-attention-pulse 1.8s ease-in-out infinite;
+  animation: axecode-attention-pulse 1.8s ease-in-out infinite;
   will-change: opacity, transform;
   transform: translate3d(0, 0, 0);
 }
 
-.poracode-provider-icon--attention svg {
+.axecode-provider-icon--attention svg {
   filter: drop-shadow(0 0 0.35rem color-mix(in oklab, var(--warning) 55%, transparent));
 }
 
-@keyframes poracode-attention-pulse {
+@keyframes axecode-attention-pulse {
   0%,
   100% {
     opacity: 0.55;
@@ -1728,19 +1728,19 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   }
 }
 
-.poracode-provider-icon--finished {
+.axecode-provider-icon--finished {
   color: oklch(0.82 0.12 260);
-  animation: poracode-finished-pulse 1.8s ease-in-out infinite;
+  animation: axecode-finished-pulse 1.8s ease-in-out infinite;
   will-change: opacity, transform;
   transform: translate3d(0, 0, 0);
 }
 
-.poracode-provider-icon--finished svg {
+.axecode-provider-icon--finished svg {
   filter: drop-shadow(0 0 0.35rem oklch(0.82 0.12 260 / 0.55))
     drop-shadow(0 0 0.7rem oklch(0.82 0.12 260 / 0.25));
 }
 
-@keyframes poracode-finished-pulse {
+@keyframes axecode-finished-pulse {
   0%,
   100% {
     opacity: 0.55;
@@ -1754,14 +1754,14 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    Net-zero layout: the symmetric negative margin / padding keeps content in
    place while the tinted band gets a little breathing room. Removed on
    animationend so re-triggering the same setting flashes again. */
-.poracode-setting-highlight {
-  animation: poracode-setting-highlight 1.4s ease-out;
+.axecode-setting-highlight {
+  animation: axecode-setting-highlight 1.4s ease-out;
   margin-inline: -0.5rem;
   padding-inline: 0.5rem;
   border-radius: 0.5rem;
 }
 
-@keyframes poracode-setting-highlight {
+@keyframes axecode-setting-highlight {
   0% {
     background-color: color-mix(in oklab, var(--accent) 22%, transparent);
   }
@@ -1770,11 +1770,11 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   }
 }
 
-.poracode-provider-icon--done {
+.axecode-provider-icon--done {
   color: var(--muted);
 }
 
-.poracode-provider-icon__done-check {
+.axecode-provider-icon__done-check {
   position: absolute;
   top: 15%;
   left: 15%;
@@ -1783,7 +1783,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   pointer-events: none;
 }
 
-.poracode-brain-thinking {
+.axecode-brain-thinking {
   filter: drop-shadow(0 0 0.1rem color-mix(in oklab, currentColor 32%, transparent));
 }
 
@@ -1792,7 +1792,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    animation on SVG paths can't composite, so it would force a main-thread style
    recalc + frame on every display refresh (~120fps). 0.55 is the static
    fallback shown before the timer first paints. */
-.poracode-brain-thinking path {
+.axecode-brain-thinking path {
   opacity: 0.55;
 }
 
@@ -1815,7 +1815,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    ("Edit · "), never the path. `will-change` additionally isolates the label
    on its own composited layer, fully re-rastered each tick, so a stray text
    change still cannot strand stale glyphs in the parent layer's tiles. */
-.poracode-thinking-text {
+.axecode-thinking-text {
   position: relative;
   display: inline-block;
   contain: paint;
@@ -1837,7 +1837,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   -webkit-text-fill-color: transparent;
 }
 
-@keyframes poracode-plan-check-1-anim {
+@keyframes axecode-plan-check-1-anim {
   0%,
   15% {
     opacity: 0;
@@ -1852,7 +1852,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   }
 }
 
-@keyframes poracode-plan-check-2-anim {
+@keyframes axecode-plan-check-2-anim {
   0%,
   45% {
     opacity: 0;
@@ -1867,17 +1867,17 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   }
 }
 
-.poracode-plan-proposal-icon {
+.axecode-plan-proposal-icon {
   color: var(--foreground);
 }
 
-.poracode-plan-proposal-icon .poracode-plan-check-1 {
-  animation: poracode-plan-check-1-anim 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.axecode-plan-proposal-icon .axecode-plan-check-1 {
+  animation: axecode-plan-check-1-anim 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: opacity;
 }
 
-.poracode-plan-proposal-icon .poracode-plan-check-2 {
-  animation: poracode-plan-check-2-anim 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.axecode-plan-proposal-icon .axecode-plan-check-2 {
+  animation: axecode-plan-check-2-anim 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: opacity;
 }
 
@@ -1933,31 +1933,31 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   margin-left: 2px;
 }
 
-.poracode-terminal-shell {
+.axecode-terminal-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--poracode-terminal-scrollbar-width);
-  width: calc(100% + var(--poracode-terminal-scrollbar-width));
+  grid-template-columns: minmax(0, 1fr) var(--axecode-terminal-scrollbar-width);
+  width: calc(100% + var(--axecode-terminal-scrollbar-width));
   background: var(--content-background);
 }
 
-.poracode-terminal-shell > .poracode-terminal-pane {
+.axecode-terminal-shell > .axecode-terminal-pane {
   grid-column: 1;
   width: 100% !important;
 }
 
-.poracode-terminal-pane,
-.poracode-terminal-pane .xterm,
-.poracode-terminal-pane .xterm-viewport,
-.poracode-terminal-pane .xterm-screen,
-.poracode-terminal-pane .xterm-scroll-area {
+.axecode-terminal-pane,
+.axecode-terminal-pane .xterm,
+.axecode-terminal-pane .xterm-viewport,
+.axecode-terminal-pane .xterm-screen,
+.axecode-terminal-pane .xterm-scroll-area {
   background: var(--content-background) !important;
 }
 
-.poracode-terminal-pane .xterm .xterm-cursor-layer {
+.axecode-terminal-pane .xterm .xterm-cursor-layer {
   display: none !important;
 }
 
-.poracode-composer-shell {
+.axecode-composer-shell {
   position: relative;
   /* Borderless: the elevated --composer-surface carries the shape; the 1px
      transparent border is kept so box geometry (and the drop overlay's inset)
@@ -1974,7 +1974,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
     box-shadow 0.15s ease;
 }
 
-.poracode-composer-drop-overlay {
+.axecode-composer-drop-overlay {
   position: absolute;
   inset: 0;
   z-index: 20;
@@ -2000,7 +2000,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    Keep the rotation finite: draft inputs are auto-focused, so an infinite
    focus animation would keep Chromium's GPU process rendering forever while
    an untouched new-thread page is otherwise idle. */
-.poracode-composer-border-glow {
+.axecode-composer-border-glow {
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -2020,7 +2020,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   will-change: opacity;
 }
 
-.poracode-composer-border-glow::before {
+.axecode-composer-border-glow::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -2040,49 +2040,49 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   will-change: transform;
 }
 
-.poracode-composer-shell--draft:focus-within .poracode-composer-border-glow {
+.axecode-composer-shell--draft:focus-within .axecode-composer-border-glow {
   opacity: 0.7;
   transition: opacity 0.3s ease;
 }
 
-.poracode-composer-shell--draft:focus-within .poracode-composer-border-glow::before {
-  animation: poracode-composer-border-spin 1.2s ease-out 1 both;
+.axecode-composer-shell--draft:focus-within .axecode-composer-border-glow::before {
+  animation: axecode-composer-border-spin 1.2s ease-out 1 both;
 }
 
-.poracode-composer-label-hideable.is-hidden {
+.axecode-composer-label-hideable.is-hidden {
   display: none;
 }
 
-.poracode-composer-toolbar[data-wrap-level="1"]
-  .poracode-composer-label-hideable[data-collapse-tier="1"],
-.poracode-composer-toolbar[data-wrap-level="2"]
-  .poracode-composer-label-hideable[data-collapse-tier="1"],
-.poracode-composer-toolbar[data-wrap-level="2"]
-  .poracode-composer-label-hideable[data-collapse-tier="2"],
-.poracode-composer-toolbar[data-wrap-level="3"]
-  .poracode-composer-label-hideable[data-collapse-tier="1"],
-.poracode-composer-toolbar[data-wrap-level="3"]
-  .poracode-composer-label-hideable[data-collapse-tier="2"],
-.poracode-composer-toolbar[data-wrap-level="3"]
-  .poracode-composer-label-hideable[data-collapse-tier="3"],
-.poracode-composer-toolbar[data-wrap-level="4"]
-  .poracode-composer-label-hideable[data-collapse-tier="1"],
-.poracode-composer-toolbar[data-wrap-level="4"]
-  .poracode-composer-label-hideable[data-collapse-tier="2"],
-.poracode-composer-toolbar[data-wrap-level="4"]
-  .poracode-composer-label-hideable[data-collapse-tier="3"],
-.poracode-composer-toolbar[data-wrap-level="4"]
-  .poracode-composer-label-hideable[data-collapse-tier="4"],
-.poracode-composer-toolbar[data-wrap-level="5"]
-  .poracode-composer-label-hideable[data-collapse-tier="1"],
-.poracode-composer-toolbar[data-wrap-level="5"]
-  .poracode-composer-label-hideable[data-collapse-tier="2"],
-.poracode-composer-toolbar[data-wrap-level="5"]
-  .poracode-composer-label-hideable[data-collapse-tier="3"],
-.poracode-composer-toolbar[data-wrap-level="5"]
-  .poracode-composer-label-hideable[data-collapse-tier="4"],
-.poracode-composer-toolbar[data-wrap-level="5"]
-  .poracode-composer-label-hideable[data-collapse-tier="5"] {
+.axecode-composer-toolbar[data-wrap-level="1"]
+  .axecode-composer-label-hideable[data-collapse-tier="1"],
+.axecode-composer-toolbar[data-wrap-level="2"]
+  .axecode-composer-label-hideable[data-collapse-tier="1"],
+.axecode-composer-toolbar[data-wrap-level="2"]
+  .axecode-composer-label-hideable[data-collapse-tier="2"],
+.axecode-composer-toolbar[data-wrap-level="3"]
+  .axecode-composer-label-hideable[data-collapse-tier="1"],
+.axecode-composer-toolbar[data-wrap-level="3"]
+  .axecode-composer-label-hideable[data-collapse-tier="2"],
+.axecode-composer-toolbar[data-wrap-level="3"]
+  .axecode-composer-label-hideable[data-collapse-tier="3"],
+.axecode-composer-toolbar[data-wrap-level="4"]
+  .axecode-composer-label-hideable[data-collapse-tier="1"],
+.axecode-composer-toolbar[data-wrap-level="4"]
+  .axecode-composer-label-hideable[data-collapse-tier="2"],
+.axecode-composer-toolbar[data-wrap-level="4"]
+  .axecode-composer-label-hideable[data-collapse-tier="3"],
+.axecode-composer-toolbar[data-wrap-level="4"]
+  .axecode-composer-label-hideable[data-collapse-tier="4"],
+.axecode-composer-toolbar[data-wrap-level="5"]
+  .axecode-composer-label-hideable[data-collapse-tier="1"],
+.axecode-composer-toolbar[data-wrap-level="5"]
+  .axecode-composer-label-hideable[data-collapse-tier="2"],
+.axecode-composer-toolbar[data-wrap-level="5"]
+  .axecode-composer-label-hideable[data-collapse-tier="3"],
+.axecode-composer-toolbar[data-wrap-level="5"]
+  .axecode-composer-label-hideable[data-collapse-tier="4"],
+.axecode-composer-toolbar[data-wrap-level="5"]
+  .axecode-composer-label-hideable[data-collapse-tier="5"] {
   display: none;
 }
 
@@ -2090,7 +2090,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    popovers render at z-index 100000, so the backdrop joins that layer: it comes
    later in the portal order than the surface below it, and the menu it belongs
    to is portaled later still, so the paint order is surface → backdrop → menu. */
-.poracode-menu-backdrop {
+.axecode-menu-backdrop {
   z-index: 100000;
 }
 
@@ -2098,43 +2098,43 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
    too narrow for the labelled new-thread button, swap it for the icon-only
    button whose tooltip carries the name. The selectors nest under the head
    row so they outrank the buttons' Tailwind display utilities. */
-.poracode-flat-list-head {
+.axecode-flat-list-head {
   container-type: inline-size;
 }
 
-.poracode-flat-list-head .poracode-flat-new-thread-icon {
+.axecode-flat-list-head .axecode-flat-new-thread-icon {
   display: none;
 }
 
 @container (max-width: 260px) {
-  .poracode-flat-list-head .poracode-flat-new-thread-full {
+  .axecode-flat-list-head .axecode-flat-new-thread-full {
     display: none;
   }
 
-  .poracode-flat-list-head .poracode-flat-new-thread-icon {
+  .axecode-flat-list-head .axecode-flat-new-thread-icon {
     display: flex;
   }
 }
 
-.poracode-composer-shell:focus-within {
+.axecode-composer-shell:focus-within {
   border-color: transparent;
   outline: none !important;
   --tw-ring-shadow: 0 0 #0000 !important;
   --tw-ring-offset-shadow: 0 0 #0000 !important;
 }
 
-.poracode-model-menu-listbox:focus-visible,
-.poracode-model-menu-listbox[data-focus-visible="true"] {
+.axecode-model-menu-listbox:focus-visible,
+.axecode-model-menu-listbox[data-focus-visible="true"] {
   outline: none !important;
   box-shadow: none !important;
   --tw-ring-shadow: 0 0 #0000 !important;
   --tw-ring-offset-shadow: 0 0 #0000 !important;
 }
 
-.poracode-composer-editor.textarea,
-.poracode-composer-editor.input-group,
-.poracode-composer-editor .textarea,
-.poracode-composer-editor .input-group {
+.axecode-composer-editor.textarea,
+.axecode-composer-editor.input-group,
+.axecode-composer-editor .textarea,
+.axecode-composer-editor .input-group {
   min-height: calc(0.95rem + 0.35rem + 0.875rem * 3);
   resize: none;
   border: 0;
@@ -2144,55 +2144,55 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   padding: 0.95rem 1.1rem 0.35rem;
 }
 
-.poracode-composer-custom-input {
+.axecode-composer-custom-input {
   min-height: calc(0.95rem + 0.35rem + 0.875rem * 3);
   background: transparent;
 }
 
-.poracode-composer-editor--compact,
-.poracode-composer-editor--compact.textarea,
-.poracode-composer-editor--compact.input-group,
-.poracode-composer-editor--compact .textarea,
-.poracode-composer-editor--compact .input-group {
+.axecode-composer-editor--compact,
+.axecode-composer-editor--compact.textarea,
+.axecode-composer-editor--compact.input-group,
+.axecode-composer-editor--compact .textarea,
+.axecode-composer-editor--compact .input-group {
   min-height: calc(0.75rem + 0.1rem + 0.875rem * 2.7) !important;
   padding: 0.75rem 0.5rem 0.1rem 0.75rem !important;
 }
 
-.poracode-composer-custom-input--compact {
+.axecode-composer-custom-input--compact {
   min-height: calc(0.75rem + 0.1rem + 0.875rem * 2.7) !important;
 }
 
-.poracode-composer-editor.textarea__input,
-.poracode-composer-editor .textarea__input {
+.axecode-composer-editor.textarea__input,
+.axecode-composer-editor .textarea__input {
   resize: none;
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.poracode-composer-editor--compact.textarea__input,
-.poracode-composer-editor--compact .textarea__input {
+.axecode-composer-editor--compact.textarea__input,
+.axecode-composer-editor--compact .textarea__input {
   min-height: calc(0.875rem * 2.7) !important;
   line-height: 1.35;
 }
 
-.poracode-composer-editor.textarea:focus,
-.poracode-composer-editor.textarea:focus-visible,
-.poracode-composer-editor.textarea[data-focused="true"],
-.poracode-composer-editor.textarea[data-focus-visible="true"],
-.poracode-composer-editor.input-group:focus,
-.poracode-composer-editor.input-group:focus-within,
-.poracode-composer-editor.input-group[data-focused="true"],
-.poracode-composer-editor.input-group[data-focus-within="true"],
-.poracode-composer-editor .textarea:focus,
-.poracode-composer-editor .textarea:focus-visible,
-.poracode-composer-editor .textarea[data-focused="true"],
-.poracode-composer-editor .textarea[data-focus-visible="true"],
-.poracode-composer-editor .input-group:focus,
-.poracode-composer-editor .input-group:focus-within,
-.poracode-composer-editor .input-group[data-focused="true"],
-.poracode-composer-editor .input-group[data-focus-within="true"],
-.poracode-composer-editor.textarea__input:focus,
-.poracode-composer-editor .textarea__input:focus {
+.axecode-composer-editor.textarea:focus,
+.axecode-composer-editor.textarea:focus-visible,
+.axecode-composer-editor.textarea[data-focused="true"],
+.axecode-composer-editor.textarea[data-focus-visible="true"],
+.axecode-composer-editor.input-group:focus,
+.axecode-composer-editor.input-group:focus-within,
+.axecode-composer-editor.input-group[data-focused="true"],
+.axecode-composer-editor.input-group[data-focus-within="true"],
+.axecode-composer-editor .textarea:focus,
+.axecode-composer-editor .textarea:focus-visible,
+.axecode-composer-editor .textarea[data-focused="true"],
+.axecode-composer-editor .textarea[data-focus-visible="true"],
+.axecode-composer-editor .input-group:focus,
+.axecode-composer-editor .input-group:focus-within,
+.axecode-composer-editor .input-group[data-focused="true"],
+.axecode-composer-editor .input-group[data-focus-within="true"],
+.axecode-composer-editor.textarea__input:focus,
+.axecode-composer-editor .textarea__input:focus {
   outline: none !important;
   box-shadow: none !important;
   border-color: transparent !important;
@@ -2202,44 +2202,44 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   --tw-shadow: 0 0 #0000 !important;
 }
 
-.poracode-composer-toolbar {
+.axecode-composer-toolbar {
   padding: 0.3rem 0.9rem 0.7rem;
   font-weight: 400;
 }
 
 /* Relaxed regular-weight labels for every composer control — menus, toggles,
    and static text; HeroUI buttons default heavier. */
-.poracode-composer-toolbar :is(button, [role="button"], .poracode-composer-static) {
+.axecode-composer-toolbar :is(button, [role="button"], .axecode-composer-static) {
   font-weight: 400;
 }
 
-.poracode-composer-toolbar--compact {
+.axecode-composer-toolbar--compact {
   padding: 0.1rem 0.6rem 0.6rem;
 }
 
-.poracode-composer-editor.textarea,
-.poracode-composer-editor.input-group,
-.poracode-composer-editor.textarea__input,
-.poracode-composer-editor .textarea,
-.poracode-composer-editor .input-group,
-.poracode-composer-editor .textarea__input {
+.axecode-composer-editor.textarea,
+.axecode-composer-editor.input-group,
+.axecode-composer-editor.textarea__input,
+.axecode-composer-editor .textarea,
+.axecode-composer-editor .input-group,
+.axecode-composer-editor .textarea__input {
   background: transparent;
 }
 
-.poracode-composer-menu {
+.axecode-composer-menu {
   height: 2.25rem;
   color: var(--foreground);
   gap: 0.35rem;
 }
 
 /* Compact variant for secondary control rows (e.g. the worktree row under the composer). */
-.poracode-composer-menu--compact {
+.axecode-composer-menu--compact {
   height: 1.625rem;
   gap: 0.25rem;
   font-size: 0.75rem;
 }
 
-.poracode-composer-static {
+.axecode-composer-static {
   display: inline-flex;
   height: 2.25rem;
   min-width: 0;
@@ -2251,7 +2251,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   white-space: nowrap;
 }
 
-.poracode-context-indicator {
+.axecode-context-indicator {
   display: inline-flex;
   height: 2.25rem;
   align-items: center;
@@ -2263,12 +2263,12 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   transition: color 0.15s ease;
 }
 
-.poracode-context-indicator:hover,
-.poracode-context-indicator--open {
+.axecode-context-indicator:hover,
+.axecode-context-indicator--open {
   color: var(--foreground);
 }
 
-.poracode-context-indicator__ring {
+.axecode-context-indicator__ring {
   --lc-context-ring: color-mix(in oklab, var(--foreground) 65%, transparent);
 
   width: 1rem;
@@ -2276,52 +2276,52 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   flex-shrink: 0;
 }
 
-.poracode-context-indicator__ring-track {
+.axecode-context-indicator__ring-track {
   stroke: color-mix(in oklab, var(--muted) 40%, transparent);
 }
 
-.poracode-context-indicator__ring-progress {
+.axecode-context-indicator__ring-progress {
   stroke: var(--lc-context-ring);
   transition:
     stroke 0.15s ease,
     stroke-dasharray 0.2s ease;
 }
 
-.poracode-context-indicator[data-tone="unknown"] .poracode-context-indicator__ring {
+.axecode-context-indicator[data-tone="unknown"] .axecode-context-indicator__ring {
   --lc-context-ring: color-mix(in oklab, var(--muted) 50%, transparent);
 }
 
-.poracode-context-indicator[data-tone="warning"] .poracode-context-indicator__ring {
+.axecode-context-indicator[data-tone="warning"] .axecode-context-indicator__ring {
   --lc-context-ring: oklch(0.86 0.16 86);
 }
 
-.poracode-context-indicator[data-tone="danger"] .poracode-context-indicator__ring {
+.axecode-context-indicator[data-tone="danger"] .axecode-context-indicator__ring {
   --lc-context-ring: oklch(0.62 0.22 28);
 }
 
-.poracode-context-dock__bar {
+.axecode-context-dock__bar {
   height: 0.45rem;
   overflow: hidden;
   border-radius: 999px;
   background: color-mix(in oklab, var(--muted) 24%, transparent);
 }
 
-.poracode-context-dock__bar-fill {
+.axecode-context-dock__bar-fill {
   height: 100%;
   width: var(--lc-context-progress);
   border-radius: inherit;
   background: var(--foreground);
 }
 
-.poracode-context-dock__bar-fill--warning {
+.axecode-context-dock__bar-fill--warning {
   background: var(--warning);
 }
 
-.poracode-context-dock__bar-fill--danger {
+.axecode-context-dock__bar-fill--danger {
   background: var(--danger);
 }
 
-.poracode-composer-toggle {
+.axecode-composer-toggle {
   --toggle-button-bg-selected: transparent;
   --toggle-button-bg-selected-hover: var(--toggle-button-bg-hover);
   --toggle-button-bg-selected-pressed: var(--toggle-button-bg-pressed);
@@ -2332,23 +2332,23 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   padding-inline: 0.75rem;
 }
 
-.poracode-composer-toggle[data-selected="true"] {
+.axecode-composer-toggle[data-selected="true"] {
   color: var(--foreground);
 }
 
-.poracode-composer-toggle--current {
+.axecode-composer-toggle--current {
   color: var(--foreground);
 }
 
-.poracode-composer-toggle--fill-icon-selected[data-selected="true"] svg {
+.axecode-composer-toggle--fill-icon-selected[data-selected="true"] svg {
   fill: currentColor;
 }
 
-.poracode-composer-toggle[data-selected="true"] svg {
+.axecode-composer-toggle[data-selected="true"] svg {
   filter: drop-shadow(0 0 0.45rem color-mix(in oklab, currentColor 35%, transparent));
 }
 
-.poracode-composer-utility {
+.axecode-composer-utility {
   display: inline-flex;
   height: 2.25rem;
   width: 2.25rem;
@@ -2362,7 +2362,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 
 /* Inverted neutral send — foreground disc with a background-colored arrow,
    like ChatGPT/Devin; inverts automatically across themes. */
-.poracode-composer-send {
+.axecode-composer-send {
   height: 2.25rem;
   width: 2.25rem;
   border-radius: 999px;
@@ -2370,36 +2370,36 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   color: var(--background);
 }
 
-.poracode-composer-send:hover,
-.poracode-composer-send[data-hovered="true"] {
+.axecode-composer-send:hover,
+.axecode-composer-send[data-hovered="true"] {
   background: color-mix(in oklab, var(--foreground) 86%, transparent);
 }
 
-.poracode-composer-send[aria-disabled="true"] {
+.axecode-composer-send[aria-disabled="true"] {
   background: color-mix(in oklab, var(--surface) 88%, transparent);
   color: var(--muted);
 }
 
-.poracode-composer-shell--preserve-disabled-controls
-  .poracode-composer-menu:is(:disabled, [aria-disabled="true"], [data-disabled="true"]),
-.poracode-composer-shell--preserve-disabled-controls
-  .poracode-composer-toggle:is(:disabled, [aria-disabled="true"], [data-disabled="true"]) {
+.axecode-composer-shell--preserve-disabled-controls
+  .axecode-composer-menu:is(:disabled, [aria-disabled="true"], [data-disabled="true"]),
+.axecode-composer-shell--preserve-disabled-controls
+  .axecode-composer-toggle:is(:disabled, [aria-disabled="true"], [data-disabled="true"]) {
   opacity: 1;
 }
 
-.poracode-inline-control {
+.axecode-inline-control {
   height: 2.25rem;
   min-width: 0;
 }
 
-.poracode-inline-action {
+.axecode-inline-action {
   height: 2.25rem;
   width: 2.25rem;
 }
 
 /* ── Mention Input (contentEditable) ──────────────────────── */
 
-.poracode-mention-input {
+.axecode-mention-input {
   min-height: calc(0.95rem + 0.35rem + 2lh);
   max-height: 320px;
   overflow-y: auto;
@@ -2413,15 +2413,15 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   cursor: text;
 }
 
-.poracode-mention-input--compact {
+.axecode-mention-input--compact {
   min-height: calc(2lh + 0.75rem + 0.25rem);
   max-height: calc(6lh + 0.75rem + 0.25rem);
   padding: 0.75rem 0.75rem 0.25rem;
   line-height: 1.35;
 }
 
-.poracode-mention-input:focus,
-.poracode-mention-input:focus-visible {
+.axecode-mention-input:focus,
+.axecode-mention-input:focus-visible {
   outline: none !important;
   box-shadow: none !important;
   --tw-ring-shadow: 0 0 #0000 !important;
@@ -2429,7 +2429,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   --tw-shadow: 0 0 #0000 !important;
 }
 
-.poracode-mention-input:empty::before {
+.axecode-mention-input:empty::before {
   content: attr(data-placeholder);
   color: var(--muted);
   pointer-events: none;
@@ -2437,7 +2437,7 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 
 /* ── Mention Chip (inline in contentEditable) ────────────── */
 
-.poracode-mention-chip {
+.axecode-mention-chip {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -2454,19 +2454,19 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   cursor: default;
 }
 
-.poracode-mention-chip__icon {
+.axecode-mention-chip__icon {
   width: 1.1em;
   height: 1.1em;
   vertical-align: middle;
 }
 
-.poracode-mention-chip__name {
+.axecode-mention-chip__name {
   font-weight: 400;
   position: relative;
   top: -1.5px;
 }
 
-.poracode-mention-chip__delete {
+.axecode-mention-chip__delete {
   display: none;
   position: absolute;
   right: -0.3rem;
@@ -2482,18 +2482,18 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
   cursor: var(--interactive-cursor);
 }
 
-.poracode-mention-chip__delete:hover {
+.axecode-mention-chip__delete:hover {
   color: var(--foreground);
   background: color-mix(in oklab, var(--accent) 20%, var(--surface));
 }
 
-.poracode-mention-chip:hover .poracode-mention-chip__delete {
+.axecode-mention-chip:hover .axecode-mention-chip__delete {
   display: inline-flex;
 }
 
 /* ── Slash Command Chip (composer + chat user message) ──────── */
 
-.poracode-slash-chip {
+.axecode-slash-chip {
   display: inline-flex;
   align-items: center;
   gap: 0;
@@ -2516,31 +2516,31 @@ html[data-app-unfocused] .poracode-provider-icon--finished {
 /* Cursor + hover/active + transition only on the clickable message chip; the
    composer chip is an inert contentEditable decoration and must not advertise
    a click. */
-button.poracode-thread-mention-chip {
+button.axecode-thread-mention-chip {
   cursor: var(--interactive-cursor, pointer);
   transition: background 120ms ease;
 }
 
-button.poracode-thread-mention-chip:hover {
+button.axecode-thread-mention-chip:hover {
   background: color-mix(in oklab, var(--accent) 22%, var(--surface));
 }
 
-button.poracode-thread-mention-chip:active {
+button.axecode-thread-mention-chip:active {
   background: color-mix(in oklab, var(--accent) 28%, var(--surface));
 }
 
-.poracode-thread-mention-chip:focus-visible {
+.axecode-thread-mention-chip:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
 
-.poracode-slash-chip[data-skill-name],
-.poracode-slash-chip[data-mcp-name],
-.poracode-thread-mention-chip {
+.axecode-slash-chip[data-skill-name],
+.axecode-slash-chip[data-mcp-name],
+.axecode-thread-mention-chip {
   gap: 0.25em;
 }
 
-.poracode-slash-chip__slash {
+.axecode-slash-chip__slash {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2551,12 +2551,12 @@ button.poracode-thread-mention-chip:active {
   flex-shrink: 0;
 }
 
-.poracode-slash-chip__slash svg {
+.axecode-slash-chip__slash svg {
   width: 0.85em;
   height: 0.85em;
 }
 
-.poracode-slash-chip__name {
+.axecode-slash-chip__name {
   display: inline-block;
   min-width: 0;
   max-width: min(20rem, 100%);
@@ -2566,11 +2566,11 @@ button.poracode-thread-mention-chip:active {
   font-weight: 400;
 }
 
-.poracode-diff-comment-chip {
+.axecode-diff-comment-chip {
   gap: 0.25em;
 }
 
-.poracode-diff-comment-chip__delete {
+.axecode-diff-comment-chip__delete {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2585,31 +2585,31 @@ button.poracode-thread-mention-chip:active {
   cursor: var(--interactive-cursor, pointer);
 }
 
-.poracode-diff-comment-chip:hover .poracode-diff-comment-chip__delete {
+.axecode-diff-comment-chip:hover .axecode-diff-comment-chip__delete {
   width: 1em;
   opacity: 1;
 }
 
-.poracode-diff-comment-chip__delete svg {
+.axecode-diff-comment-chip__delete svg {
   width: 0.8em;
   height: 0.8em;
 }
 
-.poracode-user-message-inline-content .poracode-inline-path-chip {
+.axecode-user-message-inline-content .axecode-inline-path-chip {
   background: var(--surface-secondary);
 }
 
-.poracode-user-message-inline-content .poracode-inline-path-chip:hover {
+.axecode-user-message-inline-content .axecode-inline-path-chip:hover {
   background: color-mix(in oklab, var(--surface-secondary) 86%, var(--foreground) 14%);
 }
 
-.poracode-user-message-inline-content .poracode-inline-path-chip--inert:hover {
+.axecode-user-message-inline-content .axecode-inline-path-chip--inert:hover {
   background: var(--surface-secondary);
 }
 
 /* ── Inline File Path Chip (clickable, in chat markdown) ────── */
 
-.poracode-inline-path-chip {
+.axecode-inline-path-chip {
   display: inline-flex;
   align-items: center;
   gap: 0.2rem;
@@ -2627,38 +2627,38 @@ button.poracode-thread-mention-chip:active {
   transition: background 120ms ease;
 }
 
-.poracode-inline-path-chip:hover {
+.axecode-inline-path-chip:hover {
   background: color-mix(in oklab, var(--accent) 22%, var(--surface));
 }
 
-.poracode-inline-path-chip--inert {
+.axecode-inline-path-chip--inert {
   cursor: default;
   opacity: 0.7;
 }
 
-.poracode-inline-path-chip--inert:hover {
+.axecode-inline-path-chip--inert:hover {
   background: color-mix(in oklab, var(--accent) 12%, var(--surface));
 }
 
-.poracode-inline-path-chip__icon {
+.axecode-inline-path-chip__icon {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
 }
 
-.poracode-inline-path-chip__name {
+.axecode-inline-path-chip__name {
   font-weight: 400;
   white-space: nowrap;
 }
 
-.poracode-inline-path-chip__line {
+.axecode-inline-path-chip__line {
   color: var(--muted);
   white-space: nowrap;
 }
 
 /* ── Attachment Bar (file/image chips above editor) ────────── */
 
-.poracode-attachment-bar {
+.axecode-attachment-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
@@ -2667,12 +2667,12 @@ button.poracode-thread-mention-chip:active {
   overflow-y: auto;
 }
 
-.poracode-attachment-bar--inset {
+.axecode-attachment-bar--inset {
   padding-left: 0.85rem;
   padding-right: 0.85rem;
 }
 
-.poracode-attachment-chip {
+.axecode-attachment-chip {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -2688,7 +2688,7 @@ button.poracode-thread-mention-chip:active {
   max-width: 12rem;
 }
 
-.poracode-browser-chip {
+.axecode-browser-chip {
   padding: 0.25em 0.45em;
   height: 1.35rem;
   gap: 0.3rem;
@@ -2697,11 +2697,11 @@ button.poracode-thread-mention-chip:active {
   line-height: 1.25;
 }
 
-.poracode-attachment-chip[role="button"] {
+.axecode-attachment-chip[role="button"] {
   cursor: var(--interactive-cursor);
 }
 
-.poracode-attachment-chip__thumb {
+.axecode-attachment-chip__thumb {
   width: 1.6em;
   height: 1.6em;
   border-radius: 0.2rem;
@@ -2709,27 +2709,27 @@ button.poracode-thread-mention-chip:active {
   flex-shrink: 0;
 }
 
-.poracode-attachment-chip__icon {
+.axecode-attachment-chip__icon {
   width: 1.1em;
   height: 1.1em;
   flex-shrink: 0;
 }
 
-.poracode-attachment-chip__name {
+.axecode-attachment-chip__name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: 400;
 }
 
-.poracode-attachment-chip__selector {
+.axecode-attachment-chip__selector {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.85em;
   color: color-mix(in oklab, var(--accent) 65%, var(--foreground));
   max-width: 22rem;
 }
 
-.poracode-attachment-chip__delete {
+.axecode-attachment-chip__delete {
   display: none;
   position: absolute;
   right: -0.3rem;
@@ -2746,25 +2746,25 @@ button.poracode-thread-mention-chip:active {
   cursor: var(--interactive-cursor);
 }
 
-.poracode-browser-chip .poracode-attachment-chip__delete {
+.axecode-browser-chip .axecode-attachment-chip__delete {
   right: -0.25rem;
   top: -0.25rem;
   width: 0.85rem;
   height: 0.85rem;
 }
 
-.poracode-attachment-chip__delete:hover {
+.axecode-attachment-chip__delete:hover {
   color: var(--foreground);
   background: color-mix(in oklab, var(--accent) 20%, var(--surface));
 }
 
-.poracode-attachment-chip:hover .poracode-attachment-chip__delete {
+.axecode-attachment-chip:hover .axecode-attachment-chip__delete {
   display: inline-flex;
 }
 
 /* ── Attachment bar image preview (no chip wrapper) ───────── */
 
-.poracode-attachment-image-preview {
+.axecode-attachment-image-preview {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2781,7 +2781,7 @@ button.poracode-thread-mention-chip:active {
   contain: layout paint;
 }
 
-.poracode-attachment-image-preview img {
+.axecode-attachment-image-preview img {
   display: block;
   width: 100%;
   height: 100%;
@@ -2789,24 +2789,24 @@ button.poracode-thread-mention-chip:active {
   user-select: none;
 }
 
-.poracode-image-card {
+.axecode-image-card {
   contain: layout paint;
 }
 
-.poracode-image-action-toolbar {
+.axecode-image-action-toolbar {
   pointer-events: none;
   opacity: 0;
 }
 
-.poracode-image-card:hover > .poracode-image-action-toolbar,
-.poracode-image-card:focus-within > .poracode-image-action-toolbar {
+.axecode-image-card:hover > .axecode-image-action-toolbar,
+.axecode-image-card:focus-within > .axecode-image-action-toolbar {
   pointer-events: auto;
   opacity: 1;
 }
 
 /* ── Image Lightbox ──────────────────────────────────────── */
 
-.poracode-image-lightbox {
+.axecode-image-lightbox {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -2815,11 +2815,11 @@ button.poracode-thread-mention-chip:active {
   justify-content: center;
   background: rgba(0, 0, 0, 0.82);
   cursor: var(--interactive-cursor);
-  animation: poracode-lightbox-fade-in 150ms ease-out;
+  animation: axecode-lightbox-fade-in 150ms ease-out;
   overflow: hidden;
 }
 
-@keyframes poracode-lightbox-fade-in {
+@keyframes axecode-lightbox-fade-in {
   from {
     opacity: 0;
   }
@@ -2832,7 +2832,7 @@ button.poracode-thread-mention-chip:active {
    opaque (so the OS blur never shows through); only this content layer fades.
    Keyframes, not a transition, because the layer is clipped to zero by the
    aside's collapsing size and a transition's start value is unreliable there. */
-@keyframes poracode-panel-content-in {
+@keyframes axecode-panel-content-in {
   from {
     opacity: 0;
   }
@@ -2840,7 +2840,7 @@ button.poracode-thread-mention-chip:active {
     opacity: 1;
   }
 }
-@keyframes poracode-panel-content-out {
+@keyframes axecode-panel-content-out {
   from {
     opacity: 1;
   }
@@ -2849,7 +2849,7 @@ button.poracode-thread-mention-chip:active {
   }
 }
 
-.poracode-image-lightbox__stage {
+.axecode-image-lightbox__stage {
   position: absolute;
   inset: 3rem 3rem 4.5rem;
   display: flex;
@@ -2859,7 +2859,7 @@ button.poracode-thread-mention-chip:active {
   touch-action: none;
 }
 
-.poracode-image-lightbox__image {
+.axecode-image-lightbox__image {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -2872,16 +2872,16 @@ button.poracode-thread-mention-chip:active {
   will-change: transform;
 }
 
-.poracode-image-lightbox__image--zoomed {
+.axecode-image-lightbox__image--zoomed {
   cursor: grab;
 }
 
-.poracode-image-lightbox__image--zoomed:active {
+.axecode-image-lightbox__image--zoomed:active {
   cursor: grabbing;
   transition: none;
 }
 
-.poracode-image-lightbox__close {
+.axecode-image-lightbox__close {
   position: absolute;
   top: calc(env(titlebar-area-height, 32px) + 1rem);
   right: max(
@@ -2902,11 +2902,11 @@ button.poracode-thread-mention-chip:active {
   z-index: 2;
 }
 
-.poracode-image-lightbox__close:hover {
+.axecode-image-lightbox__close:hover {
   background: rgba(255, 255, 255, 0.22);
 }
 
-.poracode-image-lightbox__nav {
+.axecode-image-lightbox__nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -2924,19 +2924,19 @@ button.poracode-thread-mention-chip:active {
   z-index: 2;
 }
 
-.poracode-image-lightbox__nav:hover {
+.axecode-image-lightbox__nav:hover {
   background: rgba(255, 255, 255, 0.22);
 }
 
-.poracode-image-lightbox__nav--prev {
+.axecode-image-lightbox__nav--prev {
   left: 1.5rem;
 }
 
-.poracode-image-lightbox__nav--next {
+.axecode-image-lightbox__nav--next {
   right: 1.5rem;
 }
 
-.poracode-image-lightbox__footer {
+.axecode-image-lightbox__footer {
   position: absolute;
   bottom: 1.5rem;
   left: 50%;
@@ -2947,8 +2947,8 @@ button.poracode-thread-mention-chip:active {
   z-index: 2;
 }
 
-.poracode-image-lightbox__zoom,
-.poracode-image-lightbox__counter {
+.axecode-image-lightbox__zoom,
+.axecode-image-lightbox__counter {
   display: flex;
   align-items: center;
   padding: 0.3rem 0.75rem;
@@ -2959,12 +2959,12 @@ button.poracode-thread-mention-chip:active {
   user-select: none;
 }
 
-.poracode-image-lightbox__zoom {
+.axecode-image-lightbox__zoom {
   gap: 0.25rem;
   padding: 0.2rem 0.35rem;
 }
 
-.poracode-image-lightbox__zoom-button {
+.axecode-image-lightbox__zoom-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2977,23 +2977,23 @@ button.poracode-thread-mention-chip:active {
   transition: background 150ms;
 }
 
-.poracode-image-lightbox__zoom-button:hover:not(:disabled) {
+.axecode-image-lightbox__zoom-button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.16);
 }
 
-.poracode-image-lightbox__zoom-button:disabled {
+.axecode-image-lightbox__zoom-button:disabled {
   opacity: 0.35;
   cursor: default;
 }
 
-.poracode-image-lightbox__zoom-value {
+.axecode-image-lightbox__zoom-value {
   min-width: 2.75rem;
   text-align: center;
 }
 
 /* ── Mention Popover (file search dropdown) ──────────────── */
 
-.poracode-mention-popover {
+.axecode-mention-popover {
   width: min(30rem, calc(100vw - 1rem));
   max-height: 20rem;
   border: 1px solid var(--border);
@@ -3003,25 +3003,25 @@ button.poracode-thread-mention-chip:active {
   overflow: hidden;
 }
 
-.poracode-mention-popover__list {
+.axecode-mention-popover__list {
   overflow-y: auto;
   max-height: 20rem;
   padding: 0.25rem;
 }
 
-.poracode-mention-popover__icon {
+.axecode-mention-popover__icon {
   width: 1.125rem;
   height: 1.125rem;
   flex-shrink: 0;
 }
 
-.poracode-mention-popover__section + .poracode-mention-popover__section {
+.axecode-mention-popover__section + .axecode-mention-popover__section {
   margin-top: 0.25rem;
   border-top: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
   padding-top: 0.25rem;
 }
 
-.poracode-mention-popover__section-label {
+.axecode-mention-popover__section-label {
   position: sticky;
   top: 0;
   z-index: 1;
@@ -3035,7 +3035,7 @@ button.poracode-thread-mention-chip:active {
   color: var(--muted);
 }
 
-.poracode-mention-popover__item {
+.axecode-mention-popover__item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -3047,20 +3047,20 @@ button.poracode-thread-mention-chip:active {
   color: var(--foreground);
 }
 
-.poracode-mention-popover__label,
-.poracode-mention-popover__detail {
+.axecode-mention-popover__label,
+.axecode-mention-popover__detail {
   display: flex;
   align-items: center;
   min-height: 1.125rem;
   transform: translateY(-1px);
 }
 
-.poracode-mention-popover__item--active {
+.axecode-mention-popover__item--active {
   background: color-mix(in oklab, var(--accent) 12%, var(--surface));
 }
 
-.poracode-overlay-header {
-  /* Above .poracode-resize-handle (z-20) so title rows are not covered by
+.axecode-overlay-header {
+  /* Above .axecode-resize-handle (z-20) so title rows are not covered by
      main / right / git panels on macOS when subpixel or titlebar env() causes overlap. */
   position: relative;
   -webkit-app-region: drag;
@@ -3073,18 +3073,18 @@ button.poracode-thread-mention-chip:active {
 }
 
 /* macOS only — Windows unchanged. Y alignment via translateY only (no padding/height/line changes). */
-html[data-platform="darwin"] .poracode-overlay-header .poracode-overlay-header__controls,
-html[data-platform="darwin"] .poracode-overlay-header > p.text-xs,
-html[data-platform="darwin"] .poracode-sidebar-project-nudge {
+html[data-platform="darwin"] .axecode-overlay-header .axecode-overlay-header__controls,
+html[data-platform="darwin"] .axecode-overlay-header > p.text-xs,
+html[data-platform="darwin"] .axecode-sidebar-project-nudge {
   transform: translateY(2px);
 }
 
-.poracode-overlay-header__controls {
+.axecode-overlay-header__controls {
   -webkit-app-region: no-drag;
   app-region: no-drag;
 }
 
-.poracode-overlay-header--no-drag {
+.axecode-overlay-header--no-drag {
   -webkit-app-region: no-drag;
   app-region: no-drag;
 }
@@ -3094,22 +3094,22 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
    extra 28px of left padding so they clear the controls. The data-attribute
    gate means non-Mac and expanded states match nothing — no descendant
    subscribes to sidebar state for this. */
-[data-mac-collapsed] .poracode-mac-traffic-light-pad {
+[data-mac-collapsed] .axecode-mac-traffic-light-pad {
   padding-left: calc(0.5rem + 28px);
 }
 
-.poracode-terminal-pane .xterm .xterm-scrollable-element > .scrollbar.vertical {
+.axecode-terminal-pane .xterm .xterm-scrollable-element > .scrollbar.vertical {
   display: none !important;
 }
 
-.poracode-terminal-scrollbar {
+.axecode-terminal-scrollbar {
   grid-column: 2;
-  width: var(--poracode-terminal-scrollbar-width);
+  width: var(--axecode-terminal-scrollbar-width);
   cursor: default;
   transition: opacity 150ms ease-out;
 }
 
-.poracode-terminal-scrollbar__thumb {
+.axecode-terminal-scrollbar__thumb {
   position: absolute;
   width: 4px !important;
   left: 2px !important;
@@ -3241,52 +3241,52 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
 
 /* ── Markdown Preview ─────────────────────────────────────── */
 
-.poracode-markdown-preview {
+.axecode-markdown-preview {
   font-size: 0.875rem;
   line-height: 1.7;
   color: var(--foreground);
 }
 
-.poracode-markdown-preview h1,
-.poracode-markdown-preview h2,
-.poracode-markdown-preview h3,
-.poracode-markdown-preview h4,
-.poracode-markdown-preview h5,
-.poracode-markdown-preview h6 {
+.axecode-markdown-preview h1,
+.axecode-markdown-preview h2,
+.axecode-markdown-preview h3,
+.axecode-markdown-preview h4,
+.axecode-markdown-preview h5,
+.axecode-markdown-preview h6 {
   font-weight: 600;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
   line-height: 1.3;
 }
 
-.poracode-markdown-preview h1 {
+.axecode-markdown-preview h1 {
   font-size: 1.5rem;
   border-bottom: 1px solid var(--separator);
   padding-bottom: 0.3em;
 }
-.poracode-markdown-preview h2 {
+.axecode-markdown-preview h2 {
   font-size: 1.25rem;
   border-bottom: 1px solid var(--separator);
   padding-bottom: 0.2em;
 }
-.poracode-markdown-preview h3 {
+.axecode-markdown-preview h3 {
   font-size: 1.1rem;
 }
-.poracode-markdown-preview h4 {
+.axecode-markdown-preview h4 {
   font-size: 1rem;
 }
 
-.poracode-markdown-preview p {
+.axecode-markdown-preview p {
   margin: 0.75em 0;
 }
 
-.poracode-markdown-preview a {
+.axecode-markdown-preview a {
   color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.poracode-markdown-preview code {
+.axecode-markdown-preview code {
   font-family: "Cascadia Code", "Consolas", monospace;
   font-size: 0.85em;
   padding: 0.15em 0.35em;
@@ -3294,7 +3294,7 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   background: var(--surface-secondary);
 }
 
-.poracode-markdown-preview pre {
+.axecode-markdown-preview pre {
   margin: 1em 0;
   padding: 0.85em 1em;
   border-radius: 0.5rem;
@@ -3302,103 +3302,103 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   overflow-x: auto;
 }
 
-.poracode-markdown-preview pre code {
+.axecode-markdown-preview pre code {
   padding: 0;
   background: transparent;
   font-size: 0.8125rem;
   line-height: 1.55;
 }
 
-.poracode-markdown-preview ul,
-.poracode-markdown-preview ol {
+.axecode-markdown-preview ul,
+.axecode-markdown-preview ol {
   margin: 0.5em 0;
   padding-left: 1.5em;
 }
 
-.poracode-markdown-preview li {
+.axecode-markdown-preview li {
   margin: 0.25em 0;
 }
-.poracode-markdown-preview li::marker {
+.axecode-markdown-preview li::marker {
   color: var(--muted);
 }
 
-.poracode-markdown-preview blockquote {
+.axecode-markdown-preview blockquote {
   margin: 0.75em 0;
   padding: 0.25em 1em;
   border-left: 3px solid var(--accent);
   color: var(--muted);
 }
 
-.poracode-markdown-preview table {
+.axecode-markdown-preview table {
   width: 100%;
   border-collapse: collapse;
   margin: 1em 0;
   font-size: 0.8125rem;
 }
 
-.poracode-markdown-preview th,
-.poracode-markdown-preview td {
+.axecode-markdown-preview th,
+.axecode-markdown-preview td {
   padding: 0.4em 0.75em;
   border: 1px solid var(--border);
   text-align: left;
 }
 
-.poracode-markdown-preview th {
+.axecode-markdown-preview th {
   font-weight: 600;
   background: var(--surface-secondary);
 }
 
-.poracode-markdown-preview hr {
+.axecode-markdown-preview hr {
   border: none;
   border-top: 1px solid var(--separator);
   margin: 1.5em 0;
 }
 
-.poracode-markdown-preview img {
+.axecode-markdown-preview img {
   max-width: 100%;
   border-radius: 0.5rem;
 }
 
-.poracode-markdown-preview input[type="checkbox"] {
+.axecode-markdown-preview input[type="checkbox"] {
   margin-right: 0.4em;
   vertical-align: middle;
 }
 
-.poracode-markdown-preview--compact {
+.axecode-markdown-preview--compact {
   font-size: 0.8125rem;
   line-height: 1.55;
 }
 
-.poracode-markdown-preview--compact h1,
-.poracode-markdown-preview--compact h2,
-.poracode-markdown-preview--compact h3,
-.poracode-markdown-preview--compact h4,
-.poracode-markdown-preview--compact h5,
-.poracode-markdown-preview--compact h6 {
+.axecode-markdown-preview--compact h1,
+.axecode-markdown-preview--compact h2,
+.axecode-markdown-preview--compact h3,
+.axecode-markdown-preview--compact h4,
+.axecode-markdown-preview--compact h5,
+.axecode-markdown-preview--compact h6 {
   margin-top: 1em;
   margin-bottom: 0.35em;
 }
 
-.poracode-markdown-preview--compact h1 {
+.axecode-markdown-preview--compact h1 {
   font-size: 1.125rem;
 }
-.poracode-markdown-preview--compact h2 {
+.axecode-markdown-preview--compact h2 {
   font-size: 1rem;
 }
-.poracode-markdown-preview--compact h3 {
+.axecode-markdown-preview--compact h3 {
   font-size: 0.925rem;
 }
-.poracode-markdown-preview--compact h4,
-.poracode-markdown-preview--compact h5,
-.poracode-markdown-preview--compact h6 {
+.axecode-markdown-preview--compact h4,
+.axecode-markdown-preview--compact h5,
+.axecode-markdown-preview--compact h6 {
   font-size: 0.875rem;
 }
 
-.poracode-markdown-preview--compact p {
+.axecode-markdown-preview--compact p {
   margin: 0.5em 0;
 }
 
-.poracode-markdown-preview--compact hr {
+.axecode-markdown-preview--compact hr {
   margin: 0.75em 0;
 }
 
@@ -3505,10 +3505,10 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
 .agent-discovery-item[data-found="true"] .agent-discovery-item__icon {
   filter: none;
   opacity: 1;
-  animation: poracode-agent-icon-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: axecode-agent-icon-pop 480ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-@keyframes poracode-agent-icon-pop {
+@keyframes axecode-agent-icon-pop {
   0% {
     transform: scale(0.82);
     opacity: 0;
@@ -3522,7 +3522,7 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   }
 }
 
-@keyframes poracode-tool-call-enter {
+@keyframes axecode-tool-call-enter {
   from {
     opacity: 0;
     transform: translateY(8px) scale(0.98);
@@ -3534,11 +3534,11 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
 }
 
 .animate-tool-call-enter {
-  animation: poracode-tool-call-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: axecode-tool-call-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* The window supplies the upward motion, so its incoming row only fades. */
-@keyframes poracode-tool-call-window-enter {
+@keyframes axecode-tool-call-window-enter {
   from {
     opacity: 0;
   }
@@ -3547,15 +3547,15 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   }
 }
 
-.poracode-tool-call-group-windowed .animate-tool-call-enter {
-  animation: poracode-tool-call-window-enter 0.2s steps(8, end) both;
+.axecode-tool-call-group-windowed .animate-tool-call-enter {
+  animation: axecode-tool-call-window-enter 0.2s steps(8, end) both;
 }
 
 /* Sliding window for a collapsed tool-call group (toolCallWindowShift.ts). The
    dropped row is re-parented into this out-of-flow ghost so the in-flow row
    count — and the height the virtualizer measures — never changes mid-slide.
    The ghost sits in exactly the slot the rows vacate as they translate. */
-.poracode-tool-call-group-ghost {
+.axecode-tool-call-group-ghost {
   position: absolute;
   top: 0;
   left: 0;
@@ -3566,7 +3566,7 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
 /* Applied only while a slide is running: clips the incoming row so it is
    revealed rising into the window instead of overhanging the next chat row.
    `clip` rather than `hidden` so no scroll container is created. */
-.poracode-tool-call-group-clip {
+.axecode-tool-call-group-clip {
   overflow: clip;
 }
 
@@ -3576,7 +3576,7 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   }
 }
 
-@keyframes poracode-compacting-squeeze {
+@keyframes axecode-compacting-squeeze {
   0%,
   100% {
     transform: scaleY(0.9) translateY(0);
@@ -3592,20 +3592,20 @@ html[data-platform="darwin"] .poracode-sidebar-project-nudge {
   }
 }
 
-.poracode-compacting-icon {
+.axecode-compacting-icon {
   transform-origin: center;
   will-change: transform, opacity;
-  animation: poracode-compacting-squeeze 1.6s ease-in-out infinite;
+  animation: axecode-compacting-squeeze 1.6s ease-in-out infinite;
 }
 
-.poracode-compacted-icon {
+.axecode-compacted-icon {
   transform: scaleY(0.7);
   transform-origin: center;
 }
 
 /* Take chat scrollers out of dnd-kit's AutoScroller ancestor scan while a
    drag is active. */
-html[data-poracode-drag-active="true"] [data-poracode-chat-scroller="true"] {
+html[data-axecode-drag-active="true"] [data-axecode-chat-scroller="true"] {
   overflow: hidden !important;
 }
 
@@ -3614,40 +3614,40 @@ html[data-poracode-drag-active="true"] [data-poracode-chat-scroller="true"] {
    2. Opacity is animated purely on the GPU compositor lanes via keyframes.
    3. Visual identity is fully restored using native SVG viewBox scaling and a
       volumetric double-blur filter that scales proportionally. */
-.poracode-pixel-loader {
+.axecode-pixel-loader {
   aspect-ratio: 1 / 1;
   transform: translate3d(0, 0, 0);
   will-change: transform;
 }
 
-.poracode-pixel-loader.size-3 {
+.axecode-pixel-loader.size-3 {
   width: 0.75rem;
   height: 0.75rem;
 }
-.poracode-pixel-loader.size-3\.5 {
+.axecode-pixel-loader.size-3\.5 {
   width: 0.875rem;
   height: 0.875rem;
 }
-.poracode-pixel-loader.size-4 {
+.axecode-pixel-loader.size-4 {
   width: 1rem;
   height: 1rem;
 }
-.poracode-pixel-loader.size-6 {
+.axecode-pixel-loader.size-6 {
   width: 1.5rem;
   height: 1.5rem;
 }
-.poracode-pixel-loader.size-8 {
+.axecode-pixel-loader.size-8 {
   width: 2rem;
   height: 2rem;
 }
 
-.poracode-pixel-loader__cell {
+.axecode-pixel-loader__cell {
   opacity: 0;
   fill: var(--pixel-loader-color, currentColor);
   transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.poracode-pixel-loader--animated .poracode-pixel-loader__cell {
+.axecode-pixel-loader--animated .axecode-pixel-loader__cell {
   /* Prevent keyframe animation from thrashing with the CSS transition */
   transition: none !important;
 }

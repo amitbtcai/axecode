@@ -9,12 +9,12 @@ import { OptionMenu } from "./OptionMenu";
 
 describe("OptionMenu", () => {
   afterEach(() => {
-    delete (window as unknown as { poracode?: unknown }).poracode;
+    delete (window as unknown as { axecode?: unknown }).axecode;
   });
 
   it("opens a bottom drawer with large tap targets in a remote/mobile session", async () => {
-    // isRemoteSession() keys off window.poracode.appVersion === "remote".
-    (window as unknown as { poracode?: unknown }).poracode = { appVersion: "remote" };
+    // isRemoteSession() keys off window.axecode.appVersion === "remote".
+    (window as unknown as { axecode?: unknown }).axecode = { appVersion: "remote" };
     const onChange = vi.fn<(value: string) => void>();
 
     render(

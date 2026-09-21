@@ -503,7 +503,7 @@ describe("ThreadDraftView", () => {
     composerSpy.mockClear();
     launchExperimentMock.mockReset();
     launchExperimentMock.mockResolvedValue("experiment-1");
-    delete (window as unknown as { poracode?: unknown }).poracode;
+    delete (window as unknown as { axecode?: unknown }).axecode;
     useAgentStatusesStore.setState({
       agentStatuses: [],
       wslAgentStatuses: [],
@@ -915,8 +915,8 @@ describe("ThreadDraftView", () => {
       },
     });
     useAppStore.getState().setPendingDraftWorktreeSelection(project.id, {
-      branch: "poracode/calm-viper",
-      baseBranch: "poracode/calm-viper",
+      branch: "axecode/calm-viper",
+      baseBranch: "axecode/calm-viper",
       isWorktree: true,
       worktreePath: "C:\\repo-worktrees\\calm-viper",
     });
@@ -933,7 +933,7 @@ describe("ThreadDraftView", () => {
 
     await waitFor(() => {
       expect(screen.getByRole("button", { name: "Select branch" })).toHaveTextContent(
-        "poracode/calm-viper",
+        "axecode/calm-viper",
       );
     });
 
@@ -955,7 +955,7 @@ describe("ThreadDraftView", () => {
   afterEach(async () => {
     await liveVoice.stop();
     vi.unstubAllGlobals();
-    delete (window as unknown as { poracode?: unknown }).poracode;
+    delete (window as unknown as { axecode?: unknown }).axecode;
   });
 
   it("cancels deferred draft voice before a typed Send can hand off content", async () => {
@@ -1411,7 +1411,7 @@ describe("ThreadDraftView", () => {
     );
 
     composerSpy.mockClear();
-    (window as unknown as { poracode?: unknown }).poracode = { appVersion: "remote" };
+    (window as unknown as { axecode?: unknown }).axecode = { appVersion: "remote" };
 
     render(
       <ThreadDraftView project={project} agentStatuses={[statusWithVersion]} onStart={onStart} />,

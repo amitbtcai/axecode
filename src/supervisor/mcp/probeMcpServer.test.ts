@@ -331,7 +331,7 @@ describe("probeMcpServer", () => {
       timeoutMs: 2_000,
       transport: {
         type: "stdio",
-        command: "poracode-definitely-missing-command",
+        command: "axecode-definitely-missing-command",
         args: [],
         env: {},
       },
@@ -401,7 +401,7 @@ describe("probeMcpServer", () => {
   });
 
   it("times out and terminates an unresponsive stdio server", async () => {
-    const directory = mkdtempSync(join(tmpdir(), "poracode-mcp-probe-"));
+    const directory = mkdtempSync(join(tmpdir(), "axecode-mcp-probe-"));
     const pidFile = join(directory, "pid.txt");
     const script = String.raw`
       require("node:fs").writeFileSync(process.argv[1], String(process.pid));

@@ -86,7 +86,7 @@ export interface RemoteAccessServerOptions {
   /**
    * Whether the hosting process is running in development mode. Loopback PWA
    * origins are trusted in every mode so a localhost development client can
-   * connect to any packaged or headless Poracode app.
+   * connect to any packaged or headless AxeCode app.
    */
   readonly isDev?: boolean;
   readonly host: string;
@@ -649,7 +649,7 @@ export class RemoteAccessServer {
     try {
       this.options.onPairingChanged?.();
     } catch (error) {
-      console.warn("[poracode] failed to notify desktop after pairing code rotation:", error);
+      console.warn("[axecode] failed to notify desktop after pairing code rotation:", error);
     }
   }
 

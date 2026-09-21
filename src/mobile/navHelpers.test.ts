@@ -174,13 +174,13 @@ describe("buildGitAddWorktreePayload", () => {
   it("builds a create-worktree payload for a new-worktree draft", () => {
     const input: DraftStartInput = {
       ...base,
-      worktreeBranch: "poracode/new-x",
+      worktreeBranch: "axecode/new-x",
       worktreeBaseBranch: "main",
       worktreeIsNewBranch: true,
     };
     expect(buildGitAddWorktreePayload(project, input)).toEqual({
       projectLocation: { kind: "posix", path: "/repo" },
-      branch: "poracode/new-x",
+      branch: "axecode/new-x",
       createBranch: true,
       startPoint: "main",
       copyIgnoredPatterns: ["node_modules", ".env"],
@@ -192,7 +192,7 @@ describe("buildGitAddWorktreePayload", () => {
   it("maps transferUncommitted onto both transfer + keep-in-source (copy semantics)", () => {
     const input: DraftStartInput = {
       ...base,
-      worktreeBranch: "poracode/new-x",
+      worktreeBranch: "axecode/new-x",
       worktreeIsNewBranch: true,
       worktreeTransferUncommitted: true,
     };
@@ -205,7 +205,7 @@ describe("buildGitAddWorktreePayload", () => {
     const bare = makeProject("bare", { location: { kind: "posix", path: "/bare" } });
     const input: DraftStartInput = {
       ...base,
-      worktreeBranch: "poracode/x",
+      worktreeBranch: "axecode/x",
       worktreeIsNewBranch: true,
     };
     const payload = buildGitAddWorktreePayload(bare, input);

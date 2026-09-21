@@ -1,7 +1,7 @@
 {
-  "name": "poracode-status-grok",
+  "name": "axecode-status-grok",
   "version": "1.2.0",
-  "description": "Grok CLI lifecycle hook forwarder for Poracode thread status",
-  "author": "Poracode",
+  "description": "Grok CLI lifecycle hook forwarder for AxeCode thread status",
+  "author": "AxeCode",
   "license": "Apache-2.0"
 }

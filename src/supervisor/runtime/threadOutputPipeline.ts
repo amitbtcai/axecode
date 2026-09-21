@@ -25,8 +25,8 @@ const UNCORROBORATED_EXTRA_DELAY: Partial<Record<ThreadStatus, number>> = {
 const DEFAULT_WORKING_SILENCE_TIMEOUT = 2000;
 const CLI_HOOK_FIRST_EVENT_GRACE_MS = 600;
 
-function isPoracodeOscDebugEnabled(): boolean {
-  const v = process.env.PORACODE_DEBUG_OSC;
+function isAxeCodeOscDebugEnabled(): boolean {
+  const v = process.env.AXECODE_DEBUG_OSC;
   return v === "1" || v === "true" || v === "yes";
 }
 
@@ -235,9 +235,9 @@ export class ThreadOutputPipeline {
     session: SessionRuntime,
     change: { status: ThreadStatus; attention: ThreadAttention },
   ): void {
-    if (isPoracodeOscDebugEnabled()) {
+    if (isAxeCodeOscDebugEnabled()) {
       console.log(
-        `[poracode-osc] L1 hook thread=${session.threadId} kind=${session.agentKind} ` +
+        `[axecode-osc] L1 hook thread=${session.threadId} kind=${session.agentKind} ` +
           `-> status=${change.status} attention=${change.attention} (Hooks own status; not OSC)`,
       );
     }
@@ -357,14 +357,14 @@ export class ThreadOutputPipeline {
       });
 
       const oscHint = session.adapter.handleOscNotification?.(notification);
-      if (isPoracodeOscDebugEnabled()) {
+      if (isAxeCodeOscDebugEnabled()) {
         const j = (s: string, max: number) =>
           s.length <= max ? JSON.stringify(s) : `${JSON.stringify(s.slice(0, max))}…`;
         const hintText = oscHint
           ? `hint=${oscHint.status}/${oscHint.attention} corroborated=${String(oscHint.corroborated)}`
-          : "hint=(null — event not mapped to Poracode status)";
+          : "hint=(null — event not mapped to AxeCode status)";
         console.log(
-          `[poracode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
+          `[axecode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
             `code=${notification.code} title=${j(notification.title, 64)} body=${j(notification.body, 200)} ` +
             `${hintText}`,
         );
@@ -376,14 +376,14 @@ export class ThreadOutputPipeline {
 
     for (const title of titles) {
       const titleHint = session.adapter.handleOscTitle?.(title);
-      if (isPoracodeOscDebugEnabled()) {
+      if (isAxeCodeOscDebugEnabled()) {
         const j = (s: string, max: number) =>
           s.length <= max ? JSON.stringify(s) : `${JSON.stringify(s.slice(0, max))}…`;
         const hintText = titleHint
           ? `hint=${titleHint.status}/${titleHint.attention}`
           : "hint=(null — title not mapped)";
         console.log(
-          `[poracode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
+          `[axecode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
             `titleCode=${title.code} text=${j(title.text, 160)} ${hintText}`,
         );
       }
@@ -400,7 +400,7 @@ export class ThreadOutputPipeline {
       });
 
       const shellHint = session.adapter.handleOscShellEvent?.(shellEvent);
-      if (isPoracodeOscDebugEnabled()) {
+      if (isAxeCodeOscDebugEnabled()) {
         const summary =
           shellEvent.kind === "command-finished"
             ? `${shellEvent.kind} exit=${shellEvent.exitCode ?? "?"}`
@@ -413,7 +413,7 @@ export class ThreadOutputPipeline {
           ? `hint=${shellHint.status}/${shellHint.attention}`
           : "hint=(null — shell event not mapped)";
         console.log(
-          `[poracode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
+          `[axecode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
             `osc=633 ${summary} ${hintText}`,
         );
       }
@@ -422,10 +422,10 @@ export class ThreadOutputPipeline {
       }
     }
 
-    if (isPoracodeOscDebugEnabled()) {
+    if (isAxeCodeOscDebugEnabled()) {
       if ((ptyCarryIn && ptyCarryIn.length > 0) || (carryOut && carryOut.length > 0)) {
         console.log(
-          `[poracode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
+          `[axecode-osc] PTY thread=${session.threadId} kind=${session.agentKind} ` +
             `oscCarryInBytes=${(ptyCarryIn ?? "").length} oscCarryOutBytes=${carryOut.length} (split OSC reassembly)`,
         );
       }

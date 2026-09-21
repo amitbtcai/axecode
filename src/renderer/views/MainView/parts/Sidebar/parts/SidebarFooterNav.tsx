@@ -240,7 +240,7 @@ export function SidebarFooterNav(props: { remoteAccessStatus: RemoteAccessSideba
               <Dropdown.Popover placement="top end">
                 <Dropdown.Menu
                   aria-label={t`More`}
-                  className="poracode-menu min-w-48"
+                  className="axecode-menu min-w-48"
                   onAction={(key) => {
                     overflowedActions.find((item) => item.key === String(key))?.onPress();
                   }}

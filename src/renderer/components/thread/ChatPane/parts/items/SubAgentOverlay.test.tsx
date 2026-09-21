@@ -56,7 +56,7 @@ vi.mock("@legendapp/list/react", async () => {
           ref={scrollRef}
           className={props.className}
           style={props.style}
-          data-poracode-chat-scroller="true"
+          data-axecode-chat-scroller="true"
           onWheelCapture={props.onWheelCapture}
         >
           <div
@@ -123,7 +123,7 @@ describe("SubAgentContent", () => {
     const dialog = await screen.findByRole("region", {
       name: "Agent (rubber-duck): Critiquing opencode fix",
     });
-    expect(dialog).toHaveClass("poracode-subagent-surface", "bg-[var(--content-background)]");
+    expect(dialog).toHaveClass("axecode-subagent-surface", "bg-[var(--content-background)]");
     expect(within(dialog).getByText("Working…")).toBeInTheDocument();
 
     const heading = within(dialog).getByRole("heading", {
@@ -170,7 +170,7 @@ describe("SubAgentContent", () => {
     expect(await screen.findByText("Working for 1m 10s")).toBeInTheDocument();
     await waitFor(() => expect(mockScrollToEnd).toHaveBeenCalled());
     const scroller = view.container.querySelector<HTMLElement>(
-      '[data-poracode-chat-scroller="true"]',
+      '[data-axecode-chat-scroller="true"]',
     );
     expect(scroller).not.toBeNull();
     expect(scroller?.style.maskImage).toContain("var(--top-fade-size");
@@ -297,15 +297,15 @@ describe("SubAgentContent", () => {
       </AppProvider>,
     );
 
-    const row = view.container.querySelector(".poracode-subagent-dock-row");
+    const row = view.container.querySelector(".axecode-subagent-dock-row");
     expect(row).not.toBeNull();
     expect(
-      row?.querySelector('[data-poracode-shimmer-text="Agent · protocol specialist"]'),
+      row?.querySelector('[data-axecode-shimmer-text="Agent · protocol specialist"]'),
     ).toBeNull();
     expect(view.container).toHaveTextContent("Subagents");
     expect(screen.getByText("protocol specialist")).toBeInTheDocument();
     expect(row?.textContent).not.toContain("specialist·GPT");
-    expect(row?.querySelector(".poracode-pixel-loader")).not.toBeNull();
+    expect(row?.querySelector(".axecode-pixel-loader")).not.toBeNull();
     expect(row).toHaveClass("bg-accent/10");
   });
 

@@ -13,9 +13,9 @@ interface MdNode {
 describe("remarkAutolinkProjectPaths", () => {
   it.each([
     "https://example.test/report.pdf",
-    "https://poracode.local/path/v2/%2Ftmp%2Freport%3A2026?line=12",
-    "https://poracode.local/path/v3/%2Ftmp%2Freport.pdf",
-    "poracode:path:src%2Fmain.ts%3A12-18",
+    "https://axecode.local/path/v2/%2Ftmp%2Freport%3A2026?line=12",
+    "https://axecode.local/path/v3/%2Ftmp%2Freport.pdf",
+    "axecode:path:src%2Fmain.ts%3A12-18",
   ])("preserves URL identity before heuristic filesystem lookup: %s", (url) => {
     const parsePathRef = vi.fn<(token: string) => ProjectPathRef | null>((path) => ({
       kind: "folder",

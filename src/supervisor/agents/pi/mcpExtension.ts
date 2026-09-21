@@ -39,7 +39,7 @@ export function piMcpToolResult(result: BridgeToolResult) {
 
 export function registerPiMcpTools(pi: PiMcpExtensionApi, servers: readonly ResolvedMcpServer[]) {
   return registerMcpBridgeTools(servers, {
-    clientName: "poracode-pi",
+    clientName: "axecode-pi",
     register(server, tool, call) {
       pi.registerTool({
         name: mcpBridgeToolName(server.name, tool.name),
@@ -49,18 +49,18 @@ export function registerPiMcpTools(pi: PiMcpExtensionApi, servers: readonly Reso
         execute: async (_id, input, signal) => piMcpToolResult(await call(input, signal)),
       });
     },
-    onError: (server) => console.error(`Poracode could not connect MCP server ${server.name}.`),
+    onError: (server) => console.error(`AxeCode could not connect MCP server ${server.name}.`),
   });
 }
 
-export default async function poracodeMcpExtension(pi: PiMcpExtensionApi): Promise<void> {
-  const encoded = process.env.PORACODE_PI_MCP;
+export default async function axecodeMcpExtension(pi: PiMcpExtensionApi): Promise<void> {
+  const encoded = process.env.AXECODE_PI_MCP;
   if (!encoded) return;
   const config = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as {
     version: number;
     servers: ResolvedMcpServer[];
   };
-  if (config.version !== 1) throw new Error("Unsupported Poracode MCP launch configuration");
+  if (config.version !== 1) throw new Error("Unsupported AxeCode MCP launch configuration");
   const close = await registerPiMcpTools(pi, config.servers);
   pi.on("session_shutdown", ({ reason }) => {
     // Native session switches retain the extension host; /reload replaces it.

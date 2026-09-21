@@ -142,7 +142,7 @@ export function createCodexAdapter(): AgentAdapter {
       return capabilities;
     },
     spawnEnv: { wsl: { BROWSER: "/bin/true" } },
-    pluginId: "poracode-status@codex",
+    pluginId: "axecode-status@codex",
     pluginVersion: CODEX_PLUGIN_VERSION,
     minProtocolVersion: 1,
     async isPluginSupported(ctx) {

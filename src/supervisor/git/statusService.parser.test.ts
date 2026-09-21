@@ -28,9 +28,9 @@ describe("isInheritedStartPointUpstream", () => {
   it("detects a worktree branch that inherited origin/master as upstream", () => {
     expect(
       isInheritedStartPointUpstream({
-        branch: "poracode/clever-falcon-2541f8a0",
+        branch: "axecode/clever-falcon-2541f8a0",
         tracking: "origin/master",
-        poracodeSource: "origin/master",
+        axecodeSource: "origin/master",
       }),
     ).toBe(true);
   });
@@ -40,7 +40,7 @@ describe("isInheritedStartPointUpstream", () => {
       isInheritedStartPointUpstream({
         branch: "feature/x",
         tracking: "origin/feature/x",
-        poracodeSource: "origin/master",
+        axecodeSource: "origin/master",
       }),
     ).toBe(false);
   });
@@ -48,9 +48,9 @@ describe("isInheritedStartPointUpstream", () => {
   it("ignores tracking that is not the recorded fork base", () => {
     expect(
       isInheritedStartPointUpstream({
-        branch: "poracode/clever-falcon-2541f8a0",
+        branch: "axecode/clever-falcon-2541f8a0",
         tracking: "origin/master",
-        poracodeSource: "origin/develop",
+        axecodeSource: "origin/develop",
       }),
     ).toBe(false);
   });

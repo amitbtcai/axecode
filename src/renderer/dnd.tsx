@@ -494,7 +494,7 @@ export function AppDndProvider(props: {
         mainPanelDropActiveRef.current = false;
         setAutoScrollEnabled(data?.type !== "panel-tab");
         // Lets CSS opt chat scrollers out of dnd-kit's AutoScroller ancestor scan.
-        document.documentElement.dataset.poracodeDragActive = "true";
+        document.documentElement.dataset.axecodeDragActive = "true";
       }}
       onDragMove={(event) => {
         const data = event.operation.source?.data as DragSourceData | undefined;
@@ -655,7 +655,7 @@ export function AppDndProvider(props: {
         panelDockIndicatorRef.current = null;
         sidebarSortTargetRef.current = null;
         setAutoScrollEnabled(true);
-        delete document.documentElement.dataset.poracodeDragActive;
+        delete document.documentElement.dataset.axecodeDragActive;
       }}
     >
       <DndManagerBridge managerRef={managerRef} />

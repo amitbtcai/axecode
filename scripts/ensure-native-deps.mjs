@@ -29,7 +29,7 @@ function ensureElectronBinary() {
   // weight there and its flakiness shouldn't fail the build. App-running flows
   // (local dev, packaging) leave this unset and still get the enforced download.
   if (process.env.ELECTRON_SKIP_BINARY_DOWNLOAD) {
-    console.log("[poracode] ELECTRON_SKIP_BINARY_DOWNLOAD set; skipping Electron binary check");
+    console.log("[axecode] ELECTRON_SKIP_BINARY_DOWNLOAD set; skipping Electron binary check");
     return;
   }
 
@@ -46,7 +46,7 @@ function ensureElectronBinary() {
   const maxAttempts = 3;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     console.log(
-      `[poracode] Electron binary missing; running electron/install.js (attempt ${attempt}/${maxAttempts})`,
+      `[axecode] Electron binary missing; running electron/install.js (attempt ${attempt}/${maxAttempts})`,
     );
     // We only reach this loop when the executable is absent. A flaked or partial
     // extraction can still leave dist/version + path.txt behind, which makes
@@ -71,7 +71,7 @@ function ensureElectronBinary() {
   }
 
   throw new Error(
-    `[poracode] Electron binary is unavailable after ${maxAttempts} attempts of electron/install.js`,
+    `[axecode] Electron binary is unavailable after ${maxAttempts} attempts of electron/install.js`,
   );
 }
 
@@ -81,7 +81,7 @@ function ensureNodePty() {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(
-      `[poracode] node-pty is unavailable: ${message}. If pnpm blocked native build scripts, run 'pnpm approve-builds' and reinstall.`,
+      `[axecode] node-pty is unavailable: ${message}. If pnpm blocked native build scripts, run 'pnpm approve-builds' and reinstall.`,
       { cause: error },
     );
   }
@@ -94,7 +94,7 @@ function ensureBetterSqlite3() {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(
-      `[poracode] better-sqlite3 is unavailable: ${message}. Reinstall dependencies to restore the bundled N-API binaries.`,
+      `[axecode] better-sqlite3 is unavailable: ${message}. Reinstall dependencies to restore the bundled N-API binaries.`,
       { cause: error },
     );
   }
@@ -148,7 +148,7 @@ function validateElectronNativeDependencies() {
 }
 
 function ensureElectronNativeDependencies() {
-  const cacheDir = join(process.cwd(), "node_modules", ".cache", "poracode");
+  const cacheDir = join(process.cwd(), "node_modules", ".cache", "axecode");
   const cachePath = join(cacheDir, "electron-native.json");
   const fingerprint = electronNativeFingerprint();
   let cachedFingerprint;
@@ -159,14 +159,14 @@ function ensureElectronNativeDependencies() {
   }
 
   if (fingerprintsMatch(cachedFingerprint, fingerprint)) {
-    console.log("[poracode] Electron native dependencies already validated");
+    console.log("[axecode] Electron native dependencies already validated");
     return;
   }
 
   const validation = validateElectronNativeDependencies();
   if (validation.status !== 0) {
     const detail = validation.stderr?.trim() || validation.error?.message || "unknown error";
-    throw new Error(`[poracode] Electron native dependency validation failed: ${detail}`);
+    throw new Error(`[axecode] Electron native dependency validation failed: ${detail}`);
   }
 
   mkdirSync(cacheDir, { recursive: true });

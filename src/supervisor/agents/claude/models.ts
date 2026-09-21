@@ -44,13 +44,13 @@ const MIN_CLAUDE_FABLE_51_CLI = [2, 1, 250] as const;
 
 const CLAUDE_SEMVER_RE = /(\d+)\.(\d+)\.(\d+)/;
 
-/** Effort choices Poracode exposes for Claude's current frontier models. */
+/** Effort choices AxeCode exposes for Claude's current frontier models. */
 export const CLAUDE_PREMIUM_EFFORT_TIERS: string[] = [...CLAUDE_EFFORT_TIERS];
 
 /**
  * Built-in catalog of explicit Claude Code model ids.
  *
- * Order is significant: the first model is Poracode's default for new Claude
+ * Order is significant: the first model is AxeCode's default for new Claude
  * threads and delegated runs.
  */
 export const CLAUDE_BUILTIN_MODELS: AgentCapability["models"] = [
@@ -151,7 +151,7 @@ export function claudeCapabilitiesFromCliVersion(
   return { models, defaultHiddenModels, modelEfforts, modelContextSizes, fastModels };
 }
 
-function poracodeEffortId(effort: string): string {
+function axecodeEffortId(effort: string): string {
   return effort === "xhigh" ? "xHigh" : effort;
 }
 
@@ -211,7 +211,7 @@ export function claudeCapabilitiesFromSdkModels(
     if (sdkModel.supportsEffort === false) {
       modelEfforts[modelId] = [];
     } else if (sdkModel.supportedEffortLevels?.length) {
-      const efforts = sdkModel.supportedEffortLevels.map(poracodeEffortId);
+      const efforts = sdkModel.supportedEffortLevels.map(axecodeEffortId);
       // Ultracode is Claude Code's xhigh + dynamic-workflow session preset.
       if (efforts.includes("xHigh") && !efforts.includes("ultracode")) {
         efforts.push("ultracode");

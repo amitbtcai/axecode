@@ -14,17 +14,17 @@ export function createThreadMentionChipElement(input: ThreadMentionChipInput): H
   chip.contentEditable = "false";
   chip.dataset.threadMentionId = input.threadId;
   chip.dataset.threadMentionTitle = input.title;
-  chip.className = "poracode-slash-chip poracode-thread-mention-chip";
+  chip.className = "axecode-slash-chip axecode-thread-mention-chip";
   const label = threadMentionLabel(input);
   chip.title = label;
 
   const glyph = document.createElement("span");
-  glyph.className = "poracode-slash-chip__slash";
+  glyph.className = "axecode-slash-chip__slash";
   glyph.innerHTML = MESSAGES_SQUARE_ICON_SVG;
   chip.appendChild(glyph);
 
   const name = document.createElement("span");
-  name.className = "poracode-slash-chip__name";
+  name.className = "axecode-slash-chip__name";
   name.textContent = label;
   chip.appendChild(name);
 

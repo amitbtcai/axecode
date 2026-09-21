@@ -27,7 +27,7 @@ const server: McpServer = {
 
 describe("MCP launch transport compatibility", () => {
   it("preserves native transports unless filtering or cwd emulation is needed", async () => {
-    vi.stubEnv("PORACODE_WSL_HELPERS_DIR", "/missing");
+    vi.stubEnv("AXECODE_WSL_HELPERS_DIR", "/missing");
     expect(await prepareMcpToolFilters([server], { kind: "posix", path: "/project" })).toEqual([
       server,
     ]);
@@ -36,10 +36,10 @@ describe("MCP launch transport compatibility", () => {
     ).rejects.toThrow("unavailable");
   });
   it("preserves the original cwd, environment, and timeout inside the proxy config", async () => {
-    const root = mkdtempSync(join(tmpdir(), "poracode-mcp-test-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-mcp-test-"));
     roots.push(root);
     writeFileSync(join(root, "mcp-stdio.mjs"), "");
-    vi.stubEnv("PORACODE_WSL_HELPERS_DIR", root);
+    vi.stubEnv("AXECODE_WSL_HELPERS_DIR", root);
     const [wrapped] = await prepareMcpToolFilters(
       [server],
       { kind: "posix", path: "/project" },
@@ -49,7 +49,7 @@ describe("MCP launch transport compatibility", () => {
     if (wrapped!.transport.type !== "stdio") throw new Error("expected stdio");
     expect(wrapped!.transport.args).toEqual([join(root, "mcp-stdio.mjs")]);
     const config = JSON.parse(
-      Buffer.from(wrapped!.transport.env.PORACODE_MCP_STDIO_CONFIG!, "base64url").toString("utf8"),
+      Buffer.from(wrapped!.transport.env.AXECODE_MCP_STDIO_CONFIG!, "base64url").toString("utf8"),
     );
     expect(config).toEqual({ version: 1, server });
     expect(wrapped!.transport.args.join(" ")).not.toContain("private");

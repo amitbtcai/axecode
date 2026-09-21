@@ -69,8 +69,8 @@ describe("HomeView", () => {
     const { container } = render(<HomeView />);
 
     expect(screen.getByText("ACP thread")).toBeInTheDocument();
-    expect(container.querySelector(".poracode-provider-icon--external")).toBeInTheDocument();
-    expect(container.querySelector(".poracode-provider-icon__generic")).not.toBeInTheDocument();
+    expect(container.querySelector(".axecode-provider-icon--external")).toBeInTheDocument();
+    expect(container.querySelector(".axecode-provider-icon__generic")).not.toBeInTheDocument();
   });
 
   it("filters recent threads to the selected workspace and clears on second click", () => {
@@ -194,7 +194,7 @@ describe("HomeView", () => {
 
   it("marks WSL and remote workspaces and their thread tags", () => {
     useRemoteServersStore.setState({
-      servers: [{ desktopId: "desktop-1", label: "Poracode on MacBook 16" }],
+      servers: [{ desktopId: "desktop-1", label: "AxeCode on MacBook 16" }],
       runtime: {},
     } as never);
     useAppStore.setState({

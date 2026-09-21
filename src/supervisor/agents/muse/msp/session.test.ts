@@ -259,7 +259,7 @@ describe("MuseMspStructuredSession", () => {
     });
   });
 
-  it("resumes only the supplied Poracode session without replaying history", async () => {
+  it("resumes only the supplied AxeCode session without replaying history", async () => {
     const { session } = await createSession({
       sessionRef: { providerSessionId: "session-1", discoveredAt: "2026-01-01T00:00:00Z" },
     });

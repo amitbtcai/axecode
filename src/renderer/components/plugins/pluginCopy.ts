@@ -14,7 +14,7 @@ import {
 /**
  * Display copy for loaded Agent Plugins packages.
  *
- * Poracode's own packages ship English text in `plugin.json`, so their names and
+ * AxeCode's own packages ship English text in `plugin.json`, so their names and
  * descriptions are overridden here with translated strings. Third-party packages
  * carry author-written metadata that cannot live in our catalogs, so their
  * manifest text is shown as authored — that is the correct behavior for a
@@ -49,7 +49,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
   useProjectPluginScope(projectLocation);
 
   return plugins.map((plugin): LocalizedPlugin => {
-    const fallbackName = plugin.poracode.title ?? plugin.name;
+    const fallbackName = plugin.axecode.title ?? plugin.name;
     let name: string;
     let description: string;
     switch (plugin.name) {
@@ -91,7 +91,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
     }
 
     const skills = plugin.skills.map((skill): LocalizedPluginContribution => {
-      const policy = plugin.poracode.skills[skill.folder];
+      const policy = plugin.axecode.skills[skill.folder];
       switch (`${plugin.name}:${skill.folder}`) {
         case "app-controls:app-controls":
           return {
@@ -140,7 +140,7 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
 
     // Server transport detail is author-supplied and identifies the endpoint, so
     // it is shown verbatim rather than translated.
-    const builtInMcpServers = plugin.poracode.builtInMcpServerIds.map(
+    const builtInMcpServers = plugin.axecode.builtInMcpServerIds.map(
       (id): LocalizedPluginContribution => ({
         id,
         name:
@@ -170,11 +170,11 @@ export function useLocalizedPluginCatalog(projectLocation?: ProjectLocation): Lo
     const mcpServers = [...builtInMcpServers, ...declaredMcpServers];
 
     const category =
-      plugin.poracode.category === "developer-tools"
+      plugin.axecode.category === "developer-tools"
         ? t`Developer tools`
-        : plugin.poracode.category === "automation"
+        : plugin.axecode.category === "automation"
           ? t`Automation`
-          : plugin.poracode.category === "communication"
+          : plugin.axecode.category === "communication"
             ? t`Communication`
             : t`Productivity`;
 

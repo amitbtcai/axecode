@@ -1417,7 +1417,7 @@ export const useRemoteServersStore = create<RemoteServersState>()(
       };
     },
     {
-      name: "poracode-remote-servers",
+      name: "axecode-remote-servers",
       storage: createJSONStorage(() => localStorage),
       // Persist durable connection identity (incl. the bearer accessToken) and
       // last-known projects so offline servers keep their sidebar rows. Live

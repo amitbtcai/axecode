@@ -7,16 +7,16 @@
  * one material without sharing geometry.
  */
 export const floatingGlassSurfaceClass =
-  "poracode-floating-chrome border border-border/15 bg-[var(--floating-chrome-surface)] shadow-lg backdrop-blur-md";
+  "axecode-floating-chrome border border-border/15 bg-[var(--floating-chrome-surface)] shadow-lg backdrop-blur-md";
 
 /** Denser, still-dark selected state for a floating glass control. */
-export const floatingGlassActiveClass = "poracode-floating-chrome--active";
+export const floatingGlassActiveClass = "axecode-floating-chrome--active";
 
 /**
  * Composer bubbles (docks, changes): a quieter edge at rest that only firms up
  * on hover, so a row of pills does not read as a row of outlined buttons.
  */
-export const floatingGlassBubbleClass = "poracode-floating-chrome--bubble";
+export const floatingGlassBubbleClass = "axecode-floating-chrome--bubble";
 
 /** Bubble whose panel is open: the glass takes a faint accent tint and edge. */
-export const floatingGlassBubbleActiveClass = "poracode-floating-chrome--bubble-active";
+export const floatingGlassBubbleActiveClass = "axecode-floating-chrome--bubble-active";

@@ -101,7 +101,7 @@ function requireThreadMentionTools(
     session.threadMentionToolsAvailable !== true
   ) {
     throw new Error(
-      "Thread mentions require the Poracode read_thread tool, but it is unavailable for this session.",
+      "Thread mentions require the AxeCode read_thread tool, but it is unavailable for this session.",
     );
   }
 }
@@ -256,7 +256,7 @@ export class ThreadSessionManager {
   }
 
   /**
-   * Resolve a provider-native root or child session to its live Poracode
+   * Resolve a provider-native root or child session to its live AxeCode
    * thread. Root ids use the reverse index; provider-owned child sessions can
    * opt into the fallback through `ownsProviderSession`.
    */

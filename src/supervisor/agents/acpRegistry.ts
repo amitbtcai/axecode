@@ -61,7 +61,7 @@ export function wslAcpRegistryAgentInstallDir(
   home: string,
   agentId: string,
 ): string {
-  return toWslUncPath(distro, `${home}/.poracode/${ACP_REGISTRY_INSTALL_DIR}/${agentId}`);
+  return toWslUncPath(distro, `${home}/.axecode/${ACP_REGISTRY_INSTALL_DIR}/${agentId}`);
 }
 
 /**
@@ -74,7 +74,7 @@ export async function pruneWslAcpRegistryPendingDeletes(distro: string): Promise
   const home = await resolveWslHomeDirectoryAsync(distro).catch(() => undefined);
   if (!home) return;
   const [result] = await batchWslCommandsAsync(distro, [
-    `find ${quotePosixShellArg(`${home}/.poracode/${ACP_REGISTRY_INSTALL_DIR}`)} -maxdepth 3 -type d ` +
+    `find ${quotePosixShellArg(`${home}/.axecode/${ACP_REGISTRY_INSTALL_DIR}`)} -maxdepth 3 -type d ` +
       `-name ${quotePosixShellArg(`${PENDING_DELETE_PREFIX}*`)} -exec rm -rf {} +`,
   ]).catch(() => []);
   if (!result?.ok) {
@@ -165,7 +165,7 @@ export async function fetchAcpRegistry(): Promise<AcpRegistryListResult> {
 
 /**
  * Cache every (agentId, iconUrl) pair in parallel and return the resolved
- * `poracode-local://` (or unchanged, on download failure) URL per agent.
+ * `axecode-local://` (or unchanged, on download failure) URL per agent.
  * Without the parallelism N installed agents become N serial CDN fetches;
  * with it total wall-clock is one round-trip.
  */
@@ -266,7 +266,7 @@ export async function backfillAcpRegistryAgentIcons(input: {
 
 /**
  * Launch-time icon repair: convert any installed acp-generic icon still
- * pointing at a remote CDN URL to a locally-cached `poracode-local://` URL,
+ * pointing at a remote CDN URL to a locally-cached `axecode-local://` URL,
  * using the URL already stored in settings — no registry fetch. An install
  * that ran offline (or predates icon caching) otherwise re-fetches the icon
  * over the network on every start, which flickers the sidebar rows until the
@@ -473,14 +473,14 @@ async function extractArchive(archivePath: string, installDir: string): Promise<
           "-NoLogo",
           "-NoProfile",
           "-Command",
-          "Expand-Archive -LiteralPath $env:PORACODE_ACP_ARCHIVE_PATH -DestinationPath $env:PORACODE_ACP_INSTALL_DIR -Force",
+          "Expand-Archive -LiteralPath $env:AXECODE_ACP_ARCHIVE_PATH -DestinationPath $env:AXECODE_ACP_INSTALL_DIR -Force",
         ],
         {
           windowsHide: true,
           env: {
             ...process.env,
-            PORACODE_ACP_ARCHIVE_PATH: archivePath,
-            PORACODE_ACP_INSTALL_DIR: installDir,
+            AXECODE_ACP_ARCHIVE_PATH: archivePath,
+            AXECODE_ACP_INSTALL_DIR: installDir,
           },
         },
       );
@@ -525,7 +525,7 @@ async function binaryInstance(
   if (installTarget.kind === "wsl") {
     const home = await resolveWslHomeDirectoryAsync(installTarget.distro);
     if (!home) throw new Error(`Unable to resolve home directory for WSL ${installTarget.distro}`);
-    linuxInstallDir = `${home}/.poracode/${ACP_REGISTRY_INSTALL_DIR}/${agent.id}/${agent.version}/bin`;
+    linuxInstallDir = `${home}/.axecode/${ACP_REGISTRY_INSTALL_DIR}/${agent.id}/${agent.version}/bin`;
     installDir = toWslUncPath(installTarget.distro, linuxInstallDir);
     commandPath = `${linuxInstallDir}/${target.cmd.replace(/^\.\//, "")}`;
   } else {
@@ -766,7 +766,7 @@ export async function installAcpRegistryAgent(input: {
     throw new Error(`ACP registry agent not found: ${input.agentId}`);
   }
 
-  // Cache the icon to disk so settings stores a `poracode-local://` URL
+  // Cache the icon to disk so settings stores a `axecode-local://` URL
   // rather than the upstream CDN URL — the renderer can then paint the icon
   // synchronously on every app start.
   const cachedIcon = agent.icon

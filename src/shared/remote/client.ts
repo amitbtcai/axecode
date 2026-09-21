@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { remoteImageRefPath, type RemoteImageRefValue } from "./imageRef";
 import {
-  PORACODE_REMOTE_PROTOCOL_VERSION,
+  AXECODE_REMOTE_PROTOCOL_VERSION,
   REMOTE_COMMAND_ID_HEADER,
   REMOTE_PROCEDURE_SPECS,
   REMOTE_STANDARD_SCOPES,
@@ -165,7 +165,7 @@ function defaultClientMetadata(): RemoteClientMetadata {
   const userAgent = globalThis.navigator?.userAgent;
   const isMobile = userAgent ? /\bMobile\b/i.test(userAgent) : false;
   return {
-    label: isMobile ? "Poracode mobile web" : "Poracode web app",
+    label: isMobile ? "AxeCode mobile web" : "AxeCode web app",
     deviceType: isMobile ? "mobile" : "browser",
     ...(userAgent ? { os: userAgent } : {}),
   };
@@ -282,7 +282,7 @@ export class RemoteDesktopClient {
   async environment(): Promise<RemoteEnvironmentDescriptor> {
     let raw: unknown;
     try {
-      raw = await this.requestJson("/.well-known/poracode/environment");
+      raw = await this.requestJson("/.well-known/axecode/environment");
     } catch (error) {
       if (!(error instanceof RemoteClientError) || error.status !== 404) throw error;
       raw = await this.requestJson("/.well-known/lightcode/environment");
@@ -291,7 +291,7 @@ export class RemoteDesktopClient {
     // literal in the strict schema would otherwise dump a JSON ZodError) yields
     // a readable, branchable error instead.
     const version = z.object({ protocolVersion: z.unknown() }).safeParse(raw).data?.protocolVersion;
-    if (version !== PORACODE_REMOTE_PROTOCOL_VERSION) {
+    if (version !== AXECODE_REMOTE_PROTOCOL_VERSION) {
       throw new RemoteClientError(
         "This app version is incompatible with that server. Update both to the same version.",
         409,
@@ -426,7 +426,7 @@ export class RemoteDesktopClient {
     readonly fileName: string;
     readonly data: Uint8Array;
   }): Promise<string> {
-    const url = new URL("/api/files/attachment", "http://poracode.invalid");
+    const url = new URL("/api/files/attachment", "http://axecode.invalid");
     url.searchParams.set("threadId", input.threadId);
     url.searchParams.set("name", input.fileName);
     const result = parseResponse(
@@ -945,7 +945,7 @@ export class RemoteDesktopClient {
   }
 
   /**
-   * Absolute URL of the authenticated image endpoint used for poracode-local
+   * Absolute URL of the authenticated image endpoint used for axecode-local
    * sources. The access token rides in the query string because <img> tags
    * can't send Authorization headers. Returns "" without a token — callers
    * fall back to the original (unrenderable in a browser) URL then.

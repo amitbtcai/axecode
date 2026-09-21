@@ -9,7 +9,7 @@ import {
   type HostPort,
   type OAuthToken,
   type UsageSnapshot,
-} from "@poracode/agents-usage";
+} from "@axecode/agents-usage";
 import type { SupervisorEvent } from "@/shared/ipc";
 import type { LocalUsageCollector } from "./localUsageCollectors";
 import { UsageService } from "./usageService";
@@ -50,7 +50,7 @@ function makeHost(tokens: Record<string, OAuthToken | undefined>): HostPort {
 
 const cachePaths: string[] = [];
 function tempCachePath(): string {
-  const path = join(tmpdir(), `poracode-usage-test-${process.pid}-${cachePaths.length}.json`);
+  const path = join(tmpdir(), `axecode-usage-test-${process.pid}-${cachePaths.length}.json`);
   cachePaths.push(path);
   return path;
 }
@@ -436,7 +436,7 @@ describe("UsageService", () => {
   });
 
   it("collects Claude profile usage from the profile config directory", async () => {
-    const profileDir = join(tmpdir(), `poracode-usage-claude-profile-${process.pid}`);
+    const profileDir = join(tmpdir(), `axecode-usage-claude-profile-${process.pid}`);
     cachePaths.push(profileDir);
     mkdirSync(profileDir, { recursive: true });
     writeFileSync(

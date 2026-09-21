@@ -95,7 +95,7 @@ describe("useAppHydration experiments", () => {
           threadId: "candidate-1",
           agentKind: "codex",
           worktreePath: "/repo/one",
-          worktreeBranch: "poracode/one",
+          worktreeBranch: "axecode/one",
           worktreeOwnerToken: "experiment-1:candidate-1",
           worktreeState: "owned",
         },
@@ -103,7 +103,7 @@ describe("useAppHydration experiments", () => {
           threadId: "candidate-2",
           agentKind: "codex",
           worktreePath: "/repo/two",
-          worktreeBranch: "poracode/two",
+          worktreeBranch: "axecode/two",
           worktreeOwnerToken: "experiment-1:candidate-2",
           worktreeState: "owned",
         },
@@ -121,13 +121,13 @@ describe("useAppHydration experiments", () => {
     mocks.bridge.closeThread.mockResolvedValue(undefined);
     mocks.bridge.gitListWorktrees.mockResolvedValue({
       worktrees: [
-        { path: "/repo/one", branch: "poracode/one" },
-        { path: "/repo/two", branch: "poracode/two" },
+        { path: "/repo/one", branch: "axecode/one" },
+        { path: "/repo/two", branch: "axecode/two" },
       ],
     });
     mocks.bridge.gitGetWorktreeOwner.mockImplementation(async (payload) => ({
       ownerToken:
-        (payload as { branch: string }).branch === "poracode/one"
+        (payload as { branch: string }).branch === "axecode/one"
           ? "experiment-1:candidate-1"
           : "experiment-1:candidate-2",
     }));
@@ -245,13 +245,13 @@ describe("useAppHydration experiments", () => {
     }));
     mocks.bridge.gitListWorktrees.mockResolvedValue({
       worktrees: [
-        { path: "/repo/reused", branch: "poracode/one" },
-        { path: "/repo/two", branch: "poracode/two" },
+        { path: "/repo/reused", branch: "axecode/one" },
+        { path: "/repo/two", branch: "axecode/two" },
       ],
     });
     mocks.bridge.gitGetWorktreeOwner.mockImplementation(async (payload) => ({
       ownerToken:
-        (payload as { branch: string }).branch === "poracode/one"
+        (payload as { branch: string }).branch === "axecode/one"
           ? "another-experiment"
           : "experiment-1:candidate-2",
     }));

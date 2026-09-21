@@ -5,7 +5,7 @@ import type { RuntimeEvent, ThreadConfig } from "@/shared/contracts";
 import { ClaudeSdkSession } from "@/supervisor/agents/claude/sdkSession";
 
 // Opt-in: requires an authenticated Claude CLI and consumes two live turns.
-it.runIf(process.env.PORACODE_LIVE_CLAUDE_STEER === "1")(
+it.runIf(process.env.AXECODE_LIVE_CLAUDE_STEER === "1")(
   "finishes live foreground Bash before answering a steered follow-up",
   async () => {
     await mkdir(resolve("tmp"), { recursive: true });
@@ -33,7 +33,7 @@ it.runIf(process.env.PORACODE_LIVE_CLAUDE_STEER === "1")(
     try {
       await session.openThread(config);
       await session.startTurn(
-        "Use Bash to run exactly: sleep 3; printf PORACODE_BASH_FINISHED. Wait for it to finish, then reply FIRST_DONE. Do nothing else.",
+        "Use Bash to run exactly: sleep 3; printf AXECODE_BASH_FINISHED. Wait for it to finish, then reply FIRST_DONE. Do nothing else.",
         config,
       );
       await vi.waitFor(
@@ -66,7 +66,7 @@ it.runIf(process.env.PORACODE_LIVE_CLAUDE_STEER === "1")(
           (event) =>
             event.type === "content.delta" &&
             event.stream === "command_output" &&
-            event.delta.includes("PORACODE_BASH_FINISHED"),
+            event.delta.includes("AXECODE_BASH_FINISHED"),
         ),
       ).toBe(true);
       const reply = events

@@ -3,13 +3,13 @@ import { rm } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { net, protocol } from "electron";
 import type { ProjectLocation } from "@/shared/contracts";
-import type { PoracodePaths } from "@/shared/poracodePaths";
+import type { AxeCodePaths } from "@/shared/axecodePaths";
 import { resolveLocalFileUrlPath } from "@/shared/promptContent";
 import { getProjectFsPath } from "@/shared/wsl";
 import { getThreadAttachmentDir, sanitizeAttachmentPathPart } from "./attachmentStorage";
 
 export function saveClipboardImageFile(
-  paths: PoracodePaths,
+  paths: AxeCodePaths,
   payload: { threadId: string; data: Uint8Array; extension: string },
 ): string {
   const threadDir = getThreadAttachmentDir(paths, payload.threadId);
@@ -28,7 +28,7 @@ export function writeImageFile(filePath: string, data: Uint8Array): void {
 
 /** Read image bytes addressed by the desktop-only local-file protocol. */
 export function readLocalImageFile(url: string): Uint8Array {
-  if (!/^(?:poracode|lightcode)-local:\/\//.test(url)) {
+  if (!/^(?:axecode|lightcode)-local:\/\//.test(url)) {
     throw new Error("Unsupported local image URL");
   }
   const filePath = resolveLocalFileUrlPath(url);
@@ -48,7 +48,7 @@ export function readLocalImageFile(url: string): Uint8Array {
  * thread's attachments by `deleteThreadAttachments`.
  */
 export function saveHandoffContextFile(
-  paths: PoracodePaths,
+  paths: AxeCodePaths,
   payload: { threadId: string; content: string },
 ): string {
   const threadDir = getThreadAttachmentDir(paths, payload.threadId);
@@ -65,7 +65,7 @@ export function saveHandoffContextFile(
  * path is renderable via `toLocalFileUrl`.
  */
 export function saveContentCardMediaFile(
-  paths: PoracodePaths,
+  paths: AxeCodePaths,
   payload: { cardId: string; fileName: string; data: Uint8Array },
 ): string {
   const dir = join(paths.attachmentsDir, `content-${sanitizeAttachmentPathPart(payload.cardId)}`);
@@ -88,12 +88,12 @@ export function saveContentCardMediaFile(
   return filePath;
 }
 
-export function deleteThreadAttachments(paths: PoracodePaths, threadId: string): void {
+export function deleteThreadAttachments(paths: AxeCodePaths, threadId: string): void {
   rmSync(getThreadAttachmentDir(paths, threadId), { recursive: true, force: true });
 }
 
 export async function deleteThreadAttachmentsAsync(
-  paths: PoracodePaths,
+  paths: AxeCodePaths,
   threadId: string,
 ): Promise<void> {
   await rm(getThreadAttachmentDir(paths, threadId), { recursive: true, force: true });
@@ -117,7 +117,7 @@ export function resolveProjectFsPath(payload: {
   return resolved;
 }
 
-const LOCAL_FILE_PROTOCOL_SCHEMES = ["poracode-local", "lightcode-local"] as const;
+const LOCAL_FILE_PROTOCOL_SCHEMES = ["axecode-local", "poracode-local", "lightcode-local"] as const;
 
 export function registerLocalFileProtocolScheme(): void {
   protocol.registerSchemesAsPrivileged(

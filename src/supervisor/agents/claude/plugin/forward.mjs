@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 /**
- * Claude Code lifecycle hook forwarder for Poracode.
+ * Claude Code lifecycle hook forwarder for AxeCode.
  *
  * Invoked by Claude on each subscribed hook event with:
  *   argv[2] = hook event name (e.g. "UserPromptSubmit")
  *   stdin   = JSON payload from Claude
  *
- * Reads `PORACODE_HOOK_URL`, `PORACODE_HOOK_SECRET`, etc. from env, builds
- * the universal Poracode envelope, and POSTs it. Emits NOTHING on stdout —
+ * Reads `AXECODE_HOOK_URL`, `AXECODE_HOOK_SECRET`, etc. from env, builds
+ * the universal AxeCode envelope, and POSTs it. Emits NOTHING on stdout —
  * Claude relays hook stdout into the model's context for some events.
  *
- * Generic plumbing lives in the shared `poracode-hook-runtime.mjs` sibling.
+ * Generic plumbing lives in the shared `axecode-hook-runtime.mjs` sibling.
  */
 
-import { readPluginVersionFromManifest, runForwarder } from "./poracode-hook-runtime.mjs";
+import { readPluginVersionFromManifest, runForwarder } from "./axecode-hook-runtime.mjs";
 
 const PLUGIN_VERSION = readPluginVersionFromManifest(import.meta.url);
 

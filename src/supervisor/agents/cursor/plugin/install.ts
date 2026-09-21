@@ -35,7 +35,7 @@ export interface CursorPluginPaths {
    * Cursor's hooks.json file. Cursor only reads from `~/.cursor/hooks.json`
    * (or `<project>/.cursor/hooks.json`); `CURSOR_CONFIG_DIR` does NOT redirect
    * hook discovery, so we merge our managed entries into the user's global
-   * file (Poracode-managed entries are tagged by the staged command path and
+   * file (AxeCode-managed entries are tagged by the staged command path and
    * pruned/replaced on every reinstall).
    */
   globalHooksPath: string;
@@ -58,14 +58,14 @@ const CURSOR_HOOK_SPECS: ReadonlyArray<CursorHookSpec> = [
 const CURSOR_HOOK_TIMEOUT_SECONDS = 5;
 
 /**
- * Match any Poracode-staged Cursor hook command in hooks.json. Covers both
+ * Match any AxeCode-staged Cursor hook command in hooks.json. Covers both
  * the WSL shape (`forward.mjs` invoked via absolute node path) and native
- * (`poracode-hook.{sh,cmd,ps1}` wrapper).
+ * (`axecode-hook.{sh,cmd,ps1}` wrapper).
  */
-const PORACODE_FORWARD_RE =
-  /agent-plugins(?:[/\\]+)cursor(?:[/\\]+)(?:forward\.mjs|poracode-hook\.(?:sh|cmd|ps1))/;
+const AXECODE_FORWARD_RE =
+  /agent-plugins(?:[/\\]+)cursor(?:[/\\]+)(?:forward\.mjs|axecode-hook\.(?:sh|cmd|ps1))/;
 const MANAGED_FORWARD_RE =
-  /agent-plugins(?:[/\\]+)cursor(?:[/\\]+)(?:forward\.mjs|(?:poracode|lightcode)-hook\.(?:sh|cmd|ps1))/;
+  /agent-plugins(?:[/\\]+)cursor(?:[/\\]+)(?:forward\.mjs|(?:axecode|poracode|lightcode)-hook\.(?:sh|cmd|ps1))/;
 
 const callerDir =
   typeof __dirname !== "undefined"
@@ -74,7 +74,7 @@ const callerDir =
 
 const resolveSourceDir = createPluginSourceResolver({
   kind: "cursor",
-  sourceEnvVar: "PORACODE_CURSOR_PLUGIN_SOURCE",
+  sourceEnvVar: "AXECODE_CURSOR_PLUGIN_SOURCE",
   callerDir,
 });
 
@@ -112,7 +112,7 @@ export function getCursorPluginPaths(ctx?: AgentEnvContext): CursorPluginPaths {
   return cursorPluginPathsMemo.call(ctx);
 }
 
-function prunePoracodeEntries(entries: unknown): unknown[] {
+function pruneAxeCodeEntries(entries: unknown): unknown[] {
   if (!Array.isArray(entries)) return [];
   return entries.filter((entry) => {
     if (!entry || typeof entry !== "object") return true;
@@ -121,7 +121,7 @@ function prunePoracodeEntries(entries: unknown): unknown[] {
   });
 }
 
-function buildPoracodeEntry(spec: CursorHookSpec, commandHead: string): Record<string, unknown> {
+function buildAxeCodeEntry(spec: CursorHookSpec, commandHead: string): Record<string, unknown> {
   const entry: Record<string, unknown> = {
     type: "command",
     command: `${commandHead} ${spec.event}`,
@@ -132,8 +132,8 @@ function buildPoracodeEntry(spec: CursorHookSpec, commandHead: string): Record<s
 }
 
 /**
- * Merge Poracode Cursor hook entries into a parsed `hooks.json` document.
- * Preserves any non-Poracode entries the user has authored. `commandHead` is
+ * Merge AxeCode Cursor hook entries into a parsed `hooks.json` document.
+ * Preserves any non-AxeCode entries the user has authored. `commandHead` is
  * the entire pre-event portion of each hook command — for WSL it's
  * `'<absolute-node-path>' '<forward.mjs-path>'`, for native it's just
  * `"<wrapper-path>"`. Exported for unit tests.
@@ -155,8 +155,8 @@ export function mergeCursorHooksDocument(
 
   for (const spec of CURSOR_HOOK_SPECS) {
     const prev = hooksRoot[spec.event];
-    const pruned = prunePoracodeEntries(prev);
-    pruned.push(buildPoracodeEntry(spec, commandHead));
+    const pruned = pruneAxeCodeEntries(prev);
+    pruned.push(buildAxeCodeEntry(spec, commandHead));
     hooksRoot[spec.event] = pruned;
   }
 
@@ -179,7 +179,7 @@ function removeCursorHooksDocument(existingParsed: unknown): {
   }
 
   for (const spec of CURSOR_HOOK_SPECS) {
-    const pruned = prunePoracodeEntries(hooksRoot[spec.event]);
+    const pruned = pruneAxeCodeEntries(hooksRoot[spec.event]);
     if (pruned.length > 0) hooksRoot[spec.event] = pruned;
     else delete hooksRoot[spec.event];
   }
@@ -357,7 +357,7 @@ export function uninstallCursorPlugin(ctx?: AgentEnvContext): void {
   removeStagedPluginDir("cursor", ctx);
 }
 
-function hooksJsonHasPoracodeEntry(hooksPath: string): boolean {
+function hooksJsonHasAxeCodeEntry(hooksPath: string): boolean {
   if (!existsSync(hooksPath)) return false;
   try {
     const doc = JSON.parse(readFileSync(hooksPath, "utf8")) as { hooks?: Record<string, unknown> };
@@ -368,7 +368,7 @@ function hooksJsonHasPoracodeEntry(hooksPath: string): boolean {
       for (const entry of entries) {
         if (!entry || typeof entry !== "object") continue;
         const cmd = (entry as { command?: string }).command;
-        if (typeof cmd === "string" && PORACODE_FORWARD_RE.test(cmd)) return true;
+        if (typeof cmd === "string" && AXECODE_FORWARD_RE.test(cmd)) return true;
       }
     }
     return false;
@@ -386,6 +386,6 @@ function verifyCursorInstallAt(
 ): { installed: boolean; version?: string } {
   return verifyStagedPluginAt(readableDir, target, {
     assets: CURSOR_VERIFY_ASSETS,
-    extraCheck: () => hooksJsonHasPoracodeEntry(hooksPath),
+    extraCheck: () => hooksJsonHasAxeCodeEntry(hooksPath),
   });
 }

@@ -695,8 +695,12 @@ msgstr "@scope/plugin@version"
 #~ msgstr "/skill-creator Create a new managed skill for {destinationLabel}."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
-msgstr "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
+msgid "/skill-creator-axecode Create a new managed skill for {destinationLabel}."
+msgstr "/skill-creator-axecode Create a new managed skill for {destinationLabel}."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
+#~ msgstr "/skill-creator-poracode Create a new managed skill for {destinationLabel}."
 
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 msgid "© {currentYear} Serhii Vecherenko. All rights reserved."
@@ -993,8 +997,12 @@ msgid "Add a project to use GitHub Actions."
 msgstr "Add a project to use GitHub Actions."
 
 #: src/renderer/components/skills/SkillsManager.tsx
-msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
-msgstr "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
+msgid "Add a skill to .agents/skills or .axecode/skills, or import one from another provider."
+msgstr "Add a skill to .agents/skills or .axecode/skills, or import one from another provider."
+
+#: src/renderer/components/skills/SkillsManager.tsx
+#~ msgid "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
+#~ msgstr "Add a skill to .agents/skills or .poracode/skills, or import one from another provider."
 
 #: src/renderer/components/skills/SkillsManager.tsx
 #~ msgid "Add a skill to .agents/skills or import one from another provider."
@@ -4668,8 +4676,12 @@ msgid "Development"
 msgstr "Development"
 
 #: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
-msgid "Development-only overrides. Only visible in the PORACODE DEV build."
-msgstr "Development-only overrides. Only visible in the PORACODE DEV build."
+msgid "Development-only overrides. Only visible in the AXECODE DEV build."
+msgstr "Development-only overrides. Only visible in the AXECODE DEV build."
+
+#: src/renderer/views/SettingsOverlay/parts/DevSettings.tsx
+#~ msgid "Development-only overrides. Only visible in the PORACODE DEV build."
+#~ msgstr "Development-only overrides. Only visible in the PORACODE DEV build."
 
 #: src/renderer/views/SettingsOverlay/parts/AudioSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -15184,8 +15196,13 @@ msgstr "Use letters, numbers, dots, dashes, or underscores without spaces."
 
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 #: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
-msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
-msgstr "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
+msgid "Use one global folder, or nest worktrees inside each project at .axecode/worktrees."
+msgstr "Use one global folder, or nest worktrees inside each project at .axecode/worktrees."
+
+#: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
+#: src/renderer/views/SettingsOverlay/parts/WorktreeSettings.tsx
+#~ msgid "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
+#~ msgstr "Use one global folder, or nest worktrees inside each project at .poracode/worktrees."
 
 #: src/renderer/components/providers/opencode2/OpenCode2PluginCards.tsx
 msgid "Use OpenCode’s CLI to update terminal-only packages."

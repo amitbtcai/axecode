@@ -118,21 +118,21 @@ describe("SkillsManager", () => {
       scan: scan([
         skill(),
         skill({
-          id: "global:poracode:private-review:on",
+          id: "global:axecode:private-review:on",
           name: "private-review",
-          absolutePath: "C:\\Users\\me\\.poracode\\skills\\private-review",
-          rootPath: "C:\\Users\\me\\.poracode\\skills",
-          providerId: "poracode",
-          providerLabel: "Poracode only",
-          providerGroupId: "poracode",
-          providerGroupLabel: "Poracode",
+          absolutePath: "C:\\Users\\me\\.axecode\\skills\\private-review",
+          rootPath: "C:\\Users\\me\\.axecode\\skills",
+          providerId: "axecode",
+          providerLabel: "AxeCode only",
+          providerGroupId: "axecode",
+          providerGroupLabel: "AxeCode",
           providerGroupOrder: -1,
-          availability: "poracode",
+          availability: "axecode",
         }),
         skill({
           id: "global:claude:testing:off",
           name: "testing",
-          absolutePath: "C:\\Users\\me\\.claude\\skills.poracode-disabled\\testing",
+          absolutePath: "C:\\Users\\me\\.claude\\skills.axecode-disabled\\testing",
           rootPath: "C:\\Users\\me\\.claude\\skills",
           providerId: "claude",
           providerLabel: "Claude Code",
@@ -160,12 +160,12 @@ describe("SkillsManager", () => {
           mutable: false,
         }),
         skill({
-          id: "global:poracode-built-in:create-skill:on",
+          id: "global:axecode-built-in:create-skill:on",
           name: "create-skill",
-          providerId: "poracode-built-in",
-          providerLabel: "Poracode built-ins",
-          providerGroupId: "poracode",
-          providerGroupLabel: "Poracode",
+          providerId: "axecode-built-in",
+          providerLabel: "AxeCode built-ins",
+          providerGroupId: "axecode",
+          providerGroupLabel: "AxeCode",
           providerGroupOrder: -1,
           origin: "built-in",
           mutable: false,
@@ -210,15 +210,15 @@ describe("SkillsManager", () => {
     expect(screen.getByText("Claude Code")).toBeInTheDocument();
     const headings = screen.getAllByRole("heading", { level: 3 });
     expect(headings.map((heading) => heading.textContent)).toEqual([
-      "Poracode",
+      "AxeCode",
       "Shared",
       "Claude Code",
       "Codex",
       "OpenCode",
     ]);
-    const poracodeSection = screen.getByRole("heading", { name: "Poracode" }).closest("section")!;
-    expect(within(poracodeSection).getByText("private-review")).toBeInTheDocument();
-    expect(within(poracodeSection).getByText("create-skill")).toBeInTheDocument();
+    const axecodeSection = screen.getByRole("heading", { name: "AxeCode" }).closest("section")!;
+    expect(within(axecodeSection).getByText("private-review")).toBeInTheDocument();
+    expect(within(axecodeSection).getByText("create-skill")).toBeInTheDocument();
     const codexSection = screen.getByRole("heading", { name: "Codex" }).closest("section")!;
     expect(within(codexSection).getByText("codex-review")).toBeInTheDocument();
     expect(within(codexSection).getByText("skill-creator")).toBeInTheDocument();
@@ -226,7 +226,7 @@ describe("SkillsManager", () => {
     expect(within(opencodeSection).getByText("opencode-review")).toBeInTheDocument();
     expect(within(opencodeSection).getByText("legacy-review")).toBeInTheDocument();
     expect(screen.queryByText("Codex built-ins")).not.toBeInTheDocument();
-    expect(screen.queryByText("Poracode built-ins")).not.toBeInTheDocument();
+    expect(screen.queryByText("AxeCode built-ins")).not.toBeInTheDocument();
     expect(screen.queryByText("Built-in and plugin skills")).not.toBeInTheDocument();
     expect(screen.getByText("skill-creator")).toBeInTheDocument();
     expect(screen.getAllByText("Built-in")).toHaveLength(2);
@@ -245,10 +245,10 @@ describe("SkillsManager", () => {
           name: "browser-control",
           description: "Navigate, inspect, and test pages",
           folderName: "browser-control",
-          absolutePath: "C:\\Users\\me\\.poracode\\plugins\\browser-tools\\browser-control",
+          absolutePath: "C:\\Users\\me\\.axecode\\plugins\\browser-tools\\browser-control",
           skillFilePath:
-            "C:\\Users\\me\\.poracode\\plugins\\browser-tools\\browser-control\\SKILL.md",
-          rootPath: "C:\\Users\\me\\.poracode\\plugins\\browser-tools",
+            "C:\\Users\\me\\.axecode\\plugins\\browser-tools\\browser-control\\SKILL.md",
+          rootPath: "C:\\Users\\me\\.axecode\\plugins\\browser-tools",
           providerId: "plugin:browser-tools",
           providerLabel: "Browser",
           providerGroupId: "plugin:browser-tools",
@@ -406,7 +406,7 @@ describe("SkillsManager", () => {
 
     expect(newThreadFromTextMock).toHaveBeenCalledWith(
       "demo",
-      "/skill-creator-poracode Create a new managed skill for this project.",
+      "/skill-creator-axecode Create a new managed skill for this project.",
       { bindLeadingSkill: true },
     );
   });
@@ -445,7 +445,7 @@ describe("SkillsManager", () => {
     await waitFor(() =>
       expect(newThreadFromTextMock).toHaveBeenCalledWith(
         "home",
-        "/skill-creator-poracode Create a new managed skill for the Windows user.",
+        "/skill-creator-axecode Create a new managed skill for the Windows user.",
         { bindLeadingSkill: true },
       ),
     );
@@ -471,7 +471,7 @@ describe("SkillsManager", () => {
     await waitFor(() =>
       expect(newThreadFromTextMock).toHaveBeenCalledWith(
         "home",
-        "/skill-creator-poracode Create a new managed skill for the global Ubuntu WSL scope.",
+        "/skill-creator-axecode Create a new managed skill for the global Ubuntu WSL scope.",
         { bindLeadingSkill: true },
       ),
     );

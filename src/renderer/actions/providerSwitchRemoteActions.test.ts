@@ -4,7 +4,7 @@ import { useRemoteServersStore } from "../state/remoteServersStore";
 import { continueRemoteThreadInNewThread } from "./providerSwitchRemoteActions";
 import type { Thread } from "@/shared/contracts";
 
-const originalPoracode = window.poracode;
+const originalAxeCode = window.axecode;
 
 // Fresh mocks injected via setState each test — spying on `getState()` leaks
 // the spied reference through subsequent state spreads.
@@ -38,9 +38,9 @@ function mirroredThread(overrides: Partial<Thread> = {}): Thread {
 describe("continueRemoteThreadInNewThread", () => {
   beforeEach(() => {
     vi.restoreAllMocks();
-    window.poracode = {
+    window.axecode = {
       saveHandoffContext: vi.fn<() => Promise<string>>(),
-    } as unknown as typeof window.poracode;
+    } as unknown as typeof window.axecode;
     localStorage.clear();
     useAppStore.setState((state) => ({
       ...state,
@@ -80,7 +80,7 @@ describe("continueRemoteThreadInNewThread", () => {
   }
 
   afterEach(() => {
-    window.poracode = originalPoracode;
+    window.axecode = originalAxeCode;
   });
 
   it("creates the replacement as a projected row and launches it on the host", async () => {
@@ -168,7 +168,7 @@ describe("continueRemoteThreadInNewThread", () => {
         expect(
           useAppStore.getState().threads.find((thread) => thread.remoteId === input.threadId),
         ).toMatchObject({ remoteServerId: "d1" });
-        return "/repo/.poracode/handoff-context.md";
+        return "/repo/.axecode/handoff-context.md";
       },
     );
     useRemoteServersStore.setState({
@@ -198,7 +198,7 @@ describe("continueRemoteThreadInNewThread", () => {
         segments: expect.arrayContaining([
           expect.objectContaining({
             kind: "attachment",
-            path: "/repo/.poracode/handoff-context.md",
+            path: "/repo/.axecode/handoff-context.md",
           }),
         ]),
       }),

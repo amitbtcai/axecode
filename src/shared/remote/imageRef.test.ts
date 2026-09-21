@@ -30,12 +30,12 @@ describe("readRemoteImageRef", () => {
       "data:image/png;base64,AAA",
       [],
       {},
-      { __poracodeImageRef: {} },
-      { __poracodeImageRef: { ...ref, threadId: "" } },
-      { __poracodeImageRef: { ...ref, mime: "text/html" } },
-      { __poracodeImageRef: { ...ref, path: [] } },
-      { __poracodeImageRef: { ...ref, path: [{ nested: true }] } },
-      { __poracodeImageRef: { ...ref, bytes: "big" } },
+      { __axecodeImageRef: {} },
+      { __axecodeImageRef: { ...ref, threadId: "" } },
+      { __axecodeImageRef: { ...ref, mime: "text/html" } },
+      { __axecodeImageRef: { ...ref, path: [] } },
+      { __axecodeImageRef: { ...ref, path: [{ nested: true }] } },
+      { __axecodeImageRef: { ...ref, bytes: "big" } },
     ]) {
       expect(isRemoteImageRef(value)).toBe(false);
     }

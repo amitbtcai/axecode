@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import type { UsageSnapshot } from "@poracode/agents-usage/types";
+import type { UsageSnapshot } from "@axecode/agents-usage/types";
 import { formatMoney, formatTokens } from "./usageFormat";
 
 /** Shared billed or estimated cost line for usage cards and rail tooltips. */

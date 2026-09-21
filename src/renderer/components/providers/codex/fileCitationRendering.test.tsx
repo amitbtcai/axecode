@@ -112,7 +112,7 @@ describe("Codex file citation rendering", () => {
       </AppProvider>,
     );
     expect(container.querySelector("blockquote pre code")).toHaveTextContent(example);
-    expect(container.querySelectorAll(".poracode-inline-path-chip")).toHaveLength(1);
+    expect(container.querySelectorAll(".axecode-inline-path-chip")).toHaveLength(1);
     fireEvent.click(screen.getByRole("button", { name: "report.pdf" }));
     expect(actions.openProjectRelativePath).toHaveBeenCalledExactlyOnceWith(
       "/tmp/report.pdf",
@@ -136,9 +136,9 @@ describe("Codex file citation rendering", () => {
       );
       expect(container).not.toHaveTextContent(":codex-file-citation");
       expect(container).not.toHaveTextContent('purpose="output"');
-      expect(container).not.toHaveTextContent("https://poracode.local");
+      expect(container).not.toHaveTextContent("https://axecode.local");
       expect(container).toHaveTextContent("Your wording and colors are preserved.");
-      expect(container.querySelectorAll(".poracode-inline-path-chip")).toHaveLength(3);
+      expect(container.querySelectorAll(".axecode-inline-path-chip")).toHaveLength(3);
       for (const file of ["workflow_3.pptx", "workflow_3.pdf", "workflow_2.pptx"]) {
         fireEvent.click(screen.getByRole("button", { name: file }));
         expect(actions.openProjectRelativePath).toHaveBeenCalledWith(

@@ -121,7 +121,7 @@ export function ThreadToolRail(props: {
     if (paneCount !== 1 || sidePanelOpen) return;
     // The pane width decides whether the rail clears the centered chat column;
     // its height and the pill height bound rail dragging.
-    const pane = paneAnchorRef.current?.closest("[data-poracode-thread-pane]");
+    const pane = paneAnchorRef.current?.closest("[data-axecode-thread-pane]");
     if (!(pane instanceof HTMLElement)) return;
     setPaneElement(pane);
     const pill = pillRef.current;
@@ -246,7 +246,7 @@ export function ThreadToolRail(props: {
     <>
       {sideRailVisible && paneElement
         ? createPortal(
-            <div className="poracode-overlay-header__controls pointer-events-none absolute inset-y-0 right-0 z-20 flex items-start">
+            <div className="axecode-overlay-header__controls pointer-events-none absolute inset-y-0 right-0 z-20 flex items-start">
               {/* Positioned with a transform, not layout: the pill carries a
                 `backdrop-blur` layer, and re-laying it out every drag frame
                 makes the compositor flash a stale copy of that backdrop. */}
@@ -256,7 +256,7 @@ export function ThreadToolRail(props: {
               >
                 <div
                   ref={pillRef}
-                  data-poracode-thread-tool-rail=""
+                  data-axecode-thread-tool-rail=""
                   data-placement="side"
                   className={`${floatingGlassSurfaceClass} ${railPillClass} ${
                     isDragging ? "cursor-grabbing" : "cursor-default"
@@ -272,9 +272,9 @@ export function ThreadToolRail(props: {
         : null}
       {sideRailVisible ? null : (
         <div
-          data-poracode-thread-tool-rail=""
+          data-axecode-thread-tool-rail=""
           data-placement="header"
-          className="poracode-overlay-header__controls relative shrink-0"
+          className="axecode-overlay-header__controls relative shrink-0"
           onPointerLeave={() => {
             if (headerMenuPhase === "suppressed") {
               setHeaderMenuPhase("awaiting-reentry");
@@ -320,7 +320,7 @@ export function ThreadToolRail(props: {
             <PanelRightOpen className="size-3.5" />
           </button>
           <div
-            data-poracode-thread-tool-menu=""
+            data-axecode-thread-tool-menu=""
             className={`absolute left-1/2 top-full z-30 w-9 -translate-x-1/2 transition-opacity duration-150 ${
               headerMenuOpen
                 ? "pointer-events-auto visible opacity-100"

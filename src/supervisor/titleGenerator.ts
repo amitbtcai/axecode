@@ -155,7 +155,7 @@ async function runViaCli(
   if (!cmd) {
     throw new Error(`${adapter.label} does not support one-shot generation`);
   }
-  // Same wrap as commit/PR/judge one-shots: title gen is a Poracode-made CLI
+  // Same wrap as commit/PR/judge one-shots: title gen is a AxeCode-made CLI
   // spawn, so updater opt-outs have to ride it. Command-declared env wins.
   const { spec, spawn } = prepareOneShot(
     location,

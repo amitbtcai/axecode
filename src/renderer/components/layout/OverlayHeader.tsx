@@ -8,7 +8,7 @@ import {
 /**
  * Shared header bar for overlay-style layouts (main app, git review, settings).
  * Acts as the window drag region; interactive children opt out via
- * `poracode-overlay-header__controls`.
+ * `axecode-overlay-header__controls`.
  */
 export function OverlayHeader(props: {
   title: string;
@@ -19,7 +19,7 @@ export function OverlayHeader(props: {
 
   return (
     <div
-      className="poracode-overlay-header flex shrink-0 items-center gap-3 bg-[var(--content-background)] px-2"
+      className="axecode-overlay-header flex shrink-0 items-center gap-3 bg-[var(--content-background)] px-2"
       style={overlayHeaderStyle()}
     >
       {/* Space for macOS traffic lights */}
@@ -28,7 +28,7 @@ export function OverlayHeader(props: {
       {onTitleClick ? (
         <button
           type="button"
-          className="poracode-overlay-header__controls text-xs font-semibold leading-none uppercase tracking-[0.12em] text-muted hover:text-foreground transition-colors"
+          className="axecode-overlay-header__controls text-xs font-semibold leading-none uppercase tracking-[0.12em] text-muted hover:text-foreground transition-colors"
           onClick={onTitleClick}
         >
           {title}

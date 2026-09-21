@@ -34,17 +34,17 @@ describe("explicit Markdown path references", () => {
   });
 
   it("keeps the pre-existing sentinel forms compatible", () => {
-    expect(parsePathRefUrl("poracode:path:src/main.ts%3A12-18")).toEqual({
+    expect(parsePathRefUrl("axecode:path:src/main.ts%3A12-18")).toEqual({
       kind: "file",
       path: "src/main.ts",
       line: 12,
       endLine: 18,
     });
-    expect(parsePathRefUrl("poracode:folder:src%2Fcomponents")).toEqual({
+    expect(parsePathRefUrl("axecode:folder:src%2Fcomponents")).toEqual({
       kind: "folder",
       path: "src/components",
     });
-    expect(parsePathRefUrl("https://poracode.local/path/src%2Fmain.ts")).toEqual({
+    expect(parsePathRefUrl("https://axecode.local/path/src%2Fmain.ts")).toEqual({
       kind: "file",
       path: "src/main.ts",
     });

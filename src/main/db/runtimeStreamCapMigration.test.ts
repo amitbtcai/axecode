@@ -32,8 +32,8 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunks migration", () => {
   let dbPath: string;
 
   beforeEach(() => {
-    if (nativeBindingEnv) process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
-    dir = mkdtempSync(join(tmpdir(), "poracode-stream-cap-migration-"));
+    if (nativeBindingEnv) process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING = nativeBindingEnv;
+    dir = mkdtempSync(join(tmpdir(), "axecode-stream-cap-migration-"));
     dbPath = join(dir, "state.sqlite");
   });
 
@@ -44,7 +44,7 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunks migration", () => {
     } catch {
       // Windows can still hold the -wal handle briefly; the temp dir is disposable.
     }
-    delete process.env.PORACODE_BETTER_SQLITE3_NATIVE_BINDING;
+    delete process.env.AXECODE_BETTER_SQLITE3_NATIVE_BINDING;
   });
 
   function seedPreCapDatabase(streams: Record<string, string>): void {
@@ -117,7 +117,7 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunks migration", () => {
     expect(output.length).toBeLessThanOrEqual(MAX_PERSISTED_STREAM_CHARS);
     expect(output.startsWith(head)).toBe(true);
     expect(output.endsWith(tail)).toBe(true);
-    expect(output).toContain("poracode elided");
+    expect(output).toContain("axecode elided");
     // Streams that already fit are untouched.
     expect(item.streams.assistant_text).toBe("kept");
     const tables = getTables();
@@ -181,7 +181,7 @@ describe.skipIf(!sqliteAvailable)("runtime stream chunks migration", () => {
     const output = dbGetThreadRuntimeItems("thread-1")[0]!.streams.command_output!;
     expect(output.startsWith("LEGACY-HEAD ")).toBe(true);
     expect(output.endsWith(" APPENDED-TAIL")).toBe(true);
-    expect(output.match(/poracode elided/g)).toHaveLength(1);
+    expect(output.match(/axecode elided/g)).toHaveLength(1);
     expect(output.length).toBeLessThanOrEqual(HEAD_CHARS + TAIL_CHARS + 256_000);
   });
 });

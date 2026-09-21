@@ -83,11 +83,11 @@ export function buildWhenContext(
   const editorFocus = isEditorFocusElement(element);
   const terminalFocus = isTerminalFocusElement(element);
   const composerFocus = Boolean(
-    element?.closest("[data-poracode-composer], .poracode-composer-shell"),
+    element?.closest("[data-axecode-composer], .axecode-composer-shell"),
   );
-  const panelFocus = Boolean(element?.closest("[data-poracode-panel], [data-overlay-surface]"));
-  const sidebarFocus = Boolean(element?.closest(".poracode-sidebar-aside"));
-  const browserFocus = Boolean(element?.closest("[data-poracode-browser]"));
+  const panelFocus = Boolean(element?.closest("[data-axecode-panel], [data-overlay-surface]"));
+  const sidebarFocus = Boolean(element?.closest(".axecode-sidebar-aside"));
+  const browserFocus = Boolean(element?.closest("[data-axecode-browser]"));
 
   return {
     paletteOpen,
@@ -512,9 +512,9 @@ function focusBrowserAddressBar(): void {
   // to the first mounted instance.
   const active = document.activeElement;
   const container =
-    (active instanceof Element ? active.closest("[data-poracode-browser]") : null) ??
-    document.querySelector("[data-poracode-browser]");
-  const input = container?.querySelector<HTMLInputElement>("[data-poracode-browser-address]");
+    (active instanceof Element ? active.closest("[data-axecode-browser]") : null) ??
+    document.querySelector("[data-axecode-browser]");
+  const input = container?.querySelector<HTMLInputElement>("[data-axecode-browser-address]");
   if (!input) return;
   input.focus();
   input.select();

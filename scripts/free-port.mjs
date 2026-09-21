@@ -14,7 +14,7 @@ function parsePort(value) {
 }
 
 function parsePorts(values) {
-  // No arguments: free the dev-server port (PORACODE_DEV_SERVER_PORT or 3100).
+  // No arguments: free the dev-server port (AXECODE_DEV_SERVER_PORT or 3100).
   if (values.length === 0) {
     return [resolveDevServerPort()];
   }
@@ -159,18 +159,18 @@ async function main() {
     const verb = ports.length === 1 ? "is" : "are";
 
     if (pids.length === 0) {
-      console.log(`[poracode] ${portLabel} ${verb} already free`);
+      console.log(`[axecode] ${portLabel} ${verb} already free`);
       process.exit(0);
     }
 
-    if (process.env.PORACODE_DEV_SERVER_REQUIRE_FREE === "1") {
+    if (process.env.AXECODE_DEV_SERVER_REQUIRE_FREE === "1") {
       throw new Error(
-        `[poracode] Refusing to reclaim ${portLabel.toLowerCase()} from PID${pids.length === 1 ? "" : "s"} ${pids.join(", ")}; the managed debug session will not terminate another process`,
+        `[axecode] Refusing to reclaim ${portLabel.toLowerCase()} from PID${pids.length === 1 ? "" : "s"} ${pids.join(", ")}; the managed debug session will not terminate another process`,
       );
     }
 
     console.log(
-      `[poracode] Reclaiming ${portLabel.toLowerCase()} from PID${pids.length === 1 ? "" : "s"} ${pids.join(", ")}`,
+      `[axecode] Reclaiming ${portLabel.toLowerCase()} from PID${pids.length === 1 ? "" : "s"} ${pids.join(", ")}`,
     );
 
     for (const pid of pids) {
@@ -178,7 +178,7 @@ async function main() {
     }
 
     await waitForPortsFree(ports);
-    console.log(`[poracode] ${portLabel} ${verb} now free`);
+    console.log(`[axecode] ${portLabel} ${verb} now free`);
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);

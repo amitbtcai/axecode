@@ -11,7 +11,7 @@ function plugin(name: string, source: LoadedPlugin["source"]): LoadedPlugin {
     source,
     root: `/plugins/${name}`,
     manifest: { $schema: AGENT_PLUGINS_MANIFEST_SCHEMA_URL, name, version: "1.0.0" },
-    poracode: {
+    axecode: {
       category: "developer-tools",
       featured: false,
       communityMaintained: false,
@@ -27,14 +27,14 @@ function plugin(name: string, source: LoadedPlugin["source"]): LoadedPlugin {
   };
 }
 
-const originalPoracode = window.poracode;
+const originalAxeCode = window.axecode;
 const listPlugins = vi.fn<(payload: ListPluginsPayload) => Promise<unknown>>();
 const refreshPlugins = vi.fn<(payload: ListPluginsPayload) => Promise<unknown>>();
 
 beforeEach(() => {
   listPlugins.mockReset();
   refreshPlugins.mockReset();
-  window.poracode = { listPlugins, refreshPlugins } as unknown as typeof window.poracode;
+  window.axecode = { listPlugins, refreshPlugins } as unknown as typeof window.axecode;
   usePlugins.setState({
     pluginsByScope: {},
     userPluginsDir: "",
@@ -46,20 +46,20 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  window.poracode = originalPoracode;
+  window.axecode = originalAxeCode;
 });
 
 describe("plugins store scopes", () => {
   it("keeps a project's packages out of the app-global scope", async () => {
     listPlugins.mockResolvedValueOnce({
       plugins: [plugin("browser-tools", "bundled")],
-      userPluginsDir: "C:\\Users\\dev\\.poracode\\plugins",
+      userPluginsDir: "C:\\Users\\dev\\.axecode\\plugins",
     });
     await usePlugins.getState().load();
 
     listPlugins.mockResolvedValueOnce({
       plugins: [plugin("browser-tools", "bundled"), plugin("repo-tools", "project")],
-      userPluginsDir: "C:\\Users\\dev\\.poracode\\plugins",
+      userPluginsDir: "C:\\Users\\dev\\.axecode\\plugins",
     });
     await usePlugins.getState().load({ projectLocation: PROJECT });
 
@@ -90,7 +90,7 @@ describe("plugins store scopes", () => {
     });
     refreshPlugins.mockResolvedValueOnce({
       plugins: [plugin("repo-tools", "project")],
-      userPluginsDir: "C:\\Users\\dev\\.poracode\\plugins",
+      userPluginsDir: "C:\\Users\\dev\\.axecode\\plugins",
     });
 
     await usePlugins.getState().load({ projectLocation: PROJECT, rescan: true });
@@ -110,7 +110,7 @@ describe("plugins store scopes", () => {
     await usePlugins.getState().load();
     expect(listPlugins).toHaveBeenCalledTimes(1);
 
-    resolveFirst({ plugins: [], userPluginsDir: "C:\\Users\\dev\\.poracode\\plugins" });
+    resolveFirst({ plugins: [], userPluginsDir: "C:\\Users\\dev\\.axecode\\plugins" });
     await first;
     expect(usePlugins.getState().loadedScopes[""]).toBe(true);
   });

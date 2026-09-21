@@ -107,7 +107,7 @@ function EffortMultiSelect(props: {
             role="listbox"
             aria-label={t`Effort levels`}
             aria-multiselectable="true"
-            className="poracode-menu py-1"
+            className="axecode-menu py-1"
           >
             {props.onInherit ? (
               <button
@@ -177,7 +177,7 @@ function PresetMenu(props: { onApply: (preset: ProfilePreset) => void }) {
       </Popover.Trigger>
       <Popover.Content placement="bottom end" className="w-40 p-0">
         <Popover.Dialog className="!p-0">
-          <div role="menu" aria-label={t`Provider presets`} className="poracode-menu py-1">
+          <div role="menu" aria-label={t`Provider presets`} className="axecode-menu py-1">
             {PROFILE_PRESETS.map((preset) => (
               <button
                 key={preset.id}

@@ -20,7 +20,7 @@ vi.mock("../pwaInstall", () => ({
 
 const desktop: StoredDesktop = {
   desktopId: "d1",
-  label: "Poracode on H1FCM6T4GX",
+  label: "AxeCode on H1FCM6T4GX",
   endpoint: "http://10.0.2.2:38999/",
   appVersion: "1.0.0",
   accessToken: "tok",

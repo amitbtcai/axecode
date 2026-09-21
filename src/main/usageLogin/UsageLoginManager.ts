@@ -1,6 +1,6 @@
 import { clipboard } from "electron";
 import type { BrowserPanelManager } from "../browser";
-import type { PoracodePaths } from "@/shared/poracodePaths";
+import type { AxeCodePaths } from "@/shared/axecodePaths";
 import type { UsageLoginStateResponse } from "@/shared/contracts";
 import { clearUsageSecret, hasUsageSecret, setUsageSecret } from "@/shared/usageSecretStore";
 import {
@@ -57,7 +57,7 @@ export class UsageLoginManager {
   private readonly deviceLoginCancel = new Map<string, () => void>();
 
   constructor(
-    private readonly paths: PoracodePaths,
+    private readonly paths: AxeCodePaths,
     private readonly getBrowserPanel: () => BrowserPanelManager | null,
   ) {}
 

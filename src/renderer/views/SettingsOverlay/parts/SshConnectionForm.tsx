@@ -74,7 +74,7 @@ export function SshConnectionForm({
       <Input
         className="font-mono text-xs"
         value={target}
-        list="poracode-ssh-hosts"
+        list="axecode-ssh-hosts"
         aria-label={t`SSH hostname`}
         placeholder={t`host.com, alias, or user@host.com`}
         spellCheck={false}
@@ -82,7 +82,7 @@ export function SshConnectionForm({
         autoCorrect="off"
         onChange={(event) => setTarget(event.currentTarget.value)}
       />
-      <datalist id="poracode-ssh-hosts">
+      <datalist id="axecode-ssh-hosts">
         {discoveredHosts.map((host) => (
           <option key={host} value={host}>
             {host}

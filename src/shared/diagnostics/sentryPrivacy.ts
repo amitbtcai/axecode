@@ -1,32 +1,32 @@
 import { DIAGNOSTIC_BREADCRUMB_CATEGORY, isStableDiagnosticToken } from "./sentryPolicy";
 
-export const PORACODE_DIAGNOSTIC_TAG_KEYS = [
-  "poracode.app_version",
-  "poracode.arch",
-  "poracode.channel",
-  "poracode.chrome",
-  "poracode.error_class",
-  "poracode.electron",
-  "poracode.failure_domain",
-  "poracode.feature_area",
-  "poracode.node",
-  "poracode.operation",
-  "poracode.operational",
-  "poracode.platform",
-  "poracode.presentation",
-  "poracode.process",
-  "poracode.provider",
-  "poracode.runtime_kind",
+export const AXECODE_DIAGNOSTIC_TAG_KEYS = [
+  "axecode.app_version",
+  "axecode.arch",
+  "axecode.channel",
+  "axecode.chrome",
+  "axecode.error_class",
+  "axecode.electron",
+  "axecode.failure_domain",
+  "axecode.feature_area",
+  "axecode.node",
+  "axecode.operation",
+  "axecode.operational",
+  "axecode.platform",
+  "axecode.presentation",
+  "axecode.process",
+  "axecode.provider",
+  "axecode.runtime_kind",
   "event.environment",
   "event.origin",
   "event.process",
 ] as const;
 
-export type PoracodeDiagnosticTagKey = (typeof PORACODE_DIAGNOSTIC_TAG_KEYS)[number];
+export type AxeCodeDiagnosticTagKey = (typeof AXECODE_DIAGNOSTIC_TAG_KEYS)[number];
 
-export type PoracodeDiagnosticTags = Partial<Record<PoracodeDiagnosticTagKey, string>>;
+export type AxeCodeDiagnosticTags = Partial<Record<AxeCodeDiagnosticTagKey, string>>;
 
-export type PoracodeRuntimeDiagnosticContext = {
+export type AxeCodeRuntimeDiagnosticContext = {
   provider?: string;
   presentation?: "gui" | "terminal";
   runtimeKind?: "pty" | "structured";
@@ -62,12 +62,12 @@ export type SentryEventLike = Record<string, unknown> & {
   user?: Record<string, unknown>;
 };
 
-const ALLOWED_TAG_KEYS = new Set<string>(PORACODE_DIAGNOSTIC_TAG_KEYS);
+const ALLOWED_TAG_KEYS = new Set<string>(AXECODE_DIAGNOSTIC_TAG_KEYS);
 const STABLE_TOKEN_TAG_KEYS = new Set([
-  "poracode.error_class",
-  "poracode.failure_domain",
-  "poracode.operation",
-  "poracode.operational",
+  "axecode.error_class",
+  "axecode.failure_domain",
+  "axecode.operation",
+  "axecode.operational",
 ]);
 const ALLOWED_CONTEXT_KEYS = new Set([
   "app",
@@ -75,7 +75,7 @@ const ALLOWED_CONTEXT_KEYS = new Set([
   "chrome",
   "device",
   "gpu",
-  "poracode",
+  "axecode",
   "node",
   "os",
   "runtime",
@@ -279,13 +279,13 @@ function sanitizeException(exception: SentryEventLike["exception"]): SentryEvent
 }
 
 export function buildRuntimeDiagnosticTags(
-  context: PoracodeRuntimeDiagnosticContext,
-): PoracodeDiagnosticTags {
+  context: AxeCodeRuntimeDiagnosticContext,
+): AxeCodeDiagnosticTags {
   return {
-    ...(context.provider ? { "poracode.provider": context.provider } : {}),
-    ...(context.presentation ? { "poracode.presentation": context.presentation } : {}),
-    ...(context.runtimeKind ? { "poracode.runtime_kind": context.runtimeKind } : {}),
-    ...(context.featureArea ? { "poracode.feature_area": context.featureArea } : {}),
+    ...(context.provider ? { "axecode.provider": context.provider } : {}),
+    ...(context.presentation ? { "axecode.presentation": context.presentation } : {}),
+    ...(context.runtimeKind ? { "axecode.runtime_kind": context.runtimeKind } : {}),
+    ...(context.featureArea ? { "axecode.feature_area": context.featureArea } : {}),
   };
 }
 
@@ -344,10 +344,10 @@ const TERMINAL_EXPECTED_SIGNATURES = new Set([
 ]);
 
 function isKnownExpectedEvent(event: SentryEventLike): boolean {
-  const domain = event.tags?.["poracode.failure_domain"];
-  const featureArea = event.tags?.["poracode.feature_area"];
+  const domain = event.tags?.["axecode.failure_domain"];
+  const featureArea = event.tags?.["axecode.feature_area"];
   if (domain !== "supervisor.ipc" && featureArea !== "supervisor-ipc") return false;
-  const operation = event.tags?.["poracode.operation"];
+  const operation = event.tags?.["axecode.operation"];
 
   const values = [
     event.message,

@@ -49,7 +49,7 @@ export function registerCommandCodeMcpTools(
   servers: readonly ResolvedMcpServer[],
 ): Promise<() => Promise<void>> {
   return registerMcpBridgeTools(servers, {
-    clientName: "poracode-commandcode",
+    clientName: "axecode-commandcode",
     register(server, tool, call) {
       const registration = cmd.addTool({
         schema: {
@@ -67,18 +67,18 @@ export function registerCommandCodeMcpTools(
       });
       return () => registration.dispose();
     },
-    onError: (server) => cmd.ui.notify(`Poracode could not connect MCP server ${server.name}.`),
+    onError: (server) => cmd.ui.notify(`AxeCode could not connect MCP server ${server.name}.`),
   });
 }
 
-export default async function poracodeMcpMod(cmd: CommandCodeModApi): Promise<void> {
-  const encoded = process.env.PORACODE_COMMANDCODE_MCP;
+export default async function axecodeMcpMod(cmd: CommandCodeModApi): Promise<void> {
+  const encoded = process.env.AXECODE_COMMANDCODE_MCP;
   if (!encoded) return;
   // Versioned, ephemeral launch envelope; never read a persisted config here.
   const config = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as {
     version: number;
     servers: ResolvedMcpServer[];
   };
-  if (config.version !== 1) throw new Error("Unsupported Poracode MCP launch configuration");
+  if (config.version !== 1) throw new Error("Unsupported AxeCode MCP launch configuration");
   await registerCommandCodeMcpTools(cmd, config.servers);
 }

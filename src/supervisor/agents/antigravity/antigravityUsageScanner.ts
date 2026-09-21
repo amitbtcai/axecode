@@ -4,7 +4,7 @@ import {
   type HostPort,
   type UsageWindow,
   type UsageSnapshot,
-} from "@poracode/agents-usage";
+} from "@axecode/agents-usage";
 import {
   invalidateAntigravityAcpCredentialsCache,
   resolveAntigravityAcpCredentialsCached,

@@ -24,7 +24,7 @@ export const HEAD_CHARS = 256_000;
  */
 export const TAIL_CHARS = 4_000_000;
 
-const NOTICE_PREFIX = "[... poracode elided ";
+const NOTICE_PREFIX = "[... axecode elided ";
 const NOTICE_SUFFIX = " characters of earlier output ...]";
 
 export function utf16SafeSliceEnd(text: string, end: number): number {

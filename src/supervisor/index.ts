@@ -11,14 +11,14 @@ import { createSupervisorIpcHandlers } from "./ipcHandlers";
 import { SupervisorRuntime } from "./supervisorRuntime";
 import { configureSecretStorageKey } from "./secretStorage";
 
-const isDev = process.env.PORACODE_IS_DEV === "1" || Boolean(process.env.VITE_DEV_SERVER_URL);
+const isDev = process.env.AXECODE_IS_DEV === "1" || Boolean(process.env.VITE_DEV_SERVER_URL);
 
 initializeSupervisorSentry({
-  appVersion: process.env.PORACODE_APP_VERSION ?? process.env.npm_package_version ?? "dev",
+  appVersion: process.env.AXECODE_APP_VERSION ?? process.env.npm_package_version ?? "dev",
   isDev,
 });
-configureSecretStorageKey(process.env.PORACODE_SECRET_STORAGE_KEY);
-delete process.env.PORACODE_SECRET_STORAGE_KEY;
+configureSecretStorageKey(process.env.AXECODE_SECRET_STORAGE_KEY);
+delete process.env.AXECODE_SECRET_STORAGE_KEY;
 
 const runtime = new SupervisorRuntime((event) => {
   process.send?.(event);
@@ -93,7 +93,7 @@ const devUncaughtStorm = createUncaughtStormDetector({ limit: 3, windowMs: 10_00
 
 process.on("uncaughtException", (error) => {
   console.error("[supervisor] uncaught exception:", error);
-  captureSupervisorException(error, { "poracode.feature_area": "supervisor" });
+  captureSupervisorException(error, { "axecode.feature_area": "supervisor" });
   // Dev-only: a rapid burst of uncaught exceptions means the event loop is
   // stuck re-throwing (observed wedging orphaned dev supervisors at 100%
   // CPU). Exit instead of lingering; the main-process client restarts
@@ -109,6 +109,6 @@ process.on("uncaughtException", (error) => {
 
 process.on("unhandledRejection", (reason) => {
   console.error("[supervisor] unhandled rejection:", reason);
-  captureSupervisorException(reason, { "poracode.feature_area": "supervisor" });
+  captureSupervisorException(reason, { "axecode.feature_area": "supervisor" });
   void flushSupervisorSentry();
 });

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { SshBridgeAuthentication } from "@poracode/ssh-bridge";
+import type { SshBridgeAuthentication } from "@axecode/ssh-bridge";
 import { msg } from "@lingui/core/macro";
 import { useShallow } from "zustand/react/shallow";
 import {

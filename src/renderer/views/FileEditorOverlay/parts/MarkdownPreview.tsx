@@ -35,7 +35,7 @@ export function MarkdownPreview(props: { content: string; compact?: boolean }) {
   return (
     <div className={`h-full overflow-auto ${props.compact ? "px-5 py-3" : "px-6 py-4"}`}>
       <div
-        className={`poracode-markdown-preview mx-auto w-full max-w-3xl ${props.compact ? "poracode-markdown-preview--compact" : ""}`}
+        className={`axecode-markdown-preview mx-auto w-full max-w-3xl ${props.compact ? "axecode-markdown-preview--compact" : ""}`}
       >
         <Streamdown
           mode="static"

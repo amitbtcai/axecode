@@ -125,7 +125,7 @@ const tempDirs: string[] = [];
 
 /** Creates a real temp dir for the local-image endpoint tests. */
 function createTempDir(): string {
-  const dir = mkdtempSync(join(tmpdir(), "poracode-remote-image-"));
+  const dir = mkdtempSync(join(tmpdir(), "axecode-remote-image-"));
   tempDirs.push(dir);
   return dir;
 }
@@ -173,7 +173,7 @@ afterEach(async () => {
   vi.mocked(dbReplaceThreadRuntimeSnapshot).mockReset();
   vi.mocked(dbUpsertProject).mockReset();
   vi.mocked(dbUpsertThread).mockReset();
-  dbSetState("poracode-experiments-v1", "");
+  dbSetState("axecode-experiments-v1", "");
   vi.mocked(dbSetState).mockClear();
   vi.mocked(dbSetProjectNotes).mockReset();
   vi.mocked(dbTruncateThreadRuntimeAfter).mockReset();
@@ -222,7 +222,7 @@ function persistTestExperiment(overrides: Partial<Experiment> = {}): Experiment 
         threadId: "thread-1",
         agentKind: "codex",
         worktreePath: "/repo/one",
-        worktreeBranch: "poracode/experiment-one",
+        worktreeBranch: "axecode/experiment-one",
         worktreeOwnerToken: "experiment-1:thread-1",
         worktreeState: "owned",
       },
@@ -230,7 +230,7 @@ function persistTestExperiment(overrides: Partial<Experiment> = {}): Experiment 
         threadId: "thread-2",
         agentKind: "claude",
         worktreePath: "/repo/two",
-        worktreeBranch: "poracode/experiment-two",
+        worktreeBranch: "axecode/experiment-two",
         worktreeOwnerToken: "experiment-1:thread-2",
         worktreeState: "owned",
       },
@@ -241,7 +241,7 @@ function persistTestExperiment(overrides: Partial<Experiment> = {}): Experiment 
     ...overrides,
   };
   dbSetState(
-    "poracode-experiments-v1",
+    "axecode-experiments-v1",
     JSON.stringify({ state: { experiments: { [experiment.id]: experiment } }, version: 1 }),
   );
   return experiment;
@@ -919,7 +919,7 @@ describe("RemoteAccessServer", () => {
     expect(pairingUrl.pathname).toBe("/pair");
 
     const descriptorResponse = await fetch(
-      new URL("/.well-known/poracode/environment", info.httpBaseUrl),
+      new URL("/.well-known/axecode/environment", info.httpBaseUrl),
     );
     expect(descriptorResponse.status).toBe(200);
     await expect(descriptorResponse.json()).resolves.toMatchObject({
@@ -968,7 +968,7 @@ describe("RemoteAccessServer", () => {
     const serviceWorkerResponse = await fetch(new URL("/service-worker.js", info.httpBaseUrl));
     expect(serviceWorkerResponse.status).toBe(200);
     const serviceWorker = await serviceWorkerResponse.text();
-    expect(serviceWorker).toContain("poracode-remote-local-1.0.0");
+    expect(serviceWorker).toContain("axecode-remote-local-1.0.0");
     expect(serviceWorker).toContain("caches.delete(LEGACY_CACHE_NAME)");
     expect(serviceWorker).toContain('self.addEventListener("push"');
     expect(serviceWorker).toContain("showNotification");
@@ -2133,19 +2133,19 @@ describe("RemoteAccessServer", () => {
       identity: { desktopId: "desktop-test", label: "Test Desktop" },
       host: "127.0.0.1",
       port: 0,
-      pairingAppUrl: "https://mobile.poracode.test/app",
+      pairingAppUrl: "https://mobile.axecode.test/app",
       callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
     });
     servers.push(server);
     const info = await server.start();
-    const descriptorUrl = new URL("/.well-known/poracode/environment", info.httpBaseUrl);
+    const descriptorUrl = new URL("/.well-known/axecode/environment", info.httpBaseUrl);
 
     const hostedResponse = await fetch(descriptorUrl, {
-      headers: { origin: "https://mobile.poracode.test" },
+      headers: { origin: "https://mobile.axecode.test" },
     });
     expect(hostedResponse.status).toBe(200);
     expect(hostedResponse.headers.get("access-control-allow-origin")).toBe(
-      "https://mobile.poracode.test",
+      "https://mobile.axecode.test",
     );
 
     const nativeResponse = await fetch(descriptorUrl, {
@@ -2176,7 +2176,7 @@ describe("RemoteAccessServer", () => {
     });
     servers.push(devServer);
     const devInfo = await devServer.start();
-    const devDescriptorUrl = new URL("/.well-known/poracode/environment", devInfo.httpBaseUrl);
+    const devDescriptorUrl = new URL("/.well-known/axecode/environment", devInfo.httpBaseUrl);
     const devResponse = await fetch(devDescriptorUrl, {
       headers: { origin: "http://localhost:3100" },
     });
@@ -2196,7 +2196,7 @@ describe("RemoteAccessServer", () => {
     servers.push(prodServer);
     const prodInfo = await prodServer.start();
     const prodResponse = await fetch(
-      new URL("/.well-known/poracode/environment", prodInfo.httpBaseUrl),
+      new URL("/.well-known/axecode/environment", prodInfo.httpBaseUrl),
       { headers: { origin: "http://127.0.0.1:3100" } },
     );
     expect(prodResponse.status).toBe(200);
@@ -2263,7 +2263,7 @@ describe("RemoteAccessServer", () => {
     });
     servers.push(server);
     await server.start();
-    const localUrl = new URL("/.well-known/poracode/environment", `http://127.0.0.1:${port}/`);
+    const localUrl = new URL("/.well-known/axecode/environment", `http://127.0.0.1:${port}/`);
 
     const allowed = await fetch(localUrl, { headers: { origin: advertised } });
     expect(allowed.status).toBe(200);
@@ -2280,7 +2280,7 @@ describe("RemoteAccessServer", () => {
       identity: { desktopId: "desktop-test", label: "Test Desktop" },
       host: "127.0.0.1",
       port: 0,
-      pairingAppUrl: "https://mobile.poracode.test/app",
+      pairingAppUrl: "https://mobile.axecode.test/app",
       callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
     });
     servers.push(server);
@@ -2346,7 +2346,7 @@ describe("RemoteAccessServer", () => {
     expect(settingsPairing.searchParams.get("host")).toBe(info.httpBaseUrl);
   });
 
-  it("points production pairing links at the hosted Poracode app", async () => {
+  it("points production pairing links at the hosted AxeCode app", async () => {
     const server = new RemoteAccessServer({
       appVersion: "1.0.0",
       identity: { desktopId: "desktop-test", label: "Test Desktop" },
@@ -2744,8 +2744,8 @@ describe("RemoteAccessServer", () => {
       body: JSON.stringify({
         procedure: "workflowGetRun",
         payload: {
-          manifestPath: "/tmp/poracode/workflows/wf_1.json",
-          transcriptDir: "/tmp/poracode/subagents/workflows/wf_1",
+          manifestPath: "/tmp/axecode/workflows/wf_1.json",
+          transcriptDir: "/tmp/axecode/subagents/workflows/wf_1",
           includeAgentChats: true,
           location: { kind: "posix", path: "/tmp/example" },
         },
@@ -2755,8 +2755,8 @@ describe("RemoteAccessServer", () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ result: { run: null } });
     expect(callSupervisor).toHaveBeenCalledWith("workflowGetRun", {
-      manifestPath: "/tmp/poracode/workflows/wf_1.json",
-      transcriptDir: "/tmp/poracode/subagents/workflows/wf_1",
+      manifestPath: "/tmp/axecode/workflows/wf_1.json",
+      transcriptDir: "/tmp/axecode/subagents/workflows/wf_1",
       includeAgentChats: true,
       location: { kind: "posix", path: "/tmp/example" },
     });
@@ -3350,7 +3350,7 @@ describe("RemoteAccessServer", () => {
     const headers = {
       authorization: `Bearer ${token}`,
       "content-type": "application/json",
-      "x-poracode-command-id": "prompt-item-1",
+      "x-axecode-command-id": "prompt-item-1",
     };
     const body = JSON.stringify({
       threadId: "thread-1",
@@ -3975,7 +3975,7 @@ describe("RemoteAccessServer", () => {
   it("rejects destructive remote commands for experiment candidates before persistence", async () => {
     const candidate = createTestThread({
       worktreePath: "/repo/one",
-      worktreeBranch: "poracode/experiment-one",
+      worktreeBranch: "axecode/experiment-one",
     });
     const db = mockThreadDb([candidate]);
     persistTestExperiment();
@@ -4065,7 +4065,7 @@ describe("RemoteAccessServer", () => {
       error: { code: "experiment_owned" },
     });
 
-    dbSetState("poracode-experiments-v1", "{");
+    dbSetState("axecode-experiments-v1", "{");
     const unreadableResponse = await fetch(
       new URL("/api/threads/thread-1/command", info.httpBaseUrl),
       { method: "POST", headers, body: JSON.stringify({ kind: "archive" }) },
@@ -4320,8 +4320,8 @@ describe("RemoteAccessServer", () => {
         (name === "removeExperimentWorktrees"
           ? {
               candidates: [
-                { threadId: "thread-1", branch: "poracode/experiment-one" },
-                { threadId: "thread-2", branch: "poracode/experiment-two" },
+                { threadId: "thread-1", branch: "axecode/experiment-one" },
+                { threadId: "thread-2", branch: "axecode/experiment-two" },
               ],
             }
           : undefined) as never,
@@ -4357,7 +4357,7 @@ describe("RemoteAccessServer", () => {
     expect(callSupervisor).toHaveBeenCalledWith("closeThread", { threadId: "thread-1" });
     expect(dbDeleteProject).toHaveBeenCalledWith(project.id);
     const persisted = JSON.parse(
-      vi.mocked(dbSetState).mock.calls.findLast(([key]) => key === "poracode-experiments-v1")![1],
+      vi.mocked(dbSetState).mock.calls.findLast(([key]) => key === "axecode-experiments-v1")![1],
     ) as { state: { experiments: Record<string, unknown> } };
     expect(persisted.state.experiments).toEqual({});
   });
@@ -5678,7 +5678,7 @@ describe("RemoteAccessServer", () => {
       },
       {
         procedure: "gitDeleteBranch",
-        payload: { projectLocation, branch: "poracode/experiment-one" },
+        payload: { projectLocation, branch: "axecode/experiment-one" },
       },
       {
         procedure: "gitRemoveWorktree",
@@ -5697,7 +5697,7 @@ describe("RemoteAccessServer", () => {
         payload: {
           projectLocation,
           worktreeLocation,
-          worktreeBranch: "poracode/experiment-one",
+          worktreeBranch: "axecode/experiment-one",
           sourceBranch: "main",
         },
       },
@@ -5747,7 +5747,7 @@ describe("RemoteAccessServer", () => {
     const experiment = persistTestExperiment();
     delete experiment.candidates[0]!.worktreePath;
     dbSetState(
-      "poracode-experiments-v1",
+      "axecode-experiments-v1",
       JSON.stringify({ state: { experiments: { [experiment.id]: experiment } }, version: 1 }),
     );
     vi.mocked(dbGetProjects).mockReturnValue([createTestProject()]);

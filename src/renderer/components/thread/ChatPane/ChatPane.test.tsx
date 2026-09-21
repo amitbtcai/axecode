@@ -235,7 +235,7 @@ describe("ChatPane", () => {
     MockResizeObserver.reset();
     localStorage.clear();
     useRevertedPromptStore.setState({ byThread: {} });
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       writable: true,
       value: {
@@ -268,7 +268,7 @@ describe("ChatPane", () => {
     const thread = {
       ...makeThread(),
       status: "launching",
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     } as Thread;
     useAppStore.setState({
       threads: [thread],
@@ -324,19 +324,17 @@ describe("ChatPane", () => {
     const thread = makeThread();
     seedAssistantMessage(thread.id, "Open BrowserPanelManager.ts:288.");
     useAppStore.setState({ projects: [project] });
-    const searchProjectFiles = vi
-      .fn<typeof window.poracode.searchProjectFiles>()
-      .mockResolvedValue({
-        entries: [
-          {
-            path: "src/main/browser/BrowserPanelManager.ts",
-            name: "BrowserPanelManager.ts",
-            type: "file",
-          },
-        ],
-        totalIndexed: 1,
-      });
-    Object.assign(window.poracode, { searchProjectFiles });
+    const searchProjectFiles = vi.fn<typeof window.axecode.searchProjectFiles>().mockResolvedValue({
+      entries: [
+        {
+          path: "src/main/browser/BrowserPanelManager.ts",
+          name: "BrowserPanelManager.ts",
+          type: "file",
+        },
+      ],
+      totalIndexed: 1,
+    });
+    Object.assign(window.axecode, { searchProjectFiles });
     const onOpenProjectRelativePath = vi.fn<(path: string, lineNumber?: number) => void>();
 
     renderChatPane(thread, { onOpenProjectRelativePath });
@@ -1013,7 +1011,7 @@ describe("ChatPane", () => {
 
   it("shows the requested command in expanded command accordions", async () => {
     const thread = makeThread();
-    const command = String.raw`cd C:\Users\sdsle\work\poracode && "C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.1.0_x64__8wekyb3d8bbwe\pwsh.exe" -Command 'git status --short'`;
+    const command = String.raw`cd C:\Users\sdsle\work\axecode && "C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.1.0_x64__8wekyb3d8bbwe\pwsh.exe" -Command 'git status --short'`;
     seedCommandItem(thread.id, "cmd-1", command, "status output");
 
     renderChatPane(thread);
@@ -1070,10 +1068,10 @@ describe("ChatPane", () => {
     await waitFor(() => expect(hydrateThreadRuntimeItems).toHaveBeenCalledWith(thread.id));
 
     expect(
-      view.container.querySelectorAll('[data-poracode-shimmer-text="Agent · protocol specialist"]'),
+      view.container.querySelectorAll('[data-axecode-shimmer-text="Agent · protocol specialist"]'),
     ).toHaveLength(1);
     expect(view.container.textContent).not.toContain("specialist·5 steps");
-    expect(view.container.querySelector(".poracode-pixel-loader")).toBeNull();
+    expect(view.container.querySelector(".axecode-pixel-loader")).toBeNull();
     expect(view.container.querySelector(".lucide-chevron-right")).toHaveClass(
       "[@media(hover:hover)]:opacity-0",
       "[@media(hover:hover)]:group-hover:opacity-100",
@@ -1373,9 +1371,9 @@ describe("ChatPane", () => {
 
     expect(screen.getByAltText("screenshot.png")).toBeInTheDocument();
     expect(
-      container.querySelector('[data-poracode-attachment-image-preview="true"]'),
+      container.querySelector('[data-axecode-attachment-image-preview="true"]'),
     ).toBeInTheDocument();
-    expect(container.querySelector(".poracode-attachment-chip__icon")).not.toBeInTheDocument();
+    expect(container.querySelector(".axecode-attachment-chip__icon")).not.toBeInTheDocument();
   });
 
   it("renders selected skills in user messages as skill badges", async () => {
@@ -1390,7 +1388,7 @@ describe("ChatPane", () => {
     const badge = container.querySelector('[data-skill-name="simplify"]');
     expect(badge).toHaveTextContent("simplify");
     expect(badge?.querySelector("svg")).toBeInTheDocument();
-    expect(badge).not.toHaveClass("poracode-slash-chip--user-message");
+    expect(badge).not.toHaveClass("axecode-slash-chip--user-message");
     expect(screen.queryByText("$simplify")).not.toBeInTheDocument();
   });
 
@@ -1408,7 +1406,7 @@ describe("ChatPane", () => {
     expect(badge).toHaveTextContent("code-review");
     expect(badge).toHaveAttribute("aria-label", "Skill: code-review");
     expect(badge?.querySelector("svg")).toBeInTheDocument();
-    expect(badge?.querySelector(".poracode-slash-chip__slash")?.textContent).not.toBe("/");
+    expect(badge?.querySelector(".axecode-slash-chip__slash")?.textContent).not.toBe("/");
     expect(screen.getByText(/check the diff/)).toBeInTheDocument();
   });
 
@@ -1443,7 +1441,7 @@ describe("ChatPane", () => {
     const { container } = renderChatPane(thread);
     await waitFor(() => expect(hydrateThreadRuntimeItems).toHaveBeenCalledWith(thread.id));
 
-    expect(screen.getByText("goal").parentElement).toHaveClass("poracode-slash-chip");
+    expect(screen.getByText("goal").parentElement).toHaveClass("axecode-slash-chip");
     expect(screen.getByText("goal").previousElementSibling).toHaveTextContent("/");
     const skill = container.querySelector('[data-skill-name="code-review"]');
     expect(skill).toHaveTextContent("code-review");
@@ -1478,7 +1476,7 @@ describe("ChatPane", () => {
     expect(badge).toHaveAttribute("data-thread-mention-id", "source-thread");
     expect(badge).toHaveAttribute("type", "button");
     expect(badge).toHaveAttribute("aria-label", "Open Source discussion");
-    expect(badge).toHaveClass("poracode-thread-mention-chip");
+    expect(badge).toHaveClass("axecode-thread-mention-chip");
     expect(badge?.querySelector("svg")).toBeInTheDocument();
     expect(screen.queryByText("@Source discussion")).not.toBeInTheDocument();
   });
@@ -1589,7 +1587,7 @@ describe("ChatPane", () => {
 
     expect(screen.getByText("Still working")).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Copy message" })).not.toBeInTheDocument();
-    expect(container.querySelector(".poracode-message-action-strip")).not.toBeNull();
+    expect(container.querySelector(".axecode-message-action-strip")).not.toBeNull();
   });
 
   it("shows the assistant copy action after the turn settles", async () => {
@@ -1611,7 +1609,7 @@ describe("ChatPane", () => {
     renderChatPane(thread);
     await waitFor(() => expect(hydrateThreadRuntimeItems).toHaveBeenCalledWith(thread.id));
 
-    expect(screen.getByText("goal").parentElement).toHaveClass("poracode-slash-chip");
+    expect(screen.getByText("goal").parentElement).toHaveClass("axecode-slash-chip");
     expect(screen.getByRole("link", { name: url })).toHaveAttribute("href", url);
   });
 
@@ -1623,7 +1621,7 @@ describe("ChatPane", () => {
     await waitFor(() => expect(hydrateThreadRuntimeItems).toHaveBeenCalledWith(thread.id));
 
     const badge = screen.getByText("simplify").parentElement;
-    expect(badge).toHaveClass("poracode-slash-chip");
+    expect(badge).toHaveClass("axecode-slash-chip");
     expect(badge).toHaveAttribute("data-skill-name", "simplify");
     expect(badge).toHaveAttribute("aria-label", "Skill: simplify");
     expect(badge?.querySelector("svg")).toBeInTheDocument();
@@ -1650,7 +1648,7 @@ describe("ChatPane", () => {
     const openExternal = vi
       .fn<(href: string) => Promise<void>>()
       .mockRejectedValue(new Error("open failed"));
-    Object.defineProperty(window, "poracode", {
+    Object.defineProperty(window, "axecode", {
       configurable: true,
       value: {
         openExternal,
@@ -2053,7 +2051,7 @@ describe("ChatPane", () => {
       useAppStore.getState().upsertThreadFileCheckpoint(thread.id, {
         threadId: thread.id,
         checkpointItemId: "user-1",
-        ref: "refs/poracode/checkpoints/thread/user-1",
+        ref: "refs/axecode/checkpoints/thread/user-1",
         commit: "abc123",
         capturedAt: "2026-05-01T12:00:00.000Z",
       });
@@ -2082,7 +2080,7 @@ describe("ChatPane", () => {
     };
     const rollbackThreadConversation = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation,
         dbTruncateThreadRuntimeAfter: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbSyncAll: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -2100,7 +2098,7 @@ describe("ChatPane", () => {
     const buttons = screen.getAllByRole("button", { name: "Revert to this checkpoint" });
     expect(buttons).toHaveLength(1);
     expect(screen.getByText("Follow-up prompt").closest(".surface")).toContainElement(buttons[0]!);
-    expect(buttons[0]!.closest(".poracode-message-action-strip")).not.toBeNull();
+    expect(buttons[0]!.closest(".axecode-message-action-strip")).not.toBeNull();
 
     fireEvent.click(buttons[0]!);
     expect(await screen.findByText("Revert to checkpoint?")).toBeInTheDocument();
@@ -2130,7 +2128,7 @@ describe("ChatPane", () => {
   it("restores only the clicked prompt, not later turns or nested sub-agent prompts", async () => {
     const thread = { ...makeThread(), status: "idle" as const };
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbTruncateThreadRuntimeAfter: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbSyncAll: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -2174,7 +2172,7 @@ describe("ChatPane", () => {
         }),
     );
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation,
         dbTruncateThreadRuntimeAfter: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbSyncAll: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -2218,7 +2216,7 @@ describe("ChatPane", () => {
       .mockRejectedValueOnce(new Error("Checkpoint save failed"))
       .mockResolvedValue(undefined);
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbTruncateThreadRuntimeAfter,
         dbSyncAll: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -2251,7 +2249,7 @@ describe("ChatPane", () => {
     const thread = { ...makeThread(), status: "idle" as const };
     const rollbackThreadConversation = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation,
         dbTruncateThreadRuntimeAfter: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
         dbSyncAll: vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
@@ -2294,7 +2292,7 @@ describe("ChatPane", () => {
   it("continues local checkpoint revert when provider rollback fails", async () => {
     const thread = { ...makeThread(), status: "idle" as const };
     Object.assign(window, {
-      poracode: {
+      axecode: {
         rollbackThreadConversation: vi
           .fn<() => Promise<void>>()
           .mockRejectedValue(new Error("Codex does not support checkpoint rollback.")),
@@ -2376,7 +2374,7 @@ describe("ChatPane", () => {
     fireEvent.click(screen.getByRole("button", { name: "Revert" }));
 
     await waitFor(() =>
-      expect(localStorage.getItem("poracode-chat-checkpoint-revert-skip-confirm")).toBe("1"),
+      expect(localStorage.getItem("axecode-chat-checkpoint-revert-skip-confirm")).toBe("1"),
     );
 
     act(() => {

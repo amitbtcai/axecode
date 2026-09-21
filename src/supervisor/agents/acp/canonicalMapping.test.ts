@@ -6,10 +6,10 @@ import {
   mapAcpGoalSlashCommand,
   mapAcpPermissionRequest,
   mapAcpSessionUpdate,
-  PORACODE_ACP_GOAL_META_KEY,
-  PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY,
-  PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY,
-  PORACODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY,
+  AXECODE_ACP_GOAL_META_KEY,
+  AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY,
+  AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY,
+  AXECODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY,
 } from "./canonicalMapping";
 
 /**
@@ -32,7 +32,7 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "" },
         _meta: {
-          [PORACODE_ACP_GOAL_META_KEY]: {
+          [AXECODE_ACP_GOAL_META_KEY]: {
             action: "set",
             objective: "Ship ACP goal support",
             status: "active",
@@ -66,7 +66,7 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "" },
         _meta: {
-          [PORACODE_ACP_GOAL_META_KEY]: {
+          [AXECODE_ACP_GOAL_META_KEY]: {
             action: "updated",
             objective: "Ship ACP goal support",
             status: "active",
@@ -91,7 +91,7 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "" },
         _meta: {
-          [PORACODE_ACP_GOAL_META_KEY]: {
+          [AXECODE_ACP_GOAL_META_KEY]: {
             action: "updated",
             objective: "Ship ACP goal support",
             status: "failed",
@@ -116,7 +116,7 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "" },
         _meta: {
-          [PORACODE_ACP_GOAL_META_KEY]: {
+          [AXECODE_ACP_GOAL_META_KEY]: {
             action: "set",
             objective: "Temporary goal",
             status: "active",
@@ -132,7 +132,7 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "" },
         _meta: {
-          [PORACODE_ACP_GOAL_META_KEY]: {
+          [AXECODE_ACP_GOAL_META_KEY]: {
             action: "cleared",
             objective: "Temporary goal",
           },
@@ -616,7 +616,7 @@ describe("mapAcpSessionUpdate", () => {
         title: "mcp__browser__snapshot",
         kind: "other",
         status: "in_progress",
-        rawInput: { url: "https://poracode.app" },
+        rawInput: { url: "https://axecode.app" },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
     );
@@ -627,7 +627,7 @@ describe("mapAcpSessionUpdate", () => {
         name: "mcp__browser__snapshot",
         title: "mcp__browser__snapshot",
         kind: "other",
-        args: { url: "https://poracode.app" },
+        args: { url: "https://axecode.app" },
         status: "running",
       },
     });
@@ -639,7 +639,7 @@ describe("mapAcpSessionUpdate", () => {
       note({
         sessionUpdate: "tool_call",
         toolCallId: "tc-qoder-mcp",
-        title: "echo_marker (poracode_smoke MCP Server)",
+        title: "echo_marker (axecode_smoke MCP Server)",
         kind: "other",
         status: "in_progress",
         rawInput: { text: "MCP_QODER_OK" },
@@ -650,7 +650,7 @@ describe("mapAcpSessionUpdate", () => {
       type: "item.started",
       itemType: "tool_call",
       payload: {
-        name: "echo_marker (poracode_smoke MCP Server)",
+        name: "echo_marker (axecode_smoke MCP Server)",
         args: { text: "MCP_QODER_OK" },
         status: "running",
       },
@@ -1787,9 +1787,9 @@ describe("mapAcpSessionUpdate", () => {
         kind: "think",
         status: "in_progress",
         rawInput: {
-          description: "Use poracode-marker-agent",
+          description: "Use axecode-marker-agent",
           prompt: "Please run your deterministic marker response.",
-          subagent_type: "poracode-marker-agent",
+          subagent_type: "axecode-marker-agent",
         },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
@@ -1801,7 +1801,7 @@ describe("mapAcpSessionUpdate", () => {
       payload: {
         name: "Agent",
         isSubAgent: true,
-        args: { subagent_type: "poracode-marker-agent" },
+        args: { subagent_type: "axecode-marker-agent" },
       },
     });
 
@@ -2118,7 +2118,7 @@ describe("mapAcpSessionUpdate", () => {
         title: "Sibling A",
         status: "in_progress",
         rawInput: { _toolName: "task", subagent_type: "Explore" },
-        _meta: { [PORACODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY]: true },
+        _meta: { [AXECODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY]: true },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
     );
@@ -2129,7 +2129,7 @@ describe("mapAcpSessionUpdate", () => {
         title: "Sibling B",
         status: "in_progress",
         rawInput: { _toolName: "task", subagent_type: "Explore" },
-        _meta: { [PORACODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY]: true },
+        _meta: { [AXECODE_ACP_TOP_LEVEL_TOOL_CALL_META_KEY]: true },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
     );
@@ -2204,7 +2204,7 @@ describe("mapAcpSessionUpdate", () => {
         status: "in_progress",
         rawInput: {
           status: "complete",
-          _poracodeCanonicalGoal: { action: "updated", status: "complete" },
+          _axecodeCanonicalGoal: { action: "updated", status: "complete" },
         },
         locations: [{ path: "file" }],
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
@@ -2288,7 +2288,7 @@ describe("mapAcpSessionUpdate", () => {
       note({
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "Detached result" },
-        _meta: { poracodeParentToolCallId: "tc-detached" },
+        _meta: { axecodeParentToolCallId: "tc-detached" },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
     );
@@ -2303,8 +2303,8 @@ describe("mapAcpSessionUpdate", () => {
         sessionUpdate: "agent_message_chunk",
         content: { type: "text", text: "Main agent summary" },
         _meta: {
-          [PORACODE_ACP_NEW_ASSISTANT_ITEM_META_KEY]: true,
-          [PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY]: "tc-detached",
+          [AXECODE_ACP_NEW_ASSISTANT_ITEM_META_KEY]: true,
+          [AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY]: "tc-detached",
         },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,
@@ -2329,7 +2329,7 @@ describe("mapAcpSessionUpdate", () => {
         },
         rawOutput: "Detached result",
         _meta: {
-          [PORACODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY]: "tc-detached",
+          [AXECODE_ACP_DETACHED_SUBAGENT_ACTIVITY_META_KEY]: "tc-detached",
         },
       } as Parameters<typeof mapAcpSessionUpdate>[0]["update"]),
       state,

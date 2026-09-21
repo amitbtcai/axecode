@@ -34,7 +34,7 @@ export function ImageLightboxActions({ image }: { image: LightboxImage }) {
         <Button
           isIconOnly
           variant="ghost"
-          className="poracode-image-lightbox__zoom-button"
+          className="axecode-image-lightbox__zoom-button"
           aria-label={t`Copy image`}
           onPress={() => void runAction("copy")}
         >
@@ -46,7 +46,7 @@ export function ImageLightboxActions({ image }: { image: LightboxImage }) {
         <Button
           isIconOnly
           variant="ghost"
-          className="poracode-image-lightbox__zoom-button"
+          className="axecode-image-lightbox__zoom-button"
           aria-label={t`Save image`}
           onPress={() => void runAction("save")}
         >

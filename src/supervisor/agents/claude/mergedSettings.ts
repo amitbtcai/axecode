@@ -3,10 +3,10 @@ import { dirname, join, posix as posixPath } from "node:path";
 import type { ProjectLocation } from "@/shared/contracts";
 import { toWslUncPath } from "@/shared/wsl";
 
-const MERGED_SETTINGS_FILENAME = "settings-poracode.json";
+const MERGED_SETTINGS_FILENAME = "settings-axecode.json";
 
 /**
- * Generate a sibling `settings-poracode.json` next to the hook plugin's
+ * Generate a sibling `settings-axecode.json` next to the hook plugin's
  * `settings.json`, with the given session flags (e.g. `{ ultracode: true }` or
  * `{ fastMode: true }`) merged into the top level.
  *

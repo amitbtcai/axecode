@@ -340,7 +340,7 @@ export function installUpdateStatusSync(
       if (!disposed && !receivedLiveStatus && status) handleUpdateStatus(status, false);
     })
     .catch((error: unknown) => {
-      if (!disposed) console.error("[poracode][updates] get-update-status failed", error);
+      if (!disposed) console.error("[axecode][updates] get-update-status failed", error);
     });
   return () => {
     disposed = true;

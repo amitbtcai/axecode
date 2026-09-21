@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { SupervisorEvent } from "@/shared/ipc/events";
-import type { PoracodeBridge } from "@/shared/ipc";
+import type { AxeCodeBridge } from "@/shared/ipc";
 import { LiveVoiceController, useLiveVoice } from "./liveVoice";
 
 const mocks = vi.hoisted(() => ({
-  connect: vi.fn<PoracodeBridge["connectThreadVoice"]>(),
-  disconnect: vi.fn<PoracodeBridge["disconnectThreadVoice"]>(),
-  subscribe: vi.fn<PoracodeBridge["onSupervisorEvent"]>(),
+  connect: vi.fn<AxeCodeBridge["connectThreadVoice"]>(),
+  disconnect: vi.fn<AxeCodeBridge["disconnectThreadVoice"]>(),
+  subscribe: vi.fn<AxeCodeBridge["onSupervisorEvent"]>(),
   error: vi.fn<(error: unknown) => void>(),
   subscribeView: vi.fn<(...args: unknown[]) => () => void>(),
 }));

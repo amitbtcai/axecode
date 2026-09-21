@@ -20,7 +20,7 @@ describe("resolveAgentBinaryPath (windows)", () => {
   let dir: string;
 
   beforeEach(() => {
-    dir = mkdtempSync(join(tmpdir(), "poracode-binres-"));
+    dir = mkdtempSync(join(tmpdir(), "axecode-binres-"));
     clearAgentBinaryPathCache();
     resolveExecutablePath.mockReset();
   });

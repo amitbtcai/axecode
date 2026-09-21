@@ -7,7 +7,7 @@
   "license": "MIT",
   "keywords": ["marketing", "content", "seo", "social media", "cmo"],
   "extensions": {
-    "com.poracode.client": {
+    "com.axecode.client": {
       "title": "Content Marketing",
       "category": "productivity",
       "featured": true,

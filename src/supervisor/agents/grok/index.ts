@@ -100,7 +100,7 @@ export function createGrokAdapter(): AgentAdapter {
         : undefined;
     },
 
-    pluginId: "poracode-status@grok",
+    pluginId: "axecode-status@grok",
     pluginVersion: GROK_PLUGIN_VERSION,
     minProtocolVersion: 1,
 
@@ -121,8 +121,8 @@ export function createGrokAdapter(): AgentAdapter {
       uninstallGrokPlugin(ctx);
     },
     // No `pluginLaunchExtras` env/args needed — Grok auto-loads
-    // `~/.grok/hooks/poracode-status.json` written at install time, and
-    // `PORACODE_HOOK_*` env is injected by the coordinator.
+    // `~/.grok/hooks/axecode-status.json` written at install time, and
+    // `AXECODE_HOOK_*` env is injected by the coordinator.
     async pluginLaunchExtras() {
       return {};
     },

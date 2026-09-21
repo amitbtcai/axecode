@@ -36,7 +36,7 @@ describe("friendlyErrorWithDetail", () => {
 
   it("strips the IPC wrapper for a non-Error class such as undici's TypeError", () => {
     const wrapped = new Error(
-      "Error invoking remote method 'poracode:remote-http-request': TypeError: fetch failed",
+      "Error invoking remote method 'axecode:remote-http-request': TypeError: fetch failed",
     );
     expect(friendlyError(wrapped)).toBe(
       "Can't reach the remote server. Check that it is online, then reconnect it.",

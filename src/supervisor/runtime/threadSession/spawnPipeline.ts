@@ -101,7 +101,7 @@ export interface SpawnThreadInput {
   /**
    * Extra env injected into the agent PTY (merged on top of agentEnv +
    * provider spawnEnv). Currently used by the CLI hook ingress to ferry
-   * `PORACODE_HOOK_URL` / `PORACODE_HOOK_SECRET` / `PORACODE_THREAD_ID` etc.
+   * `AXECODE_HOOK_URL` / `AXECODE_HOOK_SECRET` / `AXECODE_THREAD_ID` etc.
    */
   extraEnv?: Record<string, string>;
   structuredSession?: StructuredSessionHandle;
@@ -579,7 +579,7 @@ export class SpawnPipeline {
       payload.mentionHandoff !== true
     ) {
       throw new Error(
-        "Thread mentions require the Poracode read_thread tool, but it is unavailable for this session.",
+        "Thread mentions require the AxeCode read_thread tool, but it is unavailable for this session.",
       );
     }
     const structuredSession = await this.createStructuredSession(
@@ -775,8 +775,8 @@ export class SpawnPipeline {
         );
 
     // Append CLI hook plugin args (e.g. Claude `--settings <path>`); env vars
-    // (`PORACODE_HOOK_URL`, `PORACODE_HOOK_SECRET`, `PORACODE_THREAD_ID`,
-    // `PORACODE_AGENT_KIND`, `PORACODE_HOOK_PROTOCOL_VERSION`) flow through
+    // (`AXECODE_HOOK_URL`, `AXECODE_HOOK_SECRET`, `AXECODE_THREAD_ID`,
+    // `AXECODE_AGENT_KIND`, `AXECODE_HOOK_PROTOCOL_VERSION`) flow through
     // `spawnThread` → `agentEnv` so they end up in the PTY env on every
     // platform (WSL, win32, posix). Failure to resolve plugin extras silently
     // degrades to L2 — the supervisor must never block thread creation on
@@ -1130,7 +1130,7 @@ export class SpawnPipeline {
     }
 
     const agentEnv = this.resolveAgentProcessEnv(input.adapter, input.projectLocation);
-    const cliHookEnvInjected = Boolean(input.extraEnv?.PORACODE_HOOK_URL);
+    const cliHookEnvInjected = Boolean(input.extraEnv?.AXECODE_HOOK_URL);
     // `baseSpawnEnv` underlies every lane; the location-specific `spawnEnv`
     // layers on top so a provider can still override per platform.
     const providerEnv = mergeSpawnEnv(
@@ -1538,10 +1538,10 @@ export class SpawnPipeline {
       // Terminal presentation can safely fall back to its PTY path when the
       // optional structured helper cannot be created, so report once here.
       captureSupervisorException(diagnosticError, {
-        "poracode.feature_area": structuredRuntimeFeatureArea("session-creation"),
-        ...(presentationMode ? { "poracode.presentation": presentationMode } : {}),
-        "poracode.provider": agentKind,
-        "poracode.runtime_kind": "structured",
+        "axecode.feature_area": structuredRuntimeFeatureArea("session-creation"),
+        ...(presentationMode ? { "axecode.presentation": presentationMode } : {}),
+        "axecode.provider": agentKind,
+        "axecode.runtime_kind": "structured",
       });
       return undefined;
     }

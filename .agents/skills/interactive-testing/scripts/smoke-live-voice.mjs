@@ -15,7 +15,7 @@ export async function mockLiveVoiceGate({
   try {
     await run(`(async () => {
       const voice = await import('/src/renderer/speech/liveVoice.ts');
-      const stores = window.__poracodeDev.stores;
+      const stores = window.__axecodeDev.stores;
       const original = stores.agentStatuses.getState();
       const capability = { transport: 'webrtc', dataChannel: 'smoke-events' };
       const saved = window.__liveVoiceSmoke = {
@@ -89,7 +89,7 @@ export async function mockLiveVoiceGate({
         ['voice-smoke-user', 'user_message', 'Can you hear me?'],
         ['voice-smoke-assistant', 'assistant_message', 'Yes, I can hear you.'],
       ];
-      window.__poracodeDev.stores.app.getState().applyRuntimeEvents(s.threadId,
+      window.__axecodeDev.stores.app.getState().applyRuntimeEvents(s.threadId,
         items.flatMap(([itemId, itemType, text]) => [
           { type: 'item.started', threadId: s.threadId, itemId, itemType,
             payload: { content: [{ kind: 'text', text }], displayAuthoritative: true, turnIndependent: true } },
@@ -166,7 +166,7 @@ export async function mockLiveVoiceGate({
       await s.voice.liveVoice.stop();
       s.prepared?.();
       navigator.mediaDevices.getUserMedia = s.capture;
-      const stores = window.__poracodeDev.stores;
+      const stores = window.__axecodeDev.stores;
       if (s.threadId) stores.app.getState().deleteThread(s.threadId);
       stores.app.setState({ view: s.view });
       stores.agentStatuses.setState(s.original);

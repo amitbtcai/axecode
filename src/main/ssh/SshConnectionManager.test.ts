@@ -4,7 +4,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "nod
 import { tmpdir } from "node:os";
 import { basename, join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { PORACODE_REMOTE_PROTOCOL_VERSION } from "@/shared/remote";
+import { AXECODE_REMOTE_PROTOCOL_VERSION } from "@/shared/remote";
 import {
   sshRuntimeManifestFileName,
   SSH_RUNTIME_MANIFEST_VERSION,
@@ -70,7 +70,7 @@ function createRuntimeFixture(): {
   readonly wslHelpersDir: string;
   readonly cacheDir: string;
 } {
-  const root = mkdtempSync(join(tmpdir(), "poracode-ssh-bundle-test-"));
+  const root = mkdtempSync(join(tmpdir(), "axecode-ssh-bundle-test-"));
   tempDirs.push(root);
   const mainBundleDir = join(root, "main");
   const agentPluginsDir = join(root, "agent-plugins");
@@ -94,7 +94,7 @@ function createRuntimeFixture(): {
 
 function helperDescriptor(appVersion: string) {
   return {
-    protocolVersion: PORACODE_REMOTE_PROTOCOL_VERSION,
+    protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION,
     hostMode: "helper",
     desktopId: "remote-test",
     label: "Remote test",
@@ -178,7 +178,7 @@ describe("SSH command construction", () => {
       "-i",
       "/keys/id_ed25519",
     ]);
-    expect(buildScpArgs(connection(), "/tmp/runtime.tar.gz", ".poracode/upload.tar.gz")).toEqual([
+    expect(buildScpArgs(connection(), "/tmp/runtime.tar.gz", ".axecode/upload.tar.gz")).toEqual([
       "-q",
       "-o",
       "BatchMode=yes",
@@ -191,7 +191,7 @@ describe("SSH command construction", () => {
       "-i",
       "/keys/id_ed25519",
       "/tmp/runtime.tar.gz",
-      "dev@example.com:.poracode/upload.tar.gz",
+      "dev@example.com:.axecode/upload.tar.gz",
     ]);
   });
 
@@ -373,7 +373,7 @@ describe("SSH tunnel lifecycle", () => {
 describe("SSH helper readiness", () => {
   function descriptor(hostMode: "desktop" | "helper") {
     return {
-      protocolVersion: PORACODE_REMOTE_PROTOCOL_VERSION,
+      protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION,
       hostMode,
       desktopId: "remote-test",
       label: "Remote test",

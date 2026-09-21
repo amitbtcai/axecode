@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import type { OAuthToken } from "@poracode/agents-usage";
+import type { OAuthToken } from "@axecode/agents-usage";
 import { nativeMuseAuthPath } from "../agents/muse/paths";
 import { readMuseAuthFromWsl } from "./wslCredentials";
 

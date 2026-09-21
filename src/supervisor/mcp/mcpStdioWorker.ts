@@ -3,7 +3,7 @@
 import spawn from "cross-spawn";
 import type { McpServer } from "@/shared/contracts";
 
-const configKey = "PORACODE_MCP_STDIO_CONFIG";
+const configKey = "AXECODE_MCP_STDIO_CONFIG";
 const encoded = process.env[configKey];
 if (!encoded) throw new Error("Missing MCP stdio launch configuration");
 const config = JSON.parse(Buffer.from(encoded, "base64url").toString("utf8")) as {
@@ -23,7 +23,7 @@ const child = spawn(transport.command, transport.args, {
   windowsHide: true,
 });
 child.once("error", () => {
-  process.stderr.write("Poracode could not start the MCP server.\n");
+  process.stderr.write("AxeCode could not start the MCP server.\n");
   process.exitCode = 1;
 });
 child.once("exit", (code) => {

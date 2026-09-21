@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Poracode in-distro bridge server — runs INSIDE a WSL distro.
+ * AxeCode in-distro bridge server — runs INSIDE a WSL distro.
  *
  * Owns two kinds of endpoints, both guarded by the shared bearer secret:
  *
@@ -76,8 +76,8 @@ function loadParcelWatcher() {
   return null;
 }
 
-const PROTOCOL_VERSION = Number(process.env.PORACODE_HOOK_PROTOCOL_VERSION ?? "1") || 1;
-const SECRET = process.env.PORACODE_HOOK_SECRET;
+const PROTOCOL_VERSION = Number(process.env.AXECODE_HOOK_PROTOCOL_VERSION ?? "1") || 1;
+const SECRET = process.env.AXECODE_HOOK_SECRET;
 const HOOK_PATH = "/v1/agent-event";
 const MCP_PATH = "/mcp";
 const MAX_HOOK_BODY_BYTES = 64 * 1024;
@@ -100,12 +100,12 @@ const VALID_INTENTS = new Set([
   "session.turn_errored",
 ]);
 const EMPTY_GIT_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904";
-const PORACODE_CHECKPOINT_REF_RE = /^refs\/poracode\/checkpoints\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$/;
+const AXECODE_CHECKPOINT_REF_RE = /^refs\/axecode\/checkpoints\/[A-Za-z0-9_-]+\/[A-Za-z0-9_-]+$/;
 const ENV_NAME_RE = /^[A-Za-z_][A-Za-z0-9_]*$/;
 let cachedLoginShellEnv;
 
 if (!SECRET) {
-  emit({ type: "error", message: "PORACODE_HOOK_SECRET missing in bridge env" });
+  emit({ type: "error", message: "AXECODE_HOOK_SECRET missing in bridge env" });
   process.exit(2);
 }
 
@@ -198,7 +198,7 @@ function resolveNetworkingMode() {
 // candidates; the caller still falls back to the other candidate on
 // connection failure in case detection was wrong or unavailable.
 function resolveBrowserMcpUpstreamCandidates() {
-  const raw = process.env.PORACODE_BROWSER_MCP_URL;
+  const raw = process.env.AXECODE_BROWSER_MCP_URL;
   if (!raw) return [];
   let parsed;
   try {
@@ -780,8 +780,8 @@ function sanitizeGitEnv(baseEnv) {
   for (const [key, value] of Object.entries(baseEnv)) {
     if (typeof value === "string") env[key] = value;
   }
-  delete env.PORACODE_HOOK_SECRET;
-  delete env.PORACODE_HOOK_PROTOCOL_VERSION;
+  delete env.AXECODE_HOOK_SECRET;
+  delete env.AXECODE_HOOK_PROTOCOL_VERSION;
   delete env.GIT_DIR;
   delete env.GIT_WORK_TREE;
   delete env.GIT_INDEX_FILE;
@@ -973,10 +973,10 @@ async function processBatchHandler(req, body) {
 // outrank config, so they are only applied as a retry after git reports a
 // missing identity — a configured identity keeps authoring its own snapshots.
 const CHECKPOINT_FALLBACK_IDENT_ENV = {
-  GIT_AUTHOR_NAME: "Poracode",
-  GIT_AUTHOR_EMAIL: "checkpoints@poracode.local",
-  GIT_COMMITTER_NAME: "Poracode",
-  GIT_COMMITTER_EMAIL: "checkpoints@poracode.local",
+  GIT_AUTHOR_NAME: "AxeCode",
+  GIT_AUTHOR_EMAIL: "checkpoints@axecode.local",
+  GIT_COMMITTER_NAME: "AxeCode",
+  GIT_COMMITTER_EMAIL: "checkpoints@axecode.local",
 };
 
 const MISSING_IDENTITY_RE =
@@ -997,7 +997,7 @@ function commitCheckpointTree(args, cwd, env, input) {
 function gitCheckpointSnapshotHandler(req, body) {
   const projectRoot = resolveSafePath(body.projectRoot, body.projectRoot);
   if (!projectRoot) return { status: 400, code: "ESCAPE", message: "projectRoot is invalid" };
-  if (typeof body.ref !== "string" || !PORACODE_CHECKPOINT_REF_RE.test(body.ref)) {
+  if (typeof body.ref !== "string" || !AXECODE_CHECKPOINT_REF_RE.test(body.ref)) {
     return { status: 400, code: "EINVAL", message: "invalid checkpoint ref" };
   }
   if (!body.metadata || typeof body.metadata !== "object" || Array.isArray(body.metadata)) {
@@ -1010,7 +1010,7 @@ function gitCheckpointSnapshotHandler(req, body) {
       ["rev-parse", "--path-format=absolute", "--git-path", "index"],
       projectRoot,
     ).trim();
-    const tempIndex = `${indexPath}.poracode-${randomUUID()}`;
+    const tempIndex = `${indexPath}.axecode-${randomUUID()}`;
     try {
       const env = { GIT_INDEX_FILE: tempIndex };
       const baseTree =
@@ -1020,7 +1020,7 @@ function gitCheckpointSnapshotHandler(req, body) {
       const tree = git(["write-tree"], projectRoot, env).trim();
       const head = gitMaybe(["rev-parse", "--verify", "HEAD"], projectRoot);
       const commitArgs = ["commit-tree", tree, ...(head ? ["-p", head] : []), "-F", "-"];
-      const message = `Poracode checkpoint\n\n${JSON.stringify(body.metadata)}\n`;
+      const message = `AxeCode checkpoint\n\n${JSON.stringify(body.metadata)}\n`;
       const commit = commitCheckpointTree(commitArgs, projectRoot, env, message).trim();
       git(["update-ref", body.ref, commit], projectRoot);
       return { status: 200, data: { commit } };
@@ -1276,7 +1276,7 @@ async function handleMcpProxy(req, res) {
       res.setHeader("Access-Control-Allow-Origin", origin);
       res.setHeader(
         "Access-Control-Allow-Headers",
-        "Authorization, X-Poracode-Token, Content-Type, Mcp-Session-Id",
+        "Authorization, X-AxeCode-Token, Content-Type, Mcp-Session-Id",
       );
       res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
     }
@@ -1300,7 +1300,7 @@ async function handleMcpProxy(req, res) {
     candidates.splice(candidates.indexOf(knownBrowserMcpUpstreamUrl), 1);
     candidates.unshift(knownBrowserMcpUpstreamUrl);
   }
-  const upstreamToken = process.env.PORACODE_BROWSER_MCP_TOKEN;
+  const upstreamToken = process.env.AXECODE_BROWSER_MCP_TOKEN;
   if (candidates.length === 0 || !upstreamToken) {
     respond(res, 503, {
       jsonrpc: "2.0",
@@ -1497,7 +1497,7 @@ function shutdown() {
 }
 process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
-if (process.env.PORACODE_BRIDGE_PARENT_STDIN === "1") {
+if (process.env.AXECODE_BRIDGE_PARENT_STDIN === "1") {
   process.stdin.on("end", shutdown);
   process.stdin.resume();
 }

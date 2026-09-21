@@ -9,7 +9,7 @@ export function cursorMcpLaunch(
 ) {
   if (!servers.length) return { args: [] as string[] };
   const files = stageLaunchFiles(location, "cursor-mcp", {
-    ".cursor-plugin/plugin.json": JSON.stringify({ name: "poracode-mcp", version: "1.0.0" }),
+    ".cursor-plugin/plugin.json": JSON.stringify({ name: "axecode-mcp", version: "1.0.0" }),
     "mcp.json": JSON.stringify(buildStandardMcpConfig(servers)),
   });
   return { args: ["--plugin-dir", files.directory], cleanup: files.cleanup };

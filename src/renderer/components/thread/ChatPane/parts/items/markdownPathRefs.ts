@@ -1,10 +1,10 @@
 import type { ProjectPathRef } from "./parseProjectPathRef";
 
 /** Internal links carry explicit file/folder identity, independent of path heuristics. */
-export const AUTO_PATH_FILE_PREFIX = "poracode:path:";
-export const AUTO_PATH_FOLDER_PREFIX = "poracode:folder:";
-export const AUTO_PATH_FILE_HREF_PREFIX = "https://poracode.local/path/";
-export const AUTO_PATH_FOLDER_HREF_PREFIX = "https://poracode.local/folder/";
+export const AUTO_PATH_FILE_PREFIX = "axecode:path:";
+export const AUTO_PATH_FOLDER_PREFIX = "axecode:folder:";
+export const AUTO_PATH_FILE_HREF_PREFIX = "https://axecode.local/path/";
+export const AUTO_PATH_FOLDER_HREF_PREFIX = "https://axecode.local/folder/";
 
 const VERSIONED_PATH_PREFIX = "v2/";
 const VERSIONED_PATH_MARKER_RE = /^v\d+(?:[/?])/;

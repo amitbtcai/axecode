@@ -364,7 +364,7 @@ export class ClaudeSdkSession implements StructuredSessionHandle {
   /**
    * Preserve Claude's foreground Bash commands and subagents before the shared
    * steer lifecycle interrupts the main turn. The SDK turns them into
-   * background tasks, while Poracode stages the replacement prompt and opens it
+   * background tasks, while AxeCode stages the replacement prompt and opens it
    * as a fresh turn after the interrupted result settles.
    */
   async prepareSteerInterrupt(): Promise<void> {
@@ -729,13 +729,13 @@ export class ClaudeSdkSession implements StructuredSessionHandle {
       const env =
         this.input.projectLocation.kind === "wsl"
           ? {
-              CLAUDE_AGENT_SDK_CLIENT_APP: "poracode",
+              CLAUDE_AGENT_SDK_CLIENT_APP: "axecode",
               BROWSER: "/bin/true",
               ...(this.input.env ?? {}),
             }
           : {
               ...(posixEnv ?? process.env),
-              CLAUDE_AGENT_SDK_CLIENT_APP: "poracode",
+              CLAUDE_AGENT_SDK_CLIENT_APP: "axecode",
               ...(this.input.env ?? {}),
             };
       // Posix builds ship without the SDK's bundled `claude` SEA binary
@@ -752,7 +752,7 @@ export class ClaudeSdkSession implements StructuredSessionHandle {
             (await resolveExecutablePathAsync("claude"));
           if (!claudeExecutablePath) {
             throw new Error(
-              "Claude Code CLI not found on PATH. Install Claude Code (`npm i -g @anthropic-ai/claude-code` or via Homebrew) and restart Poracode.",
+              "Claude Code CLI not found on PATH. Install Claude Code (`npm i -g @anthropic-ai/claude-code` or via Homebrew) and restart AxeCode.",
             );
           }
           break;
@@ -849,8 +849,8 @@ export class ClaudeSdkSession implements StructuredSessionHandle {
           this.pendingSteers = [];
           if (!this.disposed) {
             captureSupervisorException(error, {
-              "poracode.feature_area": "provider-sdk",
-              "poracode.provider": "claude",
+              "axecode.feature_area": "provider-sdk",
+              "axecode.provider": "claude",
             });
             const message = error instanceof Error ? error.message : String(error);
             this.reportError(message);
@@ -862,8 +862,8 @@ export class ClaudeSdkSession implements StructuredSessionHandle {
       .catch((error) => {
         if (this.disposed) return;
         captureSupervisorException(error, {
-          "poracode.feature_area": "provider-sdk",
-          "poracode.provider": "claude",
+          "axecode.feature_area": "provider-sdk",
+          "axecode.provider": "claude",
         });
         const message = error instanceof Error ? error.message : String(error);
         this.reportError(message);

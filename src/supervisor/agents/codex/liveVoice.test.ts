@@ -240,23 +240,23 @@ describe("Codex voice discovery", () => {
   const voices = { voices: { v1: ["cove"] } };
   it("requires a compatible CLI and a subscription account", () => {
     expect(
-      supportsCodexLiveVoice({ userAgent: "poracode/0.153.4 (Windows)" }, account, voices),
+      supportsCodexLiveVoice({ userAgent: "axecode/0.153.4 (Windows)" }, account, voices),
     ).toBe(true);
     expect(
-      supportsCodexLiveVoice({ userAgent: "poracode/0.149.0 (Windows)" }, account, voices),
+      supportsCodexLiveVoice({ userAgent: "axecode/0.149.0 (Windows)" }, account, voices),
     ).toBe(false);
     expect(
-      supportsCodexLiveVoice({ userAgent: "poracode/0.130.0 (Windows)" }, account, voices),
+      supportsCodexLiveVoice({ userAgent: "axecode/0.130.0 (Windows)" }, account, voices),
     ).toBe(false);
     expect(
       supportsCodexLiveVoice(
-        { userAgent: "poracode/0.153.4" },
+        { userAgent: "axecode/0.153.4" },
         { account: { type: "apiKey" } },
         voices,
       ),
     ).toBe(false);
     expect(supportsCodexLiveVoice({}, account, voices)).toBe(false);
-    expect(supportsCodexLiveVoice({ userAgent: "poracode/0.153.4" }, account, undefined)).toBe(
+    expect(supportsCodexLiveVoice({ userAgent: "axecode/0.153.4" }, account, undefined)).toBe(
       false,
     );
   });

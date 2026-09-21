@@ -1,4 +1,4 @@
-// Renders the Poracode SVG masters into production icon assets.
+// Renders the AxeCode SVG masters into production icon assets.
 // Uses the repo's `sharp` for SVG->PNG, macOS `iconutil` for .icns, and a tiny
 // PNG-in-ICO packer for .ico. Outputs to branding/assets/out/. Run from repo root:
 //   node branding/assets/build-icons.mjs
@@ -169,7 +169,7 @@ async function buildTrayIcons(dir) {
 }
 
 // One PWA icon set per release channel. Stable and nightly are installed side
-// by side from separate origins (app.poracode.com / app-nightly.poracode.com),
+// by side from separate origins (app.axecode.com / app-nightly.axecode.com),
 // so nightly needs its own art or the two are indistinguishable on a home
 // screen.
 // The stable PWA icon follows the flat Axe AI favicon (full-bleed #060AE6

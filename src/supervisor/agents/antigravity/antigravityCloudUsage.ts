@@ -4,7 +4,7 @@ import {
   type HostPort,
   type HttpResponse,
   type UsageSnapshot,
-} from "@poracode/agents-usage";
+} from "@axecode/agents-usage";
 import type { AntigravityAcpCredentials } from "./antigravityAcpCredentials";
 import { ANTIGRAVITY_GOOGLE_TOKEN_URI } from "./antigravityAcpCredentials";
 

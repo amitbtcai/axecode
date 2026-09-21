@@ -1,5 +1,5 @@
 /**
- * @poracode/agents-usage — cross-platform usage & quota collection for AI
+ * @axecode/agents-usage — cross-platform usage & quota collection for AI
  * coding agents. Runtime-agnostic: all I/O is injected via {@link HostPort}.
  */
 

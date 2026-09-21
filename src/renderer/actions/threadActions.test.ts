@@ -637,12 +637,12 @@ describe("threadActions", () => {
     const firstThread = makeThread({
       id: "thread-a",
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     });
     const secondThread = makeThread({
       id: "thread-b",
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     });
     useAppStore.setState((state) => ({ ...state, threads: [firstThread, secondThread] }));
 
@@ -691,7 +691,7 @@ describe("threadActions", () => {
     const worktreePath = "/repo/.worktrees/feature";
     const thread = makeThread({
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     });
     useAppStore.setState((state) => ({ ...state, threads: [thread] }));
 
@@ -706,17 +706,17 @@ describe("threadActions", () => {
       threadId: thread.id,
       projectId: thread.projectId,
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
       anchorPosition: { x: 240, y: 120 },
     });
   });
 
   it("asks again for the legacy thread-only preference instead of deleting a worktree", () => {
-    localStorage.setItem("poracode-delete-worktree-pref", "thread-only");
+    localStorage.setItem("axecode-delete-worktree-pref", "thread-only");
     const worktreePath = "/repo/.worktrees/feature";
     const thread = makeThread({
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     });
     useAppStore.setState((state) => ({ ...state, threads: [thread] }));
 
@@ -767,7 +767,7 @@ describe("threadActions", () => {
   });
 
   it("skips the confirmation entirely once the user opted out", () => {
-    localStorage.setItem("poracode-delete-worktree-pref", "thread-and-worktree");
+    localStorage.setItem("axecode-delete-worktree-pref", "thread-and-worktree");
     const thread = makeThread({});
     useAppStore.setState((state) => ({ ...state, threads: [thread] }));
 
@@ -789,7 +789,7 @@ describe("threadActions", () => {
     const thread = makeThread({
       projectId: project.id,
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
     });
     useAppStore.setState((state) => ({ ...state, threads: [thread] }));
 
@@ -813,7 +813,7 @@ describe("threadActions", () => {
     const thread = makeThread({
       projectId: project.id,
       worktreePath,
-      worktreeBranch: "poracode/feature",
+      worktreeBranch: "axecode/feature",
       remoteServerId: project.remoteServerId,
       remoteId: "remote-thread",
     });

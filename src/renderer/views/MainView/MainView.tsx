@@ -79,7 +79,7 @@ export function MainView(props: {
       .then((response) => {
         if (import.meta.env.DEV) {
           performance.measure(
-            `poracode:provider status request${response.fromCache ? " (cached)" : ""}`,
+            `axecode:provider status request${response.fromCache ? " (cached)" : ""}`,
             {
               start: discoveryStartedAt,
             },

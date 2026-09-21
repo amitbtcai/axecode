@@ -176,7 +176,7 @@ describe("ThreadImagesBubble", () => {
     );
     const bubble = screen.getByRole("button", { name: "Show images" });
     // user attachment + markdown + assistant block + tool image = 4
-    expect(bubble).toHaveClass("poracode-floating-chrome--bubble");
+    expect(bubble).toHaveClass("axecode-floating-chrome--bubble");
     expect(bubble).toHaveTextContent("4");
     fireEvent.click(bubble);
     expect(usePanelStore.getState()).toMatchObject({
@@ -184,7 +184,7 @@ describe("ThreadImagesBubble", () => {
       threadDocksFocus: "images",
       rightPanelTab: "docks",
     });
-    expect(document.querySelector(".poracode-image-lightbox")).toBeNull();
+    expect(document.querySelector(".axecode-image-lightbox")).toBeNull();
     const activeBubble = screen.getByRole("button", { name: "Hide Images" });
     expect(activeBubble).toHaveAttribute("aria-pressed", "true");
 
@@ -331,8 +331,8 @@ describe("ThreadImagesDock", () => {
       "group-hover:bg-foreground/10",
     );
     fireEvent.click(tiles[2]!);
-    expect(document.querySelector(".poracode-image-lightbox")).not.toBeNull();
-    expect(document.querySelector(".poracode-image-lightbox__counter")).toHaveTextContent("3 / 4");
+    expect(document.querySelector(".axecode-image-lightbox")).not.toBeNull();
+    expect(document.querySelector(".axecode-image-lightbox__counter")).toHaveTextContent("3 / 4");
   });
 
   it("collapses and expands the image mosaic from its header", () => {

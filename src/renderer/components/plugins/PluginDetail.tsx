@@ -42,7 +42,7 @@ function canTryPluginNow(input: {
     input.plugin.mcpServers.every((server) =>
       isPluginMcpServerEnabled(input.plugin, state, server.name),
     ) &&
-    input.plugin.poracode.builtInMcpServerIds.every(
+    input.plugin.axecode.builtInMcpServerIds.every(
       (id) => input.disabledBuiltInMcpServers[id] !== true,
     ),
   );
@@ -72,7 +72,7 @@ export function PluginDetail(props: {
   const titleId = useId();
   const pluginToggleLabelId = useId();
   const author = plugin.manifest.author?.name;
-  const examplePrompt = plugin.poracode.examplePrompt;
+  const examplePrompt = plugin.axecode.examplePrompt;
   const coreSkill = getPluginCoreSkill(plugin);
   const canTryNow = canTryPluginNow({
     plugin,
@@ -107,8 +107,8 @@ export function PluginDetail(props: {
     newThreadFromText(project.id, `/${coreSkill.folder} ${examplePrompt}`, {
       bindLeadingSkill: true,
       leadingSkillPluginId: plugin.name,
-      ...(plugin.poracode.builtInMcpServerIds.length > 0
-        ? { enableMcpServerIds: plugin.poracode.builtInMcpServerIds }
+      ...(plugin.axecode.builtInMcpServerIds.length > 0
+        ? { enableMcpServerIds: plugin.axecode.builtInMcpServerIds }
         : {}),
     });
     closeSettings();
@@ -186,7 +186,7 @@ export function PluginDetail(props: {
           </div>
           <div className="mt-3 flex items-center gap-2 text-xs text-muted">
             <span>{author ?? plugin.name}</span>
-            {plugin.poracode.communityMaintained ? (
+            {plugin.axecode.communityMaintained ? (
               <PluginTag>
                 <Trans>Community</Trans>
               </PluginTag>
@@ -248,7 +248,7 @@ export function PluginDetail(props: {
         </section>
       ) : null}
 
-      {plugin.poracode.communityMaintained ? (
+      {plugin.axecode.communityMaintained ? (
         <p className="mt-5 rounded-xl border border-[var(--hairline)] px-3 py-2.5 text-xs text-muted">
           <Trans>
             The server this plugin launches is maintained by a third party, not by the service it

@@ -1,4 +1,4 @@
-import type { OAuthToken } from "@poracode/agents-usage";
+import type { OAuthToken } from "@axecode/agents-usage";
 
 /**
  * Qoder credential resolution from the environment.

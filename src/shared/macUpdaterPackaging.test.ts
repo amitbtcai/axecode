@@ -22,7 +22,7 @@ describe("macOS updater manifest packaging", () => {
   let releaseDir: string;
 
   beforeEach(() => {
-    releaseDir = mkdtempSync(join(tmpdir(), "poracode-mac-manifest-"));
+    releaseDir = mkdtempSync(join(tmpdir(), "axecode-mac-manifest-"));
   });
 
   afterEach(() => {
@@ -56,11 +56,11 @@ describe("macOS updater manifest packaging", () => {
     "restores %s ZIP metadata and the OS floor after the DMG pass",
     (channel) => {
       const manifestPath = join(releaseDir, `${channel}-mac.yml`);
-      const zipManifest = 'path: Poracode-1.5.1-arm64.zip\nminimumSystemVersion: "22.0.0"\n';
+      const zipManifest = 'path: AxeCode-1.5.1-arm64.zip\nminimumSystemVersion: "22.0.0"\n';
       writeFileSync(manifestPath, zipManifest);
       const snapshots = snapshotMacUpdaterManifests(releaseDir);
 
-      writeFileSync(manifestPath, "path: Poracode-1.5.1-arm64.dmg\n");
+      writeFileSync(manifestPath, "path: AxeCode-1.5.1-arm64.dmg\n");
       restoreMacUpdaterManifests(releaseDir, snapshots);
 
       expect(readFileSync(manifestPath, "utf8")).toBe(zipManifest);
@@ -81,8 +81,8 @@ describe("macOS updater manifest packaging", () => {
   it.each(["latest", "nightly"])("sets the Darwin floor in %s update metadata", (channel) => {
     const manifest = {
       version: "1.7.1",
-      files: [{ url: "Poracode-1.7.1-arm64.zip", sha512: "abc==", size: 123 }],
-      path: "Poracode-1.7.1-arm64.zip",
+      files: [{ url: "AxeCode-1.7.1-arm64.zip", sha512: "abc==", size: 123 }],
+      path: "AxeCode-1.7.1-arm64.zip",
       sha512: "abc==",
       releaseDate: "2026-09-05T00:00:00.000Z",
       minimumSystemVersion: "13.0.0",

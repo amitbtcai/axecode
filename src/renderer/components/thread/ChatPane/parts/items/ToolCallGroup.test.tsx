@@ -83,14 +83,14 @@ describe("ToolCallGroup", () => {
     // Header still derives from the summary while collapsed.
     expect(screen.getByText(byTextContent("2 views"))).toHaveClass("[word-spacing:-0.25em]");
     // No child row content and no viewport container are mounted.
-    expect(view.container.querySelector(".poracode-tool-call-group-viewport")).toBeNull();
+    expect(view.container.querySelector(".axecode-tool-call-group-viewport")).toBeNull();
     expect(screen.queryByText("Read file one")).not.toBeInTheDocument();
     expect(screen.queryByText("Read file two")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /2 views/i }));
 
     // Expanded: child rows mount.
-    expect(view.container.querySelector(".poracode-tool-call-group-viewport")).not.toBeNull();
+    expect(view.container.querySelector(".axecode-tool-call-group-viewport")).not.toBeNull();
     expect(screen.getByText("Read file one")).toBeInTheDocument();
     expect(screen.getByText("Read file two")).toBeInTheDocument();
   });
@@ -101,7 +101,7 @@ describe("ToolCallGroup", () => {
     seedThread(threadId, items);
     let container: HTMLElement | null = null;
     const onHeightChange = vi.fn<() => void>(() => {
-      expect(container?.querySelector(".poracode-tool-call-group-viewport")).toBeNull();
+      expect(container?.querySelector(".axecode-tool-call-group-viewport")).toBeNull();
     });
     const beginVirtualizerLayoutChange = vi.fn<() => void>();
     const view = renderToolCallGroup(
@@ -129,9 +129,7 @@ describe("ToolCallGroup", () => {
     let container: HTMLElement | null = null;
     const committedLayouts: boolean[] = [];
     const onHeightChange = vi.fn<() => void>(() => {
-      committedLayouts.push(
-        container?.querySelector(".poracode-tool-call-group-viewport") !== null,
-      );
+      committedLayouts.push(container?.querySelector(".axecode-tool-call-group-viewport") !== null);
     });
     const beginVirtualizerLayoutChange = vi.fn<() => void>();
     const view = renderToolCallGroup(
@@ -196,7 +194,7 @@ describe("ToolCallGroup", () => {
     seedThread(threadId, items);
     let container: HTMLElement | null = null;
     const onHeightChange = vi.fn<() => void>(() => {
-      expect(container?.querySelector(".poracode-tool-call-group-viewport")).toBeNull();
+      expect(container?.querySelector(".axecode-tool-call-group-viewport")).toBeNull();
     });
     const view = renderToolCallGroup(threadId, [items[0]!.id], true, onHeightChange);
     container = view.container;
@@ -214,7 +212,7 @@ describe("ToolCallGroup", () => {
       </AppProvider>,
     );
 
-    expect(view.container.querySelector(".poracode-tool-call-group-viewport")).toBeNull();
+    expect(view.container.querySelector(".axecode-tool-call-group-viewport")).toBeNull();
     expect(screen.queryByText("Read file one")).not.toBeInTheDocument();
     expect(onHeightChange).toHaveBeenCalledOnce();
   });
@@ -360,7 +358,7 @@ describe("ToolCallGroup", () => {
     // Multi-file edit run: still "2 edits", but never open by itself while live.
     const heading = screen.getByRole("button", { name: /2 edits/i });
     expect(heading).toHaveAttribute("aria-expanded", "false");
-    expect(view.container.querySelector(".poracode-tool-call-group-viewport")).toBeNull();
+    expect(view.container.querySelector(".axecode-tool-call-group-viewport")).toBeNull();
   });
 
   it("still auto-expands live groups that include non-edit tools", () => {
@@ -377,7 +375,7 @@ describe("ToolCallGroup", () => {
       true,
     );
 
-    expect(view.container.querySelector(".poracode-tool-call-group-viewport")).not.toBeNull();
+    expect(view.container.querySelector(".axecode-tool-call-group-viewport")).not.toBeNull();
     expect(screen.getByText("Read file one")).toBeInTheDocument();
   });
 
@@ -736,7 +734,7 @@ describe("ToolCallGroup", () => {
       { ...makeCommandItem("command-1", "pnpm run test"), state: "started" },
       { ...makeFileChangeItem("file-1"), state: "started" },
       {
-        ...makeWebSearchItem("web-search-1", { query: "Poracode", status: "running" }),
+        ...makeWebSearchItem("web-search-1", { query: "AxeCode", status: "running" }),
         state: "started",
       },
     ];
@@ -750,13 +748,16 @@ describe("ToolCallGroup", () => {
     // Rows with structured titles shimmer only the stable prefix (a <span>);
     // plain titles shimmer the whole <code>. The path segment must never be
     // part of the shimmer — mutating text under background-clip:text ghosts.
-    const animatedTitles = Array.from(view.container.querySelectorAll(".poracode-thinking-text"));
+    const animatedTitles = Array.from(view.container.querySelectorAll(".axecode-thinking-text"));
     expect(animatedTitles).toHaveLength(4);
-    expect(animatedTitles.map((title) => title.getAttribute("data-poracode-shimmer-text"))).toEqual(
-      ["Read file", "Check · pnpm run test", "Edit · ", "Poracode"],
-    );
+    expect(animatedTitles.map((title) => title.getAttribute("data-axecode-shimmer-text"))).toEqual([
+      "Read file",
+      "Check · pnpm run test",
+      "Edit · ",
+      "AxeCode",
+    ]);
     expect(screen.queryByText("Working")).not.toBeInTheDocument();
-    expect(view.container.querySelector(".poracode-pixel-loader")).toBeNull();
+    expect(view.container.querySelector(".axecode-pixel-loader")).toBeNull();
   });
 
   it("shimmers the collapsed header section that still has a running item", () => {
@@ -776,8 +777,8 @@ describe("ToolCallGroup", () => {
       false,
     );
 
-    const animated = Array.from(view.container.querySelectorAll(".poracode-thinking-text"));
-    expect(animated.map((el) => el.getAttribute("data-poracode-shimmer-text"))).toEqual([
+    const animated = Array.from(view.container.querySelectorAll(".axecode-thinking-text"));
+    expect(animated.map((el) => el.getAttribute("data-axecode-shimmer-text"))).toEqual([
       "1 command",
     ]);
   });
@@ -796,7 +797,7 @@ describe("ToolCallGroup", () => {
       false,
     );
 
-    expect(view.container.querySelector(".poracode-thinking-text")).toBeNull();
+    expect(view.container.querySelector(".axecode-thinking-text")).toBeNull();
   });
 
   it("renders reasoning rows inside the group and counts them in the summary", () => {
@@ -1253,8 +1254,8 @@ function makeChangesArrayFileChangeItem(
 ): RuntimeChatItem {
   const path =
     changeKind === "create"
-      ? "/Users/serhiivecherenko/work/poracode/src/renderer/state/runtimeToolGrouping.ts"
-      : "/Users/serhiivecherenko/work/poracode/src/renderer/components/thread/ChatPane/chatPaneSelectors.ts";
+      ? "/Users/serhiivecherenko/work/axecode/src/renderer/state/runtimeToolGrouping.ts"
+      : "/Users/serhiivecherenko/work/axecode/src/renderer/components/thread/ChatPane/chatPaneSelectors.ts";
   const diff =
     changeKind === "create"
       ? [
@@ -1310,7 +1311,7 @@ function makeChangesArrayFileChangeItem(
 }
 
 function getViewport(container: HTMLElement): HTMLDivElement {
-  const element = container.querySelector(".poracode-tool-call-group-viewport");
+  const element = container.querySelector(".axecode-tool-call-group-viewport");
   if (!(element instanceof HTMLDivElement)) {
     throw new Error("missing tool call group viewport");
   }
@@ -1389,7 +1390,7 @@ describe("ToolCallGroup sliding window", () => {
   }
 
   function getGhost(container: HTMLElement): HTMLElement | null {
-    return container.querySelector(".poracode-tool-call-group-ghost");
+    return container.querySelector(".axecode-tool-call-group-ghost");
   }
 
   it("lifts the dropped row into an out-of-flow ghost and keeps the row count constant", () => {
@@ -1408,7 +1409,7 @@ describe("ToolCallGroup sliding window", () => {
     expect(viewport.querySelectorAll(":scope > .animate-tool-call-enter")).toHaveLength(8);
     expect(ghost?.parentElement).toBe(viewport.parentElement);
     expect(viewport.parentElement).toHaveClass("relative");
-    expect(viewport.parentElement).toHaveClass("poracode-tool-call-group-windowed");
+    expect(viewport.parentElement).toHaveClass("axecode-tool-call-group-windowed");
   });
 
   it("stops animating while the user has a row open", () => {

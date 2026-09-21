@@ -64,7 +64,7 @@ export async function spawnMuseServeHost(
   const hostCookie = randomUUID();
   const cmd = buildAgentCommand(location, "muse", options.serveArgs, options.executablePath, {
     ...options.extraEnv,
-    PORACODE_MUSE_HOST_COOKIE: hostCookie,
+    AXECODE_MUSE_HOST_COOKIE: hostCookie,
   });
   const spawnCwd = options.isolateCwd === false ? cmd.cwd : resolveProbeSpawnCwd(location, cmd.cwd);
   const ownedProcessGroup = process.platform !== "win32";

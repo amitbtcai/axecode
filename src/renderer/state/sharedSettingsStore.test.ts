@@ -2,12 +2,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { pluginFixture, seedBuiltInPlugins } from "@/renderer/testUtils/plugins";
 import { useSharedSettings, waitForPendingSharedSettings } from "./sharedSettingsStore";
 
-const originalPoracodeBridge = window.poracode;
+const originalAxeCodeBridge = window.axecode;
 
 describe("sharedSettingsStore", () => {
   afterEach(() => {
-    if (originalPoracodeBridge) window.poracode = originalPoracodeBridge;
-    else Reflect.deleteProperty(window, "poracode");
+    if (originalAxeCodeBridge) window.axecode = originalAxeCodeBridge;
+    else Reflect.deleteProperty(window, "axecode");
   });
 
   beforeEach(() => {
@@ -79,7 +79,7 @@ describe("sharedSettingsStore", () => {
           finishWrite = resolve;
         }),
     );
-    window.poracode = { setSharedSettings } as unknown as typeof window.poracode;
+    window.axecode = { setSharedSettings } as unknown as typeof window.axecode;
 
     useSharedSettings.getState().setThemeMode("dark");
     let barrierFinished = false;
@@ -104,7 +104,7 @@ describe("sharedSettingsStore", () => {
     useSharedSettings.getState().setFollowUpBehavior("queue");
 
     expect(useSharedSettings.getState().followUpBehavior).toBe("queue");
-    expect(JSON.parse(localStorage.getItem("poracode-shared-settings") ?? "null")).toMatchObject({
+    expect(JSON.parse(localStorage.getItem("axecode-shared-settings") ?? "null")).toMatchObject({
       followUpBehavior: "queue",
     });
   });
@@ -249,7 +249,7 @@ describe("sharedSettingsStore", () => {
 
   it("persists plugin lifecycle and contribution mutations", () => {
     const persistedPlugins = () =>
-      JSON.parse(localStorage.getItem("poracode-shared-settings") ?? "null").installedPlugins;
+      JSON.parse(localStorage.getItem("axecode-shared-settings") ?? "null").installedPlugins;
 
     useSharedSettings.getState().installPlugin(pluginFixture("browser-tools"));
     expect(persistedPlugins()).toEqual({
@@ -327,7 +327,7 @@ describe("sharedSettingsStore", () => {
       id: "work",
       driver: "claude",
       displayName: "Work",
-      config: { configDir: "~/.poracode/claude-profiles/work" },
+      config: { configDir: "~/.axecode/claude-profiles/work" },
     });
     useSharedSettings.setState({
       providerConfigs: {

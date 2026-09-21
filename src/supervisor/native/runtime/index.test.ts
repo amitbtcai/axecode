@@ -50,7 +50,7 @@ vi.mock("../../runtime/spawn", () => ({
 
 const tempDirs: string[] = [];
 
-function makeTempDir(prefix = "poracode-native-runtime-"): string {
+function makeTempDir(prefix = "axecode-native-runtime-"): string {
   const dir = mkdtempSync(join(tmpdir(), prefix));
   tempDirs.push(dir);
   return dir;
@@ -69,18 +69,18 @@ afterEach(() => {
 
 describe("managedNodePath", () => {
   it("uses bin/node on POSIX targets", () => {
-    const baseDir = "/home/u/.poracode";
+    const baseDir = "/home/u/.axecode";
     const path = managedNodePath(baseDir, "linux-x64");
     expect(path.replaceAll("\\", "/")).toBe(
-      `/home/u/.poracode/runtime/${nodeArchiveDirName("linux-x64")}/bin/node`,
+      `/home/u/.axecode/runtime/${nodeArchiveDirName("linux-x64")}/bin/node`,
     );
   });
 
   it("uses node.exe on Windows targets", () => {
-    const baseDir = "C:/u/.poracode";
+    const baseDir = "C:/u/.axecode";
     const path = managedNodePath(baseDir, "win-x64");
     expect(path.replaceAll("\\", "/")).toBe(
-      `C:/u/.poracode/runtime/${nodeArchiveDirName("win-x64")}/node.exe`,
+      `C:/u/.axecode/runtime/${nodeArchiveDirName("win-x64")}/node.exe`,
     );
   });
 });
@@ -110,7 +110,7 @@ describe("resolveNativeNode managed-runtime fast path", () => {
       onProgress: (e) => events.push(e.kind),
     });
     expect(resolved).not.toBeNull();
-    expect(resolved?.source).toBe("poracode-managed");
+    expect(resolved?.source).toBe("axecode-managed");
     expect(resolved?.nodePath).toBe(nodePath);
     expect(events).toContain("probe-start");
     expect(events).toContain("probe-found-managed");
@@ -192,7 +192,7 @@ describe("installNativeRuntime", () => {
 
     // Create a half-finished archive dir with a sentinel file. Install
     // should blow it away and replace it (the runtime dir is owned
-    // exclusively by poracode).
+    // exclusively by axecode).
     const finalDir = join(baseDir, "runtime", nodeArchiveDirName(target));
     mkdirSync(finalDir, { recursive: true });
     writeFileSync(join(finalDir, "leftover-from-previous-attempt"), "x");

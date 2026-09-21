@@ -183,7 +183,7 @@ describe("OpenCode prompt file fallback", () => {
   });
 
   it("reads bounded text fallbacks and preserves non-text attachments as notices", async () => {
-    const dir = mkdtempSync(join(tmpdir(), "poracode-opencode-prompt-"));
+    const dir = mkdtempSync(join(tmpdir(), "axecode-opencode-prompt-"));
     const path = join(dir, "context.txt");
     const imagePath = join(dir, "shot.png");
     writeFileSync(path, "a".repeat(128 * 1024 + 1));

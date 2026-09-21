@@ -127,7 +127,7 @@ describe("PiRpcSession (mock pi --mode rpc)", () => {
   let mockBinary: string;
 
   beforeAll(() => {
-    projectDir = mkdtempSync(join(tmpdir(), "poracode-pi-rpc-mock-"));
+    projectDir = mkdtempSync(join(tmpdir(), "axecode-pi-rpc-mock-"));
     mockBinary = join(projectDir, "mock-pi.mjs");
     writeFileSync(mockBinary, MOCK_PI_SOURCE, "utf8");
     const spawn = PiRpcClient.spawn;

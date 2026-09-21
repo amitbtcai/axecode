@@ -208,7 +208,7 @@ describe("Command Code MCP mod", () => {
     );
     expect(mod.tools).toEqual([]);
     expect(mod.api.ui.notify).toHaveBeenCalledExactlyOnceWith(
-      "Poracode could not connect MCP server bad.",
+      "AxeCode could not connect MCP server bad.",
     );
   });
 

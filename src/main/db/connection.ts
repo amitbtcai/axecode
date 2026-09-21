@@ -27,7 +27,7 @@ export function bumpProfileDataGeneration(): void {
 const USAGE_EVENTS_RETENTION_DAYS = 730;
 const REMOTE_COMMAND_RECEIPTS_RETENTION_DAYS = 30;
 
-const BETTER_SQLITE_NATIVE_BINDING_ENV = "PORACODE_BETTER_SQLITE3_NATIVE_BINDING";
+const BETTER_SQLITE_NATIVE_BINDING_ENV = "AXECODE_BETTER_SQLITE3_NATIVE_BINDING";
 
 export function resolveBetterSqliteNativeBindingOptions(
   env: NodeJS.ProcessEnv = process.env,

@@ -24,22 +24,22 @@ const OG_LOCALE: Record<Locale, string> = {
   "zh-CN": "zh_CN",
 };
 
-export const SITE_NAME = "Poracode";
+export const SITE_NAME = "AxeCode";
 export const SITE_URL = "https://axeai.com/code";
 export const GITHUB_URL = "https://github.com/amitbtcai/axecode";
 export const SOCIAL_IMAGE_PATH = "/hero-screenshot.png";
-export const SOCIAL_IMAGE_ALT = "Poracode AI coding agent orchestrator social card";
+export const SOCIAL_IMAGE_ALT = "AxeCode AI coding agent orchestrator social card";
 const SOCIAL_IMAGE_WIDTH = 1200;
 const SOCIAL_IMAGE_HEIGHT = 630;
 
-export const SITE_TITLE = "Poracode - AI Coding Agent Desktop for Claude Code, Codex & Gemini";
+export const SITE_TITLE = "AxeCode - AI Coding Agent Desktop for Claude Code, Codex & Gemini";
 export const SITE_DESCRIPTION =
-  "Poracode is an open-source desktop app for running Claude Code, Codex, Gemini, Cursor, OpenCode, and ACP agents side by side with terminals, diffs, browser previews, worktrees, and PRs.";
+  "AxeCode is an open-source desktop app for running Claude Code, Codex, Gemini, Cursor, OpenCode, and ACP agents side by side with terminals, diffs, browser previews, worktrees, and PRs.";
 
 export const SEO_KEYWORDS = [
-  "Poracode",
-  "Poracode app",
-  "Poracode desktop app",
+  "AxeCode",
+  "AxeCode app",
+  "AxeCode desktop app",
   "AI coding agents",
   "Claude Code desktop app",
   "Codex desktop app",
@@ -178,13 +178,13 @@ export function createHomeJsonLd(release: ReleaseInfo, locale: Locale = DEFAULT_
     "@id": `${SITE_URL}/#software`,
     name: SITE_NAME,
     // Brand aliases help Google disambiguate the app from the unrelated
-    // "Poracode" music project and other software firms ranking for the term,
+    // "AxeCode" music project and other software firms ranking for the term,
     // and tie the entity to the poracode.com domain-match query.
     alternateName: [
-      "Poracode App",
-      "Poracode Desktop",
-      "Poracode Desktop App",
-      "Poracode AI Agent Orchestrator",
+      "AxeCode App",
+      "AxeCode Desktop",
+      "AxeCode Desktop App",
+      "AxeCode AI Agent Orchestrator",
       "poracode.com",
     ],
     applicationCategory: "DeveloperApplication",

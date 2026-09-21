@@ -179,7 +179,7 @@ export function createCursorAdapter(options: CursorAdapterOptions = {}): AgentAd
         }
       : cursorDefaultCapabilities,
     spawnEnv: { wsl: { BROWSER: "/bin/true" } },
-    pluginId: "poracode-status@cursor",
+    pluginId: "axecode-status@cursor",
     pluginVersion: CURSOR_PLUGIN_VERSION,
     minProtocolVersion: 1,
 

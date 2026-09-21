@@ -104,7 +104,7 @@ jobs:
         run: pnpm run build
         shell: bash
         env:
-          PORACODE_CHANNEL: ${{ inputs.channel }}
+          AXECODE_CHANNEL: ${{ inputs.channel }}
           SENTRY_DSN: ${{ vars.SENTRY_DSN }}
           SENTRY_ENVIRONMENT: production
           POSTHOG_ENABLED: ${{ vars.POSTHOG_ENABLED || '1' }}
@@ -126,7 +126,7 @@ jobs:
           node scripts/build-desktop-artifact.mjs --platform "${{ matrix.platform }}" --skip-build
         shell: bash
         env:
-          PORACODE_CHANNEL: ${{ inputs.channel }}
+          AXECODE_CHANNEL: ${{ inputs.channel }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 

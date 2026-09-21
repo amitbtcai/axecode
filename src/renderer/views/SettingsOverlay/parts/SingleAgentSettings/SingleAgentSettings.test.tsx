@@ -661,7 +661,7 @@ describe("SingleAgentSettings", () => {
         id: "glm",
         driver: "claude",
         displayName: "GLM",
-        config: { configDir: "~/.poracode/claude-profiles/glm" },
+        config: { configDir: "~/.axecode/claude-profiles/glm" },
       },
     };
 
@@ -669,7 +669,7 @@ describe("SingleAgentSettings", () => {
 
     expect(screen.getByText("Claude GLM")).toBeInTheDocument();
     expect(screen.getByLabelText("Claude profile config directory")).toHaveValue(
-      "~/.poracode/claude-profiles/glm",
+      "~/.axecode/claude-profiles/glm",
     );
     expect(screen.queryByText("This agent is not installed.")).not.toBeInTheDocument();
   });

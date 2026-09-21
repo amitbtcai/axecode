@@ -1,4 +1,4 @@
-# @poracode/codex-protocol
+# @axecode/codex-protocol
 
 TypeScript definitions generated during `pnpm install` from `@openai/codex`, pinned to `0.153.4`.
 

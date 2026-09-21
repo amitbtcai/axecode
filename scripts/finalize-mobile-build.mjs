@@ -1,4 +1,4 @@
-// The mobile-only Vite build (PORACODE_BUILD_TARGET=mobile) emits its entry
+// The mobile-only Vite build (AXECODE_BUILD_TARGET=mobile) emits its entry
 // as `mobile.html` (named after the source file). Hosting platforms and the
 // Capacitor native shells both default to serving `index.html` from the web
 // root, so mirror the entry to `index.html`. Asset URLs use a relative base
@@ -7,8 +7,8 @@ import { createHash } from "node:crypto";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 
-const mobileBasePath = readEnv("PORACODE_MOBILE_BASE_PATH");
-const mobileChannel = readEnv("PORACODE_MOBILE_CHANNEL") === "nightly" ? "nightly" : "stable";
+const mobileBasePath = readEnv("AXECODE_MOBILE_BASE_PATH");
+const mobileChannel = readEnv("AXECODE_MOBILE_CHANNEL") === "nightly" ? "nightly" : "stable";
 const outDir = resolve(
   process.cwd(),
   "dist/mobile",
@@ -19,16 +19,16 @@ const target = join(outDir, "index.html");
 const serviceWorkerPath = join(outDir, "service-worker.js");
 const wellKnownDir = join(outDir, ".well-known");
 const sshRuntimeSourceDir = resolve(process.cwd(), "resources/mobile-ssh-runtime");
-const sshRuntimeTargetDir = join(outDir, "poracode-ssh-runtime");
-const appId = readEnv("PORACODE_MOBILE_APP_ID") || "com.axecode.mobile";
+const sshRuntimeTargetDir = join(outDir, "axecode-ssh-runtime");
+const appId = readEnv("AXECODE_MOBILE_APP_ID") || "com.axecode.mobile";
 const androidFingerprints = readFingerprintList();
-const appleTeamId = readEnv("PORACODE_MOBILE_APPLE_TEAM_ID");
+const appleTeamId = readEnv("AXECODE_MOBILE_APPLE_TEAM_ID");
 const requireAndroidLinks =
-  readBoolEnv("PORACODE_MOBILE_REQUIRE_NATIVE_LINKS") ||
-  readBoolEnv("PORACODE_MOBILE_REQUIRE_ANDROID_LINKS");
+  readBoolEnv("AXECODE_MOBILE_REQUIRE_NATIVE_LINKS") ||
+  readBoolEnv("AXECODE_MOBILE_REQUIRE_ANDROID_LINKS");
 const requireIosLinks =
-  readBoolEnv("PORACODE_MOBILE_REQUIRE_NATIVE_LINKS") ||
-  readBoolEnv("PORACODE_MOBILE_REQUIRE_IOS_LINKS");
+  readBoolEnv("AXECODE_MOBILE_REQUIRE_NATIVE_LINKS") ||
+  readBoolEnv("AXECODE_MOBILE_REQUIRE_IOS_LINKS");
 
 if (!existsSync(source)) {
   console.error(`[finalize-mobile-build] missing ${source}; did the mobile build run?`);
@@ -37,12 +37,12 @@ if (!existsSync(source)) {
 
 if (requireAndroidLinks && androidFingerprints.length === 0) {
   console.error(
-    "[finalize-mobile-build] missing PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINT for Android App Links.",
+    "[finalize-mobile-build] missing AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINT for Android App Links.",
   );
   process.exit(1);
 }
 if (requireIosLinks && !appleTeamId) {
-  console.error("[finalize-mobile-build] missing PORACODE_MOBILE_APPLE_TEAM_ID for iOS links.");
+  console.error("[finalize-mobile-build] missing AXECODE_MOBILE_APPLE_TEAM_ID for iOS links.");
   process.exit(1);
 }
 
@@ -111,8 +111,8 @@ const notificationIcon = isNightly
   ? NIGHTLY_ICON_SOURCES["icons/icon-192.png"]
   : "icons/icon-192.png";
 const tokens = {
-  __PORACODE_BUILD_VERSION__: buildVersion,
-  __PORACODE_NOTIFICATION_ICON__: notificationIcon,
+  __AXECODE_BUILD_VERSION__: buildVersion,
+  __AXECODE_NOTIFICATION_ICON__: notificationIcon,
 };
 let resolvedWorker = serviceWorker;
 for (const [token, value] of Object.entries(tokens)) {
@@ -147,8 +147,8 @@ function readBoolEnv(key) {
 
 function readFingerprintList() {
   const raw =
-    readEnv("PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS") ||
-    readEnv("PORACODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINT");
+    readEnv("AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINTS") ||
+    readEnv("AXECODE_MOBILE_ANDROID_SHA256_CERT_FINGERPRINT");
   return raw
     .split(/[\n,]/)
     .map((value) => value.trim())

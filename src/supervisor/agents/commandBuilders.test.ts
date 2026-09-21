@@ -130,8 +130,8 @@ const config: ThreadConfig = {
 };
 
 function clearBrowserMcpEnv(): void {
-  delete process.env.PORACODE_BROWSER_MCP_URL;
-  delete process.env.PORACODE_BROWSER_MCP_TOKEN;
+  delete process.env.AXECODE_BROWSER_MCP_URL;
+  delete process.env.AXECODE_BROWSER_MCP_TOKEN;
 }
 
 describe("agent command builders", () => {

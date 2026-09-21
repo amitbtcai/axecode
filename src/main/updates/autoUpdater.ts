@@ -1,7 +1,7 @@
 import { autoUpdater } from "electron-updater";
-import type { PoracodeChannel } from "@/shared/channel";
+import type { AxeCodeChannel } from "@/shared/channel";
 import type { UpdateStatus } from "@/shared/ipc";
-import type { PoracodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
+import type { AxeCodeDiagnosticTags } from "@/shared/diagnostics/sentryPrivacy";
 import {
   buildUpdateDiagnosticTags,
   classifyUpdateFailure,
@@ -35,9 +35,9 @@ export interface AutoUpdaterController {
 
 export function createAutoUpdaterController(
   onStatus: (status: UpdateStatus) => void,
-  channel: PoracodeChannel,
+  channel: AxeCodeChannel,
   isDev: boolean,
-  reportError: (error: unknown, tags?: PoracodeDiagnosticTags) => void = () => {},
+  reportError: (error: unknown, tags?: AxeCodeDiagnosticTags) => void = () => {},
   beforeInstall: () => void = () => {},
 ): AutoUpdaterController {
   let lastStatus: UpdateStatus | null = null;
@@ -68,7 +68,7 @@ export function createAutoUpdaterController(
 
   function reportClassifiedFailure(operation: UpdateOperation, outcome: UpdateFailureKind): void {
     if (outcome === "optional-manifest-missing") {
-      console.warn("[poracode] optional nightly update manifest is not available.");
+      console.warn("[axecode] optional nightly update manifest is not available.");
       return;
     }
     if (outcome === "transient-network") {
@@ -79,7 +79,7 @@ export function createAutoUpdaterController(
         return;
       }
       transientReportTimes.set(key, now);
-      console.warn(`[poracode] updater ${operation} transient failure after retries.`);
+      console.warn(`[axecode] updater ${operation} transient failure after retries.`);
       return;
     }
     reportError(

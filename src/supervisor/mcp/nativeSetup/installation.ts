@@ -54,7 +54,7 @@ function rejectLinks(path: string): void {
 function atomicWrite(path: string, text: string, expected: string | undefined): void {
   rejectLinks(path);
   mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
-  const temp = `${path}.poracode-${randomUUID()}`;
+  const temp = `${path}.axecode-${randomUUID()}`;
   try {
     // Establish file permissions before writing any credentials.
     writeFileSync(temp, "", { flag: "wx", mode: 0o600 });

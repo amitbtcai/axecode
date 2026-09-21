@@ -9,13 +9,13 @@ import {
 
 describe("Windows startup settings", () => {
   it("recognizes only Windows login launches", () => {
-    expect(isWindowsStartupLaunch(["Poracode.exe", WINDOWS_STARTUP_ARGUMENT], "win32")).toBe(true);
-    expect(isWindowsStartupLaunch(["Poracode.exe"], "win32")).toBe(false);
-    expect(isWindowsStartupLaunch(["Poracode", WINDOWS_STARTUP_ARGUMENT], "darwin")).toBe(false);
+    expect(isWindowsStartupLaunch(["AxeCode.exe", WINDOWS_STARTUP_ARGUMENT], "win32")).toBe(true);
+    expect(isWindowsStartupLaunch(["AxeCode.exe"], "win32")).toBe(false);
+    expect(isWindowsStartupLaunch(["AxeCode", WINDOWS_STARTUP_ARGUMENT], "darwin")).toBe(false);
   });
 
   it("starts hidden only for enabled automatic login launches", () => {
-    const argv = ["Poracode.exe", WINDOWS_STARTUP_ARGUMENT];
+    const argv = ["AxeCode.exe", WINDOWS_STARTUP_ARGUMENT];
     expect(
       shouldStartMinimized({ launchAtStartup: true, startMinimized: true }, argv, "win32"),
     ).toBe(true);
@@ -25,7 +25,7 @@ describe("Windows startup settings", () => {
     expect(
       shouldStartMinimized(
         { launchAtStartup: true, startMinimized: true },
-        ["Poracode.exe"],
+        ["AxeCode.exe"],
         "win32",
       ),
     ).toBe(false);

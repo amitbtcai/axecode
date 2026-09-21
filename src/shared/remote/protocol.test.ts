@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { defaultSharedSettings } from "../settings";
 import { LAUNCH_REMOTE_SERVER_SCRIPT } from "../sshRemoteScripts";
 import {
-  PORACODE_REMOTE_PROTOCOL_VERSION,
+  AXECODE_REMOTE_PROTOCOL_VERSION,
   REMOTE_SETTINGS_KEYS,
   pickRemoteSettings,
   remotePushRegistrationSchema,
@@ -61,7 +61,7 @@ describe("remote thread snapshots", () => {
         updatedAt: "2026-01-01T00:00:00.000Z",
       }).thread.config.executionEnvironment,
     ).toEqual({ kind: "wsl", distro: "Ubuntu-24.04" });
-    expect(PORACODE_REMOTE_PROTOCOL_VERSION).toBe(10);
+    expect(AXECODE_REMOTE_PROTOCOL_VERSION).toBe(10);
     expect(LAUNCH_REMOTE_SERVER_SCRIPT).toContain("descriptor.protocolVersion === 10");
   });
 });

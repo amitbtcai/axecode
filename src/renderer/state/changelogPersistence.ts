@@ -1,7 +1,7 @@
 export const CHANGELOG_STORAGE_KEYS = {
-  seenVersion: "poracode-changelog-seen-version",
-  acknowledgedVersion: "poracode-changelog-ack-version",
-  cache: "poracode-changelog-cache",
+  seenVersion: "axecode-changelog-seen-version",
+  acknowledgedVersion: "axecode-changelog-ack-version",
+  cache: "axecode-changelog-cache",
 } as const;
 
 const LEGACY_CHANGELOG_STORAGE_KEYS = {
@@ -11,8 +11,8 @@ const LEGACY_CHANGELOG_STORAGE_KEYS = {
 } as const;
 
 /**
- * Preserve the user's changelog position across the Lightcode -> Poracode
- * rename. Copy only missing values so a Poracode launch always wins over stale
+ * Preserve the user's changelog position across the Lightcode -> AxeCode
+ * rename. Copy only missing values so a AxeCode launch always wins over stale
  * legacy state, and keep the originals for downgrade safety.
  */
 export function migrateLegacyChangelogStorage(storage: Pick<Storage, "getItem" | "setItem">): void {

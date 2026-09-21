@@ -3,7 +3,7 @@ import { OpenCode2Operations } from "./operations";
  * OpenCode 2 (V2 HTTP API) → canonical RuntimeEvent mapper.
  *
  * Translates the shared SSE stream of the `opencode2 serve` sidecar into
- * Poracode's canonical chat events. Mirrors the role of OpenCode 1's
+ * AxeCode's canonical chat events. Mirrors the role of OpenCode 1's
  * `sdkCanonicalMapping` for the V2 event vocabulary, which streams per-part
  * lifecycle events (`session.text.started/delta/ended`, `session.reasoning.*`,
  * `session.tool.*`) instead of V1's full part snapshots.

@@ -32,7 +32,7 @@ export const useThreadBackgroundTasksDockStore = create<ThreadBackgroundTasksDoc
         })),
     }),
     {
-      name: "poracode-thread-background-tasks-dock-v1",
+      name: "axecode-thread-background-tasks-dock-v1",
       version: 1,
       storage: createDbStorage(),
       partialize: (state) => ({ collapsed: state.collapsed }),

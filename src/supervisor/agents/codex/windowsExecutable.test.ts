@@ -78,7 +78,7 @@ describe.skipIf(process.platform !== "win32")("resolveCodexNativeExecutableForWi
     expect(target).toBeDefined();
     if (!target) return;
 
-    const root = mkdtempSync(join(tmpdir(), "poracode-codex-native-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-codex-native-"));
     tempDirs.push(root);
     const shimPath = join(root, "codex.cmd");
     const executablePath = join(
@@ -113,7 +113,7 @@ describe.skipIf(process.platform !== "win32")("resolveCodexNativeExecutableForWi
     expect(target).toBeDefined();
     if (!target) return;
 
-    const root = mkdtempSync(join(tmpdir(), "poracode-codex-pnpm-cmd-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-codex-pnpm-cmd-"));
     tempDirs.push(root);
 
     const { shimPath, executablePath } = createPnpmCodexFixture(
@@ -141,7 +141,7 @@ describe.skipIf(process.platform !== "win32")("resolveCodexNativeExecutableForWi
     expect(target).toBeDefined();
     if (!target) return;
 
-    const root = mkdtempSync(join(tmpdir(), "poracode-codex-pnpm-ps1-"));
+    const root = mkdtempSync(join(tmpdir(), "axecode-codex-pnpm-ps1-"));
     tempDirs.push(root);
 
     const { shimPath, executablePath } = createPnpmCodexFixture(

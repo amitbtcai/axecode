@@ -1,6 +1,6 @@
 import {
   prepareSentryEvent,
-  type PoracodeDiagnosticTags,
+  type AxeCodeDiagnosticTags,
   type SentryEventLike,
 } from "@/shared/diagnostics/sentryPrivacy";
 import {
@@ -189,7 +189,7 @@ function loadSupervisorSentry(): SupervisorSentryModule | null {
   } catch (error) {
     supervisorSentry = null;
     console.warn(
-      "[poracode] Sentry supervisor integration unavailable:",
+      "[axecode] Sentry supervisor integration unavailable:",
       error instanceof Error ? error.message : String(error),
     );
   }
@@ -210,13 +210,13 @@ function readSentryEnvironment(options: SupervisorSentryOptions): string {
   );
 }
 
-function buildBaseTags(options: SupervisorSentryOptions): PoracodeDiagnosticTags {
+function buildBaseTags(options: SupervisorSentryOptions): AxeCodeDiagnosticTags {
   return {
-    "poracode.app_version": options.appVersion,
-    "poracode.arch": process.arch,
-    "poracode.node": process.versions.node,
-    "poracode.platform": process.platform,
-    "poracode.process": "supervisor",
+    "axecode.app_version": options.appVersion,
+    "axecode.arch": process.arch,
+    "axecode.node": process.versions.node,
+    "axecode.platform": process.platform,
+    "axecode.process": "supervisor",
   };
 }
 
@@ -233,7 +233,7 @@ export function initializeSupervisorSentry(options: SupervisorSentryOptions): bo
 
   Sentry.init({
     dsn,
-    release: `poracode@${options.appVersion}`,
+    release: `axecode@${options.appVersion}`,
     environment: readSentryEnvironment(options),
     sendDefaultPii: false,
     enableLogs: false,
@@ -250,7 +250,7 @@ export function initializeSupervisorSentry(options: SupervisorSentryOptions): bo
     },
   });
 
-  Sentry.setContext("poracode", {
+  Sentry.setContext("axecode", {
     appVersion: options.appVersion,
     process: "supervisor",
   });
@@ -347,23 +347,23 @@ export function classifySupervisorFailure(
 function captureSupervisorFailure(
   error: unknown,
   decision: DiagnosticFailureDecision,
-  tags?: PoracodeDiagnosticTags,
+  tags?: AxeCodeDiagnosticTags,
 ): void {
   if (decision.treatment === "drop") return;
   const Sentry = loadSupervisorSentry();
   if (!Sentry) return;
   if (!Sentry.isEnabled()) return;
 
-  const diagnosticTags: PoracodeDiagnosticTags = {
+  const diagnosticTags: AxeCodeDiagnosticTags = {
     ...tags,
-    "poracode.error_class": decision.errorClass,
-    "poracode.failure_domain": decision.domain,
-    "poracode.operation": decision.operation,
-    "poracode.operational": String(decision.operational),
-    "poracode.process": "supervisor",
+    "axecode.error_class": decision.errorClass,
+    "axecode.failure_domain": decision.domain,
+    "axecode.operation": decision.operation,
+    "axecode.operational": String(decision.operational),
+    "axecode.process": "supervisor",
   };
   if (decision.treatment === "metric") {
-    Sentry.metrics.count("poracode.diagnostic.failure", 1, {
+    Sentry.metrics.count("axecode.diagnostic.failure", 1, {
       attributes: {
         domain: decision.domain,
         error_class: decision.errorClass,
@@ -399,17 +399,17 @@ function captureSupervisorFailure(
 export function captureSupervisorIpcFailure(error: unknown, operation: string): void {
   const provider = structuredRuntimeProvider(error);
   captureSupervisorFailure(error, classifySupervisorIpcFailure(error, operation), {
-    "poracode.feature_area": "supervisor-ipc",
-    ...(provider ? { "poracode.provider": provider } : {}),
+    "axecode.feature_area": "supervisor-ipc",
+    ...(provider ? { "axecode.provider": provider } : {}),
   });
 }
 
-export function captureSupervisorException(error: unknown, tags?: PoracodeDiagnosticTags): void {
-  const operation = tags?.["poracode.feature_area"] ?? "unhandled";
-  const provider = tags?.["poracode.provider"] ?? structuredRuntimeProvider(error);
+export function captureSupervisorException(error: unknown, tags?: AxeCodeDiagnosticTags): void {
+  const operation = tags?.["axecode.feature_area"] ?? "unhandled";
+  const provider = tags?.["axecode.provider"] ?? structuredRuntimeProvider(error);
   captureSupervisorFailure(error, classifySupervisorFailure(error, operation), {
     ...tags,
-    ...(provider ? { "poracode.provider": provider } : {}),
+    ...(provider ? { "axecode.provider": provider } : {}),
   });
 }
 

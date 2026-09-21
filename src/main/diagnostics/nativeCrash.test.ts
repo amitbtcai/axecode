@@ -26,7 +26,7 @@ describe("native crash diagnostics", () => {
       contexts: {
         electron: {
           "crashpad.Stack dump":
-            "0.\tProgram arguments: /Applications/Poracode.app/Contents/MacOS/Poracode",
+            "0.\tProgram arguments: /Applications/AxeCode.app/Contents/MacOS/AxeCode",
         },
       },
     } satisfies SentryEventLike;
@@ -48,7 +48,7 @@ describe("native crash diagnostics", () => {
 
     expect(classifyNativeCrashEvent(event, "linux")).toEqual({
       drop: false,
-      fingerprint: ["poracode-native-crash", "linux", "gpu-fatal"],
+      fingerprint: ["axecode-native-crash", "linux", "gpu-fatal"],
     });
   });
 
@@ -60,7 +60,7 @@ describe("native crash diagnostics", () => {
 
     expect(classifyNativeCrashEvent(event, "win32")).toEqual({
       drop: false,
-      fingerprint: ["poracode-native-crash", "win32", "out-of-memory"],
+      fingerprint: ["axecode-native-crash", "win32", "out-of-memory"],
     });
   });
 });

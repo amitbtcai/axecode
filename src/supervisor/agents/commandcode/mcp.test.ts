@@ -26,10 +26,10 @@ afterEach(() => {
   for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
 });
 function fixture() {
-  const root = mkdtempSync(join(tmpdir(), "poracode-commandcode-test-"));
+  const root = mkdtempSync(join(tmpdir(), "axecode-commandcode-test-"));
   roots.push(root);
   writeFileSync(join(root, "commandcode-mcp-mod.mjs"), "export default function () {}\n");
-  vi.stubEnv("PORACODE_WSL_HELPERS_DIR", root);
+  vi.stubEnv("AXECODE_WSL_HELPERS_DIR", root);
   return root;
 }
 const server: ResolvedMcpServer = {
@@ -70,8 +70,8 @@ describe("Command Code launch integrations", () => {
     }
     expect(resumed.args).toContain("--resume");
     const decode = (value: string) => JSON.parse(Buffer.from(value, "base64url").toString());
-    expect(decode(fresh.env!.PORACODE_COMMANDCODE_MCP!)).toEqual({ version: 1, servers: [server] });
-    expect(decode(resumed.env!.PORACODE_COMMANDCODE_MCP!).servers[0].name).toBe("other");
+    expect(decode(fresh.env!.AXECODE_COMMANDCODE_MCP!)).toEqual({ version: 1, servers: [server] });
+    expect(decode(resumed.env!.AXECODE_COMMANDCODE_MCP!).servers[0].name).toBe("other");
     expect(readFileSync(join(root, "commandcode-mcp-mod.mjs"), "utf8")).not.toContain("private");
     expect(commandCodeMcpLaunch(location)).toEqual({ args: [] });
   });
@@ -89,7 +89,7 @@ describe("Command Code launch integrations", () => {
     };
     const first = commandCodeMcpLaunch(location, [server]);
     const second = commandCodeMcpLaunch(location, [server]);
-    expect(first.args[1]).toMatch(/^\/tmp\/poracode-commandcode-[\w-]+\/commandcode-mcp-mod\.mjs$/);
+    expect(first.args[1]).toMatch(/^\/tmp\/axecode-commandcode-[\w-]+\/commandcode-mcp-mod\.mjs$/);
     expect(first.args[1]).not.toBe(second.args[1]);
     expect(first.env).toEqual(second.env);
     const remove = vi
@@ -106,7 +106,7 @@ describe("Command Code launch integrations", () => {
   });
 
   it("fails explicitly if MCPs are selected but the shipped mod is absent", () => {
-    vi.stubEnv("PORACODE_WSL_HELPERS_DIR", "/missing");
+    vi.stubEnv("AXECODE_WSL_HELPERS_DIR", "/missing");
     expect(() => commandCodeMcpLaunch({ kind: "posix", path: "/project" }, [server])).toThrow(
       "is unavailable",
     );

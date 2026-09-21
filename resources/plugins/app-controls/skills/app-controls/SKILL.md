@@ -1,11 +1,11 @@
 ---
 name: app-controls
-description: Inspect and drive Poracode itself — the Terminal panel, other threads, projects, git, pull requests, and schedules — through the poracode MCP. Use when the request is about the user's workspace state or app-side actions rather than editing files in the repository.
+description: Inspect and drive AxeCode itself — the Terminal panel, other threads, projects, git, pull requests, and schedules — through the axecode MCP. Use when the request is about the user's workspace state or app-side actions rather than editing files in the repository.
 ---
 
-# Poracode
+# AxeCode
 
-Use Poracode's `poracode` MCP when the task is about the running app rather than the code in front of you: what a Terminal pane is printing, what another thread is doing, the project's git or pull-request state, or the user's schedules and settings. Prefer ordinary file and shell work for anything that is really a code change.
+Use AxeCode's `axecode` MCP when the task is about the running app rather than the code in front of you: what a Terminal pane is printing, what another thread is doing, the project's git or pull-request state, or the user's schedules and settings. Prefer ordinary file and shell work for anything that is really a code change.
 
 ## Workflow
 
