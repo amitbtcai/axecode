@@ -34,7 +34,18 @@ describe("SQLite N-API packaging", () => {
       if (target !== missingTarget) writeFileSync(join(sqlite, `${target}.node`), target);
       const pty = join(modules, "node-pty", "prebuilds", target);
       mkdirSync(pty, { recursive: true });
-      writeFileSync(join(pty, "pty.node"), target);
+      if (target.startsWith("win32")) {
+        // node-pty 1.2.x drops winpty: Windows loads conpty modules plus the
+        // conpty/ helper assets, there is no pty.node on win32.
+        writeFileSync(join(pty, "conpty.node"), target);
+        writeFileSync(join(pty, "conpty_console_list.node"), target);
+        mkdirSync(join(pty, "conpty"));
+        writeFileSync(join(pty, "conpty", "conpty.dll"), target);
+        writeFileSync(join(pty, "conpty", "OpenConsole.exe"), target);
+      } else {
+        writeFileSync(join(pty, "pty.node"), target);
+        if (target.startsWith("darwin")) writeFileSync(join(pty, "spawn-helper"), target);
+      }
     }
     vi.stubEnv("AXECODE_ALLOW_MISSING_COMPUTER_USE_HELPER", "1");
     return sqlite;

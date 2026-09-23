@@ -148,17 +148,46 @@ function assertNativeBinaries(resourcesDir, electronPlatformName, arch) {
     }
   }
 
-  // 3. node-pty must ship a loadable binary for this arch. It loads from
-  //    build/Release/pty.node (Linux, which has no prebuild) OR from a
-  //    prebuilds/<plat>-<arch>/pty.node (mac/win ship prebuilts).
-  const ptyCandidates = [
-    join(unpacked, "node-pty", "build", "Release", "pty.node"),
-    join(unpacked, "node-pty", "prebuilds", `${platTag}-${archName}`, "pty.node"),
+  // 3. node-pty must ship loadable binaries for this arch. Its loader checks
+  //    build/Release, build/Debug, then prebuilds/<plat>-<arch>. Unix loads
+  //    `pty.node` (macOS prebuilds also ship the `spawn-helper` binary that
+  //    posix_spawn invokes). Windows loads `conpty.node` +
+  //    `conpty_console_list.node` plus the conpty/ helper assets — winpty was
+  //    removed in node-pty 1.2.x, so there is no `pty.node` on win32.
+  const ptyModuleDirs = [
+    join(unpacked, "node-pty", "build", "Release"),
+    join(unpacked, "node-pty", "build", "Debug"),
+    join(unpacked, "node-pty", "prebuilds", `${platTag}-${archName}`),
   ];
-  if (!ptyCandidates.some((p) => existsSync(p))) {
+  const findModuleDir = (moduleName) =>
+    ptyModuleDirs.find((dir) => existsSync(join(dir, `${moduleName}.node`)));
+  const requiredModules = platTag === "win32" ? ["conpty", "conpty_console_list"] : ["pty"];
+  const missing = requiredModules.filter((name) => !findModuleDir(name));
+  if (missing.length > 0) {
     throw new Error(
-      `[afterPack] FATAL: node-pty native binary missing for ${platTag}-${archName} — refusing to publish:\n  ${ptyCandidates.join("\n  ")}`,
+      `[afterPack] FATAL: node-pty native binary missing for ${platTag}-${archName} — refusing to publish:\n  ` +
+        missing.map((name) => `${name}.node (checked: ${ptyModuleDirs.join(", ")})`).join("\n  "),
     );
+  }
+  if (platTag === "win32") {
+    const conptyDir = findModuleDir("conpty");
+    for (const asset of ["conpty.dll", "OpenConsole.exe"]) {
+      const assetPath = join(conptyDir, "conpty", asset);
+      if (!existsSync(assetPath)) {
+        throw new Error(
+          `[afterPack] FATAL: node-pty ConPTY asset missing for ${platTag}-${archName} — refusing to publish:\n  ${assetPath}`,
+        );
+      }
+    }
+  }
+  if (platTag === "darwin") {
+    const ptyDir = findModuleDir("pty");
+    const helperPath = join(ptyDir, "spawn-helper");
+    if (!existsSync(helperPath)) {
+      throw new Error(
+        `[afterPack] FATAL: node-pty spawn-helper missing for ${platTag}-${archName} — refusing to publish:\n  ${helperPath}`,
+      );
+    }
   }
 
   console.log(
