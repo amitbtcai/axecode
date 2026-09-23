@@ -3974,10 +3974,13 @@ describe("RemoteAccessServer", () => {
 
   it("rejects destructive remote commands for experiment candidates before persistence", async () => {
     const candidate = createTestThread({
+      groupId: "experiment-1",
       worktreePath: "/repo/one",
       worktreeBranch: "axecode/experiment-one",
     });
-    const db = mockThreadDb([candidate]);
+    const sibling = createTestThread({ id: "thread-2", groupId: "experiment-1" });
+    const ordinary = createTestThread({ id: "ordinary", groupId: "normal" });
+    const db = mockThreadDb([candidate, sibling, ordinary]);
     persistTestExperiment();
     vi.mocked(dbGetProjects).mockReturnValue([createTestProject()]);
     const callSupervisor = vi.fn<RemoteAccessServerOptions["callSupervisor"]>(
@@ -4002,6 +4005,10 @@ describe("RemoteAccessServer", () => {
       "content-type": "application/json",
     };
     const commands = [
+      { threadId: "thread-1", body: { kind: "set-group" } },
+      { threadId: "thread-2", body: { kind: "set-group" } },
+      { threadId: "thread-1", body: { kind: "set-group", groupId: "normal" } },
+      { threadId: "ordinary", body: { kind: "set-group", groupId: "experiment-1" } },
       {
         threadId: "thread-1",
         body: {
@@ -4041,7 +4048,7 @@ describe("RemoteAccessServer", () => {
       });
     }
 
-    expect(db.threads()).toEqual([candidate]);
+    expect(db.threads()).toEqual([candidate, sibling, ordinary]);
     expect(dbUpsertThread).not.toHaveBeenCalled();
     expect(dbDeleteThread).not.toHaveBeenCalled();
     expect(callSupervisor).not.toHaveBeenCalled();
@@ -4074,7 +4081,7 @@ describe("RemoteAccessServer", () => {
     await expect(unreadableResponse.json()).resolves.toMatchObject({
       error: { code: "experiment_state_unavailable" },
     });
-    expect(db.threads()).toEqual([candidate]);
+    expect(db.threads()).toEqual([candidate, sibling, ordinary]);
   });
 
   it("forwards thread close through the session route and keeps terminal close as an alias", async () => {

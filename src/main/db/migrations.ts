@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
 import { normalizePersistedAntigravityModelSelection } from "@/shared/agents/antigravity";
+import { repairDuplicateProjects } from "./projectDeduplication";
 import { HEAD_CHARS } from "./runtimeStreamCap";
 import { writeItemStreams } from "./runtimeStreamStore";
 
@@ -747,6 +748,14 @@ export const DATABASE_MIGRATIONS = [
         DROP TABLE IF EXISTS task_cards;
       `);
     },
+  },
+  {
+    // Upstream repair, renumbered past the fork-owned v42–48 range.
+    version: 49,
+    name: "deduplicate project locations",
+    // Unreleased repair: retain the oldest identity and merge its settings
+    // before deleting duplicate rows, including newest-first legacy profiles.
+    migrate: repairDuplicateProjects,
   },
 ] as const satisfies readonly DatabaseMigration[];
 
