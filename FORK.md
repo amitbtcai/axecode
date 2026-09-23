@@ -3,6 +3,9 @@
 Forked from https://github.com/Porabuild/AxeCode (Apache-2.0) @ v1.8.0.
 Rebranded as **Axe Code**. Upstream stays synced via the `upstream` remote.
 
+> Full platform reference — both products, infra topology, every deploy/ops
+> script — lives in the sibling repo: `~/Documents/axeai/docs/PLATFORM.md`.
+
 ## Environment (REQUIRED — re-run if shell resets)
 
 ```bash
