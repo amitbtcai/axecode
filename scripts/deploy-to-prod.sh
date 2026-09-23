@@ -238,37 +238,33 @@ curl -fL --progress-bar -o "$DMG" "$DMG_URL" || die "download failed"
 [ -s "$DMG" ] || die "download is empty"
 ok "downloaded $(du -h "$DMG" | cut -f1)"
 
-# ── 7. install + verify ─────────────────────────────────────────────
+# ── 7. install + verify (detached) ──────────────────────────────────
+# The installer quits Axe Code before swapping the bundle. If this script is
+# running inside an in-app agent session, that quit kills this process tree —
+# so the swap runs via nohup in scripts/install-desktop-dmg.sh and always
+# completes. The prompt happens here, before anything is dispatched.
 step "Install to /Applications"
-MOUNT="$(hdiutil attach -nobrowse -readonly "$DMG" | grep '/Volumes/' | tail -1 | sed 's/.*\/Volumes/\/Volumes/')"
-[ -n "$MOUNT" ] || die "hdiutil attach failed"
-NEW_APP="$(find "$MOUNT" -maxdepth 1 -name '*.app' | head -1)"
-[ -n "$NEW_APP" ] || { hdiutil detach "$MOUNT" -quiet; die "no .app in DMG"; }
-info "found bundle: $(basename "$NEW_APP")"
-
-# Only ever touch the app being installed — a running AxeCode instance is a
-# separate bundle and is left alone.
 if [ -e "$APP_PATH" ]; then
   info "will replace: $APP_PATH"
   if [ "$ASSUME_YES" != "1" ]; then
     printf "    Replace it? [y/N] "
-    read -r ans; [ "$ans" = "y" ] || { hdiutil detach "$MOUNT" -quiet; die "aborted by user"; }
+    read -r ans; [ "$ans" = "y" ] || die "aborted by user"
   fi
-  osascript -e 'tell application "Axe Code" to quit' 2>/dev/null || true
-  sleep 1
-  rm -rf "$APP_PATH"
 fi
-cp -R "$NEW_APP" /Applications/
-hdiutil detach "$MOUNT" -quiet
-ok "installed $(basename "$NEW_APP")"
 
-INSTALLED="$(defaults read "/Applications/$(basename "$NEW_APP")/Contents/Info.plist" \
-  CFBundleShortVersionString 2>/dev/null || true)"
-if [ "$INSTALLED" = "$VERSION" ]; then
-  ok "verified: /Applications/$(basename "$NEW_APP") is version $INSTALLED"
-else
-  die "version mismatch — installed: '${INSTALLED:-unknown}', expected: $VERSION"
-fi
+# DL_DIR is removed by the exit trap — stage the DMG somewhere stable for the
+# detached installer, which may outlive this script.
+INSTALL_STAGING="$(mktemp -d -t axecode-install)"
+mv "$DMG" "$INSTALL_STAGING/"
+DMG="$INSTALL_STAGING/$(basename "$DMG")"
+
+INSTALL_LOG="$INSTALL_STAGING/install.log"
+nohup "$REPO_ROOT/scripts/install-desktop-dmg.sh" "$DMG" "$VERSION" "$APP_PATH" \
+  >"$INSTALL_LOG" 2>&1 &
+disown
+ok "install dispatched (detached) — log: $INSTALL_LOG"
+info "the app will quit, swap, verify, and relaunch itself"
+info "watch: tail -f $INSTALL_LOG"
 
 step "Done"
-ok "Axe Code $VERSION released, published, downloaded and installed"
+ok "Axe Code $VERSION released, published, and installing"
