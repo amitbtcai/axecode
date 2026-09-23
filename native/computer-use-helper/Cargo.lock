@@ -999,7 +999,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "poracode-computer-use"
+name = "axecode-computer-use"
 version = "0.4.3"
 dependencies = [
  "ashpd",
