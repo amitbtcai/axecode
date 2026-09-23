@@ -10,7 +10,7 @@ import { z } from "zod";
  *   https://poracode.com/changelog.json
  *
  * so the notes can be edited, reworded, or extended by committing to master
- * (Vercel redeploys the site) without shipping a new app build. The desktop app
+ * (the site redeploys from master) without shipping a new app build. The desktop app
  * fetches + caches it (see `src/renderer/state/changelogStore.ts`); the site's
  * own /changelog page imports the same file at build time. This module only
  * carries the shape + the pure helpers.

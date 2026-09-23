@@ -2,7 +2,7 @@ name: Release Mobile
 
 # Builds the signed native store artifacts. Store upload is automatic when the
 # corresponding publisher credentials are configured. The hosted PWA is
-# released separately via release-pwa.yml.
+# deployed separately to the Hostinger VPS via scripts/deploy-mobile-pwa.sh.
 
 on:
   workflow_dispatch:

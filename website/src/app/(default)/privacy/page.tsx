@@ -107,15 +107,6 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="mb-3 text-xl font-semibold text-white">Website analytics</h2>
-            <p>
-              The public AxeCode website uses Vercel Analytics and Speed Insights to understand
-              aggregate site usage and performance. These website services are separate from the
-              mobile companion session, where product analytics and remote diagnostics are disabled.
-            </p>
-          </section>
-
-          <section>
             <h2 className="mb-3 text-xl font-semibold text-white">Sharing and retention</h2>
             <div className="space-y-3">
               <p>

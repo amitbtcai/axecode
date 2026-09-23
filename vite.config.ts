@@ -114,12 +114,10 @@ const poracodeChannel = process.env.PORACODE_CHANNEL === "nightly" ? "nightly" :
 const devServerPort = Number.parseInt(process.env.PORACODE_DEV_SERVER_PORT ?? "", 10) || 3100;
 
 // Mobile-only build target (PORACODE_BUILD_TARGET=mobile) produces a
-// self-contained PWA bundle in dist/mobile for standalone hosting (Vercel),
+// self-contained PWA bundle in dist/mobile for standalone hosting,
 // omitting the desktop renderer entry. The default build emits both entries to
 // dist/renderer for the Electron app and its embedded remote-access server.
 const mobileOnly = process.env.PORACODE_BUILD_TARGET === "mobile";
-const vercelAnalyticsEnabled =
-  mobileOnly && ["preview", "production"].includes(process.env.VERCEL_ENV ?? "");
 const mobileBasePath = process.env.PORACODE_MOBILE_BASE_PATH?.trim() || "./";
 const mobileOutputPath =
   mobileBasePath === "./"
@@ -362,7 +360,6 @@ export default defineConfig(({ mode }) => ({
     ...buildPostHogEnvDefines(mode),
     __PORACODE_CHANNEL__: JSON.stringify(poracodeChannel),
     "import.meta.env.VITE_PORACODE_BUILD_TARGET": JSON.stringify(mobileOnly ? "mobile" : "desktop"),
-    "import.meta.env.VITE_VERCEL_ANALYTICS_ENABLED": JSON.stringify(vercelAnalyticsEnabled),
   },
   resolve: {
     tsconfigPaths: true,

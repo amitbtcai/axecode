@@ -254,7 +254,7 @@ pnpm run typecheck
 Optionally build the marketing site to confirm the `/changelog` page renders:
 `pnpm --dir website build`.
 
-Then commit + push to master — Vercel redeploys the site and the desktop app fetches the
+Then commit + push to master — the site redeploys and the desktop app fetches the
 new notes on its own (no app release needed for a notes-only change).
 
 ## Final checklist

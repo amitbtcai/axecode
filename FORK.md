@@ -191,8 +191,9 @@ links minted by packaged builds pointed at upstream's hosted PWA.
   rsyncs it to the Hostinger VPS (`/opt/apps/axecode-mobile`); the
   `code.axeai.com` site block lives in the axeai site repo's
   `deploy/axeai.Caddyfile` (no `common_headers` — its CSP would break
-  cleartext-LAN pairing). Root `vercel.json` and `release-pwa.yml` are
-  upstream's path and are inert here.
+  cleartext-LAN pairing). Upstream's Vercel path (root `vercel.json`,
+  `release-pwa.yml`, `deploy-website.yml`, `deploy-nightly-pwa.yml`) is removed
+  in this fork.
 - Mobile app id: **`com.axecode.mobile`** (was `com.lightcodeapp.mobile`) —
   `capacitor.config.json`, `project.pbxproj` (`...mobile.activities` for the
   Live Activity extension), Android `applicationId`/`namespace`, `strings.xml`,

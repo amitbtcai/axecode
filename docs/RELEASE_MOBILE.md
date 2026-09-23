@@ -61,8 +61,8 @@ Both endpoints intentionally return valid empty associations until the account
 values exist. After configuration, verify a direct 200 response with
 `Content-Type: application/json` and no redirect.
 
-The production push gateway runs in the same Vercel project. Configure these as
-encrypted production environment variables before testing notifications:
+The production push gateway runs with the production website deployment.
+Configure these as encrypted environment variables before testing notifications:
 
 | Variable                     | Value                                                          |
 | ---------------------------- | -------------------------------------------------------------- |
@@ -86,8 +86,8 @@ new browser subscription the next time it connects.
 ## GitHub release configuration
 
 The `mobile-android` and `mobile-ios` environments are used by the native
-release workflow (`release-mobile.yml`); the `mobile-web` environment is used by
-the standalone PWA workflow (`release-pwa.yml`). Set
+release workflow (`release-mobile.yml`); the `mobile-web` environment is
+unused. Set
 `AXECODE_MOBILE_APP_HOST=code.axeai.com` in all three and `PLAY_TRACK=internal`
 in `mobile-android`. Each environment requires approval from the repository
 owner and only accepts deployments from `master` or a `mobile-v*` tag. The
@@ -96,14 +96,10 @@ credentials to the steps that consume them.
 
 ### `mobile-web`
 
-The hosted PWA deploys to the Hostinger VPS, not Vercel: run
+The hosted PWA deploys to the Hostinger VPS: run
 `scripts/deploy-mobile-pwa.sh` (builds `dist/mobile`, rsyncs to
-`/opt/apps/axecode-mobile`, Caddy serves `code.axeai.com`). The legacy
-**Release PWA** workflow (`release-pwa.yml`) is upstream's Vercel path and is
-inert in this fork. If it is ever re-enabled, the environment
-needs `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, and this secret:
-
-- `VERCEL_TOKEN`
+`/opt/apps/axecode-mobile`, Caddy serves `code.axeai.com`). Upstream's
+Vercel-based PWA and website workflows were removed from this fork.
 
 ### `mobile-android`
 

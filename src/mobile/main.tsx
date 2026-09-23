@@ -1,5 +1,4 @@
 import { createRoot, type Root } from "react-dom/client";
-import { Analytics, type BeforeSendEvent } from "@vercel/analytics/react";
 import "./tailwind.css";
 import {
   createRendererCrashReport,
@@ -13,13 +12,6 @@ import { isIgnorableRejection, isIgnorableWindowError } from "@/renderer/rendere
 import { markMobilePlatformOnRoot } from "./mobilePlatform";
 import { markTouchCapabilityOnRoot } from "./pointerModality";
 import { isStaleAssetError } from "./staleAssetRecovery";
-
-function stripPairingDetails(event: BeforeSendEvent): BeforeSendEvent {
-  const url = new URL(event.url);
-  url.search = "";
-  url.hash = "";
-  return { ...event, url: url.toString() };
-}
 
 // The PWA had no error boundary: any throw during boot or first render left the
 // dark body with an empty #root — a silent black screen, with no way to tell
@@ -142,9 +134,6 @@ void Promise.all([import("./bootstrapApp"), bootstrapAppLocaleFromCache()])
     reactRoot?.render(
       <RendererErrorBoundary>
         <MobileApp />
-        {import.meta.env.VITE_VERCEL_ANALYTICS_ENABLED ? (
-          <Analytics beforeSend={stripPairingDetails} />
-        ) : null}
       </RendererErrorBoundary>,
     );
     appRendered = true;

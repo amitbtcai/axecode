@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { createPageMetadata, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo";
 
@@ -19,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 // Token from Google Search Console's "HTML tag" verification method. Set it as
-// the GOOGLE_SITE_VERIFICATION env var (Vercel → Project → Settings → Env Vars);
+// the GOOGLE_SITE_VERIFICATION env var in the site's deployment environment;
 // the <meta name="google-site-verification"> tag is emitted only when present.
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
 
@@ -73,11 +71,7 @@ export function SiteDocument({
       className={`dark ${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-night text-moon antialiased">
-        {children}
-        <Analytics />
-        <SpeedInsights />
-      </body>
+      <body className="min-h-screen bg-night text-moon antialiased">{children}</body>
     </html>
   );
 }

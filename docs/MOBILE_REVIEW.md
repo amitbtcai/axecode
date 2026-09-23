@@ -76,8 +76,9 @@ Productionization:
 
 - **Installable PWA** — static `manifest.webmanifest`, full icon set (192/512/
   maskable/apple-touch), and in-app service-worker registration.
-- **Vercel deploy** — `vercel.json` + a mobile-only build target
-  (`pnpm run build:mobile` → `dist/mobile`).
+- **Hosted PWA deploy** — mobile-only build target
+  (`pnpm run build:mobile` → `dist/mobile`), rsynced to the Hostinger VPS
+  (`scripts/deploy-mobile-pwa.sh`).
 - **Native apps** — `capacitor.config.json` for iOS/Android store builds.
 - **Release pipeline** — `.github/workflows/release-mobile.yml` with per-platform
   toggles (web/Android/iOS) for partial releases. See `docs/RELEASE_MOBILE.md`.
