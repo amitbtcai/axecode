@@ -157,12 +157,17 @@ describe("shared settings defaults", () => {
     expect(migrated).not.toHaveProperty("remoteAccessPreventSleep");
   });
 
-  it("enables Crossagents as the standing MCP default and preserves opt-outs", () => {
+  it("enables Browser and Crossagents as standing MCP defaults and preserves opt-outs", () => {
     expect(defaultSharedSettings.enabledMcpServers.crossagents).toBe(true);
+    expect(defaultSharedSettings.enabledMcpServers.browser).toBe(true);
     expect(normalizeSharedSettings({}).enabledMcpServers.crossagents).toBe(true);
+    expect(normalizeSharedSettings({}).enabledMcpServers.browser).toBe(true);
     expect(
       normalizeSharedSettings({ enabledMcpServers: { crossagents: false } }).enabledMcpServers
         .crossagents,
+    ).toBe(false);
+    expect(
+      normalizeSharedSettings({ enabledMcpServers: { browser: false } }).enabledMcpServers.browser,
     ).toBe(false);
   });
 

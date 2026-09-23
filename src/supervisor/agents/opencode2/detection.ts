@@ -54,7 +54,7 @@ export const opencode2DefaultCapabilities: AgentCapability = {
   // applied to each location directory inside the shared runtime server.
   mcpScope: { terminal: "none", gui: "none" },
   mcpConfigSource: "agentSettings",
-  agentSettingsDefaults: { crossagentMcp: true },
+  agentSettingsDefaults: { browserMcp: true, crossagentMcp: true },
   // Crossagents calls from pooled GUI sessions are routed by the trusted
   // provider session id, so every directory/session shares one MCP credential.
   crossagentMcpRouting: "provider-session",
