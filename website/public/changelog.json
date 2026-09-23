@@ -1,17 +1,12 @@
 {
   "releases": [
     {
-      "version": "1.8.4",
+      "version": "1.8.5",
       "tagline": "Axe Code",
       "date": "2026-09-23",
-      "title": "OpenCode 2 provider, agent workspaces & browser on by default",
-      "summary": "OpenCode 2 joins the provider lineup as a structured runtime, agents can now organize your threads and workspaces for you, the in-app browser ships on by default, and duplicate project folders are prevented and repaired.",
+      "title": "Agent workspaces, browser on by default & project dedup",
+      "summary": "Agents can now organize your workspace for you, the in-app browser ships on by default for every new thread, and duplicate project folders are prevented and repaired.",
       "changes": [
-        {
-          "kind": "added",
-          "label": "OpenCode",
-          "text": "OpenCode 2 is available as a structured-runtime provider — native chat sessions with live model switching, permissions, and plugins."
-        },
         {
           "kind": "added",
           "label": "Agents",
@@ -23,6 +18,10 @@
           "text": "The in-app Browser is now attached to every new thread by default, so agents can open pages, inspect them, and capture screenshots with no per-thread setup."
         },
         {
+          "kind": "improved",
+          "text": "The Axe Code name and identity now apply throughout the app, and settings and data from an existing Poracode install carry over automatically."
+        },
+        {
           "kind": "fixed",
           "label": "Projects",
           "text": "Registering a folder that is already a project no longer creates duplicates, and existing duplicates are merged while preserving their settings and state."
@@ -31,6 +30,20 @@
           "kind": "fixed",
           "label": "Chat",
           "text": "File citations in Home threads now render as links and open in the file editor, on both desktop and mobile."
+        }
+      ]
+    },
+    {
+      "version": "1.8.4",
+      "tagline": "Axe Code",
+      "date": "2026-09-19",
+      "title": "OpenCode 2 provider",
+      "summary": "This release merges the latest upstream AxeCode work, headlined by OpenCode 2 as a structured-runtime provider alongside the existing agents.",
+      "changes": [
+        {
+          "kind": "added",
+          "label": "OpenCode",
+          "text": "OpenCode 2 is available as a structured-runtime provider — native chat sessions with live model switching, permissions, and plugins."
         },
         {
           "kind": "fixed",
