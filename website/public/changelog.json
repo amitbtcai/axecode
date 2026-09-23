@@ -30,6 +30,11 @@
           "kind": "fixed",
           "label": "Chat",
           "text": "File citations in Home threads now render as links and open in the file editor, on both desktop and mobile."
+        },
+        {
+          "kind": "fixed",
+          "label": "Terminal",
+          "text": "Fixed a file descriptor leak that made agent terminals stop working after extended sessions until the app was restarted."
         }
       ]
     },

@@ -3,6 +3,17 @@ import type { TerminalExitStatus } from "@agentclientprotocol/sdk";
 
 export type AcpTerminalRecord = {
   kill: () => void;
+  /**
+   * Deterministically release host resources held by the terminal (PTY master
+   * fd, pipe streams). Distinct from `kill`: a terminal whose process already
+   * exited still owns fds until disposed, and node-pty's exit-path socket
+   * cleanup is not guaranteed to run in the supervisor process — observed on
+   * macOS as permanently leaked `/dev/ptmx` fds that eventually exhaust the
+   * process fd table and make every `terminal/create` fail.
+   */
+  dispose: () => void;
+  /** Spawned process id; used to detect records whose process is already dead. */
+  pid: number | undefined;
   commandLine: string;
   output: string;
   outputByteLimit: number | undefined;

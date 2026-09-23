@@ -24,6 +24,7 @@ import {
 import { shouldSpawnAcpSession } from "./sessionFactory";
 import type { AcpTextStreamExtension } from "./canonicalMapping/textStreamExtension";
 import { ACP_INLINE_CONTENT_MAX_BYTES } from "./sessionContentBlocks";
+import { MAX_ACP_TERMINALS_PER_SESSION } from "./sessionTerminal";
 import { resolveAcpPromptFailureMessage, shouldEmitAcpPromptRpcErrorItem } from "./sessionErrors";
 
 function makeInput(
@@ -1477,6 +1478,97 @@ describe("ACP client protocol helpers", () => {
       exitStatus: { exitCode: 0 },
     });
     release({ sessionId: "session-1", terminalId: created.terminalId });
+  });
+
+  it("still answers terminal/output and wait_for_exit after releaseTerminal", async () => {
+    const projectRoot = makePosixProject();
+    const { session } = makeConfigSyncSession();
+    (session as unknown as Record<string, unknown>)["projectLocation"] = {
+      kind: HOST_KIND,
+      path: projectRoot,
+    };
+    const create = (
+      session as unknown as { handleCreateTerminal: Function }
+    ).handleCreateTerminal.bind(session);
+    const wait = (
+      session as unknown as { handleWaitForTerminalExit: Function }
+    ).handleWaitForTerminalExit.bind(session);
+    const output = (
+      session as unknown as { handleTerminalOutput: Function }
+    ).handleTerminalOutput.bind(session);
+    const release = (
+      session as unknown as { handleReleaseTerminal: Function }
+    ).handleReleaseTerminal.bind(session);
+
+    const created = create({
+      sessionId: "session-1",
+      command: process.execPath,
+      args: ["-e", "process.stdout.write('post-release bytes')"],
+      cwd: projectRoot,
+      outputByteLimit: 65536,
+    });
+    await wait({ sessionId: "session-1", terminalId: created.terminalId });
+    release({ sessionId: "session-1", terminalId: created.terminalId });
+
+    expect(output({ sessionId: "session-1", terminalId: created.terminalId })).toMatchObject({
+      output: expect.stringContaining("post-release bytes"),
+      exitStatus: { exitCode: 0 },
+    });
+    await expect(
+      wait({ sessionId: "session-1", terminalId: created.terminalId }),
+    ).resolves.toMatchObject({ exitCode: 0 });
+  });
+
+  it("reclaims finished terminals instead of failing once the session cap is reached", async () => {
+    const projectRoot = makePosixProject();
+    const { session } = makeConfigSyncSession();
+    (session as unknown as Record<string, unknown>)["projectLocation"] = {
+      kind: HOST_KIND,
+      path: projectRoot,
+    };
+    const create = (
+      session as unknown as { handleCreateTerminal: Function }
+    ).handleCreateTerminal.bind(session);
+    const wait = (
+      session as unknown as { handleWaitForTerminalExit: Function }
+    ).handleWaitForTerminalExit.bind(session);
+
+    const terminalIds: string[] = [];
+    for (let i = 0; i < MAX_ACP_TERMINALS_PER_SESSION; i++) {
+      terminalIds.push(
+        create({
+          sessionId: "session-1",
+          command: process.execPath,
+          args: ["-e", ""],
+          cwd: projectRoot,
+        }).terminalId,
+      );
+    }
+    await Promise.all(
+      terminalIds.map((terminalId) => wait({ sessionId: "session-1", terminalId })),
+    );
+
+    // Simulate the missed-exit-event case seen in the packaged supervisor:
+    // process is dead but the record never got an exitStatus.
+    const manager = (
+      session as unknown as {
+        _terminalManager: {
+          acpTerminals: Map<string, { exitStatus: unknown }>;
+        };
+      }
+    )._terminalManager;
+    for (const record of manager.acpTerminals.values()) {
+      record.exitStatus = undefined;
+    }
+
+    expect(() =>
+      create({
+        sessionId: "session-1",
+        command: process.execPath,
+        args: ["-e", ""],
+        cwd: projectRoot,
+      }),
+    ).not.toThrow();
   });
 
   it.skipIf(process.platform !== "win32")(
