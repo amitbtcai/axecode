@@ -5,15 +5,15 @@ use std::sync::{LazyLock, Mutex, mpsc};
 use std::thread;
 use std::time::{Duration, Instant};
 
-use poracode_computer_use::backend::windows::WindowsBackend;
-use poracode_computer_use::backend::{
+use axecode_computer_use::backend::windows::WindowsBackend;
+use axecode_computer_use::backend::{
     Backend, CancelToken, InputOptions, KeyboardAction, PointerAction,
 };
-use poracode_computer_use::protocol::actions::{
+use axecode_computer_use::protocol::actions::{
     FindElementsInput, FindElementsResult, InputMode, MouseButton, Verify,
 };
-use poracode_computer_use::protocol::keys::parse_chord;
-use poracode_computer_use::protocol::window::WindowRef;
+use axecode_computer_use::protocol::keys::parse_chord;
+use axecode_computer_use::protocol::window::WindowRef;
 use windows::Win32::Foundation::{HINSTANCE, HWND, LPARAM, LRESULT, RECT, WPARAM};
 use windows::Win32::Graphics::Gdi::{GetStockObject, HBRUSH, WHITE_BRUSH};
 use windows::Win32::System::LibraryLoader::GetModuleHandleW;
@@ -643,7 +643,7 @@ fn drives_a_window_in_the_background_without_changing_foreground() {
         .unwrap();
     assert_eq!(
         chord.refused.unwrap().code,
-        poracode_computer_use::protocol::actions::RefusalCode::BackgroundUnavailable
+        axecode_computer_use::protocol::actions::RefusalCode::BackgroundUnavailable
     );
 
     let typed = backend
@@ -727,7 +727,7 @@ fn drives_a_window_in_the_background_without_changing_foreground() {
         .invoke_element(
             &window,
             &target_id,
-            poracode_computer_use::protocol::actions::ElementAction::Invoke,
+            axecode_computer_use::protocol::actions::ElementAction::Invoke,
             &CancelToken::default(),
         )
         .unwrap();
@@ -879,7 +879,7 @@ fn drives_a_window_in_the_background_without_changing_foreground() {
         .invoke_element(
             &window,
             &buttons.elements[0].id,
-            poracode_computer_use::protocol::actions::ElementAction::Invoke,
+            axecode_computer_use::protocol::actions::ElementAction::Invoke,
             &CancelToken::default(),
         )
         .unwrap();
