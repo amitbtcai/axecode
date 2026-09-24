@@ -3,6 +3,7 @@ import type { AddressInfo } from "node:net";
 import { WebSocket, WebSocketServer } from "ws";
 import {
   toWebSocketUrl,
+  REMOTE_STANDARD_SCOPES,
   type RemoteAccessScope,
   type RemoteGitSummaries,
   type RemoteAccessSessionSummary,
@@ -103,6 +104,12 @@ export interface RemoteAccessServerOptions {
   readonly tailscaleHttpBaseUrl?: string;
   readonly pairingAppUrl?: string;
   readonly trustedCorsOrigins?: readonly string[];
+  /**
+   * AxeAI account sign-in: validates a one-time connect ticket against the
+   * account service. When absent the `account-ticket` grant is refused and
+   * the descriptor omits `auth.accountTicket`.
+   */
+  readonly verifyAccountTicket?: (ticket: string) => Promise<boolean>;
   readonly tokenExchangeRateLimit?: {
     readonly maxAttempts: number;
     readonly windowMs: number;
@@ -348,6 +355,7 @@ export class RemoteAccessServer {
         return server.seq;
       },
       exchangePairingCredential: (input) => this.exchangePairingCredential(input),
+      exchangeAccountTicket: (input) => this.exchangeAccountTicket(input),
       requireInfo: () => this.requireInfo(),
       requireSettingsGateway: () => this.requireSettingsGateway(),
       requireSchedulesGateway: () => this.requireSchedulesGateway(),
@@ -643,6 +651,39 @@ export class RemoteAccessServer {
     const result = this.auth.exchangePairingCredential(input);
     this.issuePairingUrl("Automatic pairing");
     return result;
+  }
+
+  /**
+   * AxeAI account sign-in grant. The one-time ticket is validated against the
+   * account service (which also binds it to this desktop's identity), then the
+   * normal bearer session is minted. Pairing codes stay untouched — account
+   * sessions are listed/revoked like any other session.
+   */
+  private async exchangeAccountTicket(input: {
+    readonly ticket: string;
+    readonly scopes?: readonly RemoteAccessScope[];
+    readonly client?: RemoteClientMetadata;
+  }): Promise<RemoteAccessTokenResult> {
+    const verify = this.options.verifyAccountTicket;
+    if (!verify) {
+      throw new RemoteHttpError(
+        "account_ticket_unsupported",
+        "This desktop is not linked to an AxeAI account.",
+        400,
+      );
+    }
+    const valid = await verify(input.ticket).catch(() => false);
+    if (!valid) {
+      throw new RemoteHttpError(
+        "invalid_account_ticket",
+        "Invalid or expired account ticket.",
+        401,
+      );
+    }
+    return this.auth.issueAccessSession({
+      scopes: input.scopes ?? REMOTE_STANDARD_SCOPES,
+      ...(input.client ? { client: input.client } : {}),
+    });
   }
 
   private notifyPairingChanged(): void {

@@ -24,8 +24,29 @@ import { sharedSettingsSchema } from "../settings";
 // peers, while the client reports an explicit unsupported error when an older
 // host does not advertise the procedures.
 // v10 supports authoritative content stream replacement during reconnect recovery.
+// v10 also accepts the additive `account-ticket` token grant and advertises
+// `minProtocolVersion` + `auth.accountTicket` — optional fields older clients
+// drop, so the version itself stays 10 and existing paired clients keep working.
 export const AXECODE_REMOTE_PROTOCOL_VERSION = 10;
+/** Oldest protocol this build can still interoperate with. */
+export const AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED = 10;
 export const REMOTE_COMMAND_ID_HEADER = "x-axecode-command-id";
+
+/**
+ * Compatibility rule between a client build and a host descriptor:
+ * the host must not be older than the client's floor, and the client must
+ * satisfy the host's declared minimum (`minProtocolVersion`). When the host
+ * omits the floor, only the exact advertised version is acceptable — the
+ * pre-tolerance behaviour.
+ */
+export function isRemoteProtocolCompatible(
+  descriptor: { protocolVersion: number; minProtocolVersion?: number | undefined },
+  clientVersion: number = AXECODE_REMOTE_PROTOCOL_VERSION,
+): boolean {
+  if (descriptor.protocolVersion < AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED) return false;
+  const hostMin = descriptor.minProtocolVersion ?? descriptor.protocolVersion;
+  return clientVersion >= hostMin;
+}
 
 export const remoteAccessScopeSchema = z.enum([
   "session:read",
@@ -116,7 +137,17 @@ export const remoteClientMetadataSchema = z.object({
 export type RemoteClientMetadata = z.infer<typeof remoteClientMetadataSchema>;
 
 export const remoteEnvironmentDescriptorSchema = z.object({
-  protocolVersion: z.literal(AXECODE_REMOTE_PROTOCOL_VERSION),
+  /**
+   * Lenient on the wire: the compatibility decision lives in
+   * {@link isRemoteProtocolCompatible} so a newer host's descriptor still
+   * parses instead of throwing a ZodError the client cannot branch on.
+   */
+  protocolVersion: z.number().int(),
+  /**
+   * Lowest client protocol the host still serves. Absent means "only the
+   * exact advertised version" — the pre-tolerance behaviour.
+   */
+  minProtocolVersion: z.number().int().optional(),
   /**
    * Process hosting the shared remote-access server. Optional on the wire for
    * protocol-v1 servers released before standalone helpers advertised it.
@@ -133,8 +164,15 @@ export const remoteEnvironmentDescriptorSchema = z.object({
   platform: z.enum(["win32", "darwin", "linux"]).optional(),
   auth: z.object({
     policy: z.literal("remote-reachable"),
-    bootstrapMethods: z.array(z.literal("one-time-token")),
-    sessionMethods: z.array(z.literal("bearer-access-token")),
+    // Lenient: newer hosts may advertise bootstrap methods this build ignores.
+    bootstrapMethods: z.array(z.string().min(1)),
+    sessionMethods: z.array(z.string().min(1)),
+    /**
+     * When true the host accepts the `/oauth/token` grant type
+     * `account-ticket` (AxeAI account-linked desktop sign-in). Optional so
+     * hosts without a configured account link never have to emit it.
+     */
+    accountTicket: z.literal(true).optional(),
     // Lenient on the wire: a newer server may advertise a scope this client
     // build does not know. Parsing must not throw (it precedes pairing on
     // desktop); the client filters to known scopes before use.
@@ -148,7 +186,14 @@ export const remoteEnvironmentDescriptorSchema = z.object({
 export type RemoteEnvironmentDescriptor = z.infer<typeof remoteEnvironmentDescriptorSchema>;
 
 export const remoteTokenExchangePayloadSchema = z.object({
-  grantType: z.literal("pairing-token"),
+  /**
+   * `pairing-token`: one-time code minted on the desktop.
+   * `account-ticket`: one-time ticket minted by AxeAI for a linked desktop.
+   * Older hosts that never shipped the grant reject unknown values with a
+   * 400 — new clients should check `auth.accountTicket` on the descriptor
+   * before attempting it.
+   */
+  grantType: z.enum(["pairing-token", "account-ticket"]),
   credential: z.string().min(1),
   scopes: z.array(remoteAccessScopeSchema).optional(),
   client: remoteClientMetadataSchema.optional(),

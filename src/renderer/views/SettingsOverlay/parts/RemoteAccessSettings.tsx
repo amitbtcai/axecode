@@ -7,6 +7,7 @@ import { readBridge } from "@/renderer/bridge";
 import { Input, PixelLoader, ToggleSwitch } from "@/renderer/components/common";
 import { useSharedSettings } from "@/renderer/state/sharedSettingsStore";
 import type { RemoteAccessTailscaleStatus } from "@/shared/ipc";
+import type { AxeAiAccountLinkState } from "@/shared/contracts";
 import type { RemoteAccessPairingInfo, RemoteAccessSessionSummary } from "@/shared/remote";
 import {
   normalizePairingEndpoint,
@@ -726,6 +727,128 @@ function RemotePushSection() {
   );
 }
 
+/**
+ * AxeAI account sign-in for remote access: the desktop shows a short code,
+ * the user approves it on axeai.com, and the desktop then announces itself to
+ * the hosted relay so axeai.com can reach it without Tailscale or pairing
+ * tokens. The device credential stays in main-process encrypted storage; this
+ * component only ever sees the public link state.
+ */
+function AxeAiAccountSection() {
+  const { t } = useLingui();
+  const [linkState, setLinkState] = useState<AxeAiAccountLinkState | null>(null);
+  const [isBusy, setIsBusy] = useState(false);
+  const copyValue = useCopyValue();
+
+  useEffect(() => {
+    let cancelled = false;
+    const unsubscribe = readBridge().onAxeAiAccountLinkChanged(setLinkState);
+    void readBridge()
+      .getAxeAiAccountLinkState()
+      .then((state) => {
+        if (!cancelled) setLinkState(state);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+      unsubscribe();
+    };
+  }, []);
+
+  const startLink = async () => {
+    setIsBusy(true);
+    try {
+      const result = await readBridge().startAxeAiAccountLink();
+      setLinkState({
+        status: "linking",
+        code: result.code,
+        expiresAt: result.expiresAt,
+        verificationUrl: result.verificationUrl,
+      });
+      if (result.verificationUrl) void readBridge().openExternal(result.verificationUrl);
+    } catch (error) {
+      toast.danger(friendlyError(error, t`Unable to start AxeAI sign-in.`));
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
+  const signOut = async () => {
+    setIsBusy(true);
+    try {
+      await readBridge().signOutAxeAiAccount();
+      toast.success(t`Signed out of AxeAI.`);
+    } catch (error) {
+      toast.danger(friendlyError(error, t`Unable to sign out of AxeAI.`));
+    } finally {
+      setIsBusy(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4 border-b border-border/60 pb-6">
+      <SettingRow
+        title={t`AxeAI account`}
+        description={
+          <Trans>
+            Sign in to reach this desktop from axeai.com without pairing codes or network setup.
+          </Trans>
+        }
+      >
+        {linkState?.status === "linked" ? (
+          <div className="flex items-center gap-3">
+            <span className="min-w-0 truncate text-sm text-foreground">
+              {linkState.accountLabel ?? t`Linked account`}
+            </span>
+            <Button size="sm" variant="tertiary" isDisabled={isBusy} onPress={() => void signOut()}>
+              <Trans>Sign out</Trans>
+            </Button>
+          </div>
+        ) : linkState?.status === "linking" && linkState.code ? (
+          <div className="flex flex-col items-start gap-2">
+            <code className="rounded-md border border-border/60 bg-surface px-3 py-1.5 font-mono text-base tracking-[0.2em] text-foreground">
+              {linkState.code}
+            </code>
+            <p className="text-xs text-muted">
+              <Trans>Approve this code on axeai.com to link this desktop.</Trans>
+            </p>
+            <div className="flex items-center gap-2">
+              {linkState.verificationUrl ? (
+                <Button
+                  size="sm"
+                  variant="tertiary"
+                  onPress={() =>
+                    void copyValue(
+                      linkState.verificationUrl ?? "",
+                      t`Approval link`,
+                      t`Unable to copy the approval link.`,
+                    )
+                  }
+                >
+                  <Copy className="size-3.5" />
+                  <Trans>Copy approval link</Trans>
+                </Button>
+              ) : null}
+              <Button
+                size="sm"
+                variant="ghost"
+                onPress={() => void readBridge().cancelAxeAiAccountLink()}
+              >
+                <Trans>Cancel</Trans>
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Button size="sm" variant="primary" isDisabled={isBusy} onPress={() => void startLink()}>
+            {isBusy ? <PixelLoader size="sm" /> : null}
+            <Trans>Sign in with AxeAI</Trans>
+          </Button>
+        )}
+      </SettingRow>
+    </div>
+  );
+}
+
 export function RemoteAccessSettings() {
   const { t } = useLingui();
   const [state, setState] = useState<PairingViewState>({
@@ -885,22 +1008,27 @@ export function RemoteAccessSettings() {
         <div className="rounded-lg border border-danger/30 px-4 py-3 text-sm text-danger">
           {state.error}
         </div>
-      ) : state.info?.status === "ready" ? (
+      ) : (
         <div className="space-y-10">
-          <PairingReady
-            key={state.info.tailscaleHttpBaseUrl ? "tailscale" : "local"}
-            info={state.info}
-            isRefreshing={isRefreshing}
-            revokingSessionId={revokingSessionId}
-            onRefresh={() => void refresh()}
-            onRevoke={(sessionId) => void revokeSession(sessionId)}
-          />
-          <RemoteAccessAdvanced
-            onPairingChanged={(info) => setState(pairingViewStateFromInfo(info))}
-          />
-          <RemotePushSection />
+          <AxeAiAccountSection />
+          {state.info?.status === "ready" ? (
+            <>
+              <PairingReady
+                key={state.info.tailscaleHttpBaseUrl ? "tailscale" : "local"}
+                info={state.info}
+                isRefreshing={isRefreshing}
+                revokingSessionId={revokingSessionId}
+                onRefresh={() => void refresh()}
+                onRevoke={(sessionId) => void revokeSession(sessionId)}
+              />
+              <RemoteAccessAdvanced
+                onPairingChanged={(info) => setState(pairingViewStateFromInfo(info))}
+              />
+              <RemotePushSection />
+            </>
+          ) : null}
         </div>
-      ) : null}
+      )}
     </SettingsPage>
   );
 }

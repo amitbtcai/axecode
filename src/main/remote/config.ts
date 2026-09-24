@@ -190,4 +190,7 @@ export const PRODUCTION_PAIRING_APP_URL: Record<AxeCodeChannel, string> = {
 export const PRODUCTION_HOSTED_APP_URLS = [
   "https://code.axeai.com",
   "https://code-nightly.axeai.com",
+  // The account-linked remote workspace lives on the main app origin.
+  "https://axeai.com",
+  "https://www.axeai.com",
 ] as const;

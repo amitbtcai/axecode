@@ -1,5 +1,6 @@
 import {
   AXECODE_REMOTE_PROTOCOL_VERSION,
+  AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED,
   REMOTE_STANDARD_SCOPES,
   remoteAgentStatusesSchema,
   remoteEnvironmentDescriptorSchema,
@@ -50,6 +51,7 @@ export function descriptor(ctx: RemoteServerContext): RemoteEnvironmentDescripto
       : undefined;
   return remoteEnvironmentDescriptorSchema.parse({
     protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION,
+    minProtocolVersion: AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED,
     hostMode: ctx.options.hostMode ?? "desktop",
     desktopId: ctx.options.identity.desktopId,
     label: ctx.options.identity.label,
@@ -60,6 +62,7 @@ export function descriptor(ctx: RemoteServerContext): RemoteEnvironmentDescripto
       bootstrapMethods: ["one-time-token"],
       sessionMethods: ["bearer-access-token"],
       scopes: REMOTE_STANDARD_SCOPES,
+      ...(ctx.options.verifyAccountTicket ? { accountTicket: true as const } : {}),
     },
     endpoints: {
       httpBaseUrl: info.httpBaseUrl,

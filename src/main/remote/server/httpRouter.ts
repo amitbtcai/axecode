@@ -376,15 +376,19 @@ export async function handleHttp(
         ctx.options.tokenExchangeRateLimit ?? DEFAULT_TOKEN_EXCHANGE_RATE_LIMIT,
       );
       const payload = remoteTokenExchangePayloadSchema.parse(await readJsonBody(req));
-      writeJson(
-        res,
-        200,
-        ctx.exchangePairingCredential({
-          credential: payload.credential,
-          ...(payload.scopes ? { scopes: payload.scopes } : {}),
-          ...(payload.client ? { client: payload.client } : {}),
-        }),
-      );
+      const result =
+        payload.grantType === "account-ticket"
+          ? await ctx.exchangeAccountTicket({
+              ticket: payload.credential,
+              ...(payload.scopes ? { scopes: payload.scopes } : {}),
+              ...(payload.client ? { client: payload.client } : {}),
+            })
+          : ctx.exchangePairingCredential({
+              credential: payload.credential,
+              ...(payload.scopes ? { scopes: payload.scopes } : {}),
+              ...(payload.client ? { client: payload.client } : {}),
+            });
+      writeJson(res, 200, result);
       return;
     }
     if (req.method === "POST" && url.pathname === "/api/auth/websocket-ticket") {

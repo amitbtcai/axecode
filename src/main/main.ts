@@ -100,6 +100,7 @@ import { configureSecretStorageKey } from "@/shared/secretStorage";
 import { readOrCreateSafeStorageSecretKey } from "./secretStorageKey";
 import { createDesktopRemoteAccessController, type DesktopRemoteAccessController } from "./remote";
 import { readOrCreateRemoteAccessIdentity } from "./remote/identity";
+import { AxeAiAccountLinkManager } from "./axeaiLink/AxeAiAccountLinkManager";
 import { createGitStateExecutor, GitStateService } from "./gitState";
 import { SshConnectionManager } from "./ssh/SshConnectionManager";
 import {
@@ -1121,8 +1122,30 @@ if (!hasSingleInstanceLock) {
         });
       }
 
+      const axeAiAccountLink = new AxeAiAccountLinkManager({
+        baseDir: paths.baseDir,
+        appVersion: app.getVersion(),
+        getIdentity: () => readOrCreateRemoteAccessIdentity(paths.baseDir),
+        onStateChanged: (state) => {
+          mainWindow?.webContents.send(IPC_EVENT_CHANNELS.axeAiAccountLinkChanged, state);
+          remoteAccessController?.handleAccountLinkChanged();
+        },
+        onLinked: () => {
+          // First successful sign-in turns remote access on; a user who later
+          // disables it in Settings is not re-enabled on the next link.
+          if (axeAiAccountLink.shouldAutoEnableRemote()) {
+            axeAiAccountLink.markRemoteAutoEnabled();
+            void remoteAccessController?.setEnabled(true).catch((error) => {
+              console.warn("[axecode] failed to auto-enable remote access:", error);
+            });
+          }
+        },
+        reportError: (error) => captureMainException(error),
+      });
+
       const controller = createDesktopRemoteAccessController({
         appVersion: app.getVersion(),
+        accountLink: axeAiAccountLink,
         channel,
         paths,
         ...(process.env.VITE_DEV_SERVER_URL
@@ -1182,6 +1205,7 @@ if (!hasSingleInstanceLock) {
           getMainWindow: () => mainWindow,
           getBrowserPanelManager: () => browserPanelManager,
           getRemoteAccessServer: controller.getServer,
+          axeAiAccountLink: () => axeAiAccountLink,
           setRemoteAccessEnabled: controller.setEnabled,
           getRemoteAccessTailscaleStatus: controller.getTailscaleStatus,
           setRemoteAccessTailscaleHttps: controller.setTailscaleHttps,

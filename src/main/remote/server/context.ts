@@ -66,6 +66,15 @@ export interface RemoteServerContext {
     readonly scopes?: readonly RemoteAccessScope[];
     readonly client?: RemoteClientMetadata;
   }): RemoteAccessTokenResult;
+  /**
+   * AxeAI account-ticket grant: verify the one-time ticket against the
+   * account service, then mint the same bearer session pairing produces.
+   */
+  exchangeAccountTicket(input: {
+    readonly ticket: string;
+    readonly scopes?: readonly RemoteAccessScope[];
+    readonly client?: RemoteClientMetadata;
+  }): Promise<RemoteAccessTokenResult>;
   requireInfo(): RemoteAccessServerInfo;
   requireSettingsGateway(): NonNullable<RemoteAccessServerOptions["settings"]>;
   requireSchedulesGateway(): NonNullable<RemoteAccessServerOptions["schedules"]>;

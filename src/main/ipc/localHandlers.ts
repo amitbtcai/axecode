@@ -103,6 +103,7 @@ import {
 import { headersToRecord, readBoundedResponseBody } from "@/shared/http";
 import type { AxeCodePaths } from "@/shared/axecodePaths";
 import { UsageLoginManager } from "../usageLogin/UsageLoginManager";
+import type { AxeAiAccountLinkManager } from "../axeaiLink/AxeAiAccountLinkManager";
 import type { SshConnectionManager } from "../ssh/SshConnectionManager";
 import type { ScheduleService } from "../schedules/ScheduleService";
 import type { PrWatchService } from "../prWatch";
@@ -118,6 +119,8 @@ interface CreateLocalIpcHandlersOptions {
   getMainWindow(): BrowserWindow | null;
   getBrowserPanelManager(): BrowserPanelManager | null;
   getRemoteAccessServer(): RemoteAccessServer | null;
+  /** Null until the remote-access controller is created. */
+  axeAiAccountLink?(): AxeAiAccountLinkManager | null;
   setRemoteAccessEnabled(enabled: boolean): Promise<RemoteAccessPairingInfo>;
   getRemoteAccessTailscaleStatus(): Promise<RemoteAccessTailscaleStatus>;
   setRemoteAccessTailscaleHttps(enabled: boolean): Promise<RemoteAccessPairingInfo>;
@@ -386,6 +389,19 @@ export function createLocalIpcHandlers(
       return getRemoteAccessPairingInfo(server);
     },
     setRemoteAccessEnabled: (payload) => options.setRemoteAccessEnabled(payload.enabled),
+    startAxeAiAccountLink: () => {
+      const link = options.axeAiAccountLink?.();
+      if (!link) throw new Error("AxeAI account link is not available.");
+      return link.startLink();
+    },
+    cancelAxeAiAccountLink: () => {
+      options.axeAiAccountLink?.()?.cancelLink();
+    },
+    getAxeAiAccountLinkState: () =>
+      options.axeAiAccountLink?.()?.getState() ?? { status: "signed-out" as const },
+    signOutAxeAiAccount: () => {
+      options.axeAiAccountLink?.()?.signOut();
+    },
     sshDiscoverHosts: () => options.sshConnectionManager.discoverHosts(),
     sshConnect: (payload) => options.sshConnectionManager.connect(payload),
     sshDisconnect: ({ connectionId }) => options.sshConnectionManager.disconnect(connectionId),

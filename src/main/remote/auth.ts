@@ -187,12 +187,30 @@ export class RemoteAuthStore {
     }
 
     this.pairingCredentials.delete(tokenHash);
+    return this.issueAccessSession({
+      scopes: requestedScopes,
+      ...(input.client ? { client: input.client } : {}),
+      ...(input.ttlMs !== undefined ? { ttlMs: input.ttlMs } : {}),
+    });
+  }
+
+  /**
+   * Mint a bearer session for a credential already vetted by the caller —
+   * pairing credentials go through {@link exchangePairingCredential}; this
+   * entry point serves the AxeAI account-ticket grant, where the ticket was
+   * validated against the account service before the session is issued.
+   */
+  issueAccessSession(input: {
+    readonly scopes: readonly RemoteAccessScope[];
+    readonly client?: RemoteClientMetadata;
+    readonly ttlMs?: number;
+  }): RemoteAccessTokenResult {
     const accessToken = randomCredential("lc_access");
     const expiresAtMs = Date.now() + (input.ttlMs ?? DEFAULT_ACCESS_TOKEN_TTL_MS);
     const session: StoredAccessSession = {
       id: randomUUID(),
       tokenHash: hashCredential(accessToken),
-      scopes: requestedScopes,
+      scopes: input.scopes,
       client: input.client,
       issuedAtMs: Date.now(),
       expiresAtMs,
@@ -204,7 +222,7 @@ export class RemoteAuthStore {
       accessToken,
       tokenType: "Bearer",
       expiresAt: toIso(expiresAtMs),
-      scopes: [...requestedScopes],
+      scopes: [...input.scopes],
     };
   }
 

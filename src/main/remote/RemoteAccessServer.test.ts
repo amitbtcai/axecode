@@ -901,6 +901,66 @@ describe("RemoteAccessServer", () => {
     expect(onPairingChanged).toHaveBeenCalledTimes(2);
   });
 
+  it("exchanges an AxeAI account ticket for a bearer session", async () => {
+    const verifyAccountTicket = vi.fn<(ticket: string) => Promise<boolean>>(
+      async (ticket) => ticket === "good-ticket",
+    );
+    const server = new RemoteAccessServer({
+      appVersion: "1.0.0",
+      identity: { desktopId: "desktop-test", label: "Test Desktop" },
+      host: "127.0.0.1",
+      port: 0,
+      callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
+      verifyAccountTicket,
+    });
+    servers.push(server);
+    const info = await server.start();
+
+    const rejected = await fetch(new URL("/oauth/token", info.httpBaseUrl), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ grantType: "account-ticket", credential: "bad-ticket" }),
+    });
+    expect(rejected.status).toBe(401);
+    expect(verifyAccountTicket).toHaveBeenCalledWith("bad-ticket");
+
+    const accepted = await fetch(new URL("/oauth/token", info.httpBaseUrl), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        grantType: "account-ticket",
+        credential: "good-ticket",
+        client: { label: "axeai web", deviceType: "browser" },
+      }),
+    });
+    expect(accepted.status).toBe(200);
+    const token = (await accepted.json()) as { accessToken: string };
+
+    const snapshot = await fetch(new URL("/api/snapshot", info.httpBaseUrl), {
+      headers: { authorization: `Bearer ${token.accessToken}` },
+    });
+    expect(snapshot.status).toBe(200);
+  });
+
+  it("rejects the account-ticket grant when no account is linked", async () => {
+    const server = new RemoteAccessServer({
+      appVersion: "1.0.0",
+      identity: { desktopId: "desktop-test", label: "Test Desktop" },
+      host: "127.0.0.1",
+      port: 0,
+      callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
+    });
+    servers.push(server);
+    const info = await server.start();
+
+    const response = await fetch(new URL("/oauth/token", info.httpBaseUrl), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ grantType: "account-ticket", credential: "any-ticket" }),
+    });
+    expect(response.status).toBe(400);
+  });
+
   it("serves descriptor, snapshot, and websocket supervisor events", async () => {
     const callSupervisor = vi.fn<RemoteAccessServerOptions["callSupervisor"]>(
       async () => "" as never,

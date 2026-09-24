@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer, webUtils } from "electron";
 import { type AxeCodeChannel, normalizeChannel } from "@/shared/channel";
-import type { RemoteThreadCommand } from "@/shared/contracts";
+import type { AxeAiAccountLinkState, RemoteThreadCommand } from "@/shared/contracts";
 import type { RemoteAccessPairingInfo } from "@/shared/remote";
 import type { SharedSettings } from "@/shared/settings";
 import type { GitStatePatch } from "@/shared/gitState";
@@ -172,6 +172,15 @@ const bridge: AxeCodeBridge = {
     ipcRenderer.on(IPC_EVENT_CHANNELS.remoteAccessPairingChanged, handler);
     return () => {
       ipcRenderer.removeListener(IPC_EVENT_CHANNELS.remoteAccessPairingChanged, handler);
+    };
+  },
+  onAxeAiAccountLinkChanged(listener) {
+    const handler = (_event: Electron.IpcRendererEvent, state: AxeAiAccountLinkState) => {
+      listener(state);
+    };
+    ipcRenderer.on(IPC_EVENT_CHANNELS.axeAiAccountLinkChanged, handler);
+    return () => {
+      ipcRenderer.removeListener(IPC_EVENT_CHANNELS.axeAiAccountLinkChanged, handler);
     };
   },
   onSharedSettingsChanged(listener) {

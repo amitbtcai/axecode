@@ -3,6 +3,8 @@ import { defaultSharedSettings } from "../settings";
 import { LAUNCH_REMOTE_SERVER_SCRIPT } from "../sshRemoteScripts";
 import {
   AXECODE_REMOTE_PROTOCOL_VERSION,
+  AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED,
+  isRemoteProtocolCompatible,
   REMOTE_SETTINGS_KEYS,
   pickRemoteSettings,
   remotePushRegistrationSchema,
@@ -212,5 +214,43 @@ describe("remote settings", () => {
         },
       }).agentSettings?.cursor,
     ).toEqual({ structuredRuntime: "acp" });
+  });
+});
+
+describe("isRemoteProtocolCompatible", () => {
+  it("accepts same-version hosts", () => {
+    expect(isRemoteProtocolCompatible({ protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION })).toBe(
+      true,
+    );
+  });
+
+  it("rejects hosts older than the client floor", () => {
+    expect(
+      isRemoteProtocolCompatible({ protocolVersion: AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED - 1 }),
+    ).toBe(false);
+  });
+
+  it("rejects newer hosts that raised their minimum above this client", () => {
+    expect(
+      isRemoteProtocolCompatible({
+        protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION + 1,
+        minProtocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION + 1,
+      }),
+    ).toBe(false);
+  });
+
+  it("accepts newer hosts whose floor still covers this client", () => {
+    expect(
+      isRemoteProtocolCompatible({
+        protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION + 1,
+        minProtocolVersion: AXECODE_REMOTE_PROTOCOL_MIN_SUPPORTED,
+      }),
+    ).toBe(true);
+  });
+
+  it("treats a missing minimum as exact-version-only (pre-tolerance hosts)", () => {
+    expect(
+      isRemoteProtocolCompatible({ protocolVersion: AXECODE_REMOTE_PROTOCOL_VERSION + 1 }),
+    ).toBe(false);
   });
 });

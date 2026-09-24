@@ -1,5 +1,5 @@
 import type { AxeCodeChannel } from "../channel";
-import type { RemoteThreadCommand } from "../contracts";
+import type { AxeAiAccountLinkState, RemoteThreadCommand } from "../contracts";
 import type { RemoteAccessPairingInfo } from "../remote";
 import type { SharedSettings } from "../settings";
 import type { GitStatePatch } from "../gitState";
@@ -62,6 +62,8 @@ export type AxeCodeBridge = AxeCodeInvokeBridge & {
   onRemoteThreadCommand(listener: (command: RemoteThreadCommand) => void): () => void;
   /** Active remote-access code or paired-device state changed in main. */
   onRemoteAccessPairingChanged(listener: (info: RemoteAccessPairingInfo) => void): () => void;
+  /** AxeAI account link state changed in main (link code issued, linked, signed out). */
+  onAxeAiAccountLinkChanged(listener: (state: AxeAiAccountLinkState) => void): () => void;
   /** Shared settings rewritten outside this renderer (e.g. by a remote client). */
   onSharedSettingsChanged(listener: (settings: SharedSettings) => void): () => void;
   onProjectStateChanged(listener: (event: ProjectStateChangedEvent) => void): () => void;
@@ -139,6 +141,7 @@ export const IPC_EVENT_CHANNELS = {
   browserEvent: createChannel("browserEvent"),
   remoteThreadCommand: createChannel("remoteThreadCommand"),
   remoteAccessPairingChanged: createChannel("remoteAccessPairingChanged"),
+  axeAiAccountLinkChanged: createChannel("axeAiAccountLinkChanged"),
   sharedSettingsChanged: createChannel("sharedSettingsChanged"),
   projectStateChanged: createChannel("projectStateChanged"),
   gitStateChanged: createChannel("gitStateChanged"),

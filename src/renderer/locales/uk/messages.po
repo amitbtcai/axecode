@@ -1526,6 +1526,10 @@ msgstr "Режим зовнішнього вигляду"
 msgid "Apply provider preset"
 msgstr "Застосувати пресет провайдера"
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Approval link"
+msgstr "Посилання для підтвердження"
+
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Approval or reply required from you."
@@ -1534,6 +1538,10 @@ msgstr "Потрібне ваше підтвердження або відпов
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 msgid "Approve"
 msgstr "Схвалити"
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Approve this code on axeai.com to link this desktop."
+msgstr "Підтвердьте цей код на axeai.com, щоб пов'язати цей комп'ютер."
 
 #: src/renderer/views/PrReviewOverlay/parts/PrConversationTab.tsx
 msgid "approved"
@@ -1921,6 +1929,10 @@ msgstr "Axe Code перезапуститься, створить резервн
 #: src/renderer/views/SettingsOverlay/parts/ProviderMcpServersSection.tsx
 msgid "Axe Code's built-in browser tools."
 msgstr "Вбудовані інструменти браузера Axe Code."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "AxeAI account"
+msgstr "Обліковий запис AxeAI"
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/HomeFileView.tsx
@@ -2362,6 +2374,7 @@ msgstr "Не вдалося зв’язатися з віддаленим сер
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3736,6 +3749,10 @@ msgstr "Скопіюйте всі дані Lightcode до Axe Code. Axe Code п�
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Скопіюйте всі дані Lightcode до Poracode. Poracode перезапуститься та збереже повну резервну копію поточних даних."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Copy approval link"
+msgstr "Копіювати посилання для підтвердження"
 
 #: src/renderer/components/thread/ChatPane/parts/items/ItemMarkdownInner.tsx
 msgid "Copy code"
@@ -7232,6 +7249,10 @@ msgstr "URL посилання"
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
 msgstr "Зв’язано"
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Linked account"
+msgstr "Пов'язаний обліковий запис"
 
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
@@ -12644,11 +12665,20 @@ msgstr "Увійдіть на спареному настільному комп
 msgid "Sign in required"
 msgstr "Потрібен вхід"
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
+msgstr "Увійдіть, щоб отримувати доступ до цього комп'ютера через axeai.com без кодів з'єднання чи налаштування мережі."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Sign in with AxeAI"
+msgstr "Увійти через AxeAI"
+
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "Sign in with the agent CLI."
 msgstr "Увійдіть через CLI агента."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Вийти"
@@ -12688,6 +12718,10 @@ msgstr "Виконано вхід до {serverName}."
 #: src/renderer/components/mcp/useMcpServerOauth.ts
 msgid "Signed out of {serverName}."
 msgstr "Виконано вихід із {serverName}."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Signed out of AxeAI."
+msgstr "Виконано вихід з AxeAI."
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "Signing in"
@@ -14508,6 +14542,10 @@ msgstr "Не вдалося скопіювати токен підключенн
 msgid "Unable to copy Tailscale URL."
 msgstr "Не вдалося скопіювати URL Tailscale."
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to copy the approval link."
+msgstr "Не вдалося скопіювати посилання для підтвердження."
+
 #: src/renderer/actions/experimentActions.ts
 msgid "Unable to create the candidate worktree."
 msgstr "Не вдалося створити робоче дерево кандидата."
@@ -14674,9 +14712,17 @@ msgstr "Не вдалося зберегти профіль Claude {displayLabel
 msgid "Unable to save image."
 msgstr "Не вдалося зберегти зображення."
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to sign out of AxeAI."
+msgstr "Не вдалося вийти з AxeAI."
+
 #: src/renderer/utils/shellUtils.ts
 msgid "Unable to start {label}."
 msgstr "Не вдалося запустити {label}."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to start AxeAI sign-in."
+msgstr "Не вдалося почати вхід до AxeAI."
 
 #: src/mobile/useRemoteDesktop.ts
 msgid "Unable to start mobile app."

@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { remoteImageRefPath, type RemoteImageRefValue } from "./imageRef";
 import {
-  AXECODE_REMOTE_PROTOCOL_VERSION,
   REMOTE_COMMAND_ID_HEADER,
   REMOTE_PROCEDURE_SPECS,
   REMOTE_STANDARD_SCOPES,
   filterKnownRemoteAccessScopes,
   isRemoteFollowUpQueueProcedure,
+  isRemoteProtocolCompatible,
   isRemoteProcedure,
   remoteAgentStatusesSchema,
   remoteAccessTokenResultSchema,
@@ -288,17 +288,29 @@ export class RemoteDesktopClient {
       raw = await this.requestJson("/.well-known/lightcode/environment");
     }
     // Pre-parse the protocol version with a loose schema so a mismatch (the
-    // literal in the strict schema would otherwise dump a JSON ZodError) yields
-    // a readable, branchable error instead.
-    const version = z.object({ protocolVersion: z.unknown() }).safeParse(raw).data?.protocolVersion;
-    if (version !== AXECODE_REMOTE_PROTOCOL_VERSION) {
+    // strict schema would otherwise dump a JSON ZodError) yields a readable,
+    // branchable error instead.
+    const versionFields = z
+      .object({
+        protocolVersion: z.unknown(),
+        minProtocolVersion: z.number().int().optional(),
+      })
+      .safeParse(raw).data;
+    const descriptor = parseResponse(remoteEnvironmentDescriptorSchema, raw, "environment");
+    if (
+      !isRemoteProtocolCompatible({
+        protocolVersion: descriptor.protocolVersion,
+        ...(typeof versionFields?.minProtocolVersion === "number"
+          ? { minProtocolVersion: versionFields.minProtocolVersion }
+          : {}),
+      })
+    ) {
       throw new RemoteClientError(
-        "This app version is incompatible with that server. Update both to the same version.",
+        "This app version is incompatible with that server. Update the app, or the server if it is newer.",
         409,
         "protocol_version_mismatch",
       );
     }
-    const descriptor = parseResponse(remoteEnvironmentDescriptorSchema, raw, "environment");
     // The wire schema is lenient about advertised scopes (a newer server may
     // list scopes this build doesn't know); narrow to the usable set here.
     return {
@@ -336,6 +348,33 @@ export class RemoteDesktopClient {
     );
     // Server-echoed granted scopes are lenient on the wire; narrow to the set
     // this build can act on.
+    return { ...result, scopes: filterKnownRemoteAccessScopes(result.scopes) };
+  }
+
+  /**
+   * AxeAI account sign-in path: the web client mints a short-lived connect
+   * ticket through its AxeAI session and exchanges it here for the same
+   * bearer session a pairing credential would yield. Only advertised on
+   * descriptors with `auth.accountTicket`.
+   */
+  async exchangeAccountTicket(input: {
+    readonly ticket: string;
+    readonly scopes?: readonly RemoteAccessScope[];
+    readonly client?: RemoteClientMetadata;
+  }): Promise<RemoteAccessTokenResult> {
+    const result = parseResponse(
+      remoteAccessTokenResultSchema,
+      await this.requestJson("/oauth/token", {
+        method: "POST",
+        body: {
+          grantType: "account-ticket",
+          credential: input.ticket,
+          scopes: [...(input.scopes ?? REMOTE_STANDARD_SCOPES)],
+          client: input.client ?? defaultClientMetadata(),
+        },
+      }),
+      "account ticket",
+    );
     return { ...result, scopes: filterKnownRemoteAccessScopes(result.scopes) };
   }
 

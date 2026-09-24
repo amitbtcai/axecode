@@ -49,6 +49,8 @@ import {
   type RemoteAccessServerOptions,
 } from "./RemoteAccessServer";
 import { RemoteBrowserGateway } from "./RemoteBrowserGateway";
+import { startRelayHost, type RelayHostHandle } from "@/server/relay/relayHost";
+import type { AxeAiAccountLinkManager } from "../axeaiLink/AxeAiAccountLinkManager";
 import {
   buildTailscaleHttpsUrl,
   disableTailscaleServe,
@@ -69,6 +71,9 @@ export interface DesktopRemoteAccessControllerOptions {
   readonly notifySharedSettingsChanged: (settings: SharedSettings) => void;
   readonly notifyRemoteAccessPairingChanged: (info: RemoteAccessPairingInfo) => void;
   readonly notifyProjectStateChanged: (projects: readonly Project[]) => void;
+  /** When set, enables AxeAI account sign-in, the account-ticket grant, and
+   * the hosted-relay tunnel for this desktop. */
+  readonly accountLink?: AxeAiAccountLinkManager;
   readonly reportError: (error: unknown, tags?: AxeCodeDiagnosticTags) => void;
   readonly scheduleService: ScheduleService;
   readonly prWatchService: PrWatchService;
@@ -84,6 +89,8 @@ export interface DesktopRemoteAccessController {
   updateGitSummaries(summaries: RemoteGitSummaries): void;
   startIfEnabled(): Promise<void>;
   setEnabled(enabled: boolean): Promise<RemoteAccessPairingInfo>;
+  /** AxeAI account link state changed; drops the relay/heartbeat on sign-out. */
+  handleAccountLinkChanged(): void;
   getTailscaleStatus(): Promise<RemoteAccessTailscaleStatus>;
   setTailscaleHttps(enabled: boolean): Promise<RemoteAccessPairingInfo>;
   startTailscale(): Promise<StartTailscaleResult>;
@@ -142,6 +149,8 @@ interface RemoteAccessStartAttempt {
   coordinator: PushCoordinator | null;
   tailscaleServeUrl: string | null;
   tailscaleTeardownPromise: Promise<void> | null;
+  /** Account-relay tunnel started for this attempt; disposed with the server. */
+  relay: RelayHostHandle | null;
 }
 
 /**
@@ -153,6 +162,7 @@ export function createDesktopRemoteAccessController(
   options: DesktopRemoteAccessControllerOptions,
 ): DesktopRemoteAccessController {
   let remoteAccessServer: RemoteAccessServer | null = null;
+  let remoteAccessRelay: RelayHostHandle | null = null;
   let remoteAccessStartAttempt: RemoteAccessStartAttempt | null = null;
   let remoteAccessGeneration = 0;
   let disposed = false;
@@ -387,6 +397,12 @@ export function createDesktopRemoteAccessController(
         ...(pairingAppUrl ? { pairingAppUrl } : {}),
         ...(trustedCorsOrigins ? { trustedCorsOrigins } : {}),
         ...(devMobileAppUrl ? { devMobileAppUrl } : {}),
+        ...(options.accountLink?.isLinked()
+          ? {
+              verifyAccountTicket: (ticket: string) =>
+                options.accountLink!.verifyConnectTicket(ticket),
+            }
+          : {}),
         callSupervisor: options.callSupervisor,
         dispatchThreadCommand: options.dispatchThreadCommand,
         resolveMcpLaunchSnapshot: (projectId) => {
@@ -433,6 +449,34 @@ export function createDesktopRemoteAccessController(
       if (!isCurrentStartAttempt(attempt)) throw new RemoteAccessStartSupersededError();
       console.log("[axecode] remote access enabled at %s", info.httpBaseUrl);
       console.log("[axecode] remote pairing URL: %s", info.pairingUrl);
+      if (options.accountLink?.isLinked()) {
+        const directUrl = info.tailscaleHttpBaseUrl ?? info.httpBaseUrl;
+        options.accountLink.notifyRemoteActive(directUrl);
+        void options.accountLink
+          .ensureClaimed(directUrl)
+          .then((credentials) => {
+            if (!credentials) return;
+            if (remoteAccessServer !== server) {
+              // A restart superseded this attempt; the new attempt claims again.
+              return;
+            }
+            remoteAccessRelay?.dispose();
+            remoteAccessRelay = startRelayHost({
+              relayUrl: credentials.relayUrl,
+              serverId: credentials.desktopId,
+              secret: credentials.relaySecret,
+              label: identity.label,
+              localHttpUrl: info.localHttpBaseUrl,
+              reportError: (error) =>
+                options.reportError(error, { "axecode.feature_area": "remote-relay" }),
+              onRegistered: (publicUrl) =>
+                console.log("[axecode] remote relay registered at %s", publicUrl),
+            });
+          })
+          .catch((error) => {
+            console.warn("[axecode] remote relay setup failed:", toErrorMessage(error));
+          });
+      }
       return info;
     } catch (error) {
       await disposeAttemptServer(attempt).catch(() => {});
@@ -500,6 +544,7 @@ export function createDesktopRemoteAccessController(
       coordinator: null,
       tailscaleServeUrl: null,
       tailscaleTeardownPromise: null,
+      relay: null,
     };
     remoteAccessStartAttempt = attempt;
     return startPromise;
@@ -521,6 +566,10 @@ export function createDesktopRemoteAccessController(
     remoteAccessServer = null;
     pushCoordinator = null;
     portForwarding = null;
+    remoteAccessRelay?.dispose();
+    remoteAccessRelay = null;
+    attempt?.relay?.dispose();
+    options.accountLink?.notifyRemoteInactive();
     if (attempt?.tailscaleServeUrl) {
       void teardownAttemptTailscaleServe(attempt);
     } else {
@@ -554,6 +603,10 @@ export function createDesktopRemoteAccessController(
     if (disposed || restartGeneration !== remoteAccessGeneration) return;
     const server = remoteAccessServer;
     remoteAccessServer = null;
+    remoteAccessRelay?.dispose();
+    remoteAccessRelay = null;
+    starting?.relay?.dispose();
+    options.accountLink?.notifyRemoteInactive();
     if (remoteTailscaleServeActiveUrl) {
       remoteTailscaleServeActiveUrl = null;
       await disableTailscaleServe().catch(() => {});
@@ -715,6 +768,29 @@ export function createDesktopRemoteAccessController(
     },
     startIfEnabled,
     setEnabled,
+    /**
+     * Called when the AxeAI link state flips. On sign-out the relay tunnel and
+     * heartbeats must stop even though the LAN pairing server keeps running;
+     * on a fresh link a running server restarts once so it picks up the
+     * account-ticket grant and the relay tunnel.
+     */
+    handleAccountLinkChanged: () => {
+      const linked = Boolean(options.accountLink?.isLinked());
+      if (!linked) {
+        remoteAccessRelay?.dispose();
+        remoteAccessRelay = null;
+        options.accountLink?.notifyRemoteInactive();
+        return;
+      }
+      if (remoteAccessServer && !remoteAccessRelay) {
+        void restartRemoteAccessServer().catch((error) =>
+          console.warn(
+            "[axecode] remote access restart after account link failed:",
+            toErrorMessage(error),
+          ),
+        );
+      }
+    },
     getTailscaleStatus,
     setTailscaleHttps,
     startTailscale,
@@ -730,6 +806,10 @@ export function createDesktopRemoteAccessController(
       remoteAccessServer = null;
       pushCoordinator = null;
       portForwarding = null;
+      remoteAccessRelay?.dispose();
+      remoteAccessRelay = null;
+      attempt?.relay?.dispose();
+      options.accountLink?.notifyRemoteInactive();
       // Preserve the historical before-quit ordering: start closing the HTTP
       // server, then immediately tear down forwarding, without disabling Serve.
       const serverDisposal = server

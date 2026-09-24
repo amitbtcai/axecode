@@ -1,5 +1,6 @@
 import { agentCredentialProcedures } from "./procedures/agentCredentials";
 import { appProcedures } from "./procedures/app";
+import { axeAiAccountProcedures } from "./procedures/axeaiAccount";
 import { browserProcedures } from "./procedures/browser";
 import { dbProcedures } from "./procedures/db";
 import { experimentProcedures } from "./procedures/experiment";
@@ -23,6 +24,7 @@ import { usageProcedures } from "./procedures/usage";
 
 export const groupedIpcProcedures = {
   app: appProcedures,
+  axeAiAccount: axeAiAccountProcedures,
   thread: threadProcedures,
   liveVoice: liveVoiceProcedures,
   git: gitProcedures,
@@ -48,6 +50,7 @@ export const groupedIpcProcedures = {
 
 export const ipcProcedureMap = {
   ...appProcedures,
+  ...axeAiAccountProcedures,
   ...threadProcedures,
   ...liveVoiceProcedures,
   ...gitProcedures,
@@ -83,6 +86,10 @@ export type IpcProcedureResult<Name extends IpcProcedureName> =
   IpcProcedureMap[Name]["__types"]["result"];
 
 export const MAIN_LOCAL_PROCEDURE_NAMES = [
+  "startAxeAiAccountLink",
+  "cancelAxeAiAccountLink",
+  "getAxeAiAccountLinkState",
+  "signOutAxeAiAccount",
   "pickFolder",
   "pickFiles",
   "detectProjectIcon",

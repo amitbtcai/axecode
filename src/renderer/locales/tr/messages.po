@@ -1526,6 +1526,10 @@ msgstr "Görünüm modu"
 msgid "Apply provider preset"
 msgstr "Sağlayıcı hazır ayarını uygula"
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Approval link"
+msgstr "Onay bağlantısı"
+
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
 msgid "Approval or reply required from you."
@@ -1534,6 +1538,10 @@ msgstr "Onayınız veya yanıtınız isteniyor."
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 msgid "Approve"
 msgstr "Onayla"
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Approve this code on axeai.com to link this desktop."
+msgstr "Bu masaüstünü bağlamak için axeai.com adresinde bu kodu onaylayın."
 
 #: src/renderer/views/PrReviewOverlay/parts/PrConversationTab.tsx
 msgid "approved"
@@ -1921,6 +1929,10 @@ msgstr "Axe Code yeniden başlatılacak, mevcut verilerini yedekleyecek ve bunla
 #: src/renderer/views/SettingsOverlay/parts/ProviderMcpServersSection.tsx
 msgid "Axe Code's built-in browser tools."
 msgstr "Axe Code'un yerleşik tarayıcı araçları."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "AxeAI account"
+msgstr "AxeAI hesabı"
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/HomeFileView.tsx
@@ -2362,6 +2374,7 @@ msgstr "Uzak sunucuya ulaşılamıyor. Çevrimiçi olduğunu doğrulayıp yenide
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3736,6 +3749,10 @@ msgstr "Tüm Lightcode verilerini Axe Code'a kopyalayın. Axe Code yeniden başl
 #: src/renderer/views/SettingsOverlay/parts/AboutSettings.tsx
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Tüm Lightcode verilerini Poracode'a kopyalayın. Poracode yeniden başlatılır ve mevcut verilerinin tam bir yedeğini saklar."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Copy approval link"
+msgstr "Onay bağlantısını kopyala"
 
 #: src/renderer/components/thread/ChatPane/parts/items/ItemMarkdownInner.tsx
 msgid "Copy code"
@@ -7232,6 +7249,10 @@ msgstr "Bağlantı URL'si"
 #: src/renderer/components/skills/SkillsManager.tsx
 msgid "Linked"
 msgstr "Bağlı"
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Linked account"
+msgstr "Bağlı hesap"
 
 #: src/renderer/components/thread/ChatPane/parts/items/commandSummary.ts
 #: src/renderer/components/thread/ChatPane/parts/items/toolDisplay.ts
@@ -12644,11 +12665,20 @@ msgstr "Eşleştirilmiş masaüstünde oturum açın, ardından bu durumu yenile
 msgid "Sign in required"
 msgstr "Oturum açmanız gerekiyor"
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
+msgstr "Eşleştirme kodları veya ağ kurulumu olmadan axeai.com üzerinden bu masaüstüne erişmek için oturum açın."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Sign in with AxeAI"
+msgstr "AxeAI ile oturum aç"
+
 #: src/renderer/views/SettingsOverlay/parts/SingleAgentSettings/SingleAgentSettings.tsx
 msgid "Sign in with the agent CLI."
 msgstr "Aracı CLI ile oturum açın."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Oturumu kapat"
@@ -12688,6 +12718,10 @@ msgstr "{serverName} oturumu açıldı."
 #: src/renderer/components/mcp/useMcpServerOauth.ts
 msgid "Signed out of {serverName}."
 msgstr "{serverName} oturumu kapatıldı."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Signed out of AxeAI."
+msgstr "AxeAI oturumu kapatıldı."
 
 #: src/renderer/views/SettingsOverlay/parts/AcpRegistrySettings.tsx
 msgid "Signing in"
@@ -14508,6 +14542,10 @@ msgstr "Eşleştirme token'ı kopyalanamadı."
 msgid "Unable to copy Tailscale URL."
 msgstr "Tailscale URL'si kopyalanamadı."
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to copy the approval link."
+msgstr "Onay bağlantısı kopyalanamadı."
+
 #: src/renderer/actions/experimentActions.ts
 msgid "Unable to create the candidate worktree."
 msgstr "Aday çalışma ağacı oluşturulamadı."
@@ -14674,9 +14712,17 @@ msgstr "Claude {displayLabel} profili kaydedilemedi."
 msgid "Unable to save image."
 msgstr "Görsel kaydedilemedi."
 
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to sign out of AxeAI."
+msgstr "AxeAI oturumu kapatılamadı."
+
 #: src/renderer/utils/shellUtils.ts
 msgid "Unable to start {label}."
 msgstr "{label} başlatılamıyor."
+
+#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+msgid "Unable to start AxeAI sign-in."
+msgstr "AxeAI oturum açma başlatılamadı."
 
 #: src/mobile/useRemoteDesktop.ts
 msgid "Unable to start mobile app."
