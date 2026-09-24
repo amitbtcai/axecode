@@ -333,6 +333,43 @@ describe("follow-up queue lifecycle", () => {
     expect(h.start).toHaveBeenCalledTimes(1);
   });
 
+  it("releases a stale session-down hold once the session reports a live status", async () => {
+    const h = harness("idle");
+    h.session.status = "inactive";
+    await h.add("queued while inactive");
+    await flush();
+    expect(h.state()?.paused).toBe(true);
+    h.begin("recovery");
+    h.complete("recovery");
+    await flush();
+    expect(h.start).toHaveBeenCalledTimes(1);
+    expect(h.start.mock.calls[0]?.[1].prompt).toBe("queued while inactive");
+  });
+
+  it("releases a stale episode pause when a new message is queued", async () => {
+    const h = harness();
+    h.queue.pauseThread("thread");
+    h.complete("initial", "cancelled");
+    await h.add("after stop");
+    await flush();
+    expect(h.state()?.paused).toBeFalsy();
+    expect(h.start).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not stall the queue when a queued turn ends interrupted", async () => {
+    const h = harness("idle");
+    await h.add("first");
+    await flush();
+    expect(h.start).toHaveBeenCalledTimes(1);
+    h.event({ type: "turn.started", turnId: "queued-turn" });
+    h.status("working");
+    h.event({ type: "turn.completed", turnId: "queued-turn", state: "cancelled" });
+    h.status("idle");
+    await h.add("after interrupt");
+    await flush();
+    expect(h.start).toHaveBeenCalledTimes(2);
+  });
+
   it("pauses on Stop and resumes only explicitly", async () => {
     const h = harness();
     await h.add("next");

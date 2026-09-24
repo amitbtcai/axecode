@@ -65,7 +65,12 @@ export class FollowUpQueueCoordinator {
   private readonly records = new Map<string, QueueRecord>();
   private readonly lifecycles = new Map<string, ThreadLifecycle>();
   private readonly directInput: FollowUpQueueDirectInput;
+  /** Episode pauses (Stop, failure, dead session) — released by a new enqueue. */
   private readonly pausedThreads = new Set<string>();
+  /** Session was unusable at enqueue time — released when it reports a live status. */
+  private readonly sessionDownHolds = new Set<string>();
+  /** Open-editor holds — only Resume clears these so a row can't dispatch mid-edit. */
+  private readonly editHolds = new Set<string>();
   private readonly mutationTails = new Map<string, Promise<void>>();
   private disposed = false;
 
@@ -108,14 +113,14 @@ export class FollowUpQueueCoordinator {
         payload: snapshot,
         userMessageItemId: `user-${randomUUID()}`,
       });
-      if (
-        session.status === "error" ||
-        session.status === "inactive" ||
-        this.pausedThreads.has(snapshot.threadId)
-      ) {
-        record.paused = true;
-        this.pausedThreads.add(snapshot.threadId);
+      // A fresh enqueue is explicit intent to run the queue: release any
+      // stale episode pause (Stop, failure). A dead session holds delivery
+      // only until it reports a live status; an open editor keeps its hold.
+      this.pausedThreads.delete(snapshot.threadId);
+      if (session.status === "error" || session.status === "inactive") {
+        this.sessionDownHolds.add(snapshot.threadId);
       }
+      record.paused = this.isHeld(snapshot.threadId);
       this.emitQueueState(snapshot.threadId);
       this.schedulePump(snapshot.threadId);
     });
@@ -245,7 +250,13 @@ export class FollowUpQueueCoordinator {
   async pauseThreadFollowUps(input: { threadId: string; id: string }): Promise<void> {
     await this.mutate(input.threadId, () => {
       this.findPending(input);
-      this.pauseThread(input.threadId);
+      this.editHolds.add(input.threadId);
+      const record = this.records.get(input.threadId);
+      if (!record) return;
+      record.paused = true;
+      if (record.active && !record.active.dispatched)
+        this.restoreActive(record, record.active, false);
+      this.emitQueueState(input.threadId);
     });
   }
 
@@ -253,6 +264,8 @@ export class FollowUpQueueCoordinator {
     await this.mutate(threadId, () => {
       const record = this.records.get(threadId);
       this.pausedThreads.delete(threadId);
+      this.sessionDownHolds.delete(threadId);
+      this.editHolds.delete(threadId);
       if (!record) return;
       record.paused = false;
       this.emitQueueState(threadId);
@@ -478,7 +491,7 @@ export class FollowUpQueueCoordinator {
         if (!lifecycle.directAwaitingReplacement) lifecycle.directCompletion = true;
         this.directInput.maybeFinishDirect(session, lifecycle);
       } else if (lifecycle.turnId === event.turnId) {
-        if (event.state !== "completed") this.pauseThread(session.threadId);
+        if (event.state === "failed") this.pauseThread(session.threadId);
         lifecycle.turnCompleted = true;
         this.finishOrSchedule(session, lifecycle, record);
       }
@@ -508,6 +521,10 @@ export class FollowUpQueueCoordinator {
       this.pauseForFailure(session.threadId, record, lifecycle);
       return;
     }
+    if (status !== "inactive" && this.sessionDownHolds.delete(session.threadId) && record) {
+      record.paused = this.isHeld(session.threadId);
+      this.emitQueueState(session.threadId);
+    }
     if (isBlockedStatus(status)) return;
     if (!isSettledStatus(status)) return;
     this.finishOrSchedule(session, lifecycle, record);
@@ -519,6 +536,8 @@ export class FollowUpQueueCoordinator {
     this.lifecycles.clear();
     this.directInput.dispose();
     this.pausedThreads.clear();
+    this.sessionDownHolds.clear();
+    this.editHolds.clear();
     this.mutationTails.clear();
   }
 
@@ -538,7 +557,7 @@ export class FollowUpQueueCoordinator {
     const record: QueueRecord = {
       threadId,
       items: [],
-      paused: this.pausedThreads.has(threadId),
+      paused: this.isHeld(threadId),
       replacing: false,
       restarting: false,
       pumpRunning: false,
@@ -595,7 +614,7 @@ export class FollowUpQueueCoordinator {
 
     this.resolveAdmission(active);
     delete record.active;
-    if (active.completionState !== "completed") {
+    if (active.completionState === "failed") {
       record.paused = true;
       this.pausedThreads.add(session.threadId);
     }
@@ -844,6 +863,14 @@ export class FollowUpQueueCoordinator {
   private resolveAdmission(active: ActiveQueueEntry): void {
     active.admission?.resolve();
     delete active.admission;
+  }
+
+  private isHeld(threadId: string): boolean {
+    return (
+      this.pausedThreads.has(threadId) ||
+      this.sessionDownHolds.has(threadId) ||
+      this.editHolds.has(threadId)
+    );
   }
 
   private async mutate<T>(threadId: string, operation: () => Promise<T> | T): Promise<T> {
