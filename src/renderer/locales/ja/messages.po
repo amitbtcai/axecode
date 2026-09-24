@@ -12679,6 +12679,7 @@ msgstr "サインインが必要です"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "サインインすると、ペアリングコードやネットワーク設定なしで axeai.com からこのデスクトップにアクセスできます。"
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

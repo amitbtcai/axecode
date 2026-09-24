@@ -1,31 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, toast } from "@heroui/react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Copy } from "lucide-react";
 import { readBridge } from "@/renderer/bridge";
 import { PixelLoader } from "@/renderer/components/common";
-import type { AxeAiAccountLinkState } from "@/shared/contracts";
+import { useAxeAiAccountLinkState } from "@/renderer/hooks/useAxeAiAccountLinkState";
 import { SettingRow, SettingsPage } from "./SettingsForm";
-
-/** Live AxeAI account-link state, shared by the settings pages and sidebar. */
-export function useAxeAiAccountLinkState(): AxeAiAccountLinkState | null {
-  const [linkState, setLinkState] = useState<AxeAiAccountLinkState | null>(null);
-  useEffect(() => {
-    let cancelled = false;
-    const unsubscribe = readBridge().onAxeAiAccountLinkChanged(setLinkState);
-    void readBridge()
-      .getAxeAiAccountLinkState()
-      .then((state) => {
-        if (!cancelled) setLinkState(state);
-      })
-      .catch(() => {});
-    return () => {
-      cancelled = true;
-      unsubscribe();
-    };
-  }, []);
-  return linkState;
-}
 
 function friendlyError(error: unknown, fallback: string): string {
   return error instanceof Error ? error.message : fallback;

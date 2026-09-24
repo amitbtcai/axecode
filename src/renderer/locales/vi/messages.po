@@ -12681,6 +12681,7 @@ msgstr "Yêu cầu đăng nhập"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Đăng nhập để truy cập máy tính này từ axeai.com mà không cần mã ghép nối hay thiết lập mạng."
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

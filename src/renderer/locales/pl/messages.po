@@ -12681,6 +12681,7 @@ msgstr "Wymagane zalogowanie się"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Zaloguj się, aby uzyskać dostęp do tego komputera z axeai.com bez kodów parowania i konfiguracji sieci."
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

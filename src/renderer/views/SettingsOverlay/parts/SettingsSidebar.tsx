@@ -47,7 +47,7 @@ import { ProviderIcon } from "@/renderer/components/providers/ProviderIcon";
 import { PixelLoader, SidebarButton } from "@/renderer/components/common";
 import { useSidebar } from "@/renderer/views/MainView/parts/AppShell/AppShell";
 import { isDevApp, isRemoteSession, isWindows } from "@/renderer/bridge";
-import { useAxeAiAccountLinkState } from "./AxeAiAccountSettings";
+import { useAxeAiAccountLinkState } from "@/renderer/hooks/useAxeAiAccountLinkState";
 import { searchSettings } from "./settingsSearchIndex";
 import type { SettingsSection } from "./types";
 

@@ -12681,6 +12681,7 @@ msgstr "Oturum açmanız gerekiyor"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Eşleştirme kodları veya ağ kurulumu olmadan axeai.com üzerinden bu masaüstüne erişmek için oturum açın."
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

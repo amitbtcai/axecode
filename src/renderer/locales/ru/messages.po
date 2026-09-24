@@ -12681,6 +12681,7 @@ msgstr "Требуется вход"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Войдите, чтобы подключаться к этому компьютеру через axeai.com без кодов сопряжения и настройки сети."
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

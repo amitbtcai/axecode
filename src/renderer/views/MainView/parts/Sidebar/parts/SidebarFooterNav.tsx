@@ -1,11 +1,23 @@
 import { Dropdown, Label } from "@heroui/react";
-import { ChevronsDown, ChevronsUp, Ellipsis, PanelLeftClose, Settings2 } from "lucide-react";
+import {
+  ChevronsDown,
+  ChevronsUp,
+  Ellipsis,
+  PanelLeftClose,
+  Settings2,
+  Sparkles,
+} from "lucide-react";
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { SidebarButton, sidebarIconButtonClass } from "@/renderer/components/common/SidebarButton";
 import { sidebarFooterNavClass } from "@/renderer/components/layout/sidebarChrome";
 import { DeferredSettingsOverlay } from "@/renderer/deferredFeatures";
-import { openRemoteAccessSettings, openSettings } from "@/renderer/actions/panelActions";
+import {
+  openAxeAiAccountSettings,
+  openRemoteAccessSettings,
+  openSettings,
+} from "@/renderer/actions/panelActions";
+import { useAxeAiAccountLinkState } from "@/renderer/hooks/useAxeAiAccountLinkState";
 import { usePanelStore } from "@/renderer/state/panelStore";
 import { isPanelResizing } from "@/renderer/state/panelResizeSignal";
 import { useSidebarUiStore } from "@/renderer/state/sidebarUiStore";
@@ -59,10 +71,14 @@ export function SidebarFooterNav(props: { remoteAccessStatus: RemoteAccessSideba
   const { t } = useLingui();
   const settingsOpen = usePanelStore((s) => s.settingsOpen);
   const settingsSection = usePanelStore((s) => s.settingsSection);
-  // Remote Access has its own sidebar entry, so the generic Settings button
-  // lights up for every other section.
+  // Remote Access and the AxeAI sign-in each have their own sidebar entry, so
+  // the generic Settings button lights up for every other section.
   const remoteAccessSettingsActive = settingsOpen && settingsSection === "remoteAccess";
-  const otherSettingsActive = settingsOpen && !remoteAccessSettingsActive;
+  const axeAiAccountActive = settingsOpen && settingsSection === "axeaiAccount";
+  const otherSettingsActive = settingsOpen && !remoteAccessSettingsActive && !axeAiAccountActive;
+  // Sign-in lives in the footer only until the desktop is linked; after that,
+  // account management stays on the Remote Access settings page.
+  const axeAiLinked = useAxeAiAccountLinkState()?.status === "linked";
   const footerCollapsed = useSidebarUiStore((s) => s.footerCollapsed);
   const toggleFooterCollapsed = useSidebarUiStore((s) => s.toggleFooterCollapsed);
   const sidebarShortcuts = useSidebarShortcuts();
@@ -173,6 +189,18 @@ export function SidebarFooterNav(props: { remoteAccessStatus: RemoteAccessSideba
         onPress: openSettings,
         onPreload: prewarmSettings,
       },
+      ...(axeAiLinked
+        ? []
+        : [
+            {
+              key: "axeaiAccount",
+              icon: <Sparkles className="size-4" />,
+              label: t`Sign in with AxeAI`,
+              isActive: axeAiAccountActive,
+              onPress: openAxeAiAccountSettings,
+              onPreload: prewarmSettings,
+            },
+          ]),
       {
         key: "remoteAccess",
         icon: <RemoteAccessSidebarIcon status={remoteAccessStatus} />,
@@ -278,6 +306,15 @@ export function SidebarFooterNav(props: { remoteAccessStatus: RemoteAccessSideba
           onPress={shortcut.onPress}
         />
       ))}
+      {axeAiLinked ? null : (
+        <SidebarButton
+          icon={<Sparkles className="size-4" />}
+          label={t`Sign in with AxeAI`}
+          isActive={axeAiAccountActive}
+          onPreload={prewarmSettings}
+          onPress={openAxeAiAccountSettings}
+        />
+      )}
       <div className="flex items-center gap-1">
         <div className="min-w-0 flex-1">
           <SidebarButton

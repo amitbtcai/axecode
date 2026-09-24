@@ -12680,6 +12680,7 @@ msgstr "Connexion requise"
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Connectez-vous pour accéder à ce bureau depuis axeai.com sans codes de couplage ni configuration réseau."
 
+#: src/renderer/views/MainView/parts/Sidebar/parts/SidebarFooterNav.tsx
 #: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"

@@ -96,6 +96,10 @@ export function openRemoteAccessSettings(): void {
   usePanelStore.getState().openSettingsSection("remoteAccess");
 }
 
+export function openAxeAiAccountSettings(): void {
+  usePanelStore.getState().openSettingsSection("axeaiAccount");
+}
+
 export function openChangelogSettings(): void {
   usePanelStore.getState().openSettingsSection("changelog");
 }
