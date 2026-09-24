@@ -942,6 +942,37 @@ describe("RemoteAccessServer", () => {
     expect(snapshot.status).toBe(200);
   });
 
+  it("falls back to default scopes when the exchange sends an empty list", async () => {
+    const server = new RemoteAccessServer({
+      appVersion: "1.0.0",
+      identity: { desktopId: "desktop-test", label: "Test Desktop" },
+      host: "127.0.0.1",
+      port: 0,
+      callSupervisor: vi.fn<RemoteAccessServerOptions["callSupervisor"]>(async () => "" as never),
+      verifyAccountTicket: vi.fn<(ticket: string) => Promise<boolean>>(async () => true),
+    });
+    servers.push(server);
+    const info = await server.start();
+
+    const accepted = await fetch(new URL("/oauth/token", info.httpBaseUrl), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        grantType: "account-ticket",
+        credential: "good-ticket",
+        scopes: [],
+      }),
+    });
+    expect(accepted.status).toBe(200);
+    const token = (await accepted.json()) as { accessToken: string; scopes: string[] };
+    expect(token.scopes.length).toBeGreaterThan(0);
+
+    const snapshot = await fetch(new URL("/api/snapshot", info.httpBaseUrl), {
+      headers: { authorization: `Bearer ${token.accessToken}` },
+    });
+    expect(snapshot.status).toBe(200);
+  });
+
   it("rejects the account-ticket grant when no account is linked", async () => {
     const server = new RemoteAccessServer({
       appVersion: "1.0.0",

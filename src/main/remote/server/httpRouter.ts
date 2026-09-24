@@ -376,16 +376,19 @@ export async function handleHttp(
         ctx.options.tokenExchangeRateLimit ?? DEFAULT_TOKEN_EXCHANGE_RATE_LIMIT,
       );
       const payload = remoteTokenExchangePayloadSchema.parse(await readJsonBody(req));
+      // An explicit empty scope list would mint a session that can do nothing;
+      // treat it as omitted so the grant falls back to its default scopes.
+      const scopes = payload.scopes?.length ? { scopes: payload.scopes } : {};
       const result =
         payload.grantType === "account-ticket"
           ? await ctx.exchangeAccountTicket({
               ticket: payload.credential,
-              ...(payload.scopes ? { scopes: payload.scopes } : {}),
+              ...scopes,
               ...(payload.client ? { client: payload.client } : {}),
             })
           : ctx.exchangePairingCredential({
               credential: payload.credential,
-              ...(payload.scopes ? { scopes: payload.scopes } : {}),
+              ...scopes,
               ...(payload.client ? { client: payload.client } : {}),
             });
       writeJson(res, 200, result);
