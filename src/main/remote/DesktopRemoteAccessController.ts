@@ -451,11 +451,14 @@ export function createDesktopRemoteAccessController(
       console.log("[axecode] remote pairing URL: %s", info.pairingUrl);
       if (options.accountLink?.isLinked()) {
         const directUrl = info.tailscaleHttpBaseUrl ?? info.httpBaseUrl;
-        options.accountLink.notifyRemoteActive(directUrl);
         void options.accountLink
           .ensureClaimed(directUrl)
           .then((credentials) => {
             if (!credentials) return;
+            // Heartbeats only start after the claim lands: a heartbeat that
+            // arrives before the code_desktops row exists reads as a 404,
+            // which the manager treats as a web-side revoke.
+            options.accountLink?.notifyRemoteActive(directUrl);
             if (remoteAccessServer !== server) {
               // A restart superseded this attempt; the new attempt claims again.
               return;

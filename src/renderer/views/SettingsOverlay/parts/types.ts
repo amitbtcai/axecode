@@ -12,6 +12,7 @@ export type SettingsSection =
   | "ai"
   | "acpRegistry"
   | "agentsGeneral"
+  | "axeaiAccount"
   | "remoteAccess"
   | "remoteServers"
   | "search"

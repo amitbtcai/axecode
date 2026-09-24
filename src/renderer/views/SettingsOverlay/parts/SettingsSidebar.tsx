@@ -47,6 +47,7 @@ import { ProviderIcon } from "@/renderer/components/providers/ProviderIcon";
 import { PixelLoader, SidebarButton } from "@/renderer/components/common";
 import { useSidebar } from "@/renderer/views/MainView/parts/AppShell/AppShell";
 import { isDevApp, isRemoteSession, isWindows } from "@/renderer/bridge";
+import { useAxeAiAccountLinkState } from "./AxeAiAccountSettings";
 import { searchSettings } from "./settingsSearchIndex";
 import type { SettingsSection } from "./types";
 
@@ -57,6 +58,7 @@ const DESKTOP_ONLY_SECTIONS = new Set<SettingsSection>([
   "search",
   "threads",
   "shortcuts",
+  "axeaiAccount",
   "remoteAccess",
   "remoteServers",
   "agents",
@@ -192,6 +194,10 @@ export function SettingsSidebar(props: {
   // both stay. Model visibility/order still matters remotely, so Agents
   // collapses to a single "Models" entry that opens the general agents page.
   const remoteSession = isRemoteSession();
+  // The AxeAI sign-in section only exists while the desktop is unlinked; once
+  // linked, account management lives on the Remote Access page instead.
+  const axeAiLinkState = useAxeAiAccountLinkState();
+  const axeAiLinked = axeAiLinkState?.status === "linked";
 
   const openAgents = () => {
     if (isAgentsActive) {
@@ -219,7 +225,7 @@ export function SettingsSidebar(props: {
   };
 
   const isSectionVisible = (id: SettingsSection) =>
-    !remoteSession || !DESKTOP_ONLY_SECTIONS.has(id);
+    (!remoteSession || !DESKTOP_ONLY_SECTIONS.has(id)) && (id !== "axeaiAccount" || !axeAiLinked);
 
   // Grouped section model — single source of truth for sidebar order in both
   // the expanded list (with group headers) and the collapsed icon rail. The
@@ -282,6 +288,11 @@ export function SettingsSidebar(props: {
       id: "remote",
       label: t`Remote`,
       sections: [
+        {
+          id: "axeaiAccount",
+          icon: <Sparkles className="size-4" />,
+          label: t`Sign in with AxeAI`,
+        },
         { id: "remoteAccess", icon: <QrCode className="size-4" />, label: t`Remote Access` },
         { id: "remoteServers", icon: <Server className="size-4" />, label: t`Remote Environments` },
       ],

@@ -1527,8 +1527,12 @@ msgid "Apply provider preset"
 msgstr "Sağlayıcı hazır ayarını uygula"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-msgid "Approval link"
-msgstr "Onay bağlantısı"
+#~ msgid "Approval link"
+#~ msgstr "Onay bağlantısı"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Approval link copied."
+msgstr "Onay bağlantısı kopyalandı."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -1539,7 +1543,7 @@ msgstr "Onayınız veya yanıtınız isteniyor."
 msgid "Approve"
 msgstr "Onayla"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Approve this code on axeai.com to link this desktop."
 msgstr "Bu masaüstünü bağlamak için axeai.com adresinde bu kodu onaylayın."
 
@@ -1930,9 +1934,13 @@ msgstr "Axe Code yeniden başlatılacak, mevcut verilerini yedekleyecek ve bunla
 msgid "Axe Code's built-in browser tools."
 msgstr "Axe Code'un yerleşik tarayıcı araçları."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "AxeAI account"
 msgstr "AxeAI hesabı"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "AxeAI Account"
+msgstr "AxeAI Hesabı"
 
 #: src/mobile/views/BrowserView.tsx
 #: src/mobile/views/HomeFileView.tsx
@@ -2374,7 +2382,7 @@ msgstr "Uzak sunucuya ulaşılamıyor. Çevrimiçi olduğunu doğrulayıp yenide
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3750,7 +3758,7 @@ msgstr "Tüm Lightcode verilerini Axe Code'a kopyalayın. Axe Code yeniden başl
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Tüm Lightcode verilerini Poracode'a kopyalayın. Poracode yeniden başlatılır ve mevcut verilerinin tam bir yedeğini saklar."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Copy approval link"
 msgstr "Onay bağlantısını kopyala"
 
@@ -7238,6 +7246,10 @@ msgstr "Özel veri klasörü kullanılırken Lightcode verileri içe aktarılama
 msgid "Link"
 msgstr "Bağlantı"
 
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Link this desktop to your axeai.com account to reach it from the web, no pairing codes or network setup needed."
+msgstr "Bu masaüstünü axeai.com hesabınıza bağlayarak eşleştirme kodları veya ağ kurulumu olmadan web üzerinden erişin."
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Kaynağa bağla"
@@ -7250,7 +7262,7 @@ msgstr "Bağlantı URL'si"
 msgid "Linked"
 msgstr "Bağlı"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Linked account"
 msgstr "Bağlı hesap"
 
@@ -12665,11 +12677,12 @@ msgstr "Eşleştirilmiş masaüstünde oturum açın, ardından bu durumu yenile
 msgid "Sign in required"
 msgstr "Oturum açmanız gerekiyor"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Eşleştirme kodları veya ağ kurulumu olmadan axeai.com üzerinden bu masaüstüne erişmek için oturum açın."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"
 msgstr "AxeAI ile oturum aç"
 
@@ -12678,7 +12691,7 @@ msgid "Sign in with the agent CLI."
 msgstr "Aracı CLI ile oturum açın."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Oturumu kapat"
@@ -12719,7 +12732,7 @@ msgstr "{serverName} oturumu açıldı."
 msgid "Signed out of {serverName}."
 msgstr "{serverName} oturumu kapatıldı."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Signed out of AxeAI."
 msgstr "AxeAI oturumu kapatıldı."
 
@@ -14542,7 +14555,7 @@ msgstr "Eşleştirme token'ı kopyalanamadı."
 msgid "Unable to copy Tailscale URL."
 msgstr "Tailscale URL'si kopyalanamadı."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to copy the approval link."
 msgstr "Onay bağlantısı kopyalanamadı."
 
@@ -14712,7 +14725,7 @@ msgstr "Claude {displayLabel} profili kaydedilemedi."
 msgid "Unable to save image."
 msgstr "Görsel kaydedilemedi."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to sign out of AxeAI."
 msgstr "AxeAI oturumu kapatılamadı."
 
@@ -14720,7 +14733,7 @@ msgstr "AxeAI oturumu kapatılamadı."
 msgid "Unable to start {label}."
 msgstr "{label} başlatılamıyor."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to start AxeAI sign-in."
 msgstr "AxeAI oturum açma başlatılamadı."
 

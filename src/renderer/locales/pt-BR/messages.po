@@ -1527,8 +1527,12 @@ msgid "Apply provider preset"
 msgstr "Aplicar predefinição de provedor"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-msgid "Approval link"
-msgstr "Link de aprovação"
+#~ msgid "Approval link"
+#~ msgstr "Link de aprovação"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Approval link copied."
+msgstr "Link de aprovação copiado."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -1539,7 +1543,7 @@ msgstr "Aprovação ou resposta exigida de você."
 msgid "Approve"
 msgstr "Aprovar"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Approve this code on axeai.com to link this desktop."
 msgstr "Aprove este código em axeai.com para vincular este desktop."
 
@@ -1930,8 +1934,12 @@ msgstr "O Axe Code será reiniciado, fará backup dos dados atuais e os substitu
 msgid "Axe Code's built-in browser tools."
 msgstr "As ferramentas de navegador integradas do Axe Code."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "AxeAI account"
+msgstr "Conta AxeAI"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "AxeAI Account"
 msgstr "Conta AxeAI"
 
 #: src/mobile/views/BrowserView.tsx
@@ -2374,7 +2382,7 @@ msgstr "Não foi possível acessar o servidor remoto. Verifique se ele está onl
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3750,7 +3758,7 @@ msgstr "Copie todos os dados do Lightcode para o Axe Code. O Axe Code será rein
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Copie todos os dados do Lightcode para o Poracode. O Poracode será reiniciado e manterá um backup completo dos dados atuais."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Copy approval link"
 msgstr "Copiar link de aprovação"
 
@@ -7238,6 +7246,10 @@ msgstr "A importação de dados do Lightcode não está disponível com uma past
 msgid "Link"
 msgstr "Link"
 
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Link this desktop to your axeai.com account to reach it from the web, no pairing codes or network setup needed."
+msgstr "Vincule este desktop à sua conta axeai.com para acessá-lo pela web, sem códigos de pareamento ou configuração de rede."
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Vincular à origem"
@@ -7250,7 +7262,7 @@ msgstr "URL do link"
 msgid "Linked"
 msgstr "Vinculada"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Linked account"
 msgstr "Conta vinculada"
 
@@ -12665,11 +12677,12 @@ msgstr "Entre no desktop pareado e depois atualize este status."
 msgid "Sign in required"
 msgstr "É necessário fazer login"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Entre para acessar este desktop pelo axeai.com sem códigos de pareamento ou configuração de rede."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"
 msgstr "Entrar com AxeAI"
 
@@ -12678,7 +12691,7 @@ msgid "Sign in with the agent CLI."
 msgstr "Faça login com a CLI do agente."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Sair"
@@ -12719,7 +12732,7 @@ msgstr "Conectado a {serverName}."
 msgid "Signed out of {serverName}."
 msgstr "Desconectado de {serverName}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Signed out of AxeAI."
 msgstr "Saiu da AxeAI."
 
@@ -14542,7 +14555,7 @@ msgstr "Não foi possível copiar o token de pareamento."
 msgid "Unable to copy Tailscale URL."
 msgstr "Não foi possível copiar a URL do Tailscale."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to copy the approval link."
 msgstr "Não foi possível copiar o link de aprovação."
 
@@ -14712,7 +14725,7 @@ msgstr "Não foi possível salvar o perfil {displayLabel} do Claude."
 msgid "Unable to save image."
 msgstr "Não foi possível salvar a imagem."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to sign out of AxeAI."
 msgstr "Não foi possível sair da AxeAI."
 
@@ -14720,7 +14733,7 @@ msgstr "Não foi possível sair da AxeAI."
 msgid "Unable to start {label}."
 msgstr "Não foi possível iniciar {label}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to start AxeAI sign-in."
 msgstr "Não foi possível iniciar o login da AxeAI."
 

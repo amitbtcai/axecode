@@ -1527,8 +1527,12 @@ msgid "Apply provider preset"
 msgstr "应用服务商预设"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-msgid "Approval link"
-msgstr "审批链接"
+#~ msgid "Approval link"
+#~ msgstr "审批链接"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Approval link copied."
+msgstr "已复制批准链接。"
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -1539,7 +1543,7 @@ msgstr "需要您的批准或答复。"
 msgid "Approve"
 msgstr "批准"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Approve this code on axeai.com to link this desktop."
 msgstr "在 axeai.com 上批准此代码以连接此桌面。"
 
@@ -1930,8 +1934,12 @@ msgstr "Axe Code 将重新启动，备份当前数据，并用 Lightcode 数据�
 msgid "Axe Code's built-in browser tools."
 msgstr "Axe Code 内置的浏览器工具。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "AxeAI account"
+msgstr "AxeAI 账户"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "AxeAI Account"
 msgstr "AxeAI 账户"
 
 #: src/mobile/views/BrowserView.tsx
@@ -2374,7 +2382,7 @@ msgstr "无法连接远程服务器。请确认其处于在线状态，然后重
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3750,7 +3758,7 @@ msgstr "将所有 Lightcode 数据复制到 Axe Code。Axe Code 将重新启动�
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "将所有 Lightcode 数据复制到 Poracode。Poracode 将重新启动，并保留当前数据的完整备份。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Copy approval link"
 msgstr "复制审批链接"
 
@@ -7238,6 +7246,10 @@ msgstr "使用自定义数据文件夹时无法导入 Lightcode 数据。"
 msgid "Link"
 msgstr "链接"
 
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Link this desktop to your axeai.com account to reach it from the web, no pairing codes or network setup needed."
+msgstr "将此桌面链接到你的 axeai.com 账户，即可从网页访问，无需配对码或网络设置。"
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "链接到源"
@@ -7250,7 +7262,7 @@ msgstr "链接 URL"
 msgid "Linked"
 msgstr "已链接"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Linked account"
 msgstr "已关联账户"
 
@@ -12664,11 +12676,12 @@ msgstr "请在已配对的桌面端登录，然后刷新此状态。"
 msgid "Sign in required"
 msgstr "需要登录"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "登录后即可从 axeai.com 访问此桌面，无需配对码或网络设置。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"
 msgstr "使用 AxeAI 登录"
 
@@ -12677,7 +12690,7 @@ msgid "Sign in with the agent CLI."
 msgstr "使用代理 CLI 登录。"
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "退出登录"
@@ -12718,7 +12731,7 @@ msgstr "已登录 {serverName}。"
 msgid "Signed out of {serverName}."
 msgstr "已退出 {serverName}。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Signed out of AxeAI."
 msgstr "已退出 AxeAI。"
 
@@ -14541,7 +14554,7 @@ msgstr "无法复制配对令牌。"
 msgid "Unable to copy Tailscale URL."
 msgstr "无法复制 Tailscale URL。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to copy the approval link."
 msgstr "无法复制审批链接。"
 
@@ -14711,7 +14724,7 @@ msgstr "无法保存Claude {displayLabel}配置。"
 msgid "Unable to save image."
 msgstr "无法保存图像。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to sign out of AxeAI."
 msgstr "无法退出 AxeAI。"
 
@@ -14719,7 +14732,7 @@ msgstr "无法退出 AxeAI。"
 msgid "Unable to start {label}."
 msgstr "无法启动{label}。"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to start AxeAI sign-in."
 msgstr "无法启动 AxeAI 登录。"
 

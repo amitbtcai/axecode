@@ -24,6 +24,7 @@ import { NotificationSettings } from "./parts/NotificationSettings";
 import { AISettings } from "./parts/AISettings";
 import { AcpRegistrySettings } from "./parts/AcpRegistrySettings";
 import { AgentsGeneralSettings } from "./parts/AgentsGeneralSettings";
+import { AxeAiAccountSettings } from "./parts/AxeAiAccountSettings";
 import { RemoteAccessSettings } from "./parts/RemoteAccessSettings";
 import { RemoteServersSettings } from "./parts/RemoteServersSettings";
 import { SearchSettings } from "./parts/SearchSettings";
@@ -56,6 +57,7 @@ const SECTION_VIEWS: Partial<Record<SettingsSection, () => ReactNode>> = {
   notifications: () => <NotificationSettings />,
   ai: () => <AISettings />,
   search: () => <SearchSettings />,
+  axeaiAccount: () => <AxeAiAccountSettings />,
   remoteAccess: () => <RemoteAccessSettings />,
   remoteServers: () => <RemoteServersSettings />,
   shortcuts: () => <ShortcutsSettings />,

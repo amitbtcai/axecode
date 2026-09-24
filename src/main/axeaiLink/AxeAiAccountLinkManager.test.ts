@@ -207,6 +207,55 @@ describe("AxeAiAccountLinkManager", () => {
     expect(m.isLinked()).toBe(false);
   });
 
+  it("does not persist relay credentials if the link is dropped mid-claim", async () => {
+    // Regression: a heartbeat-404 or sign-out during the claim await used to
+    // leave a persisted link holding relay credentials but no device token.
+    const pending: { resolve: ((res: Response) => void) | null } = { resolve: null };
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (input: RequestInfo | URL, init?: RequestInit) => {
+        const path = new URL(String(input)).pathname;
+        const key = `${init?.method ?? "GET"} ${path}`;
+        if (key === "POST /api/code/desktops/claim") {
+          return new Promise<Response>((resolve) => {
+            pending.resolve = resolve;
+          });
+        }
+        const routes: Record<string, MockReply> = {
+          "POST /api/code/link/start": {
+            body: { code: "AX-RACE", expiresIn: 600, pollAfterMs: 1 },
+          },
+          "GET /api/code/link/status": { body: { status: "approved" } },
+          "POST /api/code/link/exchange": {
+            body: { token: "dev-token", account: { id: "user-1" } },
+          },
+        };
+        return jsonResponse(routes[key] ?? { status: 404, body: { error: "not_found" } });
+      }),
+    );
+    const { manager: m } = makeManager(baseDir);
+    manager = m;
+    await m.startLink();
+    await waitFor(() => m.getState().status === "linked");
+
+    const claimPromise = m.ensureClaimed();
+    m.signOut();
+    pending.resolve?.(
+      jsonResponse({
+        body: {
+          desktopId: "desktop-test",
+          relayUrl: "https://relay.axeai.com",
+          relaySecret: "axr_secret",
+        },
+      }),
+    );
+
+    expect(await claimPromise).toBeNull();
+    expect(m.isLinked()).toBe(false);
+    expect(m.getRelayCredentials()).toBeNull();
+    expect(existsSync(join(baseDir, "axeai-account-link.json"))).toBe(false);
+  });
+
   it("sign-out clears state and the persisted file", async () => {
     stubFetch({
       "POST /api/code/link/start": { body: { code: "AX-OUT", expiresIn: 600, pollAfterMs: 1 } },

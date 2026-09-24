@@ -1527,8 +1527,12 @@ msgid "Apply provider preset"
 msgstr "Áp dụng cấu hình nhà cung cấp"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-msgid "Approval link"
-msgstr "Liên kết phê duyệt"
+#~ msgid "Approval link"
+#~ msgstr "Liên kết phê duyệt"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Approval link copied."
+msgstr "Đã sao chép liên kết phê duyệt."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -1539,7 +1543,7 @@ msgstr "Cần có sự phê duyệt hoặc trả lời từ bạn."
 msgid "Approve"
 msgstr "Phê duyệt"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Approve this code on axeai.com to link this desktop."
 msgstr "Phê duyệt mã này trên axeai.com để liên kết máy tính này."
 
@@ -1930,8 +1934,12 @@ msgstr "Axe Code sẽ khởi động lại, sao lưu dữ liệu hiện tại v�
 msgid "Axe Code's built-in browser tools."
 msgstr "Công cụ trình duyệt tích hợp sẵn của Axe Code."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "AxeAI account"
+msgstr "Tài khoản AxeAI"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "AxeAI Account"
 msgstr "Tài khoản AxeAI"
 
 #: src/mobile/views/BrowserView.tsx
@@ -2374,7 +2382,7 @@ msgstr "Không thể kết nối tới máy chủ từ xa. Hãy kiểm tra máy 
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3750,7 +3758,7 @@ msgstr "Sao chép toàn bộ dữ liệu Lightcode vào Axe Code. Axe Code sẽ 
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Sao chép toàn bộ dữ liệu Lightcode vào Poracode. Poracode sẽ khởi động lại và giữ một bản sao lưu đầy đủ của dữ liệu hiện tại."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Copy approval link"
 msgstr "Sao chép liên kết phê duyệt"
 
@@ -7238,6 +7246,10 @@ msgstr "Không thể nhập dữ liệu Lightcode khi sử dụng thư mục d�
 msgid "Link"
 msgstr "Liên kết"
 
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Link this desktop to your axeai.com account to reach it from the web, no pairing codes or network setup needed."
+msgstr "Liên kết máy tính này với tài khoản axeai.com của bạn để truy cập từ web mà không cần mã ghép nối hay thiết lập mạng."
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Liên kết đến nguồn"
@@ -7250,7 +7262,7 @@ msgstr "URL liên kết"
 msgid "Linked"
 msgstr "Đã liên kết"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Linked account"
 msgstr "Tài khoản đã liên kết"
 
@@ -12665,11 +12677,12 @@ msgstr "Đăng nhập trên máy tính đã ghép đôi, rồi làm mới trạn
 msgid "Sign in required"
 msgstr "Yêu cầu đăng nhập"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Đăng nhập để truy cập máy tính này từ axeai.com mà không cần mã ghép nối hay thiết lập mạng."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"
 msgstr "Đăng nhập bằng AxeAI"
 
@@ -12678,7 +12691,7 @@ msgid "Sign in with the agent CLI."
 msgstr "Đăng nhập bằng CLI tác nhân."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Đăng xuất"
@@ -12719,7 +12732,7 @@ msgstr "Đã đăng nhập vào {serverName}."
 msgid "Signed out of {serverName}."
 msgstr "Đã đăng xuất khỏi {serverName}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Signed out of AxeAI."
 msgstr "Đã đăng xuất khỏi AxeAI."
 
@@ -14542,7 +14555,7 @@ msgstr "Không thể sao chép token ghép đôi."
 msgid "Unable to copy Tailscale URL."
 msgstr "Không thể sao chép URL Tailscale."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to copy the approval link."
 msgstr "Không thể sao chép liên kết phê duyệt."
 
@@ -14712,7 +14725,7 @@ msgstr "Không thể lưu hồ sơ Claude {displayLabel}."
 msgid "Unable to save image."
 msgstr "Không thể lưu hình ảnh."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to sign out of AxeAI."
 msgstr "Không thể đăng xuất khỏi AxeAI."
 
@@ -14720,7 +14733,7 @@ msgstr "Không thể đăng xuất khỏi AxeAI."
 msgid "Unable to start {label}."
 msgstr "Không thể khởi động {label}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to start AxeAI sign-in."
 msgstr "Không thể bắt đầu đăng nhập AxeAI."
 

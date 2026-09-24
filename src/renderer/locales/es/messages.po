@@ -1527,8 +1527,12 @@ msgid "Apply provider preset"
 msgstr "Aplicar preajuste de proveedor"
 
 #: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
-msgid "Approval link"
-msgstr "Enlace de aprobación"
+#~ msgid "Approval link"
+#~ msgstr "Enlace de aprobación"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Approval link copied."
+msgstr "Enlace de aprobación copiado."
 
 #: src/renderer/views/SettingsOverlay/parts/NotificationSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/settingsSearchIndex.ts
@@ -1539,7 +1543,7 @@ msgstr "Se requiere tu aprobación o respuesta."
 msgid "Approve"
 msgstr "Aprobar"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Approve this code on axeai.com to link this desktop."
 msgstr "Aprueba este código en axeai.com para vincular este escritorio."
 
@@ -1930,8 +1934,12 @@ msgstr "Axe Code se reiniciará, hará una copia de seguridad de sus datos actua
 msgid "Axe Code's built-in browser tools."
 msgstr "Las herramientas de navegador integradas de Axe Code."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "AxeAI account"
+msgstr "Cuenta de AxeAI"
+
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "AxeAI Account"
 msgstr "Cuenta de AxeAI"
 
 #: src/mobile/views/BrowserView.tsx
@@ -2374,7 +2382,7 @@ msgstr "No se puede conectar con el servidor remoto. Comprueba que esté en lín
 #: src/renderer/views/ProfileOverlay/parts/EditProfileDialog.tsx
 #: src/renderer/views/PrReviewOverlay/parts/SubmitReviewPopover.tsx
 #: src/renderer/views/SchedulesView/ScheduleEditor.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteHostFolderPicker.tsx
 #: src/renderer/views/SettingsOverlay/parts/RemoteServersSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/ShortcutsSettings.tsx
@@ -3750,7 +3758,7 @@ msgstr "Copia todos los datos de Lightcode en Axe Code. Axe Code se reiniciará 
 #~ msgid "Copy all Lightcode data into Poracode. Poracode restarts and keeps a complete backup of its current data."
 #~ msgstr "Copia todos los datos de Lightcode en Poracode. Poracode se reiniciará y conservará una copia de seguridad completa de sus datos actuales."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Copy approval link"
 msgstr "Copiar enlace de aprobación"
 
@@ -7238,6 +7246,10 @@ msgstr "La importación de datos de Lightcode no está disponible con una carpet
 msgid "Link"
 msgstr "Enlace"
 
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+msgid "Link this desktop to your axeai.com account to reach it from the web, no pairing codes or network setup needed."
+msgstr "Vincula este equipo a tu cuenta de axeai.com para acceder desde la web, sin códigos de emparejamiento ni configuración de red."
+
 #: src/renderer/components/skills/SkillImportModal.tsx
 msgid "Link to source"
 msgstr "Vincular al origen"
@@ -7250,7 +7262,7 @@ msgstr "URL del enlace"
 msgid "Linked"
 msgstr "Vinculado"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Linked account"
 msgstr "Cuenta vinculada"
 
@@ -12665,11 +12677,12 @@ msgstr "Inicia sesión en el escritorio emparejado y luego actualiza este estado
 msgid "Sign in required"
 msgstr "Se requiere iniciar sesión"
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Sign in to reach this desktop from axeai.com without pairing codes or network setup."
 msgstr "Inicia sesión para acceder a este escritorio desde axeai.com sin códigos de emparejamiento ni configuración de red."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/SettingsSidebar.tsx
 msgid "Sign in with AxeAI"
 msgstr "Iniciar sesión con AxeAI"
 
@@ -12678,7 +12691,7 @@ msgid "Sign in with the agent CLI."
 msgstr "Inicia sesión con la CLI del agente."
 
 #: src/renderer/components/mcp/McpServersManager.tsx
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 #: src/renderer/views/SettingsOverlay/parts/UsageProviderRow.tsx
 msgid "Sign out"
 msgstr "Cerrar sesión"
@@ -12719,7 +12732,7 @@ msgstr "Sesión iniciada en {serverName}."
 msgid "Signed out of {serverName}."
 msgstr "Sesión cerrada en {serverName}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Signed out of AxeAI."
 msgstr "Sesión de AxeAI cerrada."
 
@@ -14542,7 +14555,7 @@ msgstr "No se pudo copiar el token de emparejamiento."
 msgid "Unable to copy Tailscale URL."
 msgstr "No se pudo copiar la URL de Tailscale."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to copy the approval link."
 msgstr "No se pudo copiar el enlace de aprobación."
 
@@ -14712,7 +14725,7 @@ msgstr "No se pudo guardar el perfil {displayLabel} de Claude."
 msgid "Unable to save image."
 msgstr "No se pudo guardar la imagen."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to sign out of AxeAI."
 msgstr "No se pudo cerrar sesión en AxeAI."
 
@@ -14720,7 +14733,7 @@ msgstr "No se pudo cerrar sesión en AxeAI."
 msgid "Unable to start {label}."
 msgstr "No se pudo iniciar {label}."
 
-#: src/renderer/views/SettingsOverlay/parts/RemoteAccessSettings.tsx
+#: src/renderer/views/SettingsOverlay/parts/AxeAiAccountSettings.tsx
 msgid "Unable to start AxeAI sign-in."
 msgstr "No se pudo iniciar sesión en AxeAI."
 

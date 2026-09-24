@@ -275,6 +275,10 @@ export class AxeAiAccountLinkManager {
         },
       });
       const relayUrl = relayHostUrl(result.relayUrl);
+      // The link can be dropped while the claim is in flight (sign-out, or a
+      // stray heartbeat-404 revoke). Persisting anyway would write a link with
+      // relay credentials but no device token — linked-looking but dead.
+      if (!this.link?.deviceToken) return null;
       this.persist({ ...this.link, relaySecret: result.relaySecret, relayUrl });
       return {
         relayUrl,
@@ -305,7 +309,7 @@ export class AxeAiAccountLinkManager {
 
   /** Verify a browser-issued connect ticket against the account service. */
   async verifyConnectTicket(ticket: string): Promise<boolean> {
-    if (!this.link) return false;
+    if (!this.link?.deviceToken) return false;
     const identity = this.options.getIdentity();
     try {
       await axeAiApiFetch<{ userId: string; desktopId: string }>("/api/code/connect/verify", {
@@ -344,7 +348,7 @@ export class AxeAiAccountLinkManager {
   }
 
   private async sendHeartbeat(): Promise<void> {
-    if (!this.link) return;
+    if (!this.link?.deviceToken) return;
     const identity = this.options.getIdentity();
     try {
       await axeAiApiFetch("/api/code/desktops/heartbeat", {
