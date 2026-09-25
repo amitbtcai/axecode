@@ -1,6 +1,29 @@
 {
   "releases": [
     {
+      "version": "1.8.6",
+      "tagline": "Axe Code",
+      "date": "2026-09-25",
+      "title": "AxeAI sign-in & hosted remote access",
+      "summary": "Link your AxeAI account inside Axe Code to put this desktop on the hosted relay \u2014 remote sessions from the web now run through your account instead of pairing codes.",
+      "changes": [
+        {
+          "kind": "added",
+          "label": "Remote",
+          "text": "Sign in with your AxeAI account to link this desktop to the hosted relay at relay.axeai.com \u2014 remote sessions from axeai.com connect through your account with no pairing code, and remote access turns on automatically on first link."
+        },
+        {
+          "kind": "added",
+          "label": "Remote",
+          "text": "A Sign in with AxeAI entry lives in the main sidebar footer until your account is linked, and sign-in gets its own Settings section while account management stays on the Remote Access page."
+        },
+        {
+          "kind": "fixed",
+          "text": "Queued follow-up messages no longer stall after a Stop, a failed turn, or a session restart \u2014 the queue resumes when you send another message or the session reports live again."
+        }
+      ]
+    },
+    {
       "version": "1.8.5",
       "tagline": "Axe Code",
       "date": "2026-09-23",
@@ -10,7 +33,7 @@
         {
           "kind": "added",
           "label": "Agents",
-          "text": "Agents can now organize your workspace for you — listing and filing threads and projects into workspaces, and grouping or ungrouping sidebar threads — through the built-in AxeCode app controls."
+          "text": "Agents can now organize your workspace for you \u2014 listing and filing threads and projects into workspaces, and grouping or ungrouping sidebar threads \u2014 through the built-in AxeCode app controls."
         },
         {
           "kind": "improved",
@@ -48,7 +71,7 @@
         {
           "kind": "added",
           "label": "OpenCode",
-          "text": "OpenCode 2 is available as a structured-runtime provider — native chat sessions with live model switching, permissions, and plugins."
+          "text": "OpenCode 2 is available as a structured-runtime provider \u2014 native chat sessions with live model switching, permissions, and plugins."
         },
         {
           "kind": "fixed",
