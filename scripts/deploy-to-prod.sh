@@ -174,7 +174,7 @@ done
 
 # ── 4. verify GitHub release ────────────────────────────────────────
 step "Verify GitHub release v$VERSION"
-ASSETS="$(gh release view "v$VERSION" -R "$GH_REPO" --json assets --jq '.[].name')" \
+ASSETS="$(gh release view "v$VERSION" -R "$GH_REPO" --json assets --jq '.assets[].name')" \
   || die "release v$VERSION not found on $GH_REPO"
 echo "$ASSETS" | grep -qE "AxeCode-$VERSION-(arm64|x64)\.dmg" \
   || die "release v$VERSION has no macOS DMG asset"
