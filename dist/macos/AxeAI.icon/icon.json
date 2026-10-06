@@ -1,0 +1,18 @@
+{
+  "fill" : {
+    "solid" : "extended-srgb:0.02353,0.03922,0.90196,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "mark.png",
+          "name" : "Axe AI Mark"
+        }
+      ]
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}
