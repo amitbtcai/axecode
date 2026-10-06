@@ -297,7 +297,7 @@ impl Element for LinkRanges {
                 let pending = state.menu_focus_pending.clone();
                 let initial_focus = state.menu_focus[0].clone();
                 // A resolved file link swaps the web actions for rows about
-                // the file itself: "Open in Zeron" opens it in the file
+                // the file itself: "Open in Axe Code" opens it in the file
                 // viewer, and the system-level rows mount only when the
                 // owning root lives on this device. The tab cycle visits
                 // only mounted rows.
@@ -424,14 +424,14 @@ impl Element for LinkRanges {
                 };
                 card = card.child(action_row(
                     LinkAction::Internal,
-                    "Open in Zeron",
+                    "Open in Axe Code",
                     if file_resolved {
                         icons::DOCUMENT
                     } else {
                         icons::GLOBE
                     },
                     0,
-                    "link-menu-open-zeron",
+                    "link-menu-open-axecode",
                 ));
                 if let Some(file) = &file {
                     if file.local {
@@ -495,7 +495,7 @@ impl Element for LinkRanges {
                             false,
                             format!("{}-link-{index}-default-destination", self.id),
                         )
-                        .id("Open links in Zeron")
+                        .id("Open links in Axe Code")
                         .debug_selector(|| "link-menu-default-destination".into())
                         .child(div().w(px(16.)).flex_none().when(open_in_zeron, |el| {
                             el.child(
@@ -504,13 +504,13 @@ impl Element for LinkRanges {
                                     .text_color(theme.text_muted),
                             )
                         }))
-                        .child("Open links in Zeron")
+                        .child("Open links in Axe Code")
                         .track_focus(&state.menu_focus[6])
                         .role(Role::Button)
                         .aria_label(if open_in_zeron {
-                            "Open links in Zeron, checked"
+                            "Open links in Axe Code, checked"
                         } else {
-                            "Open links in Zeron, unchecked"
+                            "Open links in Axe Code, unchecked"
                         })
                         .focus_visible(|s| s.bg(crate::theme::card_selected_bg()))
                         .on_click(move |_, window, cx| {
@@ -1224,7 +1224,7 @@ mod rendered_tests {
         cx.simulate_mouse_down(position, MouseButton::Right, gpui::Modifiers::default());
         cx.simulate_mouse_up(position, MouseButton::Right, gpui::Modifiers::default());
         for selector in [
-            "link-menu-open-zeron",
+            "link-menu-open-axecode",
             "link-menu-open-default",
             "link-menu-show-in-folder",
             "link-menu-copy-path",
@@ -1253,7 +1253,7 @@ mod rendered_tests {
             cx.opened_url().as_deref(),
             Some("file:///repo%20dir/src/lib.rs")
         );
-        assert!(cx.debug_bounds("link-menu-open-zeron").is_none());
+        assert!(cx.debug_bounds("link-menu-open-axecode").is_none());
 
         // "Copy file path" copies the resolved absolute path, decoded.
         cx.simulate_mouse_down(position, MouseButton::Right, gpui::Modifiers::default());
@@ -1266,20 +1266,20 @@ mod rendered_tests {
             Some("/repo dir/src/lib.rs")
         );
 
-        // "Open in Zeron" is live for a file link and hands it to the
+        // "Open in Axe Code" is live for a file link and hands it to the
         // owning surface as an internal open.
         cx.simulate_mouse_down(position, MouseButton::Right, gpui::Modifiers::default());
         cx.simulate_mouse_up(position, MouseButton::Right, gpui::Modifiers::default());
-        let row = cx.debug_bounds("link-menu-open-zeron").unwrap().center();
+        let row = cx.debug_bounds("link-menu-open-axecode").unwrap().center();
         cx.simulate_click(row, gpui::Modifiers::default());
         let activated = activated.borrow();
-        let last = activated.last().expect("open in zeron activates the link");
+        let last = activated.last().expect("open in axecode activates the link");
         assert_eq!(last.action, LinkAction::Internal);
         assert_eq!(last.target.original, "src/lib.rs");
     }
 
     /// An absolute destination no root owns is still a file: its menu keeps
-    /// "Open in Zeron" and, when the linking chat is on this device, the
+    /// "Open in Axe Code" and, when the linking chat is on this device, the
     /// system-level rows that act on the absolute path.
     #[cfg(unix)]
     #[gpui::test]
@@ -1309,7 +1309,7 @@ mod rendered_tests {
         cx.simulate_mouse_down(position, MouseButton::Right, gpui::Modifiers::default());
         cx.simulate_mouse_up(position, MouseButton::Right, gpui::Modifiers::default());
         for selector in [
-            "link-menu-open-zeron",
+            "link-menu-open-axecode",
             "link-menu-open-default",
             "link-menu-show-in-folder",
             "link-menu-copy-path",
@@ -1329,10 +1329,10 @@ mod rendered_tests {
                 "{selector} is a web-link row"
             );
         }
-        let row = cx.debug_bounds("link-menu-open-zeron").unwrap().center();
+        let row = cx.debug_bounds("link-menu-open-axecode").unwrap().center();
         cx.simulate_click(row, gpui::Modifiers::default());
         let activated = activated.borrow();
-        let last = activated.last().expect("open in zeron activates the link");
+        let last = activated.last().expect("open in axecode activates the link");
         assert_eq!(last.action, LinkAction::Internal);
         assert_eq!(last.target.original, "/elsewhere/team/INFORME.md");
     }
@@ -1373,7 +1373,7 @@ mod rendered_tests {
             });
             cx.simulate_mouse_down(position, MouseButton::Right, gpui::Modifiers::default());
             cx.simulate_mouse_up(position, MouseButton::Right, gpui::Modifiers::default());
-            assert!(cx.debug_bounds("link-menu-open-zeron").is_some());
+            assert!(cx.debug_bounds("link-menu-open-axecode").is_some());
             for selector in [
                 "link-menu-open-external",
                 "link-menu-copy-address",

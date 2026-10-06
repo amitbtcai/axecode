@@ -44,7 +44,7 @@
 //! Attempt ≥ [`RETRY_REPORT_ATTEMPT`] surfaces an error chip; attempt ≥
 //! [`RETRY_ABORT_ATTEMPT`] aborts the turn instead of retrying forever.
 //! A prompt that produces NO session-scoped event within
-//! [`default_stall_bound`] (`ZERON_OPENCODE_STALL_MS`, 0 disables) errors
+//! [`default_stall_bound`] (`AXECODE_OPENCODE_STALL_MS`, 0 disables) errors
 //! out instead of spinning "Working" forever.
 
 use std::collections::{HashMap, VecDeque};
@@ -72,7 +72,7 @@ use crate::{Harness, HarnessError, RunControls, shutdown_child};
 /// plugin-heavy starts can take minutes. Shared by chat startup and model
 /// discovery (same boot either way).
 const DEFAULT_STARTUP_TIMEOUT: Duration = Duration::from_secs(300);
-const STARTUP_TIMEOUT_ENV: &str = "ZERON_OPENCODE_STARTUP_TIMEOUT_SECS";
+const STARTUP_TIMEOUT_ENV: &str = "AXECODE_OPENCODE_STARTUP_TIMEOUT_SECS";
 
 /// Health-poll cadence while the server boots.
 const HEALTH_POLL: Duration = Duration::from_millis(150);
@@ -97,7 +97,7 @@ const RETRY_ABORT_ATTEMPT: u64 = 8;
 
 /// Default bound on prompt-send → first session-scoped bus event.
 const DEFAULT_STALL_BOUND: Duration = Duration::from_secs(60);
-const STALL_ENV: &str = "ZERON_OPENCODE_STALL_MS";
+const STALL_ENV: &str = "AXECODE_OPENCODE_STALL_MS";
 
 /// What a wedged/silent run usually means for opencode.
 const STALL_HINT: &str = "The model provider is likely unreachable or rejecting requests. \
@@ -610,10 +610,10 @@ impl Server {
             // own value would otherwise lock us out of our server (401).
             .env("OPENCODE_PASSWORD", &password)
             .env("OPENCODE_SERVER_PASSWORD", &password)
-            .env("OPENCODE_CLIENT", "zeron");
+            .env("OPENCODE_CLIENT", "axecode");
         if let Some(mcp) = mcp {
             // The config shape differs by generation. If even the cold probe
-            // can't tell, run without the Zeron MCP server rather than fail.
+            // can't tell, run without the Axe Code MCP server rather than fail.
             match opencode_version(exe).await {
                 Some(version) => {
                     let protocol = if version.major >= 2 {
@@ -632,7 +632,7 @@ impl Server {
                 }
                 None => tracing::warn!(
                     binary_path = %exe.display(),
-                    "opencode version unknown; starting without the Zeron MCP server"
+                    "opencode version unknown; starting without the Axe Code MCP server"
                 ),
             }
         }
@@ -3001,7 +3001,7 @@ async fn handle_bus_event(ctx: BusCtx<'_>) -> BusOutcome {
                     protocol: protocol_cell,
                     version: tokio::sync::OnceCell::new(),
                 };
-                // Like Claude and Codex, normal Zeron sessions run unattended,
+                // Like Claude and Codex, normal Axe Code sessions run unattended,
                 // regardless of RunRequest.auto_approve. Approve each owned
                 // request without writing durable permission rules via "always".
                 // Genuine agent questions use the separate question.asked path.
@@ -4353,13 +4353,13 @@ http.createServer((req, res) => {{
             std::fs::write(&exe, script).unwrap();
             std::fs::set_permissions(&exe, std::fs::Permissions::from_mode(0o700)).unwrap();
             let first = zeron_proto::McpServer {
-                name: "zeron".into(),
-                command: "/path with spaces/zeron".into(),
+                name: "axecode".into(),
+                command: "/path with spaces/axecode".into(),
                 args: vec!["mcp".into()],
-                env: [("ZERON_CHAT_ID".into(), "first".into())].into(),
+                env: [("AXECODE_CHAT_ID".into(), "first".into())].into(),
             };
             let mut second = first.clone();
-            second.env.insert("ZERON_CHAT_ID".into(), "second".into());
+            second.env.insert("AXECODE_CHAT_ID".into(), "second".into());
             let mut a = Server::spawn(
                 &exe,
                 fixture.path().to_str(),
@@ -4380,11 +4380,11 @@ http.createServer((req, res) => {{
             let b_config = b.get_json("/config-probe", None).await.unwrap();
             a.shutdown(Duration::from_millis(100)).await;
             b.shutdown(Duration::from_millis(100)).await;
-            assert_eq!(a_config["environment"]["ZERON_CHAT_ID"], "first");
-            assert_eq!(b_config["environment"]["ZERON_CHAT_ID"], "second");
+            assert_eq!(a_config["environment"]["AXECODE_CHAT_ID"], "first");
+            assert_eq!(b_config["environment"]["AXECODE_CHAT_ID"], "second");
             assert_eq!(
                 a_config["command"],
-                json!(["/path with spaces/zeron", "mcp"])
+                json!(["/path with spaces/axecode", "mcp"])
             );
         }
     }
@@ -4411,8 +4411,8 @@ http.createServer((req, res) => {
         std::fs::write(&exe, script).unwrap();
         std::fs::set_permissions(&exe, std::fs::Permissions::from_mode(0o700)).unwrap();
         let mcp = zeron_proto::McpServer {
-            name: "zeron".into(),
-            command: "zeron".into(),
+            name: "axecode".into(),
+            command: "axecode".into(),
             args: vec!["mcp".into()],
             env: Default::default(),
         };
@@ -4468,8 +4468,8 @@ if (process.argv.includes('--version')) {{
         std::fs::write(&exe, script).unwrap();
         std::fs::set_permissions(&exe, std::fs::Permissions::from_mode(0o700)).unwrap();
         let mcp = zeron_proto::McpServer {
-            name: "zeron".into(),
-            command: "zeron".into(),
+            name: "axecode".into(),
+            command: "axecode".into(),
             args: vec!["mcp".into()],
             env: Default::default(),
         };
@@ -4484,7 +4484,7 @@ if (process.argv.includes('--version')) {{
             .expect("a slow first --version must not fail the run");
             let probe = server.get_json("/config-probe", None).await.unwrap();
             server.shutdown(Duration::from_millis(100)).await;
-            assert_eq!(probe["server"]["command"], json!(["zeron", "mcp"]));
+            assert_eq!(probe["server"]["command"], json!(["axecode", "mcp"]));
             // 2.x reads OPENCODE_PASSWORD first: both must carry ours.
             assert!(probe["auth"]["password"].is_string());
             assert_eq!(probe["auth"]["password"], probe["auth"]["legacy"]);
@@ -4494,10 +4494,10 @@ if (process.argv.includes('--version')) {{
     #[test]
     fn mcp_injection_preserves_config_and_scopes_identity_for_both_protocols() {
         let mut mcp = zeron_proto::McpServer {
-            name: "zeron".into(),
-            command: "/path with spaces/zeron".into(),
+            name: "axecode".into(),
+            command: "/path with spaces/axecode".into(),
             args: vec!["mcp".into()],
-            env: [("ZERON_CHAT_ID".into(), "first".into())].into(),
+            env: [("AXECODE_CHAT_ID".into(), "first".into())].into(),
         };
         for protocol in [Protocol::V1, Protocol::V2] {
             let inherited = match protocol {
@@ -4511,7 +4511,7 @@ if (process.argv.includes('--version')) {{
             let first: Value =
                 serde_json::from_str(&mcp_config(Some(inherited), &mcp, protocol).unwrap())
                     .unwrap();
-            mcp.env.insert("ZERON_CHAT_ID".into(), "second".into());
+            mcp.env.insert("AXECODE_CHAT_ID".into(), "second".into());
             let second: Value =
                 serde_json::from_str(&mcp_config(Some(inherited), &mcp, protocol).unwrap())
                     .unwrap();
@@ -4524,24 +4524,24 @@ if (process.argv.includes('--version')) {{
             let servers = first.pointer(pointer).unwrap();
             assert_eq!(servers["user"]["url"], "https://example.test");
             assert_eq!(
-                servers["zeron"]["command"],
-                json!(["/path with spaces/zeron", "mcp"])
+                servers["axecode"]["command"],
+                json!(["/path with spaces/axecode", "mcp"])
             );
-            assert_eq!(servers["zeron"]["environment"]["ZERON_CHAT_ID"], "first");
+            assert_eq!(servers["axecode"]["environment"]["AXECODE_CHAT_ID"], "first");
             assert_eq!(
-                second.pointer(pointer).unwrap()["zeron"]["environment"]["ZERON_CHAT_ID"],
+                second.pointer(pointer).unwrap()["axecode"]["environment"]["AXECODE_CHAT_ID"],
                 "second"
             );
             if protocol == Protocol::V1 {
-                assert_eq!(servers["zeron"]["enabled"], true);
+                assert_eq!(servers["axecode"]["enabled"], true);
             } else {
-                assert_eq!(servers["zeron"]["disabled"], false);
-                assert!(servers["zeron"].get("enabled").is_none());
+                assert_eq!(servers["axecode"]["disabled"], false);
+                assert!(servers["axecode"].get("enabled").is_none());
             }
             for invalid in ["[]", "{", r#"{"mcp":false}"#] {
                 assert!(mcp_config(Some(invalid), &mcp, protocol).is_err());
             }
-            mcp.env.insert("ZERON_CHAT_ID".into(), "first".into());
+            mcp.env.insert("AXECODE_CHAT_ID".into(), "first".into());
         }
     }
 }

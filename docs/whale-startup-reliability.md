@@ -80,7 +80,7 @@ cargo test -p zeron-update
 cargo test -p zeron-ui --lib -- --test-threads=1
 npm --prefix edge run typecheck
 npm --prefix edge test
-ZERON_WHALE_SNAPSHOT=/path/to/private-copy.bin cargo test -p zeron-engine --lib real_whale_replay_keeps_146_heartbeats_running_on_two_workers -- --ignored --nocapture
+AXECODE_WHALE_SNAPSHOT=/path/to/private-copy.bin cargo test -p zeron-engine --lib real_whale_replay_keeps_146_heartbeats_running_on_two_workers -- --ignored --nocapture
 ```
 
 ## Rollout

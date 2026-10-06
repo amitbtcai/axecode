@@ -2,7 +2,7 @@
 //! state straight from a data dir's docs store (no engine, no lock contention
 //! beyond sqlite's own).
 //!
-//!   cargo run -p zeron-engine --example doc_inspect -- <store-root> <chat-id>
+//!   cargo run -p axecode-engine --example doc_inspect -- <store-root> <chat-id>
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut args = std::env::args().skip(1);

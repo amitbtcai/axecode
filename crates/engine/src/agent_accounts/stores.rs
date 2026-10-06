@@ -1,5 +1,5 @@
 //! Credential stores of the agents beyond Claude Code / Codex / Cursor /
-//! Antigravity: where each CLI keeps its login, how zeron reads (and, where
+//! Antigravity: where each CLI keeps its login, how axecode reads (and, where
 //! it's safe, swaps) it, and the sign-ins that run through the CLI itself.
 //!
 //! - **Grok** — `$GROK_HOME/auth.json` (default `~/.grok`, 0600, guarded by
@@ -22,7 +22,7 @@
 //! - **OpenCode** — `$XDG_DATA_HOME/opencode/auth.json` (default
 //!   `~/.local/share/opencode/`): one entry PER model provider (`{type:
 //!   "oauth", access, refresh, expires, accountId?}` or `{type: "api",
-//!   key}`), re-read on every request. zeron manages the OAuth entries of
+//!   key}`), re-read on every request. axecode manages the OAuth entries of
 //!   `openai` (ChatGPT) and `github-copilot`; a swap rewrites that one entry
 //!   and leaves every other provider byte-for-byte. OpenCode has no lock of
 //!   its own. API-key entries aren't accounts and are left alone.
@@ -31,15 +31,15 @@
 //!   0600, guarded by proper-lockfile's `auth.json.lock` DIRECTORY): the
 //!   same per-provider shape (`openai-codex`, `anthropic`, `github-copilot`),
 //!   hot-reloaded by running agents. Swap = rewrite one entry under that
-//!   lock. Add account = ChatGPT only (zeron's own loopback, see
+//!   lock. Add account = ChatGPT only (axecode's own loopback, see
 //!   [`super::oauth`]); Claude and Copilot logins stay with pi's `/login` —
 //!   minting Claude Code OAuth for a third-party agent is not something
-//!   zeron should do, and pi's Copilot login is an internal token exchange.
+//!   axecode should do, and pi's Copilot login is an internal token exchange.
 //! - **Hermes** — `$HERMES_HOME/auth.json` (default `~/.hermes`): Hermes
 //!   keeps EVERY account itself, in `credential_pool[provider]`, and picks
 //!   (fill-first by `priority`, or round-robin) and refreshes them on its
 //!   own. A running Hermes writes its in-memory pool back over the file, so
-//!   a zeron reorder would be silently undone — zeron lists the pool (the
+//!   a axecode reorder would be silently undone — axecode lists the pool (the
 //!   active provider's first entry is "in use"), probes usage, and adds
 //!   accounts through `hermes auth add` (device code; Hermes appends to its
 //!   own pool under its own lock). It never rewrites the pool.
@@ -161,12 +161,12 @@ pub(super) const HERMES_LOGINS: &[&str] = &["openai-codex", "nous"];
 pub(super) fn unsupported_login(harness: HarnessId, provider: &str) -> EngineError {
     let reason = match (harness, provider) {
         (HarnessId::Pi, "anthropic") => {
-            "Claude logins for Pi stay with pi's own /login — zeron only mints Claude Code \
+            "Claude logins for Pi stay with pi's own /login — axecode only mints Claude Code \
              logins for Claude Code."
                 .to_string()
         }
         _ => format!(
-            "zeron can't add a {provider} login for {} — sign in with `{}` itself.",
+            "axecode can't add a {provider} login for {} — sign in with `{}` itself.",
             cli_name(harness),
             cli_name(harness)
         ),
@@ -327,7 +327,7 @@ pub(super) enum Upstream {
     Copilot,
 }
 
-/// The store keys zeron manages per agent.
+/// The store keys axecode manages per agent.
 pub(super) fn keyed_accounts(harness: HarnessId) -> &'static [(&'static str, Upstream)] {
     match harness {
         HarnessId::Opencode => &[
@@ -350,7 +350,7 @@ pub(super) fn upstream_of(harness: HarnessId, store_key: &str) -> Option<Upstrea
         .map(|(_, upstream)| *upstream)
 }
 
-/// An OAuth entry zeron can use: `type: "oauth"` with an access token.
+/// An OAuth entry axecode can use: `type: "oauth"` with an access token.
 fn oauth_entry(entry: &serde_json::Value) -> bool {
     entry.get("type").and_then(|v| v.as_str()) == Some("oauth")
         && str_field(entry, "access").is_some()
@@ -401,7 +401,7 @@ fn opaque_secret(entry: &serde_json::Value) -> Option<String> {
     str_field(entry, "refresh").or_else(|| str_field(entry, "access"))
 }
 
-/// A Copilot login on a GitHub Enterprise host zeron doesn't send tokens
+/// A Copilot login on a GitHub Enterprise host axecode doesn't send tokens
 /// to (self-hosted GHES): identified without the network — labelled by its
 /// host, keyed by a SHA-256 fingerprint of its GitHub token (never the token
 /// itself) — so it snapshots into a slot, switches and restores like any
@@ -467,7 +467,7 @@ const LOCK_WAIT: Duration = Duration::from_secs(5);
 /// An exclusive lock on a sidecar lock file — `flock` on unix,
 /// `LockFileEx` on Windows (std's `File::try_lock`), the primitives the
 /// Rust CLIs' own lock crates use. Grok's `auth.json.lock` is the CLI's
-/// convention; OpenCode has none, so it gets a zeron-side one. Released
+/// convention; OpenCode has none, so it gets a axecode-side one. Released
 /// when dropped (the handle closes).
 pub(super) struct FileLock(#[allow(dead_code)] std::fs::File);
 
@@ -553,7 +553,7 @@ fn lock_path(file: &Path) -> PathBuf {
     file.with_file_name(name)
 }
 
-/// How a JSON credential store is guarded while zeron rewrites one entry.
+/// How a JSON credential store is guarded while axecode rewrites one entry.
 pub(super) enum StoreLock {
     /// A `flock`/`LockFileEx` on this sidecar file.
     File(PathBuf),
@@ -646,14 +646,14 @@ pub(super) fn merge_json_entry(
         return Ok(());
     }
     Err(EngineError::Other(format!(
-        "{} kept changing while zeron was switching — try again in a moment.",
+        "{} kept changing while axecode was switching — try again in a moment.",
         file.display()
     )))
 }
 
 // ── credential-defined endpoints ────────────────────────────────────────────
 
-/// Which hosts a credential-supplied endpoint may name before zeron sends
+/// Which hosts a credential-supplied endpoint may name before axecode sends
 /// that credential's secret there. A tampered or misconfigured store must
 /// never route a refresh token or API key to an arbitrary server.
 #[derive(Debug, Clone, Copy)]
@@ -750,7 +750,7 @@ pub(super) fn trusted_page(url: &str, domains: &[&str]) -> bool {
 /// The REST root for a Copilot login: GitHub's, or `https://api.<tenant>.ghe.com`
 /// for a GitHub Enterprise Cloud (`*.ghe.com`) `enterpriseUrl`. Any other
 /// enterprise host — self-hosted GHES included, whose REST root would be
-/// `https://<host>/api/v3` — is `None`: zeron skips identity/usage probes
+/// `https://<host>/api/v3` — is `None`: axecode skips identity/usage probes
 /// rather than send the token to a host the credential file alone names
 /// (the login gets a local identity, [`local_enterprise_identity`]).
 pub(super) fn copilot_api_base(
@@ -856,7 +856,7 @@ impl AgentAccounts {
         let file = self.keyed_file(harness);
         let lock = match harness {
             HarnessId::Pi => StoreLock::Dir(lock_path(&file)),
-            _ => StoreLock::File(file.with_file_name("auth.json.zeron-lock")),
+            _ => StoreLock::File(file.with_file_name("auth.json.axecode-lock")),
         };
         merge_json_entry(&file, store_key, entry, lock)
     }
@@ -935,7 +935,7 @@ impl AgentAccounts {
                 Detected::known(slot.account_key, slot.profile, entry.clone()).keyed(store_key),
             );
         }
-        // A GitHub Enterprise host zeron won't send the token to (self-hosted
+        // A GitHub Enterprise host axecode won't send the token to (self-hosted
         // GHES): no profile call — a local identity keeps it switchable.
         if upstream == Upstream::Copilot
             && copilot_api_base(
@@ -1033,7 +1033,7 @@ impl AgentAccounts {
             .get(format!("{base}/user"))
             .header("Authorization", format!("token {github_token}"))
             .header("Accept", "application/vnd.github+json")
-            .header("User-Agent", "zeron")
+            .header("User-Agent", "axecode")
             .send()
             .await
             .ok()
@@ -1306,7 +1306,7 @@ impl AgentAccounts {
                 ("XDG_DATA_HOME".into(), data.clone().into()),
                 ("XDG_CONFIG_HOME".into(), config.into()),
                 ("XDG_CACHE_HOME".into(), cache.into()),
-                ("ZERON_LOGIN_URL_FILE".into(), url_file.clone().into()),
+                ("AXECODE_LOGIN_URL_FILE".into(), url_file.clone().into()),
             ],
             url_filter: Some(devin_login_url),
         };

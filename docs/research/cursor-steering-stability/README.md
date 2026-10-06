@@ -89,14 +89,14 @@ cargo test -p zeron-doc
 cargo test -p zeron-engine --test message_queue
 cargo test -p zeron-harness
 
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) ZERON_CURSOR_EARLY_ROUNDS=10 \
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) AXECODE_CURSOR_EARLY_ROUNDS=10 \
   cargo test -p zeron-engine --test cursor_live -- --ignored --nocapture --test-threads=1
 
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) ZERON_CURSOR_TEST_MODEL=muse-spark-1.3 \
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) AXECODE_CURSOR_TEST_MODEL=muse-spark-1.3 \
   cargo run -p zeron-harness --example cursor_stability_probe -- history 40
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) ZERON_CURSOR_TEST_MODEL=muse-spark-1.3 \
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) AXECODE_CURSOR_TEST_MODEL=muse-spark-1.3 \
   cargo run -p zeron-harness --example cursor_stability_probe -- sessions 12
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) ZERON_CURSOR_TEST_MODEL=muse-spark-1.3 \
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) AXECODE_CURSOR_TEST_MODEL=muse-spark-1.3 \
   cargo run -p zeron-harness --example cursor_stability_probe -- cancel-burst 40
 
 cursor-agent update
@@ -105,7 +105,7 @@ python3 scripts/cursor-cli-history-probe.py
 
 For accelerated auth expiry, use the clock-preload command in the
 [auth investigation](../cursor-auth-incident/README.md), with
-`ZERON_CURSOR_TEST_MODEL=muse-spark-1.3` and `parked 8`.
+`AXECODE_CURSOR_TEST_MODEL=muse-spark-1.3` and `parked 8`.
 
 ## Limits
 

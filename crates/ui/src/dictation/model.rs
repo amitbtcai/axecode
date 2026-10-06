@@ -45,7 +45,7 @@ pub(crate) fn enabled(cx: &App) -> bool {
 }
 pub(crate) fn card(cx: &mut App) -> Entity<VoiceCard> {
     if !cx.has_global::<VoiceGlobal>() {
-        init(std::env::temp_dir().join("zeron-voice-test"), cx);
+        init(std::env::temp_dir().join("axecode-voice-test"), cx);
     }
     cx.global::<VoiceGlobal>().card.clone()
 }

@@ -92,7 +92,7 @@ Tier 2: compile and test the affected Rust UI crate, then visually inspect the s
 - Window enumeration is no longer restricted to the current Space. Active
   ScreenCaptureKit windows win, followed by on-screen state and window area.
 - Added an isolated `Zeron Dev.app` workflow with bundle ID
-  `sh.zeron.app.dev`, stable Apple Development signing, its own data directory,
+  `com.axeai.axecode.dev`, stable Apple Development signing, its own data directory,
   and IPC port. It launches through LaunchServices so TCC attributes capture
   permissions to Zeron Dev rather than the terminal.
 - The isolated data directory and IPC port are embedded in the development

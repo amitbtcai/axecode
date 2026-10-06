@@ -73,8 +73,8 @@ Run the passing check with an authenticated SDK:
 
 ```sh
 cursor_auth_probe=$(mktemp -d)
-ZERON_CURSOR_STATE_DIR="$cursor_auth_probe/state" \
-ZERON_CURSOR_AUTH_CLOCK="$cursor_auth_probe/clock" \
+AXECODE_CURSOR_STATE_DIR="$cursor_auth_probe/state" \
+AXECODE_CURSOR_AUTH_CLOCK="$cursor_auth_probe/clock" \
 NODE_OPTIONS="--import=$PWD/crates/harness/tests/fixtures/cursor-auth-clock.mjs" \
 cargo run -p zeron-harness --example cursor_stability_probe -- parked 2
 ```
@@ -101,7 +101,7 @@ control file and isolated state must not be shared with a real user process.
 - Log failed Cursor runs at warning level, with session ID and error details,
   so default engine logs retain the failure without verbose logging.
 - Allow the opt-in live probe to choose its model with
-  `ZERON_CURSOR_TEST_MODEL`.
+  `AXECODE_CURSOR_TEST_MODEL`.
 
 ## Validation and limits
 
@@ -129,8 +129,8 @@ Opt-in live checks (use provider quota and disposable workspaces):
 
 ```sh
 cargo run -p zeron-harness --example cursor_stability_probe -- models 1000
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) cargo run -p zeron-harness --example cursor_stability_probe -- sessions 6
-ZERON_CURSOR_STATE_DIR=$(mktemp -d) ZERON_CURSOR_TEST_MODEL=grok-4.6 cargo run -p zeron-harness --example cursor_stability_probe -- parked 6
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) cargo run -p zeron-harness --example cursor_stability_probe -- sessions 6
+AXECODE_CURSOR_STATE_DIR=$(mktemp -d) AXECODE_CURSOR_TEST_MODEL=grok-4.6 cargo run -p zeron-harness --example cursor_stability_probe -- parked 6
 ```
 
 ## Ongoing safeguards

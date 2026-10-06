@@ -1,5 +1,5 @@
 (() => {
-  const base = "https://zeron.sh/releases/";
+  const base = "https://axeai.com/releases/";
   const releases = {
     macos: ["macos-arm64.dmg", "Download for macOS", "Apple silicon"],
     windows: ["windows-x86_64-setup.exe", "Download for Windows", "Windows x64 · Installer"],

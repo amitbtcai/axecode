@@ -226,7 +226,7 @@ the durable chat id so local, synced, and development profiles cannot collide.
 Proposed shape:
 
 ```text
-zeron://open/chat/<percent-encoded-chat-id>?workspace=<opaque-locator>
+axecode://open/chat/<percent-encoded-chat-id>?workspace=<opaque-locator>
 ```
 
 “Copy Zeron deeplink” is complete only when the URI round-trips into the correct
@@ -263,7 +263,7 @@ copies an unhandled URI.
 
 1. Define a pure session-action/link model with exact clipboard payload tests.
 2. Add a workspace-scoped Zeron URI builder/parser and inbound route intent.
-3. Register and handle `zeron://` in macOS packaging first; add Linux desktop
+3. Register and handle `axecode://` in macOS packaging first; add Linux desktop
    entry and Windows registration with their packaging work rather than
    claiming unsupported platforms.
 4. Add harness conversation-link capability, beginning with verified Codex.

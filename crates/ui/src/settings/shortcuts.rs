@@ -69,7 +69,7 @@ pub struct ShortcutsPage {
     recording_blur: Option<gpui::Subscription>,
     recording_interceptor: Option<gpui::Subscription>,
     /// A rejected record attempt ("{Combo} is already assigned to {label}.") —
-    /// conflicts never persist; they're refused at record time, as in zeron.
+    /// conflicts never persist; they're refused at record time, as in axecode.
     conflict_notice: Option<SharedString>,
     focus: FocusHandle,
     appshots_enabled: bool,
@@ -934,7 +934,7 @@ impl Render for ShortcutsPage {
         }
 
         // Helper line stays in the muted tone even for a rejected conflict —
-        // the message names the specific clash (zeron settings.shortcuts.tsx).
+        // the message names the specific clash (axecode settings.shortcuts.tsx).
         let helper: SharedString = if recording.is_some() {
             "Press Escape to cancel.".into()
         } else if let Some(notice) = self.conflict_notice.clone() {
@@ -1395,7 +1395,7 @@ mod tests {
 
     #[test]
     fn conflicting_records_are_refused() {
-        // zeron parity: a combo bound elsewhere is refused at record time (the
+        // axecode parity: a combo bound elsewhere is refused at record time (the
         // helper names the owner) — conflicts never persist into the keymap.
         let keymap = KeymapConfig::default();
         let RecordOutcome::Set(combo) = record_key("r", false, false, false, true) else {

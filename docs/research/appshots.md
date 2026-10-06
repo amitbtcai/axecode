@@ -138,7 +138,7 @@ from another product.
 - Retain sent screenshots under the existing profile-scoped attachment rules.
 - Never write accessibility text to logs.
 - After successful staging, play a soft confirmation cue. Honor the
-  dedicated capture sound setting and `ZERON_DISABLE_SOUND`; failed captures stay silent.
+  dedicated capture sound setting and `AXECODE_DISABLE_SOUND`; failed captures stay silent.
 
 ## Architecture
 
@@ -487,7 +487,7 @@ Settings → Shortcuts → Appshots includes a Capture sound toggle, persisted a
 `appshotSoundEnabled`. It controls captures independently of session notification
 sounds. On first load, existing settings inherit their previous `soundEnabled`
 value; explicit capture preferences take precedence thereafter. The global
-`ZERON_DISABLE_SOUND` override still mutes playback. The synthesized cue adapts the rounded sound-family auditions: three smooth shutter clicks 70 ms apart, then one blended C4–F4 resonance with a quiet C5 overtone. The notes share a softened attack rather than playing in two phases. The cue lasts 0.67 seconds and peaks at approximately -18.7 dBFS. Its quiet harmonic overtones decay quickly; there is no noise bed or resonant impact tail, and playback gain is never normalized upward.
+`AXECODE_DISABLE_SOUND` override still mutes playback. The synthesized cue adapts the rounded sound-family auditions: three smooth shutter clicks 70 ms apart, then one blended C4–F4 resonance with a quiet C5 overtone. The notes share a softened attack rather than playing in two phases. The cue lasts 0.67 seconds and peaks at approximately -18.7 dBFS. Its quiet harmonic overtones decay quickly; there is no noise bed or resonant impact tail, and playback gain is never normalized upward.
 
 ### Desktop-only controls and customizable shortcut
 

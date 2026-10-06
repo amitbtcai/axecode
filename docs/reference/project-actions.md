@@ -42,8 +42,8 @@ Every invocation opens a fresh managed terminal. On Unix, Zeron stores the exact
 The owning engine validates that the Space, Chat, and checkout belong to the same local project before opening the PTY. A manual run uses the chat checkout as its working directory and injects:
 
 ```text
-ZERON_PROJECT_ROOT=<canonical project root>
-ZERON_WORKTREE_PATH=<canonical chat worktree, only outside the main checkout>
+AXECODE_PROJECT_ROOT=<canonical project root>
+AXECODE_WORKTREE_PATH=<canonical chat worktree, only outside the main checkout>
 ```
 
 The terminal output is replayable, so output produced before the desktop subscribes is still displayed. Subscribe, resize, write, and close requests retain the terminal's owning `targetDeviceId`.
@@ -54,7 +54,7 @@ The main title-bar segment remembers the last successfully started Action for th
 
 Only creation of a new worktree can start the setup Action. Reusing an existing worktree and using the main checkout do not run setup again.
 
-For desktop sends, the worktree directive rides the durable queued `Run` command. The owning engine creates the worktree and starts setup while draining that command, before dispatching the first agent turn. Setup runs with the new worktree as its cwd and always receives both `ZERON_PROJECT_ROOT` and `ZERON_WORKTREE_PATH`.
+For desktop sends, the worktree directive rides the durable queued `Run` command. The owning engine creates the worktree and starts setup while draining that command, before dispatching the first agent turn. Setup runs with the new worktree as its cwd and always receives both `AXECODE_PROJECT_ROOT` and `AXECODE_WORKTREE_PATH`.
 
 The queue reply is not held open while the host creates the worktree. Desktop polls a short-lived, command-scoped handoff to attach the already-open setup terminal when it becomes available. A lost relay reply therefore cannot leave the composer stuck on `Sending…` while the agent runs remotely.
 

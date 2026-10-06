@@ -60,13 +60,13 @@ Run main/candidate/candidate/main sequentially with the following environment:
 
 ```sh
 Xvfb :108 -screen 0 1440x900x24 -nolisten tcp
-DISPLAY=:108 WAYLAND_DISPLAY= LP_NUM_THREADS=4 ZERON_FRAME_STATS=0 \
-  ZERON_PROFILE_PSS=1 ZERON_PROFILE_SUBMIT_UI=1 ZERON_PROFILE_IDLE_MS=45000 \
+DISPLAY=:108 WAYLAND_DISPLAY= LP_NUM_THREADS=4 AXECODE_FRAME_STATS=0 \
+  AXECODE_PROFILE_PSS=1 AXECODE_PROFILE_SUBMIT_UI=1 AXECODE_PROFILE_IDLE_MS=45000 \
   CLAUDE_CODE_EXECUTABLE="$PWD/scripts/replay-claude.py" \
-  ZERON_REPLAY_JOURNAL="$PWD/scripts/fixtures/resource-stream.jsonl" \
+  AXECODE_REPLAY_JOURNAL="$PWD/scripts/fixtures/resource-stream.jsonl" \
   node scripts/resource-profile.mjs /path/to/zeron /tmp/fresh-run claude-code
 ```
 
 For the short workload, use `scripts/fixtures/runway-short-stream.jsonl`, set
-`ZERON_REPLAY_DELAY_MS=400`, `ZERON_PROFILE_PRE_IDLE_MS=5000` and
-`ZERON_PROFILE_IDLE_MS=20000`. The replay makes no model API calls.
+`AXECODE_REPLAY_DELAY_MS=400`, `AXECODE_PROFILE_PRE_IDLE_MS=5000` and
+`AXECODE_PROFILE_IDLE_MS=20000`. The replay makes no model API calls.

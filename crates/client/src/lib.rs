@@ -1,6 +1,6 @@
-//! zeron-client — the engine-free thin client ("viewer device").
+//! axecode-client — the engine-free thin client ("viewer device").
 //!
-//! A phone (or any frontend without an engine) is a *peer* on the zeron mesh:
+//! A phone (or any frontend without an engine) is a *peer* on the axecode mesh:
 //! it mirrors the workspace registry, joins per-chat chat2 rooms, renders the
 //! session docs, and drives remote engines through the durable command ledger
 //! (`zeron_doc::SessionDoc::queue_command`) plus host RPCs over the device
@@ -58,7 +58,7 @@ pub use workspace::{
 };
 
 /// Re-exported so consumers (the layout engine) name the exact doc types the
-/// transcript carries without a direct `zeron-doc` dependency.
+/// transcript carries without a direct `axecode-doc` dependency.
 pub use zeron_doc::{MessagePart, MessageRole, MessageStatus, SessionMessageEntry};
 pub use zeron_proto::{
     ChangeRequestState, ChangeRequestSummary, ChatConfig, ChatIndicator, ContextUsage,

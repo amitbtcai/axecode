@@ -29,7 +29,7 @@ const SNAPSHOT_TIMEOUT: Duration = Duration::from_secs(15);
 const RESUBSCRIBE_DELAY: Duration = Duration::from_millis(300);
 
 /// Which chat this server speaks for, when the engine injected it into a
-/// harness. Unset when a human runs `zeron mcp` from a terminal.
+/// harness. Unset when a human runs `axecode mcp` from a terminal.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct Origin {
     pub chat_id: Option<String>,
@@ -45,8 +45,8 @@ impl Origin {
                 .filter(|v| !v.is_empty())
         };
         Self {
-            chat_id: read("ZERON_CHAT_ID"),
-            device_id: read("ZERON_DEVICE_ID"),
+            chat_id: read("AXECODE_CHAT_ID"),
+            device_id: read("AXECODE_DEVICE_ID"),
         }
     }
 }
@@ -144,7 +144,7 @@ impl Zeron {
         }
         let client = connect_ws(&self.url).await.map_err(|e| {
             anyhow!(
-                "no Zeron engine listening at {} ({e}) — is Zeron running?",
+                "no Axe Code engine listening at {} ({e}) — is Axe Code running?",
                 self.url
             )
         })?;

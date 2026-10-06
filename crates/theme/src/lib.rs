@@ -1,4 +1,4 @@
-//! Zeron's source-neutral theme domain model.
+//! Axe Code's source-neutral theme domain model.
 //!
 //! Runtime code consumes complete [`ThemeVariant`] values. Import formats such
 //! as VS Code are deliberately isolated in [`vscode`], so a component never
@@ -298,7 +298,7 @@ impl AccentPreset {
 
     pub fn label(self) -> &'static str {
         match self {
-            Self::Zeron => "Zeron",
+            Self::Zeron => "Axe Code",
             Self::Orange => "Orange",
             Self::Amber => "Amber",
             Self::Green => "Green",
@@ -400,8 +400,8 @@ pub struct ThemeSelection {
 impl Default for ThemeSelection {
     fn default() -> Self {
         Self {
-            light: "zeron-light".into(),
-            dark: "zeron-dark".into(),
+            light: "axecode-light".into(),
+            dark: "axecode-dark".into(),
         }
     }
 }
@@ -554,12 +554,12 @@ impl ThemeRegistry {
         self.variant(selection.variant_id(appearance))
             .or_else(|| {
                 self.variant(if appearance.is_dark() {
-                    "zeron-dark"
+                    "axecode-dark"
                 } else {
-                    "zeron-light"
+                    "axecode-light"
                 })
             })
-            .expect("the built-in registry always contains both Zeron variants")
+            .expect("the built-in registry always contains both Axe Code variants")
     }
 
     pub fn validate(&self) -> Vec<ValidationIssue> {
@@ -812,8 +812,8 @@ mod tests {
     fn builtins_have_complete_provenance_and_no_validation_errors() {
         let registry = ThemeRegistry::builtin();
         assert_eq!(registry.families.len(), 19);
-        assert!(registry.variant("zeron-light").is_some());
-        assert!(registry.variant("zeron-dark").is_some());
+        assert!(registry.variant("axecode-light").is_some());
+        assert!(registry.variant("axecode-dark").is_some());
         let errors: Vec<_> = registry
             .validate()
             .into_iter()

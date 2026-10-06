@@ -2,18 +2,18 @@ import XCTest
 
 /// Against a real stack: `wrangler dev` edge (AUTH_MODE=dev) + a headless
 /// engine running the mock harness, both as alice@org1. Skipped unless
-/// `TEST_RUNNER_ZERON_LIVE_EDGE=http://localhost:<port>` is set:
+/// `TEST_RUNNER_AXECODE_LIVE_EDGE=http://localhost:<port>` is set:
 ///
 ///   (cd edge && npx wrangler dev --port 27650 --var AUTH_MODE:dev) &
-///   ZERON_DATA_DIR=/tmp/e ZERON_IPC_PORT=27811 ZERON_EDGE_URL=http://localhost:27650 \
-///     ZERON_EDGE_TOKEN=alice@org1 ZERON_ORG_ID=org1 ZERON_HARNESS=mock zeron headless &
-///   TEST_RUNNER_ZERON_LIVE_EDGE=http://localhost:27650 xcodebuild test \
+///   AXECODE_DATA_DIR=/tmp/e AXECODE_IPC_PORT=27811 AXECODE_EDGE_URL=http://localhost:27650 \
+///     AXECODE_EDGE_TOKEN=alice@org1 AXECODE_ORG_ID=org1 AXECODE_HARNESS=mock zeron headless &
+///   TEST_RUNNER_AXECODE_LIVE_EDGE=http://localhost:27650 xcodebuild test \
 ///     -only-testing:ZeronUITests/LiveStackTests …
 final class LiveStackTests: XCTestCase {
     func testSendRoundTripsThroughRealEngine() throws {
-        let edge = try XCTUnwrap(ProcessInfo.processInfo.environment["ZERON_LIVE_EDGE"], "set TEST_RUNNER_ZERON_LIVE_EDGE")
+        let edge = try XCTUnwrap(ProcessInfo.processInfo.environment["AXECODE_LIVE_EDGE"], "set TEST_RUNNER_AXECODE_LIVE_EDGE")
         let app = XCUIApplication()
-        // The draft's harness wins over the engine's ZERON_HARNESS default:
+        // The draft's harness wins over the engine's AXECODE_HARNESS default:
         // pin the mock so the test never starts a real agent.
         app.launchArguments = ["-signedout", "-dev", "alice", "org1", "-edge", edge, "-harness", "mock"]
         app.launch()

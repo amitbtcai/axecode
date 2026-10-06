@@ -1,7 +1,7 @@
 //! The app theme — two concrete appearances, one token set.
 //!
 //! Colors are precomputed from an oklch-derived neutral scale (perceptually even
-//! lightness steps; the same scale zeron's Tailwind theme used) into gpui [`Hsla`].
+//! lightness steps; the same scale axecode's Tailwind theme used) into gpui [`Hsla`].
 //! **Numbers drive layout, colors are paint**: layout constants live here as plain
 //! numbers and never depend on which color is painted.
 //!
@@ -48,7 +48,7 @@ use zeron_theme::{
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum AccentColor {
-    /// The exact upstream Zeron indigo.
+    /// The exact upstream Axe Code indigo.
     #[default]
     #[serde(alias = "violet", alias = "indigo", alias = "red", alias = "purple")]
     Zeron,
@@ -74,7 +74,7 @@ impl AccentColor {
 
     pub fn label(self) -> &'static str {
         match self {
-            Self::Zeron => "Zeron",
+            Self::Zeron => "Axe Code",
             Self::Orange => "Orange",
             Self::Amber => "Amber",
             Self::Green => "Green",
@@ -774,11 +774,11 @@ impl TerminalColors {
 
     fn zeron(appearance: Appearance) -> Self {
         let id = match appearance {
-            Appearance::Dark => "zeron-dark",
-            Appearance::Light => "zeron-light",
+            Appearance::Dark => "axecode-dark",
+            Appearance::Light => "axecode-light",
         };
         let registry = ThemeRegistry::active();
-        Self::from_variant(registry.variant(id).expect("Zeron terminal palette exists"))
+        Self::from_variant(registry.variant(id).expect("Axe Code terminal palette exists"))
     }
 }
 
@@ -811,7 +811,7 @@ impl Theme {
     } else {
         1.0
     };
-    /// Main-panel header height (zeron `h-11`) — in-card headers (changes pane).
+    /// Main-panel header height (axecode `h-11`) — in-card headers (changes pane).
     pub const HEADER_HEIGHT: f32 = 44.0;
     /// The unified window titlebar (traffic lights + cluster + tabs). Content
     /// rides [`Self::TITLEBAR_TOP_PAD`] lower than center so the air above
@@ -820,7 +820,7 @@ impl Theme {
     /// Top-only padding moves the flex center by half this value. On macOS,
     /// 38 / 2 + 4 / 2 = 21 matches the native traffic lights' center.
     pub const TITLEBAR_TOP_PAD: f32 = 4.0;
-    /// Reserved status strip under the content outlet (zeron `h-6`) — the
+    /// Reserved status strip under the content outlet (axecode `h-6`) — the
     /// WorkingIndicator row; reserving it keeps the composer from shifting.
     pub const STATUS_STRIP_HEIGHT: f32 = 24.0;
     /// Height of the gradient that fades the transcript into the panel
@@ -848,7 +848,7 @@ impl Theme {
     /// The selected theme's shell tint painted over the blurred window
     /// background (macOS glass). Keeping the hue theme-owned matters when a
     /// user forces frost onto a palette authored for an opaque workbench: a
-    /// fixed Zeron grey would erase that palette's identity.
+    /// fixed Axe Code grey would erase that palette's identity.
     pub fn glass(&self) -> Hsla {
         if self.surface_treatment == SurfaceTreatment::Opaque {
             return self.surface;
@@ -869,7 +869,7 @@ impl Theme {
         self.contrast_checked_tint_alpha(self.surface, base, self.adverse_backdrop())
     }
 
-    /// Increase tint coverage only as far as needed for Zeron's shared text
+    /// Increase tint coverage only as far as needed for Axe Code's shared text
     /// roles. This is used for both window glass and in-app frosted surfaces,
     /// whose blurred content can otherwise invalidate an imported palette's
     /// original solid-background assumptions.
@@ -929,7 +929,7 @@ impl Theme {
 
     /// Theme-owned hover wash for chrome that sits on glass (sidebar rows,
     /// tabs, titlebar buttons). The importer maps this role from the source
-    /// theme, so forcing frost does not reintroduce Zeron's neutral hover.
+    /// theme, so forcing frost does not reintroduce Axe Code's neutral hover.
     pub fn glass_hover(&self) -> Hsla {
         self.element_hover
     }
@@ -1148,8 +1148,8 @@ impl Theme {
         let accent = accent_color.tokens(Appearance::Dark);
         Self {
             appearance: Appearance::Dark,
-            variant_id: "zeron-dark".into(),
-            family_id: "zeron".into(),
+            variant_id: "axecode-dark".into(),
+            family_id: "axecode".into(),
             accent_selection: AccentSelection::Preset(accent_color.into()),
             wallpaper_color: None,
             surface_preference: SurfacePreference::ThemeDefault,
@@ -1229,8 +1229,8 @@ impl Theme {
         let accent = accent_color.tokens(Appearance::Light);
         Self {
             appearance: Appearance::Light,
-            variant_id: "zeron-light".into(),
-            family_id: "zeron".into(),
+            variant_id: "axecode-light".into(),
+            family_id: "axecode".into(),
             accent_selection: AccentSelection::Preset(accent_color.into()),
             wallpaper_color: None,
             surface_preference: SurfacePreference::ThemeDefault,
@@ -1377,14 +1377,14 @@ impl Theme {
     ) -> Self {
         let registry = ThemeRegistry::active();
         let fallback_id = match appearance {
-            Appearance::Dark => "zeron-dark",
-            Appearance::Light => "zeron-light",
+            Appearance::Dark => "axecode-dark",
+            Appearance::Light => "axecode-light",
         };
         let variant = registry
             .variant(variant_id)
             .filter(|variant| model_appearance(variant.appearance) == appearance)
             .or_else(|| registry.variant(fallback_id))
-            .expect("the built-in registry contains both Zeron appearances");
+            .expect("the built-in registry contains both Axe Code appearances");
         if let Some(color) = wallpaper_color {
             let mut variant = variant.clone();
             crate::settings::wallpaper_colors::tint_variant(&mut variant, color);
@@ -2027,7 +2027,7 @@ mod tests {
 
     #[test]
     fn neutral_950_is_0a0a0a() {
-        // oklch(0.145 0 0) is Tailwind neutral-950, zeron's app background.
+        // oklch(0.145 0 0) is Tailwind neutral-950, axecode's app background.
         let rgb = srgb_u8(oklch_to_srgb(0.145, 0.0, 0.0));
         assert_eq!(rgb, [10, 10, 10]);
     }
@@ -2108,8 +2108,8 @@ mod tests {
     #[test]
     fn wallpaper_glass_interactions_lift_toward_white_in_both_appearances() {
         for (appearance, id) in [
-            (Appearance::Dark, "zeron-dark"),
-            (Appearance::Light, "zeron-light"),
+            (Appearance::Dark, "axecode-dark"),
+            (Appearance::Light, "axecode-light"),
         ] {
             let theme = Theme::for_selection_with_wallpaper(
                 appearance,
@@ -2129,8 +2129,8 @@ mod tests {
     #[test]
     fn wallpaper_colours_keep_text_readable_in_light_and_dark_modes() {
         for (appearance, id) in [
-            (Appearance::Dark, "zeron-dark"),
-            (Appearance::Light, "zeron-light"),
+            (Appearance::Dark, "axecode-dark"),
+            (Appearance::Light, "axecode-light"),
         ] {
             for color in [
                 ModelColor::BLACK,
@@ -2213,7 +2213,7 @@ mod tests {
 
         let opaque_zeron = Theme::for_selection(
             Appearance::Dark,
-            "zeron-dark",
+            "axecode-dark",
             AccentSelection::ThemeDefault,
             SurfacePreference::Opaque,
         );
@@ -2271,7 +2271,7 @@ mod tests {
     #[test]
     fn runtime_hardening_protects_native_custom_theme_edits() {
         let mut variant = ThemeRegistry::builtin()
-            .variant("zeron-dark")
+            .variant("axecode-dark")
             .unwrap()
             .clone();
         variant.colors.text = variant.colors.background;
@@ -2988,7 +2988,7 @@ mod tests {
     #[test]
     fn custom_light_popup_text_is_readable_and_preparation_is_idempotent() {
         let mut variant = ThemeRegistry::builtin()
-            .variant("zeron-light")
+            .variant("axecode-light")
             .unwrap()
             .clone();
         variant.id = "custom-light".to_owned();

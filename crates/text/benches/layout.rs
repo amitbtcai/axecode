@@ -102,7 +102,7 @@ const CODE: &[&str] = &[
     "line_count",
     "Vec<Line>",
     "crates/text/src/layout.rs",
-    "cargo test -p zeron-text",
+    "cargo test -p axecode-text",
     "Arc<FontBook>",
     "&mut WidthCache",
     "u32::MAX",

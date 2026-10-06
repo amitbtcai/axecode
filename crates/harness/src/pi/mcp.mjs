@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { createInterface } from "node:readline";
 
 export default function (pi) {
-  const config = JSON.parse(process.env.ZERON_PI_MCP);
+  const config = JSON.parse(process.env.AXECODE_PI_MCP);
   let child, lines, nextId = 0;
   const pending = new Map();
   function fail(error) {
@@ -65,7 +65,7 @@ export default function (pi) {
       else request.resolve(message.result);
     });
     try {
-      await rpc("initialize", {protocolVersion: "2024-11-05", capabilities: {}, clientInfo: {name: "zeron-pi", version: "1"}});
+      await rpc("initialize", {protocolVersion: "2024-11-05", capabilities: {}, clientInfo: {name: "axecode-pi", version: "1"}});
       child.stdin.write(JSON.stringify({jsonrpc: "2.0", method: "notifications/initialized"}) + "\n");
       const {tools} = await rpc("tools/list", {});
       for (const tool of tools) {

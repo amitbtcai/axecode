@@ -189,12 +189,12 @@ async fn fork_is_frozen_durable_idempotent_and_has_an_independent_provider_sessi
     let mcp = request
         .mcp
         .clone()
-        .expect("run carries the zeron MCP server");
-    assert_eq!(mcp.name, "zeron");
+        .expect("run carries the axecode MCP server");
+    assert_eq!(mcp.name, "axecode");
     assert_eq!(mcp.args, ["mcp"]);
-    assert_eq!(mcp.env["ZERON_IPC_PORT"], "27699");
-    assert_eq!(mcp.env["ZERON_CHAT_ID"], "side");
-    assert_eq!(mcp.env["ZERON_DEVICE_ID"], core.device_id);
+    assert_eq!(mcp.env["AXECODE_IPC_PORT"], "27699");
+    assert_eq!(mcp.env["AXECODE_CHAT_ID"], "side");
+    assert_eq!(mcp.env["AXECODE_DEVICE_ID"], core.device_id);
     assert!(request.prompt.contains("PINEAPPLE"));
     assert!(!request.prompt.contains("unfinished turn"));
     assert_eq!(source.doc().read_entries().unwrap().len(), 4);

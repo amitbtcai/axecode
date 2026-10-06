@@ -1,5 +1,5 @@
 //! Live mode against an in-process edge (tests/support/mock_edge.rs): the
-//! registry through zeron-sync's mock server (the production merge fn) and a
+//! registry through axecode-sync's mock server (the production merge fn) and a
 //! chat2 room speaking the real frame protocol. The test plays the host
 //! engine: it seeds registry rows through its own `RegistryClient` and
 //! answers commands by injecting Loro updates into the room.
@@ -507,7 +507,7 @@ struct HostService {
     spaces: Mutex<Vec<String>>,
 }
 
-const HOST_IMAGE: &str = "/Users/dev/.zeron/uploads/host.png";
+const HOST_IMAGE: &str = "/Users/dev/.axecode/uploads/host.png";
 
 fn host_image() -> Vec<u8> {
     (0..100_000u32).map(|i| (i * 7 % 251) as u8).collect()
@@ -562,7 +562,7 @@ impl zeron_rpc::RpcService for HostService {
                     .lock()
                     .unwrap()
                     .push((id.clone(), name.clone(), unb64(&data)));
-                json!({ "path": format!("/Users/dev/.zeron/uploads/{}-{name}", &id[..8]) })
+                json!({ "path": format!("/Users/dev/.axecode/uploads/{}-{name}", &id[..8]) })
             }
             m::READ_ATTACHMENT_CHUNK => {
                 let offset = params["offset"].as_u64().unwrap_or(0) as usize;

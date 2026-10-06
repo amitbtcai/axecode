@@ -12,10 +12,10 @@ Produces `target/package/zeron-<version>-linux-<arch>.tar.gz` containing:
 - `zeron` — the binary (headed by default; `zeron headless` runs the engine alone)
 - `zeron.desktop` — XDG desktop entry template (`Exec=zeron` for packagers;
   the installers rewrite `Exec`, `TryExec`, and `Icon` to absolute paths under
-  `~/.zeron/app/current`, since `~/.local/bin` is often not on a desktop
+  `~/.axecode/app/current`, since `~/.local/bin` is often not on a desktop
   session's `PATH`)
 - `zeron.png` — 1024×1024 Zeron app icon
-- `install.sh` — installs into `~/.zeron/app/<version>` behind a `current`
+- `install.sh` — installs into `~/.axecode/app/<version>` behind a `current`
   symlink (the curl installer's layout, which the in-app updater manages),
   links `~/.local/bin/zeron` to it, and writes the desktop entry and icon under
   `$XDG_DATA_HOME` (default `~/.local/share`). The curl installer does the same
@@ -71,7 +71,7 @@ installed builds can update into Zeron. CI runs this on tags
 ## Windows
 
 ```powershell
-./scripts/package-windows.ps1 -ReleasesUrl https://github.com/zeronsh/zeron/releases/latest/download
+./scripts/package-windows.ps1 -ReleasesUrl https://github.com/amitbtcai/axecode/releases/latest/download
 ```
 
 Produces, under `target/package/`:

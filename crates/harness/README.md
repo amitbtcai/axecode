@@ -36,7 +36,7 @@ methods' prerequisites resolves, or for Mock. The row then keeps a manual hint;
 shell hints on Windows can be used in WSL.
 
 Install processes receive `CI=1`, `NONINTERACTIVE=1`, `TERM=dumb`, no stdin/TTY,
-and no inherited `ZERON_*` or nested Claude environment markers. Output is bounded
+and no inherited `AXECODE_*` or nested Claude environment markers. Output is bounded
 and credentials are redacted before errors reach Settings. Cancel, timeout
 (15 minutes), or dropping the request kills the owned process tree. There is no
 automatic elevation: an installer that needs sudo or an interactive prompt may

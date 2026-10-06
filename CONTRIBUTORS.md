@@ -39,17 +39,17 @@ An installed daemon holds the default data directory and IPC port. Give your
 dev build its own so the two never share state:
 
 ```sh
-ZERON_DATA_DIR=~/.zeron-dev ZERON_IPC_PORT=27700 cargo run -p zeron
+AXECODE_DATA_DIR=~/.axecode-dev AXECODE_IPC_PORT=27700 cargo run -p zeron
 ```
 
 Useful knobs for exercising the UI without a real agent or account:
 
 | Variable | Effect |
 | --- | --- |
-| `ZERON_HARNESS=mock` | Offers the mock harness, which streams canned turns |
-| `ZERON_MOCK_SUBAGENT=1` | Mock turns spawn subagents |
-| `ZERON_MOCK_THINKING=1` | Mock turns include markdown-heavy thinking |
-| `ZERON_MOCK_TODO=1` | Mock turns work through an 8-item checklist (pair with `ZERON_MOCK_DELAY_MS=900` to watch the todo panel) |
+| `AXECODE_HARNESS=mock` | Offers the mock harness, which streams canned turns |
+| `AXECODE_MOCK_SUBAGENT=1` | Mock turns spawn subagents |
+| `AXECODE_MOCK_THINKING=1` | Mock turns include markdown-heavy thinking |
+| `AXECODE_MOCK_TODO=1` | Mock turns work through an 8-item checklist (pair with `AXECODE_MOCK_DELAY_MS=900` to watch the todo panel) |
 
 ## Tests
 

@@ -3,7 +3,7 @@
 Windows supports native x64 and ARM64 source builds, a per-user installer,
 and portable release ZIPs. The installer (`dist/windows/zeron.iss`, Inno
 Setup 6) installs into `%LOCALAPPDATA%\Programs\Zeron` without elevation,
-registers the Start menu entry, the `zeron://` link handler, and the Settings →
+registers the Start menu entry, the `axecode://` link handler, and the Settings →
 Apps uninstall entry. Both release packages carry `zeron-update.json` beside
 `zeron.exe`, which lets the app replace its executable in place from GitHub
 releases; keep it there for portable copies. Artifact names use Rust's
@@ -36,8 +36,8 @@ set `GPUI_FXC_PATH` to the Windows SDK's `fxc.exe`.
 
 | Setting | Behavior |
 | --- | --- |
-| Application data | `%LOCALAPPDATA%\Zeron`, falling back to `%USERPROFILE%\AppData\Local\Zeron`. Override with `ZERON_DATA_DIR`. |
-| Managed adapters | `ZERON_ADAPTERS_DIR`, then `ZERON_DATA_DIR/adapters`, then the default application's `adapters` directory. |
+| Application data | `%LOCALAPPDATA%\Zeron`, falling back to `%USERPROFILE%\AppData\Local\Zeron`. Override with `AXECODE_DATA_DIR`. |
+| Managed adapters | `AXECODE_ADAPTERS_DIR`, then `AXECODE_DATA_DIR/adapters`, then the default application's `adapters` directory. |
 | Provider credentials | Keep their provider-owned locations; changing Zeron's data root does not migrate them. |
 | `CODEX_EXECUTABLE` | Executable override. `.exe` (and `.com`) launch directly; `.cmd`/`.bat` shims launch through a wrapped `cmd.exe` with literal, individually escaped arguments. The override must exist on disk. |
 

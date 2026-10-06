@@ -1,8 +1,8 @@
-//! Zeron mobile core — the UniFFI surface shared by the iOS and Android apps.
+//! Axe Code mobile core — the UniFFI surface shared by the iOS and Android apps.
 //!
-//! - [`client_ffi`]: account, workspace and session state (wraps `zeron-client`).
+//! - [`client_ffi`]: account, workspace and session state (wraps `axecode-client`).
 //! - [`layout`]: analytic transcript layout — markdown → measured display lists
-//!   (wraps `zeron-markdown` + `zeron-text`).
+//!   (wraps `axecode-markdown` + `axecode-text`).
 
 uniffi::setup_scaffolding!("zeron_core");
 

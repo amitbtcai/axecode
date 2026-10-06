@@ -1,5 +1,5 @@
 //! Real-model conversational steering check (no tools or additive jobs).
-//! cargo run -p zeron-harness --example cursor_steering_probe -- gemini-3-flash
+//! cargo run -p axecode-harness --example cursor_steering_probe -- gemini-3-flash
 use futures::StreamExt;
 use std::time::Duration;
 use tokio::sync::{mpsc, oneshot};

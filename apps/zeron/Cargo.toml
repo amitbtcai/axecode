@@ -6,7 +6,7 @@ license.workspace = true
 publish.workspace = true
 
 [[bin]]
-name = "zeron"
+name = "axecode"
 path = "src/main.rs"
 
 [dependencies]

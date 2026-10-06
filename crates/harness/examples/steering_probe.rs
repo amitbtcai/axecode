@@ -1,5 +1,5 @@
 //! Opt-in live steering regression. Uses real model quota in a disposable cwd.
-//! cargo run -p zeron-harness --example steering_probe -- <harness> [model|--models]
+//! cargo run -p axecode-harness --example steering_probe -- <harness> [model|--models]
 //! Checks a running shell survives a rapid burst and every follow-up is acted on.
 use futures::StreamExt;
 use std::{sync::Arc, time::Duration};

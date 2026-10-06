@@ -357,7 +357,7 @@ impl TranscriptView {
         });
         let worker_shared = shared.clone();
         thread::Builder::new()
-            .name("zeron-layout".into())
+            .name("axecode-layout".into())
             .spawn(move || Worker::new(&text, worker_shared, listener).run(rx))
             .expect("spawn layout thread");
         Arc::new(Self {

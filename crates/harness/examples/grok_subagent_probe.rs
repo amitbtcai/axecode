@@ -2,7 +2,7 @@
 //! event stream, verifying subagent spawn correlation + the disk-tailed
 //! transcript end-to-end. Needs a logged-in `grok` on PATH.
 //!
-//!     cargo run -p zeron-harness --example grok_subagent_probe -- /tmp/probe-dir
+//!     cargo run -p axecode-harness --example grok_subagent_probe -- /tmp/probe-dir
 
 use futures::StreamExt;
 use tokio::sync::{mpsc, oneshot};

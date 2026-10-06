@@ -110,7 +110,7 @@ const { Agent, Cursor, FileCredentialStore, JsonlLocalAgentStore } = sdk;
 // it. Agents created before this scheme have no marker and fall back to the
 // SDK default store, which is where they live.
 const STATE_BASE =
-  process.env.ZERON_CURSOR_STATE_DIR || path.join(os.homedir(), ".zeron", "cursor-state");
+  process.env.AXECODE_CURSOR_STATE_DIR || path.join(os.homedir(), ".axecode", "cursor-state");
 
 function agentDirMarker(agentId) {
   return path.join(STATE_BASE, "by-agent", String(agentId));
@@ -147,7 +147,7 @@ function rememberAgentDir(agentId, dir) {
 let ownedStore = null;
 let ownerPath = null;
 async function claimStore(local) {
-  const marker = path.join(local.dir, ".zeron-owner.json");
+  const marker = path.join(local.dir, ".axecode-owner.json");
   let previous;
   try { previous = JSON.parse(fs.readFileSync(marker, "utf8")); }
   catch (error) { if (error.code !== "ENOENT") throw error; }
@@ -314,7 +314,7 @@ if (process.argv[2] === "login") {
       openBrowser: false,
       onLoginUrl: (url) => out({ ev: "auth-url", url }),
       store: new FileCredentialStore(storePath),
-      apiKeyName: `zeron — ${os.hostname()}`,
+      apiKeyName: `axecode — ${os.hostname()}`,
     });
     out({
       ev: "logged-in",
@@ -458,7 +458,7 @@ let preempting = false;
 // steer's reply.
 let preemptedRun = null;
 // Tests of the native SDK steering path disable preemption.
-const NATIVE_STEER_ONLY = process.env.ZERON_CURSOR_NATIVE_STEER_ONLY === "1";
+const NATIVE_STEER_ONLY = process.env.AXECODE_CURSOR_NATIVE_STEER_ONLY === "1";
 function preemptForSteer() {
   if (NATIVE_STEER_ONLY) return false;
   if (!turnActive || !run || activeTools.size || preempting || interrupted || closing) return false;
@@ -692,7 +692,7 @@ async function start(msg) {
   }
   if (runDir) {
     rememberAgentDir(agent.agentId, runDir);
-    receiptPath = path.join(runDir, ".zeron-user-receipt.json");
+    receiptPath = path.join(runDir, ".axecode-user-receipt.json");
   }
   await runTurn(msg.prompt ?? "", () => {
     out({ ev: "ready", agentId: agent.agentId, model: agent.model?.id ?? model.id });

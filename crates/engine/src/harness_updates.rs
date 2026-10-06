@@ -127,8 +127,8 @@ struct CodexPackageManifest {
     path_dir: String,
 }
 
-/// Held for the complete standalone install so Zeron cannot race the Codex
-/// installer (which uses the same lock file) or another Zeron process.
+/// Held for the complete standalone install so Axe Code cannot race the Codex
+/// installer (which uses the same lock file) or another Axe Code process.
 struct InstallFileLock {
     file: File,
 }
@@ -267,7 +267,7 @@ fn provider(id: HarnessId) -> ProviderSpec {
         HarnessId::Antigravity => ProviderSpec {
             version_args: &["--version"],
             latest: LatestSource::AntigravityAcp,
-            // Zeron installs a pinned ACP server archive. It has no registered
+            // Axe Code installs a pinned ACP server archive. It has no registered
             // self-update command; custom binaries remain installer-managed.
             update_args: None,
             manual_command: "Update the configured Antigravity ACP server",
@@ -318,7 +318,7 @@ fn manual_update_command(harness: HarnessId, executable: &Path, can_apply: bool)
     if harness == HarnessId::Antigravity
         && zeron_harness::acp::is_managed_antigravity_server(executable)
     {
-        return Some("Update Zeron to install this release".into());
+        return Some("Update Axe Code to install this release".into());
     }
     Some(
         claude_package_manager_command_for(harness, executable)
@@ -464,7 +464,7 @@ impl HarnessUpdateCoordinator {
                 worker: Mutex::new(None),
                 antigravity_release: Mutex::new(None),
                 client: reqwest::Client::builder()
-                    .user_agent(concat!("zeron/", env!("CARGO_PKG_VERSION")))
+                    .user_agent(concat!("axecode/", env!("CARGO_PKG_VERSION")))
                     .timeout(COMMAND_TIMEOUT)
                     .build()
                     .unwrap_or_default(),
@@ -762,8 +762,8 @@ impl HarnessUpdateCoordinator {
                 return self.fail_check_with_installed(harness, installed, source, error);
             }
         };
-        // zeron can only install the archive it has pinned and verified; a
-        // newer registry release waits for a zeron update that pins it.
+        // axecode can only install the archive it has pinned and verified; a
+        // newer registry release waits for a axecode update that pins it.
         let can_apply = can_apply
             && (harness != HarnessId::Antigravity
                 || lock(&self.inner.antigravity_release)
@@ -1542,7 +1542,7 @@ impl HarnessUpdateCoordinator {
         let _install_lock = InstallFileLock::acquire(&install.root)?;
         let releases = install.root.join("releases");
         let nonce = uuid::Uuid::new_v4();
-        let archive = install.root.join(format!(".zeron-codex-{nonce}.tar.gz"));
+        let archive = install.root.join(format!(".axecode-codex-{nonce}.tar.gz"));
         let staging = releases.join(format!(".{version}-{}-{nonce}.partial", install.target));
         std::fs::create_dir(&staging)
             .map_err(|error| format!("could not stage Codex update: {error}"))?;
@@ -3655,7 +3655,7 @@ esac
         assert!(
             !super::can_apply_update(
                 HarnessId::Codex,
-                std::path::Path::new("/tmp/zeron-not-installed/codex")
+                std::path::Path::new("/tmp/axecode-not-installed/codex")
             ),
             "an unclassified codex binary stays manual"
         );

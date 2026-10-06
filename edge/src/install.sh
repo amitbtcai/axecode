@@ -1,20 +1,20 @@
 #!/bin/sh
 # Zeron (native) headless installer.
 #
-#   curl -fsSL https://zeron.sh/install.sh | sh
+#   curl -fsSL https://axeai.com/install.sh | sh
 #
 # Installs the native binary (requires the system ALSA runtime) to
-# ~/.zeron/app, puts `zeron` on PATH, adds a launcher entry and icon under
+# ~/.axecode/app, puts `zeron` on PATH, adds a launcher entry and icon under
 # $XDG_DATA_HOME (default ~/.local/share), and runs it as a local-only
 # systemd user service that survives reboots. Signing in is optional and
 # enables sync after a restart. Re-running
-# upgrades in place; ~/.zeron state is preserved.
+# upgrades in place; ~/.axecode state is preserved.
 #
-# The binary ships with production endpoints baked in: no ZERON_EDGE_URL or
-# client-id configuration needed. Overrides (if any) go in ~/.zeron/env.
+# The binary ships with production endpoints baked in: no AXECODE_EDGE_URL or
+# client-id configuration needed. Overrides (if any) go in ~/.axecode/env.
 set -eu
 
-BASE="${ZERON_BASE_URL:-https://zeron.sh}"
+BASE="${AXECODE_BASE_URL:-https://axeai.com}"
 
 # --- platform ---------------------------------------------------------------
 os="$(uname -s)"
@@ -44,7 +44,7 @@ esac
 ver="$(curl -fsSL "$BASE/releases/latest.txt" | tr -d '[:space:]')"
 [ -n "$ver" ] || { echo "zeron install: could not resolve latest version" >&2; exit 1; }
 file="zeron-$ver-$plat-$arch.tar.gz"
-data_root="$HOME/.zeron"
+data_root="$HOME/.axecode"
 app_root="$data_root/app"
 dest="$app_root/$ver"
 
@@ -109,7 +109,7 @@ install_desktop_entry() {
   # directory never reads a half-written entry (a leading dot is ignored).
   # Not `tmp`: sh has no `local`, and the curl installer's EXIT trap removes
   # its download dir through `$tmp`.
-  entry_tmp="$apps_dir/.zeron.desktop.$$"
+  entry_tmp="$apps_dir/.axecode.desktop.$$"
   while IFS= read -r line || [ -n "$line" ]; do
     case "$line" in
       Exec=*) printf 'Exec=%s %%u\n' "$exec_bin" ;;
@@ -119,8 +119,8 @@ install_desktop_entry() {
     esac
   done <"$src/zeron.desktop" >"$entry_tmp" || { rm -f "$entry_tmp"; return 1; }
   mv -f "$entry_tmp" "$apps_dir/zeron.desktop" || { rm -f "$entry_tmp"; return 1; }
-  cp "$src/zeron.png" "$icon_dir/.zeron.png.$$" \
-    && mv -f "$icon_dir/.zeron.png.$$" "$icon_dir/zeron.png" || return 1
+  cp "$src/zeron.png" "$icon_dir/.axecode.png.$$" \
+    && mv -f "$icon_dir/.axecode.png.$$" "$icon_dir/zeron.png" || return 1
 
   # Best-effort cache refresh; both tools are optional. The icon cache is only
   # refreshed, never created: a user-level hicolor cache nobody else maintains
@@ -152,10 +152,10 @@ StartLimitIntervalSec=60
 StartLimitBurst=5
 
 [Service]
-ExecStart=%h/.zeron/app/current/zeron headless
+ExecStart=%h/.axecode/app/current/zeron headless
 Restart=on-failure
 RestartSec=5
-EnvironmentFile=-%h/.zeron/env
+EnvironmentFile=-%h/.axecode/env
 
 [Install]
 WantedBy=default.target

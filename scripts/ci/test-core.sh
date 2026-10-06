@@ -5,13 +5,13 @@
 # dependency graph with different feature sets).
 #
 # Same coverage as the old invocations:
-#   zeron-harness  every test binary (cursor-compatibility ran `-p zeron-harness`
+#   axecode-harness  every test binary (cursor-compatibility ran `-p zeron-harness`
 #                  plus `--test pi_rpc` with native-fixture; native-fixture only
 #                  adds the pi_rpc fixture binaries, so it is on for the whole build)
-#   zeron-preview  every test binary (preview-tests)
-#   zeron-doc      lib + attachments_roundtrip (cursor-compatibility)
-#   zeron-sync, zeron-update   lib only (session-sync-regressions)
-#   zeron-engine   lib + the integration tests named below. Engine has many other
+#   axecode-preview  every test binary (preview-tests)
+#   axecode-doc      lib + attachments_roundtrip (cursor-compatibility)
+#   axecode-sync, axecode-update   lib only (session-sync-regressions)
+#   axecode-engine   lib + the integration tests named below. Engine has many other
 #                  integration binaries (live agents etc.) that no workflow ran, so
 #                  they are listed instead of globbed to avoid compiling them.
 # nextest does not run doctests; these crates have none (their doc comments
@@ -30,5 +30,5 @@ done
 
 exec cargo nextest run --config-file scripts/ci/nextest.toml --locked --no-fail-fast \
   -p zeron-harness -p zeron-engine -p zeron-sync -p zeron-update -p zeron-doc -p zeron-preview \
-  --features zeron-harness/native-fixture \
+  --features axecode-harness/native-fixture \
   --lib --bins "${tests[@]}" "$@"

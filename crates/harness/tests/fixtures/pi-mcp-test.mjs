@@ -10,14 +10,14 @@ if (process.argv[2] === 'server') {
     else if (msg.method === 'tools/call') {
       if (msg.params.arguments.mode === 'hang') return;
       if (msg.params.arguments.mode === 'crash') process.exit(1);
-      result = {content:[{type:'text',text:process.env.ZERON_CHAT_ID}], isError:msg.params.arguments.mode === 'error'};
+      result = {content:[{type:'text',text:process.env.AXECODE_CHAT_ID}], isError:msg.params.arguments.mode === 'error'};
     } else return;
     process.stdout.write(JSON.stringify({jsonrpc:'2.0', id:msg.id, result})+'\n');
   });
 } else {
   const {default: extension} = await import(process.argv[2]);
   for (const chat of ['first', 'second']) {
-    process.env.ZERON_PI_MCP = JSON.stringify({name:'zeron',command:process.execPath,args:[process.argv[1],'server'],env:{ZERON_CHAT_ID:chat}});
+    process.env.AXECODE_PI_MCP = JSON.stringify({name:'zeron',command:process.execPath,args:[process.argv[1],'server'],env:{AXECODE_CHAT_ID:chat}});
     const handlers = {}, tools = {};
     extension({on:(event,fn)=>handlers[event]=fn,registerTool:tool=>tools[tool.name]=tool});
     try {

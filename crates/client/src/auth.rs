@@ -27,11 +27,11 @@ pub const EARLY_REFRESH_SECS: i64 = 60;
 
 /// Production endpoints (edge/wrangler.jsonc). Mobile always talks to prod —
 /// a stale override once broke sign-in in the worst ghost way.
-pub const PRODUCTION_EDGE_URL: &str = "https://edge.zeron.sh";
+pub const PRODUCTION_EDGE_URL: &str = "https://edge.axeai.com";
 pub const WORKOS_CLIENT_ID: &str = "client_01KWD0EAKZKD50YCQJNYSRE4BY";
 pub const WORKOS_API_BASE: &str = "https://api.workos.com";
-/// OAuth redirect: `zeron://callback?code=…&state=…`.
-pub const CALLBACK_SCHEME: &str = "zeron";
+/// OAuth redirect: `axecode://callback?code=…&state=…`.
+pub const CALLBACK_SCHEME: &str = "axecode";
 
 fn percent_encode(value: &str) -> String {
     let mut out = String::with_capacity(value.len());
@@ -456,20 +456,20 @@ mod tests {
         assert!(
             url.starts_with("https://api.workos.com/user_management/authorize?response_type=code")
         );
-        assert!(url.contains("redirect_uri=zeron%3A%2F%2Fcallback"));
+        assert!(url.contains("redirect_uri=axecode%3A%2F%2Fcallback"));
         assert!(url.contains("state=s%20t%261"));
         assert_eq!(
-            parse_auth_callback("zeron://callback?code=abc&state=s%20t%261"),
+            parse_auth_callback("axecode://callback?code=abc&state=s%20t%261"),
             Some(AuthCallback::Code {
                 code: "abc".into(),
                 state: Some("s t&1".into())
             })
         );
         assert!(matches!(
-            parse_auth_callback("zeron://callback?error=access_denied"),
+            parse_auth_callback("axecode://callback?error=access_denied"),
             Some(AuthCallback::Error { .. })
         ));
-        assert_eq!(parse_auth_callback("zeron://callback"), None);
+        assert_eq!(parse_auth_callback("axecode://callback"), None);
     }
 
     /// A raw HTTP/1.1 responder: counts requests, answers each with `reply`.

@@ -3504,7 +3504,7 @@ impl Changes {
             theme.ink(0.05)
         };
 
-        // Chevron (zeron checkout-diff-sidebar): chevron-right closed,
+        // Chevron (axecode checkout-diff-sidebar): chevron-right closed,
         // chevron-down open; gpui divs have no rotation transform at the
         // pinned rev, so the glyph swap crossfades over the same 200 ms.
         let chevron_icon = if collapsed {
@@ -4796,7 +4796,7 @@ fn draft_cite_path(draft: &CommentDraft) -> &str {
 
 /// The expanded body of one file section: notices, hunk headers, +/-/context
 /// lines with a coloured accent bar, dual line-number gutters, a marker
-/// column, and paint-only syntax runs (zeron checkout-diff-sidebar).
+/// column, and paint-only syntax runs (axecode checkout-diff-sidebar).
 /// Shared with the transcript's tool-diff detail blocks — the same component
 /// renders a checkout diff section and an inline ACP tool diff. (The changes
 /// pane itself virtualizes these rows individually; this stacked form serves
@@ -4992,7 +4992,7 @@ impl Render for Changes {
                 } else if message.contains("unknown method") {
                     (
                         SharedString::from(
-                            "This chat's device is running an older Zeron — update it to view branch and turn diffs",
+                            "This chat's device is running an older Axe Code — update it to view branch and turn diffs",
                         ),
                         false,
                     )

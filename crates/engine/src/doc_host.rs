@@ -1,7 +1,7 @@
 //! DocHost — per-chat `SessionDoc` handles: snapshot persistence (debounced), edge room
 //! sync (offline-tolerant), and the HOST-ONLY durable command executor.
 //!
-//! Pragmatic port of zeron's `session-docs.ts` + the `main.ts` executor (spec:
+//! Pragmatic port of axecode's `session-docs.ts` + the `main.ts` executor (spec:
 //! feature-inventory §3.3, ARCHITECTURE §2 "command plane"):
 //! - the doc IS the outbox: commands and user entries commit locally and sync whenever a
 //!   room connection exists; the engine is fully functional with sync disabled;
@@ -790,7 +790,7 @@ impl ChatDocHandle {
     /// chips in completed parent turns), then stamp abandoned `streaming`
     /// entries `aborted`, appending
     /// `note` as a visible error part so the transcript says WHY the turn
-    /// ended (zeron folded "Run interrupted by backend restart" the same
+    /// ended (axecode folded "Run interrupted by backend restart" the same
     /// way). Returns the stamped entries' `(id, created_at)` — recovery uses
     /// them for the resume-freshness check.
     pub fn mark_abandoned_streams(&self, note: &str) -> Result<Vec<(String, i64)>, DocError> {
@@ -3290,7 +3290,7 @@ impl DocHost {
         })
     }
 
-    /// Per-open-chat room introspection for SyncStatus / `zeron sync`.
+    /// Per-open-chat room introspection for SyncStatus / `axecode sync`.
     /// `None` room = still dialing (join retry loop) or edge-less.
     pub fn sync_statuses(&self) -> Vec<(String, Option<zeron_sync::ChatStatsSnapshot>)> {
         let handles: Vec<Arc<ChatDocHandle>> =
@@ -5188,7 +5188,7 @@ impl DocHost {
                     ws.claim_chat(chat_id, Some(&request.cwd))?;
                     // A pre-existing row (the client's createChat raced ahead)
                     // still carries the repo folder — repoint it at the fresh
-                    // worktree, and stamp the actual `zeron/<name>` branch so
+                    // worktree, and stamp the actual `axecode/<name>` branch so
                     // the footer and the title-rename flow see it.
                     if let Some(wt) = &fresh_worktree {
                         if let Err(err) = ws.set_chat_cwd(chat_id, &wt.path) {
@@ -5393,7 +5393,7 @@ impl DocHost {
     /// Put a typed prompt in front of a live agent: steer it in, or — with no
     /// live steerable run — deliver the durable command as the next turn.
     /// After an engine restart `last_request` is empty too, so rebuild the run
-    /// config from the chat's workspace row (zeron derived dispatch config from
+    /// config from the chat's workspace row (axecode derived dispatch config from
     /// the chat row the same way — sessions.ts:601-620); dispatch's engine-owned
     /// resume then reattaches the prior harness conversation.
     ///
@@ -5956,8 +5956,8 @@ mod source_context_tests {
         let repo = dir.path().join("repo");
         std::fs::create_dir(&repo).unwrap();
         git(&repo, &["init", "-b", "feature/captured"]);
-        git(&repo, &["config", "user.name", "Zeron Test"]);
-        git(&repo, &["config", "user.email", "zeron@example.com"]);
+        git(&repo, &["config", "user.name", "Axe Code Test"]);
+        git(&repo, &["config", "user.email", "axecode@example.com"]);
         std::fs::write(repo.join("README.md"), "capture\n").unwrap();
         git(&repo, &["add", "README.md"]);
         git(&repo, &["commit", "-m", "capture"]);

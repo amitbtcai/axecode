@@ -1,5 +1,5 @@
 //! Isolated MCP stdio instance for manual discovery/create/converse smoke tests.
-//! Run with `cargo run -p zeron-engine --example mcp_standalone_smoke`.
+//! Run with `cargo run -p axecode-engine --example mcp_standalone_smoke`.
 //! Uses a temporary profile and scripted harness, never the user's workspace.
 
 use std::sync::Arc;

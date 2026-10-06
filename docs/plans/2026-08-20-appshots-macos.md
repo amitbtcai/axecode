@@ -49,7 +49,7 @@ boundary so existing local and remote attachment delivery remains intact.
 - `cargo fmt --all -- --check`.
 - `cargo check -p zeron-ui`.
 - `cargo test -p zeron-ui`.
-- A headed macOS smoke run with an isolated `ZERON_DATA_DIR` to validate global
+- A headed macOS smoke run with an isolated `AXECODE_DATA_DIR` to validate global
   shortcut delivery, permission recovery, frontmost-window ordering,
   screenshot preview, accessibility degradation, and local send. Remote-path
   behavior is covered by the existing queued attachment transport plus focused

@@ -23,7 +23,7 @@ xcodebuild -project Zeron.xcodeproj -scheme Zeron \
 The Zeron target's **Rust core** build phase runs `scripts/ios/build-core.sh`,
 which builds `crates/mobile` for the active platform (always optimized — the
 `mobile` cargo profile) and refreshes the committed UniFFI bindings in
-`Zeron/Core/Generated/`. `ZERON_SKIP_CORE=1` reuses the last built library
+`Zeron/Core/Generated/`. `AXECODE_SKIP_CORE=1` reuses the last built library
 when iterating on Swift only.
 
 ## Layout
@@ -98,13 +98,13 @@ Live stack (real edge + headless engine; see `ZeronUITests/LiveStackTests.swift`
 
 ```sh
 (cd edge && npx wrangler dev --port 27650 --var AUTH_MODE:dev) &
-ZERON_DATA_DIR=/tmp/e2e ZERON_IPC_PORT=27811 ZERON_EDGE_URL=http://localhost:27650 \
-  ZERON_EDGE_TOKEN=alice@org1 ZERON_ORG_ID=org1 ZERON_HARNESS=mock target/debug/zeron headless &
-TEST_RUNNER_ZERON_LIVE_EDGE=http://localhost:27650 xcodebuild … -only-testing:ZeronUITests/LiveStackTests test
+AXECODE_DATA_DIR=/tmp/e2e AXECODE_IPC_PORT=27811 AXECODE_EDGE_URL=http://localhost:27650 \
+  AXECODE_EDGE_TOKEN=alice@org1 AXECODE_ORG_ID=org1 AXECODE_HARNESS=mock target/debug/zeron headless &
+TEST_RUNNER_AXECODE_LIVE_EDGE=http://localhost:27650 xcodebuild … -only-testing:ZeronUITests/LiveStackTests test
 ```
 
 The test launches the app with `-harness mock`: a chat's configured harness
-wins over the engine's `ZERON_HARNESS` default, so without it a real agent
+wins over the engine's `AXECODE_HARNESS` default, so without it a real agent
 would run.
 
 ## Session notifications

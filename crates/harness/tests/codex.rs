@@ -1157,7 +1157,7 @@ async fn live_subagent_spawn_and_followup_keep_one_transcript() {
 
 /// Live smoke against the REAL codex app-server (installed + authed):
 /// one trivial turn, ending on turn/completed.
-/// `cargo test -p zeron-harness --test codex -- --ignored`.
+/// `cargo test -p axecode-harness --test codex -- --ignored`.
 #[tokio::test]
 #[ignore = "spawns the real codex app-server; needs install + auth + network"]
 async fn live_real_app_server_single_turn() {
@@ -1235,7 +1235,7 @@ async fn skills_are_not_advertised_as_commands() {
     );
 }
 
-/// Live smoke against the real CLI: `cargo test -p zeron-harness --test
+/// Live smoke against the real CLI: `cargo test -p axecode-harness --test
 /// codex -- --ignored live_skills`.
 #[tokio::test]
 #[ignore]

@@ -79,12 +79,12 @@ binary to an immutable path, and run `scripts/resource-profile.mjs` sequentially
 in main/candidate/candidate/main order for each workload. Use:
 
 ```sh
-DISPLAY=:108 WAYLAND_DISPLAY= LP_NUM_THREADS=4 ZERON_FRAME_STATS=0 \
-  ZERON_PROFILE_PSS=1 ZERON_PROFILE_SUBMIT_UI=1 \
-  ZERON_PROFILE_PRE_IDLE_MS=10000 ZERON_PROFILE_IDLE_MS=45000 \
-  ZERON_REPLAY_DELAY_MS=40 \
+DISPLAY=:108 WAYLAND_DISPLAY= LP_NUM_THREADS=4 AXECODE_FRAME_STATS=0 \
+  AXECODE_PROFILE_PSS=1 AXECODE_PROFILE_SUBMIT_UI=1 \
+  AXECODE_PROFILE_PRE_IDLE_MS=10000 AXECODE_PROFILE_IDLE_MS=45000 \
+  AXECODE_REPLAY_DELAY_MS=40 \
   CLAUDE_CODE_EXECUTABLE="$PWD/scripts/replay-claude.py" \
-  ZERON_REPLAY_JOURNAL="$PWD/scripts/fixtures/resource-stream.jsonl" \
+  AXECODE_REPLAY_JOURNAL="$PWD/scripts/fixtures/resource-stream.jsonl" \
   node scripts/resource-profile.mjs /path/to/binary /tmp/fresh-run claude-code
 ```
 

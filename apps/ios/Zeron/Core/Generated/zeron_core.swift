@@ -12890,7 +12890,7 @@ public func modelLabel(harness: String, model: String) -> String  {
 })
 }
 /**
- * `code`/`state` (or the provider error) of a `zeron://callback?…` URL.
+ * `code`/`state` (or the provider error) of a `axecode://callback?…` URL.
  */
 public func parseAuthCallback(url: String) -> AuthCallback?  {
     return try!  FfiConverterOptionTypeAuthCallback.lift(try! rustCall() {

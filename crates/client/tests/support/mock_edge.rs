@@ -1,12 +1,12 @@
 //! A minimal in-process edge for live-mode tests: one TCP port that routes
 //! WebSocket upgrades by path, like the Worker:
 //!
-//! - `/registry/{org}/ws` → proxied to zeron-sync's `MockRegistryServer`
+//! - `/registry/{org}/ws` → proxied to axecode-sync's `MockRegistryServer`
 //!   (the SAME merge fn as production);
 //! - `/chat2/{chat}/ws`   → a small chat2 room (hello/state, rowsReq/rows/
 //!   rowsDone, push/ack + broadcast, probe/probeOk) with no checkpoint;
 //! - `/device/{id}/ws`    → the DeviceRoom relay (host/client routing by
-//!   `from`/`to`, `host_offline` bounces) — port of zeron-rpc's test fake;
+//!   `from`/`to`, `host_offline` bounces) — port of axecode-rpc's test fake;
 //! - anything else (plain HTTP pulls, nudges) is refused, which the client
 //!   must tolerate (it falls back to the sockets).
 //!
@@ -374,7 +374,7 @@ fn relay_error(code: &str) -> Vec<u8> {
     json!({ "error": code }).to_string().into_bytes()
 }
 
-/// DeviceRoom semantics (edge/src/device-room.ts), as in zeron-rpc's fake.
+/// DeviceRoom semantics (edge/src/device-room.ts), as in axecode-rpc's fake.
 async fn serve_relay(ws: Ws, device: String, query: HashMap<String, String>, shared: Arc<Shared>) {
     use zeron_rpc::device_room::{
         CLIENT_CLOSED, CLIENT_GONE, HOST_CLOSED, HOST_OFFLINE, RELAY_KIND,

@@ -1,4 +1,4 @@
-//! Loaders: the zeron pulse loader, the gradient matrix spinner, and the boot
+//! Loaders: the axecode pulse loader, the gradient matrix spinner, and the boot
 //! splash content. All motion routes through `crate::motion` pure helpers, so
 //! the math is unit-tested and these elements are testable-by-compile.
 //!
@@ -15,16 +15,16 @@ use gpui::{
     PathBuilder, Render, RenderOnce, SharedString, Styled, Window, canvas, div, point, px,
 };
 
-use crate::motion::{self, GRADIENT_SPIN, PULSE_STAGGER, SPLASH_OUT, ZERON_PULSE};
+use crate::motion::{self, GRADIENT_SPIN, PULSE_STAGGER, SPLASH_OUT, AXECODE_PULSE};
 use crate::theme::{GlyphPalette, Theme};
 
 // Shared with the terminal viewport (`zeron_proto::motion`) so both animate the
 // same loaders from the same numbers.
 pub use zeron_proto::motion::{
-    MARK_CELLS, MARK_SPREAD, MATRIX_SIDE, ZERON_CELLS, mark_cell_stagger,
+    MARK_CELLS, MARK_SPREAD, MATRIX_SIDE, AXECODE_CELLS, mark_cell_stagger,
 };
 
-/// The animated zeron mark (zeron-loader.tsx `ZeronLoader`): the full logo
+/// The animated axecode mark (axecode-loader.tsx `ZeronLoader`): the full logo
 /// pixel grid with a light wave sweeping tail→head. Each cell rests dim
 /// (opacity 0.08, scale 0.9) and flares to full as the crest passes; per-cell
 /// stagger follows the flight axis. `height_px` sets the mark's height (width
@@ -39,7 +39,7 @@ pub fn zeron_mark_loader(
     let color = theme.text;
     let scale = height_px / 940.0;
     let cell = 100.0 * scale;
-    let delta = motion::pulse_delta(&ZERON_PULSE, view, cx);
+    let delta = motion::pulse_delta(&AXECODE_PULSE, view, cx);
     div()
         .relative()
         .w(px(820.0 * scale))
@@ -57,7 +57,7 @@ pub fn zeron_mark_loader(
                 .justify_center()
                 .child({
                     // Negative CSS delay ⇒ the cell starts mid-cycle:
-                    // the stagger ADDS phase (zeron-loader.tsx delayFor).
+                    // the stagger ADDS phase (axecode-loader.tsx delayFor).
                     let phase = (delta + stagger).rem_euclid(1.0);
                     div()
                         .rounded(px(16.0 * scale))
@@ -68,7 +68,7 @@ pub fn zeron_mark_loader(
         }))
 }
 
-/// The zeron wave loader: a row of cells pulsing opacity 0.08→1 / scale 0.9→1
+/// The axecode wave loader: a row of cells pulsing opacity 0.08→1 / scale 0.9→1
 /// over 2.4s with a 0.15s stagger per cell.
 ///
 /// `id` scopes the per-cell animation state — give each loader instance a
@@ -82,13 +82,13 @@ pub fn zeron_loader(
 ) -> impl IntoElement {
     let color = theme.text;
     let slot = cell_px;
-    let delta = motion::pulse_delta(&ZERON_PULSE, view, cx);
+    let delta = motion::pulse_delta(&AXECODE_PULSE, view, cx);
     div()
         .flex()
         .flex_row()
         .items_center()
         .gap(px(slot / 2.0))
-        .children((0..ZERON_CELLS).map(move |i| {
+        .children((0..AXECODE_CELLS).map(move |i| {
             // Fixed slot; the animated cell breathes inside it.
             div()
                 .size(px(slot))
@@ -108,7 +108,7 @@ pub fn zeron_loader(
 
 pub use zeron_proto::motion::{GSPIN_DIM, GSPIN_ROW_TINTS};
 
-/// The gradient matrix spinner (WorkingIndicator), ported from zeron's
+/// The gradient matrix spinner (WorkingIndicator), ported from axecode's
 /// gradient-spin.tsx: a 3×3 grid of round cells tinted per row from the
 /// sunrise gradient. Each cell pulses opacity once per 750ms period; the
 /// per-cell phase follows the "arrow-up" pattern (the pulse enters at the
@@ -398,7 +398,7 @@ pub fn splash_overlay(theme: &Theme, fading: bool, view: EntityId, cx: &mut App)
             div()
                 .text_size(crate::typography::ui_rems(12.0))
                 .text_color(theme.text_muted.opacity(0.7))
-                .child(SharedString::from("Setting up Zeron environment")),
+                .child(SharedString::from("Setting up Axe Code environment")),
         );
     if fading {
         motion::splash_out("boot-splash-out", content).into_any_element()
@@ -410,7 +410,7 @@ pub fn splash_overlay(theme: &Theme, fading: bool, view: EntityId, cx: &mut App)
 // Compile-time proof the specs referenced here stay wired to the catalog.
 const _: () = {
     assert!(SPLASH_OUT.delay_ms == 150);
-    assert!(ZERON_PULSE.duration_ms == 2400);
+    assert!(AXECODE_PULSE.duration_ms == 2400);
     assert!(GRADIENT_SPIN.duration_ms == 750);
 };
 

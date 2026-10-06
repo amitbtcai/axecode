@@ -1260,8 +1260,8 @@ impl Client {
                     "crates/text/src/layout.rs",
                     "crates/text/src/prepare.rs",
                     "crates/markdown/src/parser.rs",
-                    "apps/ios/Zeron/Transcript/TranscriptListView.swift",
-                    "apps/ios/Zeron/Composer/ComposerBar.swift",
+                    "apps/ios/Axe Code/Transcript/TranscriptListView.swift",
+                    "apps/ios/Axe Code/Composer/ComposerBar.swift",
                     "docs/mobile-rewrite.md",
                     "README.md",
                 ];
@@ -1411,7 +1411,7 @@ impl Client {
     pub fn set_network_online(&self, online: bool) {
         let was = self.inner.path_online.swap(online, Ordering::AcqRel);
         if !self.inner.is_demo() {
-            // Parks/un-parks every sync backoff in the process (zeron-sync).
+            // Parks/un-parks every sync backoff in the process (axecode-sync).
             zeron_sync::wake::set_path_online(online);
         }
         if was != online {

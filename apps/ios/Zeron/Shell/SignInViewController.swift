@@ -2,7 +2,7 @@ import AuthenticationServices
 import UIKit
 
 enum Endpoints {
-    static let edgeURL = URL(string: "https://edge.zeron.sh")!
+    static let edgeURL = URL(string: "https://edge.axeai.com")!
     static let workosClientId = "client_01KWD0EAKZKD50YCQJNYSRE4BY"
     static let callbackScheme = "zeron"
 

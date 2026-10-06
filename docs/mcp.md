@@ -1,7 +1,7 @@
 # Zeron MCP server
 
 `zeron mcp` serves the Model Context Protocol on stdin/stdout and proxies every
-tool into the running engine's localhost IPC (`ws://127.0.0.1:$ZERON_IPC_PORT`,
+tool into the running engine's localhost IPC (`ws://127.0.0.1:$AXECODE_IPC_PORT`,
 default 27654) — the same `zeron_rpc` surface the headed app and `zeron sync`
 dial. It is a subcommand of the one `zeron` binary: no Node runtime, no extra
 install, a few MB resident.
@@ -18,11 +18,11 @@ originating chat in the environment:
 
 | Variable          | Meaning                                                       |
 | ----------------- | ------------------------------------------------------------- |
-| `ZERON_IPC_PORT`  | Engine to proxy (default 27654).                              |
-| `ZERON_CHAT_ID`   | The chat whose agent spawned this server.                     |
-| `ZERON_DEVICE_ID` | That chat's host device.                                      |
+| `AXECODE_IPC_PORT`  | Engine to proxy (default 27654).                              |
+| `AXECODE_CHAT_ID`   | The chat whose agent spawned this server.                     |
+| `AXECODE_DEVICE_ID` | That chat's host device.                                      |
 
-When `ZERON_CHAT_ID` is set, every `send_message` is prefixed with a
+When `AXECODE_CHAT_ID` is set, every `send_message` is prefixed with a
 `[Message from Zeron chat <title> (<id8>) …]` line so the receiving agent and the
 human reading that transcript can tell an agent-to-agent message from a typed
 one, and the server refuses to message its own chat. The transcript renders
@@ -50,7 +50,7 @@ row (`Mutate createChat { parentChatId? }`). Chats with a parent cannot create
 chats through MCP, including standalone and batch creation or an explicit parent
 override. A side chat cannot be selected as a parent; only one level is supported.
 
-For children, `parent` (id, prefix, or title) overrides the origin (`ZERON_CHAT_ID`).
+For children, `parent` (id, prefix, or title) overrides the origin (`AXECODE_CHAT_ID`).
 `list_chats { parent }` returns children, and chat summaries carry `parentChatId`.
 Rows from older engines read as parentless; a dangling parent id is tolerated.
 
@@ -148,9 +148,9 @@ between turns are labeled **Send next** in the composer.
 The opt-in `steering_live` engine test checks a rapid burst, foreground and
 background process survival, retained context, exactly-once effects, and ordered
 normal queue delivery. For Claude, Cursor and Codex it additionally requires the
-burst to finish within the original turn. Set `ZERON_TEST_BURST=6` to reproduce a
-six-message burst; select an inexpensive model with `ZERON_TEST_MODEL` and the
-harness with `ZERON_TEST_HARNESS`. Codex is checked for child survival during
+burst to finish within the original turn. Set `AXECODE_TEST_BURST=6` to reproduce a
+six-message burst; select an inexpensive model with `AXECODE_TEST_MODEL` and the
+harness with `AXECODE_TEST_HARNESS`. Codex is checked for child survival during
 the active tool: its runtime cleans up background jobs on normal tool completion
 even without steering. Other providers also check a job that outlives that tool.
 
@@ -266,7 +266,7 @@ both the MCP transport and engine support concurrent chat runs.
 BIN=target/debug/zeron
 { echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}'
   echo '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"list_chats","arguments":{"limit":5}}}'
-  sleep 5; } | ZERON_IPC_PORT=27655 $BIN mcp
+  sleep 5; } | AXECODE_IPC_PORT=27655 $BIN mcp
 ```
 
 `create_chat` with `"prompt": "Reply with exactly the word pong", "wait": true`

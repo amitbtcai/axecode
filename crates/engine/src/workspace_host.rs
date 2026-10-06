@@ -594,7 +594,7 @@ impl WorkspaceHost {
         }
     }
 
-    /// Registry room introspection for SyncStatus / `zeron sync`.
+    /// Registry room introspection for SyncStatus / `axecode sync`.
     /// `None` = no room yet (edge-less, or the initial join is still retrying).
     pub fn sync_status(&self) -> Option<zeron_sync::RoomStatsSnapshot> {
         lock(&self.inner.room).as_ref().map(|room| room.stats())
@@ -897,7 +897,7 @@ impl WorkspaceHost {
     }
 
     /// [`create_chat`](Self::create_chat) recording the creating chat
-    /// (`parentChatId`) — the Zeron MCP's orchestration link.
+    /// (`parentChatId`) — the Axe Code MCP's orchestration link.
     pub fn create_chat_with_parent(
         &self,
         chat_id: &str,
@@ -1107,7 +1107,7 @@ impl WorkspaceHost {
         Ok(self.mutate(|doc| doc.set_chat_archived(chat_id, archived))?)
     }
 
-    /// LWW full-config replace on the chat row (zeron `SetChatConfig` — the
+    /// LWW full-config replace on the chat row (axecode `SetChatConfig` — the
     /// composer's mid-session model/reasoning/options changes). Returns false
     /// when the chat doesn't exist.
     pub fn set_chat_config(&self, chat_id: &str, config: &ChatConfig) -> Result<bool, EngineError> {
