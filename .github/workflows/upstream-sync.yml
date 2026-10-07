@@ -62,12 +62,11 @@ jobs:
             \`\`\`
             $conflicts
             \`\`\`"
-            gh label create upstream-sync -d "Automated upstream merge tracking" -c 8950e8 2>/dev/null || true
             existing=$(gh issue list --state open --search "Upstream sync needs manual merge" --json number --jq '.[0].number' || true)
             if [ -n "$existing" ]; then
               gh issue edit "$existing" --title "$title" --body "$body"
             else
-              gh issue create --title "$title" --body "$body" --label "upstream-sync"
+              gh issue create --title "$title" --body "$body"
             fi
             exit 0
           fi
