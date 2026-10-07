@@ -1,0 +1,66 @@
+name: upstream-sync
+
+on:
+  schedule:
+    - cron: "17 5 * * *" # daily 05:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+
+      - name: Merge upstream/main into sync branch
+        id: merge
+        env:
+          SYNC_BRANCH: sync/upstream
+        run: |
+          git config user.name "axecode-bot"
+          git config user.email "bot@axeai.com"
+          chmod +x scripts/upstream-merge.sh
+          scripts/upstream-merge.sh | tee "$GITHUB_STEP_SUMMARY" >> merge-out.txt
+          cat merge-out.txt >> "$GITHUB_OUTPUT"
+
+      - name: Push sync branch
+        if: steps.merge.outputs.OUTCOME != 'uptodate'
+        run: git push -f origin sync/upstream
+
+      - name: Open or update sync PR
+        if: steps.merge.outputs.OUTCOME != 'uptodate'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTCOME: ${{ steps.merge.outputs.OUTCOME }}
+          MERGED: ${{ steps.merge.outputs.MERGED }}
+        run: |
+          title="Sync upstream/main ($MERGED commits)"
+          body="Automated upstream sync of \`zeronsh/zeron\` into \`sync/upstream\`.
+
+          Merge outcome: **$OUTCOME**
+
+          - \`clean\`/\`auto\`: review the diff and merge when green.
+          - \`conflicted\`: an agent should check out \`sync/upstream\`, run
+            \`git merge upstream/main\`, resolve per AGENTS.md merge discipline
+            (additive seams, keep \`zeron-*\` crate names, our version files win),
+            then push to this branch.
+
+          Merge rules live in AGENTS.md."
+
+          existing=$(gh pr list --head sync/upstream --state open --json number --jq '.[0].number' || true)
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --title "$title" --body "$body"
+          else
+            draft=""
+            [ "$OUTCOME" = "conflicted" ] && draft="--draft"
+            gh pr create $draft --title "$title" --body "$body" --base main --head sync/upstream
+          fi

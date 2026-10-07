@@ -41,8 +41,14 @@ git-safety section before touching the working tree.
 
 - Production IPC port `28654`; dev bundle uses `49777` with isolated data at
   `target/macos-dev/data`. Production data lives in `~/.axecode`.
-- `origin` remote (github.com/amitbtcai/axecode) was deleted; `upstream`
-  remains. Do not push to `origin` until a new repo is created.
+- `origin` is github.com/amitbtcai/axecode (public, recreated); `upstream`
+  is zeronsh/zeron. Push fork work to `origin` only.
+- `.github/workflows/upstream-sync.yml` runs daily + on dispatch:
+  `scripts/upstream-merge.sh` merges `upstream/main` into `sync/upstream`
+  and opens/updates a PR. `clean`/`auto` outcomes are reviewable diffs;
+  `conflicted` opens a draft PR — an agent checks out `sync/upstream`,
+  runs `git merge upstream/main`, resolves per the rules above (version
+  files resolve as ours), and pushes to that branch.
 
 ## Git safety — parallel sessions share this tree
 
