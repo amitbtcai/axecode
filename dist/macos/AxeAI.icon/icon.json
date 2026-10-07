@@ -1,18 +1,36 @@
 {
-  "fill" : {
-    "solid" : "extended-srgb:0.02353,0.03922,0.90196,1.00000"
+  "fill": {
+    "solid": "extended-srgb:0.02353,0.03922,0.90196,1.00000"
   },
-  "groups" : [
+  "groups": [
     {
-      "layers" : [
+      "layers": [
         {
-          "image-name" : "mark.png",
-          "name" : "Axe AI Mark"
+          "image-name": "mark.png",
+          "name": "Axe AI Mark",
+          "glass": false,
+          "position": {
+            "scale": 0.85,
+            "translation-in-points": [
+              0,
+              0
+            ]
+          }
         }
-      ]
+      ],
+      "name": "Mark",
+      "specular": true,
+      "shadow": {
+        "kind": "layer-color",
+        "opacity": 0.35
+      },
+      "translucency": {
+        "enabled": true,
+        "value": 0.3
+      }
     }
   ],
-  "supported-platforms" : {
-    "squares" : "shared"
+  "supported-platforms": {
+    "squares": "shared"
   }
 }
