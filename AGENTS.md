@@ -46,9 +46,10 @@ git-safety section before touching the working tree.
 - `.github/workflows/upstream-sync.yml` runs daily + on dispatch:
   `scripts/upstream-merge.sh` merges `upstream/main` into `sync/upstream`
   and opens/updates a PR. `clean`/`auto` outcomes are reviewable diffs;
-  `conflicted` opens a draft PR — an agent checks out `sync/upstream`,
-  runs `git merge upstream/main`, resolves per the rules above (version
-  files resolve as ours), and pushes to that branch.
+  `conflicted` opens a tracking issue — an agent resolves in a worktree
+  (`git worktree add /tmp/axecode-sync sync/upstream`, `git merge
+  upstream/main`, resolve per the rules above — version files resolve as
+  ours), pushes to `sync/upstream`, and opens the PR.
 
 ## Git safety — parallel sessions share this tree
 
