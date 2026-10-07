@@ -89,6 +89,12 @@ const DEFAULT_EDGE_URL: &str = "https://edge.axeai.com";
 /// — or set a dev bearer via `AXECODE_EDGE_TOKEN` — to force dev-mode auth.
 const DEFAULT_WORKOS_CLIENT_ID: &str = "";
 
+/// axecode: the public OAuth client id registered on axeai.com's Better Auth
+/// provider — public knowledge (it appears in every authorize URL). Used when
+/// `AXECODE_AUTH_PROVIDER` is unset/`axeai` (the engine's default); WorkOS
+/// stays reachable via `AXECODE_AUTH_PROVIDER=workos`.
+const DEFAULT_AXEAI_CLIENT_ID: &str = "axecode";
+
 fn edge_url_from_env() -> String {
     std::env::var("AXECODE_EDGE_URL")
         .ok()
@@ -105,8 +111,19 @@ fn workos_client_id_from_env(edge_token: &Option<String>) -> Option<String> {
         Ok(v) if v.trim().is_empty() => None,
         Ok(v) => Some(v),
         Err(_) if edge_token.is_some() => None,
-        Err(_) if DEFAULT_WORKOS_CLIENT_ID.is_empty() => None,
-        Err(_) => Some(DEFAULT_WORKOS_CLIENT_ID.into()),
+        Err(_) => default_oauth_client_id(),
+    }
+}
+
+/// axecode: the baked client id follows the provider — `axecode` on Axe AI
+/// (the engine default), the (empty) upstream WorkOS id under
+/// `AXECODE_AUTH_PROVIDER=workos`. An explicit `AXECODE_WORKOS_CLIENT_ID`
+/// always wins and is passed through verbatim for either provider.
+fn default_oauth_client_id() -> Option<String> {
+    if std::env::var("AXECODE_AUTH_PROVIDER").as_deref() == Ok("workos") {
+        (!DEFAULT_WORKOS_CLIENT_ID.is_empty()).then(|| DEFAULT_WORKOS_CLIENT_ID.into())
+    } else {
+        Some(DEFAULT_AXEAI_CLIENT_ID.into())
     }
 }
 

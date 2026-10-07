@@ -162,6 +162,12 @@ pub struct AuthConfig {
     pub workos_client_id: Option<String>,
     /// WorkOS API base (authorize URL host).
     pub workos_api_base: String,
+    /// axecode: OAuth provider — `"workos"` (upstream default) or `"axeai"`
+    /// (Axe AI Better Auth). Only consulted when `workos_client_id` is set;
+    /// in axeai mode that field carries the public `axecode` client id.
+    pub provider: String,
+    /// axecode: Axe AI issuer base (`https://axeai.com/api/auth`) — axeai mode.
+    pub axeai_issuer: String,
     /// Dev-mode bearer/user id (mirrors the old `AXECODE_EDGE_TOKEN` behavior).
     pub dev_user_id: String,
     /// Loopback callback port; `None` = ephemeral.
@@ -175,6 +181,8 @@ impl AuthConfig {
             data_dir: data_dir.into(),
             workos_client_id: None,
             workos_api_base: "https://api.workos.com".into(),
+            provider: "workos".into(),
+            axeai_issuer: "https://axeai.com/api/auth".into(),
             dev_user_id: "dev-user".into(),
             callback_port: None,
         }
@@ -264,7 +272,15 @@ struct AuthInner {
 #[derive(Default)]
 struct SignInLifecycle {
     generation: u64,
-    pending: HashMap<String, Instant>,
+    pending: HashMap<String, PendingSignIn>,
+}
+
+/// What a started sign-in must remember until its callback arrives: the exact
+/// `redirect_uri` for the token exchange and (axeai mode) the PKCE verifier.
+struct PendingSignIn {
+    at: Instant,
+    redirect_uri: String,
+    code_verifier: Option<String>,
 }
 
 /// The auth service — cheap to clone by `Arc`.
@@ -534,13 +550,13 @@ impl Auth {
                     .into(),
             ));
         }
-        let Some(generation) = self.take_pending(state) else {
+        let Some((generation, pending)) = self.take_pending(state) else {
             return Err(EngineError::Other(
                 "invalid or expired sign-in code — start sign-in again and paste the full code"
                     .into(),
             ));
         };
-        let result = self.exchange_code(code).await?;
+        let result = self.exchange_code(code, &pending).await?;
         self.finish_sign_in(result, generation)
     }
 
@@ -581,7 +597,9 @@ impl Auth {
 
     /// Create an org (the edge makes us its first admin member) and scope to it.
     pub async fn create_org(&self, name: &str) -> Result<(), EngineError> {
-        if self.inner.workos.is_none() {
+        if self.inner.workos.is_none() || self.is_axeai() {
+            // axecode: the personal workspace is already in effect — org
+            // creation is a no-op the OrgGate never reaches anyway.
             return Ok(());
         }
         #[derive(Deserialize)]
@@ -602,7 +620,8 @@ impl Auth {
     /// Scope the session to an org: one refresh with `organizationId`; the state follows
     /// the returned token's `org_id` claim.
     pub async fn select_org(&self, organization_id: &str) -> Result<(), EngineError> {
-        if self.inner.workos.is_none() {
+        if self.inner.workos.is_none() || self.is_axeai() {
+            // axecode: always already scoped to the personal workspace.
             return Ok(());
         }
         let token = self.refresh(Some(organization_id)).await?;
@@ -623,37 +642,75 @@ impl Auth {
 
     fn begin_sign_in(&self, redirect_uri: &str) -> String {
         let state = uuid::Uuid::new_v4().to_string();
+        let mut pending = PendingSignIn {
+            at: Instant::now(),
+            redirect_uri: redirect_uri.to_string(),
+            code_verifier: None,
+        };
+        let client_id = self.inner.workos.clone().unwrap_or_default();
+        // axecode: the Axe AI (Better Auth) code flow — PKCE plus the RFC 8707
+        // `resource` (this edge's URL), which is what makes the provider mint
+        // JWT access tokens the edge can verify locally.
+        let url = if self.is_axeai() {
+            let (verifier, challenge) = crate::auth_axeai::pkce_pair();
+            pending.code_verifier = Some(verifier);
+            crate::auth_axeai::authorize_url(
+                &self.inner.config.axeai_issuer,
+                &client_id,
+                redirect_uri,
+                self.inner.config.edge_url.trim_end_matches('/'),
+                &state,
+                &challenge,
+            )
+        } else {
+            format!(
+                "{}/user_management/authorize?response_type=code&client_id={}&redirect_uri={}&provider=authkit&state={}",
+                self.inner.config.workos_api_base.trim_end_matches('/'),
+                url_encode(&client_id),
+                url_encode(redirect_uri),
+                state
+            )
+        };
         {
             let mut sign_in = lock(&self.inner.sign_in);
             let cutoff = Instant::now();
             sign_in
                 .pending
-                .retain(|_, at| cutoff.duration_since(*at) < SIGN_IN_TTL);
-            sign_in.pending.insert(state.clone(), cutoff);
+                .retain(|_, p| cutoff.duration_since(p.at) < SIGN_IN_TTL);
+            sign_in.pending.insert(state, pending);
         }
-        let client_id = self.inner.workos.clone().unwrap_or_default();
-        format!(
-            "{}/user_management/authorize?response_type=code&client_id={}&redirect_uri={}&provider=authkit&state={}",
-            self.inner.config.workos_api_base.trim_end_matches('/'),
-            url_encode(&client_id),
-            url_encode(redirect_uri),
-            state
-        )
+        url
     }
 
     /// Consume a pending sign-in state and capture its cancellation generation.
     /// `None` means unknown/expired (CSRF check).
-    fn take_pending(&self, state: &str) -> Option<u64> {
+    fn take_pending(&self, state: &str) -> Option<(u64, PendingSignIn)> {
         let mut sign_in = lock(&self.inner.sign_in);
         let now = Instant::now();
         sign_in
             .pending
-            .retain(|_, at| now.duration_since(*at) < SIGN_IN_TTL);
-        sign_in.pending.remove(state)?;
-        Some(sign_in.generation)
+            .retain(|_, p| now.duration_since(p.at) < SIGN_IN_TTL);
+        let pending = sign_in.pending.remove(state)?;
+        Some((sign_in.generation, pending))
     }
 
-    async fn exchange_code(&self, code: &str) -> Result<SignInResult, EngineError> {
+    /// axecode: axeai mode (`AXECODE_AUTH_PROVIDER=axeai` — the Axe Code
+    /// default provider set in `Engine::build_auth`).
+    fn is_axeai(&self) -> bool {
+        self.inner.config.provider == "axeai"
+    }
+
+    /// The org scope a fresh access token implies. axecode: Axe AI tokens
+    /// carry no `org_id` — the workspace is the per-user `"personal"` segment
+    /// the edge stamps on every verified bearer.
+    fn token_org_id(&self, token: &str) -> Option<String> {
+        if self.is_axeai() {
+            return Some(crate::auth_axeai::PERSONAL_ORG_ID.to_string());
+        }
+        jwt_claims(token).and_then(|c| c.org_id)
+    }
+
+    async fn exchange_code(&self, code: &str, pending: &PendingSignIn) -> Result<SignInResult, EngineError> {
         #[derive(Deserialize)]
         #[serde(rename_all = "camelCase")]
         struct WireUser {
@@ -675,11 +732,23 @@ impl Auth {
             "{}/auth/exchange",
             self.inner.config.edge_url.trim_end_matches('/')
         );
+        // axecode: the Axe AI exchange also needs the exact redirect_uri used
+        // at authorize time and the PKCE verifier — the edge forwards both to
+        // the provider's /oauth2/token.
+        let body = if self.is_axeai() {
+            serde_json::json!({
+                "code": code,
+                "redirectUri": pending.redirect_uri,
+                "codeVerifier": pending.code_verifier,
+            })
+        } else {
+            serde_json::json!({ "code": code })
+        };
         let res = self
             .inner
             .http
             .post(&url)
-            .json(&serde_json::json!({ "code": code }))
+            .json(&body)
             .send()
             .await
             .map_err(|e| {
@@ -727,7 +796,7 @@ impl Auth {
                 "sign-in was canceled — start again from Axe Code".into(),
             ));
         }
-        let org_id = jwt_claims(&result.access_token).and_then(|c| c.org_id);
+        let org_id = self.token_org_id(&result.access_token);
         *lock(&self.inner.access) = Some(AccessEntry::fresh(result.access_token));
         let session = StoredSession {
             refresh_token: result.refresh_token,
@@ -931,7 +1000,7 @@ impl Auth {
         {
             return Ok(None);
         }
-        let org_id = jwt_claims(&tokens.access_token).and_then(|c| c.org_id);
+        let org_id = self.token_org_id(&tokens.access_token);
         let entry = AccessEntry::fresh(tokens.access_token.clone());
         tracing::info!(ttl_s = entry.ttl.as_secs(), "auth: access token refreshed");
         *lock(&self.inner.access) = Some(entry);
@@ -1130,7 +1199,7 @@ async fn handle_loopback_conn(
         };
         match (code, state) {
             (Some(code), Some(state)) => match auth.take_pending(state) {
-                Some(generation) => match auth.exchange_code(code).await {
+                Some((generation, pending)) => match auth.exchange_code(code, &pending).await {
                     Ok(result) => match auth.finish_sign_in(result, generation) {
                         Ok(()) => (
                             "200 OK",
@@ -1217,7 +1286,7 @@ fn base64url_decode(input: &str) -> Option<Vec<u8>> {
     Some(out)
 }
 
-fn url_encode(input: &str) -> String {
+pub(crate) fn url_encode(input: &str) -> String {
     let mut out = String::with_capacity(input.len());
     for byte in input.bytes() {
         match byte {

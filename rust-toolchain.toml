@@ -1,3 +1,8 @@
 [toolchain]
-channel = "stable"
+# axecode: pinned to beta because the tree uses std APIs that are stable in
+# 1.100 but not in stable 1.99 (`File::try_lock`/`TryLockError` — `file_lock`,
+# and `Ipv4Addr::from_octets` — `ip_from` via rtc-mdns 0.20.5). Revert to
+# "stable" once stable reaches 1.100 (upstream CI does `rustup update stable`
+# and will self-heal then anyway).
+channel = "beta"
 components = ["rustfmt", "clippy"]

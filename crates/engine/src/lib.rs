@@ -17,6 +17,7 @@ use zeron_sync::DocsStore;
 
 pub mod agent_accounts;
 pub mod auth;
+mod auth_axeai;
 pub mod change_requests;
 pub mod chat2_host;
 mod chat_persistence;
@@ -623,6 +624,12 @@ impl Engine {
     pub async fn build_auth(config: &EngineConfig) -> Auth {
         let mut auth_config = AuthConfig::new(config.edge_url.clone(), config.data_dir.clone());
         auth_config.workos_client_id = config.workos_client_id.clone();
+        // axecode: OAuth provider selection — Axe AI (Better Auth) is the Axe
+        // Code default; `AXECODE_AUTH_PROVIDER=workos` restores the upstream
+        // path. `AXECODE_AXEAI_ISSUER` points the authorize URL at a
+        // non-production Axe AI deployment.
+        auth_config.provider = env_or("AXECODE_AUTH_PROVIDER", "axeai");
+        auth_config.axeai_issuer = env_or("AXECODE_AXEAI_ISSUER", "https://axeai.com/api/auth");
         if let Ok(base) = std::env::var("AXECODE_WORKOS_API_BASE")
             && !base.trim().is_empty()
         {

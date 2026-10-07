@@ -14,6 +14,7 @@
  * body 400, missing bearer 401, WorkOS-off 501, rejected exchange/refresh 401.
  */
 import { bearerFromRequest, verifyToken } from "./auth";
+import { AxeaiAuthFailed, createOrg as axeaiCreateOrg, exchange as axeaiExchange, listOrgs as axeaiListOrgs, refresh as axeaiRefresh } from "./axeai-oauth";
 import type { Env } from "./env";
 import { WorkOsAuthFailed, createOrg, exchange, listOrgs, refresh } from "./workos";
 
@@ -26,7 +27,15 @@ const json = (value: unknown, status = 200): Response =>
 const notConfigured = (): Response => json({ error: "workos not configured" }, 501);
 
 const authFailed = (e: unknown): Response =>
-  json({ error: e instanceof WorkOsAuthFailed ? e.message : "authentication failed" }, 401);
+  json(
+    {
+      error:
+        e instanceof WorkOsAuthFailed || e instanceof AxeaiAuthFailed
+          ? e.message
+          : "authentication failed"
+    },
+    401
+  );
 
 const bodyJson = async <T>(request: Request): Promise<T | undefined> => {
   try {
@@ -44,6 +53,9 @@ export const handleAuthRoute = async (
 ): Promise<Response | undefined> => {
   const parts = url.pathname.split("/").filter(Boolean);
   if (parts[0] !== "auth") return undefined;
+  // axecode: the Axe AI provider reuses this surface — same route shapes,
+  // different backend. The WorkOS branch below is untouched.
+  if (env.AUTH_MODE === "axeai") return handleAxeaiRoute(request, env, url, parts);
   const apiKey = env.WORKOS_API_KEY;
 
   if (parts[1] === "exchange" && parts.length === 2 && request.method === "POST") {
@@ -102,6 +114,78 @@ export const handleAuthRoute = async (
       }
       try {
         return json(await createOrg(apiKey, caller.userId, trimmed));
+      } catch (e) {
+        return authFailed(e);
+      }
+    }
+  }
+
+  if (parts[1] === "cli" && parts[2] === "callback" && request.method === "GET") {
+    return cliCallback(url);
+  }
+
+  return undefined;
+};
+
+/** axecode: the Axe AI mode of handleAuthRoute — identical route shapes, the
+ * Better Auth backend in axeai-oauth.ts. Exchange needs the PKCE verifier and
+ * the exact redirect_uri the device used at authorize time; orgs answer the
+ * single synthetic personal workspace. */
+const handleAxeaiRoute = async (
+  request: Request,
+  env: Env,
+  url: URL,
+  parts: string[]
+): Promise<Response | undefined> => {
+  if (parts[1] === "exchange" && parts.length === 2 && request.method === "POST") {
+    const body = await bodyJson<{ code?: string; redirectUri?: string; codeVerifier?: string }>(
+      request
+    );
+    if (
+      typeof body?.code !== "string" ||
+      typeof body.redirectUri !== "string" ||
+      typeof body.codeVerifier !== "string"
+    ) {
+      return json({ error: "missing code, redirectUri or codeVerifier" }, 400);
+    }
+    try {
+      return json(await axeaiExchange(env, body.code, body.redirectUri, body.codeVerifier));
+    } catch (e) {
+      return authFailed(e);
+    }
+  }
+
+  if (parts[1] === "refresh" && parts.length === 2 && request.method === "POST") {
+    const body = await bodyJson<{ refreshToken?: string }>(request);
+    if (typeof body?.refreshToken !== "string") return json({ error: "missing refreshToken" }, 400);
+    try {
+      return json(await axeaiRefresh(env, body.refreshToken));
+    } catch (e) {
+      // Same repeat-offender fingerprinting as the WorkOS branch.
+      console.warn(
+        "auth/refresh failed",
+        request.headers.get("cf-connecting-ip") ?? "unknown-ip",
+        `token:${body.refreshToken.slice(0, 6)}…len${body.refreshToken.length}`,
+        e instanceof AxeaiAuthFailed ? e.message : String(e)
+      );
+      return authFailed(e);
+    }
+  }
+
+  if (parts[1] === "orgs" && parts.length === 2) {
+    const token = bearerFromRequest(request);
+    const caller = token ? await verifyToken(env, token) : undefined;
+    if (!caller) return json({ error: "invalid or missing bearer token" }, 401);
+    if (request.method === "GET") {
+      try {
+        return json({ orgs: await axeaiListOrgs(env, caller.userId) });
+      } catch (e) {
+        return authFailed(e);
+      }
+    }
+    if (request.method === "POST") {
+      try {
+        return json(await axeaiCreateOrg(env, caller.userId));
       } catch (e) {
         return authFailed(e);
       }

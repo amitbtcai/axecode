@@ -13,7 +13,8 @@ export interface Env {
    * /releases/* for the curl-install flow. */
   RELEASES: R2Bucket;
   WORKOS_CLIENT_ID: string;
-  /** "workos" (verify AuthKit JWTs) or "dev" (bearer == userId, never prod). */
+  /** "workos" (verify AuthKit JWTs), "axeai" (Axe AI Better Auth OAuth JWTs),
+   * or "dev" (bearer == userId, never prod). */
   AUTH_MODE: string;
   /** Optional overrides for the WorkOS trust anchor. */
   WORKOS_ISSUER?: string;
@@ -22,6 +23,17 @@ export interface Env {
    * routes (code exchange, refresh, orgs). Unset ⇒ those routes answer 501,
    * matching the old apps/server dev-mode behavior. */
   WORKOS_API_KEY?: string;
+  /** axecode: Axe AI (Better Auth) trust anchors — AUTH_MODE === "axeai". All
+   * public config: the client is PKCE public and JWTs verify via JWKS, so no
+   * secret is needed at the edge at all. */
+  AXEAI_ISSUER?: string;
+  AXEAI_JWKS_URL?: string;
+  AXEAI_TOKEN_URL?: string;
+  AXEAI_USERINFO_URL?: string;
+  AXEAI_CLIENT_ID?: string;
+  /** The OAuth resource minted into access tokens' `aud` — this edge's own URL
+   * (`https://edge.axeai.com`). Verified as the jwtVerify audience when set. */
+  AXEAI_AUDIENCE?: string;
   /** APNs auth key (contents of AuthKey_XXXX.p8, wrangler secret) and its
    * key id. Unset ⇒ session notifications are decided and logged, not sent. */
   APNS_KEY_P8?: string;

@@ -2016,10 +2016,10 @@ mod mcp_injection_tests {
         };
         let overrides: serde_json::Map<String, Value> =
             codex_mcp_overrides(&mcp).into_iter().collect();
-        assert_eq!(overrides["mcp_servers.zeron.command"], "/opt/axecode/axecode");
-        assert_eq!(overrides["mcp_servers.zeron.args"], json!(["mcp"]));
+        assert_eq!(overrides["mcp_servers.axecode.command"], "/opt/axecode/axecode");
+        assert_eq!(overrides["mcp_servers.axecode.args"], json!(["mcp"]));
         assert_eq!(
-            overrides["mcp_servers.zeron.env"],
+            overrides["mcp_servers.axecode.env"],
             json!({ "AXECODE_CHAT_ID": "chat-1" })
         );
     }

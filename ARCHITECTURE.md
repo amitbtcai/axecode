@@ -31,6 +31,14 @@ gpui UI ─ in-proc/localhost RPC ─ engine A ══ DeviceRoom DO relay ══
   Absorbs the old `apps/server` responsibilities (WorkOS code exchange/refresh, orgs) so
   **Postgres, the Hono server, and the WebRTC/signaling stack are all gone**.
 
+  Auth provider is a config seam (`AUTH_MODE` at the edge, `AXECODE_AUTH_PROVIDER` in the
+  engine): `workos` (upstream default), `dev`, or `axeai`. In axeai mode sign-in is a
+  Better Auth OAuth/PKCE flow against axeai.com (`edge/src/axeai-oauth.ts`,
+  `crates/engine/src/auth_axeai.rs`), tokens are resource-scoped JWTs verified by the
+  edge via cached JWKS, and the org segment collapses to a `"personal"` constant while
+  all upstream wire shapes (`AuthState`, org RPCs, OrgGate) remain compiled and are
+  satisfied mechanically. See `docs/plans/2026-10-07-axeai-auth-migration.md`.
+
 ### Headed / headless
 Single binary `zeron`:
 - `zeron` — headed. If a local engine daemon is already listening on the IPC port, connect to it;

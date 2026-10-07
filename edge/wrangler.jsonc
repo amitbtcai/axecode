@@ -13,7 +13,7 @@
   "name": "comet-native-edge",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-01",
-  "account_id": "b57dde68ee5964dccc025437b5478a5b",
+  // "account_id": "b57dde68ee5964dccc025437b5478a5b",
   "workers_dev": true,
   // Public hostname on the axeai.com zone, plus the install surface carved out
   // of the landing host: path routes beat the landing worker's custom
@@ -84,7 +84,13 @@
     // and `wrangler secret put APNS_KEY_ID`. Unset ⇒ decided and logged on
     // /registry/:org/stats, not sent.
     "WORKOS_CLIENT_ID": "client_01KWD0EAKZKD50YCQJNYSRE4BY",
-    "AUTH_MODE": "workos"
+    "AUTH_MODE": "axeai",
+    // axecode: Axe AI (Better Auth) trust anchors — all public values (PKCE
+    // public client + JWKS verification; no secret at the edge). The audience
+    // is the OAuth resource minted into access tokens' `aud`.
+    "AXEAI_ISSUER": "https://axeai.com/api/auth",
+    "AXEAI_AUDIENCE": "https://edge.axeai.com",
+    "AXEAI_CLIENT_ID": "axecode"
   },
   "observability": {
     "enabled": true

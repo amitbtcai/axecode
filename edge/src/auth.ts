@@ -18,6 +18,12 @@ export interface Verified {
   readonly orgId?: string;
 }
 
+/** axecode: the synthetic org segment every Axe AI bearer is scoped to — Axe
+ * AI sessions have no org concept, so the constant keeps `ws4/{org}/{user}` and
+ * `reg1/{org}/{user}` paths identical to WorkOS mode while authZ stays on the
+ * per-user segment. */
+export const AXEAI_PERSONAL_ORG = "personal";
+
 const jwksCache = new Map<string, ReturnType<typeof createRemoteJWKSet>>();
 
 const getJwks = (url: string) => {
@@ -45,6 +51,28 @@ export const verifyToken = async (env: Env, token: string): Promise<Verified | u
     const at = token.indexOf("@");
     if (at > 0) return { userId: token.slice(0, at), orgId: token.slice(at + 1) };
     return { userId: token };
+  }
+  // axecode: Axe AI Better Auth OAuth access tokens (`typ: at+jwt`, EdDSA).
+  // The `resource` indicator in the device's authorize request is what makes
+  // the provider mint these JWTs — verified locally against the JWKS, so Axe
+  // AI is never on the room-dial request path.
+  if (env.AUTH_MODE === "axeai") {
+    const issuer = env.AXEAI_ISSUER ?? "https://axeai.com/api/auth";
+    const jwksUrl = env.AXEAI_JWKS_URL ?? `${issuer}/jwks`;
+    try {
+      const { payload } = await jwtVerify(token, getJwks(jwksUrl), {
+        issuer,
+        ...(env.AXEAI_AUDIENCE ? { audience: env.AXEAI_AUDIENCE } : {})
+      });
+      if (typeof payload.sub !== "string" || payload.sub.length === 0) return undefined;
+      return {
+        userId: payload.sub,
+        sessionId: typeof payload.sid === "string" ? payload.sid : undefined,
+        orgId: AXEAI_PERSONAL_ORG
+      };
+    } catch {
+      return undefined;
+    }
   }
   const issuer =
     env.WORKOS_ISSUER ?? `https://api.workos.com/user_management/${env.WORKOS_CLIENT_ID}`;
