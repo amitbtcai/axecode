@@ -210,7 +210,7 @@ impl CodexHarness {
                     "initialize",
                     json!({
                         "clientInfo": {
-                            "name": "axecode-native",
+                            "name": "zeron-native",
                             "title": "Axe Code",
                             "version": env!("CARGO_PKG_VERSION"),
                         },
@@ -264,7 +264,7 @@ impl CodexHarness {
                     "initialize",
                     json!({
                         "clientInfo": {
-                            "name": "axecode-native",
+                            "name": "zeron-native",
                             "title": "Axe Code",
                             "version": env!("CARGO_PKG_VERSION"),
                         },
@@ -1042,7 +1042,7 @@ async fn run_session(session: Session) {
                 "initialize",
                 json!({
                     "clientInfo": {
-                        "name": "axecode-native",
+                        "name": "zeron-native",
                         "title": "Axe Code",
                         "version": env!("CARGO_PKG_VERSION"),
                     },
