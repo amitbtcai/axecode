@@ -38,41 +38,49 @@ jobs:
         if: steps.merge.outputs.OUTCOME != 'uptodate'
         run: git push -f origin sync/upstream
 
-      - name: Open or update sync PR
+      - name: Open or update sync PR or conflict issue
         if: steps.merge.outputs.OUTCOME != 'uptodate'
         env:
           GH_TOKEN: ${{ secrets.SYNC_GH_TOKEN || secrets.GITHUB_TOKEN }}
           OUTCOME: ${{ steps.merge.outputs.OUTCOME }}
           MERGED: ${{ steps.merge.outputs.MERGED }}
         run: |
-          title="Sync upstream/main ($MERGED commits)"
           conflicts=$(cat conflicts.txt 2>/dev/null || true)
+
+          if [ "$OUTCOME" = "conflicted" ]; then
+            title="Upstream sync needs manual merge ($MERGED commits)"
+            body="The daily sync found \`$MERGED\` upstream commits that conflict with the fork.
+
+            An agent should:
+            1. \`git checkout sync/upstream && git merge upstream/main\`
+            2. Resolve per AGENTS.md merge discipline (additive seams, keep
+               \`zeron-*\` names, Cargo version files resolve as ours).
+            3. Push to \`sync/upstream\` and open a PR to \`main\`.
+
+            Conflicted files:
+
+            \`\`\`
+            $conflicts
+            \`\`\`"
+            existing=$(gh issue list --state open --search "Upstream sync needs manual merge" --json number --jq '.[0].number' || true)
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --title "$title" --body "$body"
+            else
+              gh issue create --title "$title" --body "$body" --label "upstream-sync"
+            fi
+            exit 0
+          fi
+
+          title="Sync upstream/main ($MERGED commits)"
           body="Automated upstream sync of \`zeronsh/zeron\` into \`sync/upstream\`.
 
           Merge outcome: **$OUTCOME**
 
-          - \`clean\`/\`auto\`: review the diff and merge when green.
-          - \`conflicted\`: an agent should check out \`sync/upstream\`, run
-            \`git merge upstream/main\`, resolve per AGENTS.md merge discipline
-            (additive seams, keep \`zeron-*\` crate names, our version files win),
-            then push to this branch.
-
-          Merge rules live in AGENTS.md."
-          if [ -n "$conflicts" ]; then
-            body="$body
-
-          Conflicted files:
-
-          \`\`\`
-          $conflicts
-          \`\`\`"
-          fi
+          Review the diff and merge when green. Merge rules live in AGENTS.md."
 
           existing=$(gh pr list --head sync/upstream --state open --json number --jq '.[0].number' || true)
           if [ -n "$existing" ]; then
             gh pr edit "$existing" --title "$title" --body "$body"
           else
-            draft=""
-            [ "$OUTCOME" = "conflicted" ] && draft="--draft"
-            gh pr create $draft --title "$title" --body "$body" --base main --head sync/upstream
+            gh pr create --title "$title" --body "$body" --base main --head sync/upstream
           fi
