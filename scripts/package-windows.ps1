@@ -79,6 +79,7 @@ try {
     $out = Join-Path $root 'target/package'
     $arch = Get-WindowsPackageArch $probe.FileName
     $stage = Join-Path $out "AxeCode-$version-windows-$arch"
+    if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
     New-Item -ItemType Directory -Force -Path $stage | Out-Null
     Copy-Item -LiteralPath './target/release/axecode.exe' -Destination (Join-Path $stage 'axecode.exe')
     Get-ChildItem './target/release/*.dll' -ErrorAction SilentlyContinue |
