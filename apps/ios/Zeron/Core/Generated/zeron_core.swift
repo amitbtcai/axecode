@@ -9544,7 +9544,7 @@ public struct WorktreeSpec: Equatable, Hashable {
      */
     public var repoPath: String
     /**
-     * Base ref for the fresh `zeron/<name>` branch.
+     * Base ref for the fresh `axecode/<name>` branch.
      */
     public var base: String
     public var spaceId: String?
@@ -9556,7 +9556,7 @@ public struct WorktreeSpec: Equatable, Hashable {
          * The repo to branch (the project's folder on the host).
          */repoPath: String, 
         /**
-         * Base ref for the fresh `zeron/<name>` branch.
+         * Base ref for the fresh `axecode/<name>` branch.
          */base: String, spaceId: String?) {
         self.repoPath = repoPath
         self.base = base
@@ -14874,7 +14874,7 @@ public func coreVersion() -> String  {
 })
 }
 /**
- * OAuth callback scheme (`zeron`).
+ * OAuth callback scheme (`axecode`).
  */
 public func authCallbackScheme() -> String  {
     return try!  FfiConverterString.lift(try! rustCall() {
@@ -15078,7 +15078,7 @@ public func workosAuthorizeUrl(state: String) -> String  {
 })
 }
 /**
- * The canonical mention link the host understands (`[name](zeron-file:path)`).
+ * The canonical mention link the host understands (`[name](axecode-file:path)`).
  */
 public func fileMentionLink(path: String, isDir: Bool) -> String  {
     return try!  FfiConverterString.lift(try! rustCall() {
@@ -15193,7 +15193,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_zeron_mobile_checksum_func_core_version() != 46096) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_zeron_mobile_checksum_func_auth_callback_scheme() != 8202) {
+    if (uniffi_zeron_mobile_checksum_func_auth_callback_scheme() != 3721) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_zeron_mobile_checksum_func_auth_exchange_code() != 47073) {
@@ -15226,7 +15226,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_zeron_mobile_checksum_func_model_label() != 26905) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_zeron_mobile_checksum_func_parse_auth_callback() != 22318) {
+    if (uniffi_zeron_mobile_checksum_func_parse_auth_callback() != 45373) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_zeron_mobile_checksum_func_parse_user_message() != 19553) {
@@ -15247,7 +15247,7 @@ private let initializationResult: InitializationResult = {
     if (uniffi_zeron_mobile_checksum_func_workos_authorize_url() != 35994) {
         return InitializationResult.apiChecksumMismatch
     }
-    if (uniffi_zeron_mobile_checksum_func_file_mention_link() != 14340) {
+    if (uniffi_zeron_mobile_checksum_func_file_mention_link() != 27538) {
         return InitializationResult.apiChecksumMismatch
     }
     if (uniffi_zeron_mobile_checksum_func_default_voice_styles() != 30650) {
