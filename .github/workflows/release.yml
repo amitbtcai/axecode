@@ -5,13 +5,15 @@ name: release
 #   - macOS dmg (Apple silicon) via scripts/package-macos.sh
 #   - Windows per-user installer, portable zip, and updater exe (x86_64) via
 #     scripts/package-windows.ps1
-# then create a GitHub Release AND upload everything to the
-# `comet-native-releases` R2 bucket (served at axeai.com/releases/* for
-# `curl -fsSL https://axeai.com/install.sh | sh`), bumping latest.txt.
+# then create a GitHub Release with everything attached — including
+# manifest.json and latest.txt, which the edge worker redirects to at
+# `/releases/*` (`edge.axeai.com/releases/*` → the latest tag's assets, so
+# `curl -fsSL https://axeai.com/install.sh | sh` and the auto-updater work
+# with no bucket of our own).
 #
 # Trigger: push a tag `v<version>` matching the workspace version in
 # Cargo.toml (bump it in the same commit), or run manually via
-# workflow_dispatch (builds + uploads artifacts, no release/R2 publish).
+# workflow_dispatch (builds + uploads artifacts, no release publish).
 
 on:
   push:
@@ -176,24 +178,14 @@ jobs:
               '.files[$name] = {sha256: $sha}' <<<"$manifest")
           done
           printf '%s' "$manifest" > manifest.json
+          # latest.txt (version only) is the pre-manifest fallback the updater
+          # still resolves; publish it as an asset so the edge's /releases/*
+          # redirect serves it off the latest tag.
+          printf '%s' "$VERSION" > latest.txt
       - uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: |
             dist/*
             manifest.json
+            latest.txt
           generate_release_notes: true
-      - name: upload to R2 (axeai.com/releases/*)
-        if: env.CLOUDFLARE_API_TOKEN != ''
-        run: |
-          for f in dist/*; do
-            npx wrangler@4 r2 object put "comet-native-releases/$(basename "$f")" \
-              --file "$f" --remote
-          done
-          # manifest.json: version + per-artifact sha256 — the auto-updater
-          # (crates/update) verifies downloads against it. Published before
-          # latest.txt so no client ever sees a version without its checksums.
-          npx wrangler@4 r2 object put comet-native-releases/manifest.json \
-            --file manifest.json --remote
-          printf '%s' "$VERSION" > latest.txt
-          npx wrangler@4 r2 object put comet-native-releases/latest.txt \
-            --file latest.txt --remote

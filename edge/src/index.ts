@@ -45,6 +45,7 @@ import { PreviewRoom } from "./preview-room";
 import { DeviceRoom } from "./device-room";
 import { RegistryRoom } from "./registry-room";
 import { ChatRoom } from "./chat-room";
+import { remoteBlobs } from "./vps-blobs";
 import installSh from "./install.sh";
 
 export { SessionRoom, DeviceRoom, RegistryRoom, ChatRoom, PreviewRoom };
@@ -140,6 +141,20 @@ export default {
     ) {
       const key = decodeURIComponent(url.pathname.slice("/releases/".length));
       if (key.length === 0 || key.includes("..")) return json({ error: "bad request" }, 400);
+      // axecode: no R2 release bucket — release.yml publishes every artifact
+      // (plus manifest.json/latest.txt) to the GitHub release, so /releases/*
+      // redirects to the matching latest-tag asset. Clients all follow
+      // redirects (install.sh curl -fSL; the updater's reqwest).
+      if (env.RELEASES === undefined) {
+        const asset = key.split("/").map(encodeURIComponent).join("/");
+        return new Response(null, {
+          status: 302,
+          headers: {
+            location: `https://github.com/${env.GITHUB_RELEASES_REPO ?? "amitbtcai/axecode"}/releases/latest/download/${asset}`,
+            "cache-control": "public, max-age=60"
+          }
+        });
+      }
       const object = await env.RELEASES.get(key);
       if (!object) return json({ error: "not_found" }, 404);
       // latest.txt / manifest.json flip on release; artifacts are immutable by name.
@@ -406,7 +421,7 @@ export default {
         // Outputs are 4KiB-capped at the harness boundary; diffs can run
         // larger but a sidecar entry is one tool result, never a dump.
         if (body.byteLength > MAX_TOOL_BLOB_BYTES) return json({ error: "too_large" }, 413);
-        await env.BLOBS.put(key, body, {
+        await remoteBlobs(env).put(key, body, {
           httpMetadata: {
             contentType: request.headers.get("content-type") ?? "text/plain; charset=utf-8"
           }
@@ -415,7 +430,9 @@ export default {
       }
       if (request.method === "GET" || request.method === "HEAD") {
         const object =
-          request.method === "GET" ? await env.BLOBS.get(key) : await env.BLOBS.head(key);
+          request.method === "GET"
+            ? await remoteBlobs(env).get(key)
+            : await remoteBlobs(env).head(key);
         if (!object) return json({ error: "not_found" }, 404);
         const headers = new Headers();
         object.writeHttpMetadata(headers);

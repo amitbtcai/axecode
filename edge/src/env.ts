@@ -8,10 +8,19 @@ export interface Env {
   /** chat2 session rooms (`chat2/{chatId}`) — dumb authenticated log relays
    * replacing SessionRoom's loro-aware s2 rooms (docs/chat2-sync.md). */
   CHAT_ROOMS: DurableObjectNamespace;
-  BLOBS: R2Bucket;
-  /** Release artifacts (headless tarballs, dmgs, latest.txt) served at
-   * /releases/* for the curl-install flow. */
-  RELEASES: R2Bucket;
+  /** Optional R2 blob bucket. When unbound, blob ops fall back to the VPS
+   * endpoint below (vps-blobs.ts) so the worker needs no paid products. */
+  BLOBS?: R2Bucket;
+  /** Optional R2 release bucket. When unbound, /releases/* redirects to the
+   * GitHub Releases latest tag (axecode publishes artifacts there). */
+  RELEASES?: R2Bucket;
+  /** axecode: VPS blob endpoint (`https://axeai.com/api/edge-blobs`, var) and
+   * its shared bearer token (wrangler secret). Used only when BLOBS is
+   * unbound. */
+  AXEAI_BLOB_URL?: string;
+  AXEAI_BLOB_TOKEN?: string;
+  /** GitHub repo hosting release assets for /releases/* redirects. */
+  GITHUB_RELEASES_REPO?: string;
   WORKOS_CLIENT_ID: string;
   /** "workos" (verify AuthKit JWTs), "axeai" (Axe AI Better Auth OAuth JWTs),
    * or "dev" (bearer == userId, never prod). */

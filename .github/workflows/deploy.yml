@@ -1,12 +1,13 @@
 name: deploy
 
-# Autodeploy the edge Worker + Durable Objects (session/device rooms, R2,
-# WorkOS auth routes) on every push to main that touches edge/. Skips
-# gracefully until the CLOUDFLARE_API_TOKEN secret is configured (until then:
+# Autodeploy the edge Worker + Durable Objects (session/device rooms, blob
+# + auth routes) on every push to main that touches edge/. Skips gracefully
+# until the CLOUDFLARE_API_TOKEN secret is configured (until then:
 # `npm -C edge run deploy` from a wrangler-authenticated machine).
 #
-# The token needs: Workers Scripts (edit), Workers Routes (edit) on axeai.com,
-# Workers R2 Storage (edit). Account id is pinned in edge/wrangler.jsonc.
+# The token needs: Workers Scripts (edit), Workers Routes (edit) on
+# axeai.com. No R2 scope — blobs go to the VPS endpoint, releases redirect
+# to GitHub.
 
 on:
   push:

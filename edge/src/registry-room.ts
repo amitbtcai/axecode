@@ -21,6 +21,7 @@
  */
 import { applyOp, validateOp, type Op, type Row } from "./registry-core";
 import { AUTH_USER_HEADER, apnsConfig, type Env } from "./env";
+import { remoteBlobs } from "./vps-blobs";
 import { isDeadToken, sendApns, type ApnsEnvironment } from "./apns";
 import {
   apnsPayload,
@@ -625,7 +626,7 @@ export class RegistryRoom implements DurableObject {
     const seq = this.seq();
     if (seq > Number(this.getMeta("backupSeq") ?? "0")) {
       const rows = this.rowsSince(0);
-      await this.env.BLOBS.put(
+      await remoteBlobs(this.env).put(
         `backup/registry/${this.ctx.id.toString()}/latest.json`,
         JSON.stringify({ seq, at: Date.now(), rows })
       );

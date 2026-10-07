@@ -1,12 +1,17 @@
 {
   // Zeron edge: per-session + per-workspace Loro sync DOs, per-device
-  // relay DOs, R2 blobs, and the absorbed WorkOS auth routes.
+  // relay DOs, blob storage, and the absorbed WorkOS auth routes.
   // Design: loro-sessions §2 (topology), §3 (persistence), §6.1 (diff
-  // sidecar), §8 (device-room streams), §1.2 (R2 attachments), §3.3 (R2
-  // backups); ARCHITECTURE.md §6.
-  // NOTE: the worker name and R2 bucket names keep the historical "comet"
-  // prefix on purpose — Durable Object storage is bound to the script name,
-  // so renaming the worker would orphan every session/registry/chat room.
+  // sidecar), §8 (device-room streams), §1.2 (attachments), §3.3
+  // (backups); ARCHITECTURE.md §6.
+  // axecode: no R2 — blobs go to the axeai VPS endpoint (AXEAI_BLOB_URL +
+  // AXEAI_BLOB_TOKEN secret) so the worker runs on the Workers Free plan,
+  // and /releases/* redirects to GitHub Releases (release.yml publishes
+  // there via action-gh-release). Re-add r2_buckets to use R2 again —
+  // vps-blobs.ts prefers a bound bucket automatically.
+  // NOTE: the worker name keeps the historical "comet" prefix on purpose —
+  // Durable Object storage is bound to the script name, so renaming the
+  // worker would orphan every session/registry/chat room.
   "$schema": "node_modules/wrangler/config-schema.json",
   // Deployed by .github/workflows/deploy.yml on pushes to main that touch
   // edge/ (CLOUDFLARE_API_TOKEN repo secret).
@@ -63,17 +68,6 @@
     },
     { "tag": "v4", "new_sqlite_classes": ["PreviewRoom"] }
   ],
-  "r2_buckets": [
-    {
-      "binding": "BLOBS",
-      "bucket_name": "comet-native-blobs"
-    },
-    {
-      // Release artifacts for /releases/* (curl-install + dmg downloads).
-      "binding": "RELEASES",
-      "bucket_name": "comet-native-releases"
-    }
-  ],
   "vars": {
     // WorkOS AuthKit client id — JWTs verified against its JWKS. Placeholder;
     // set the real client id before deploying. Set AUTH_MODE=dev locally to
@@ -90,7 +84,11 @@
     // is the OAuth resource minted into access tokens' `aud`.
     "AXEAI_ISSUER": "https://axeai.com/api/auth",
     "AXEAI_AUDIENCE": "https://edge.axeai.com",
-    "AXEAI_CLIENT_ID": "axecode"
+    "AXEAI_CLIENT_ID": "axecode",
+    // VPS blob store replacing the R2 BLOBS binding; the bearer token is a
+    // wrangler secret (`wrangler secret put AXEAI_BLOB_TOKEN`, same value as
+    // EDGE_BLOB_TOKEN in the axeai .env).
+    "AXEAI_BLOB_URL": "https://axeai.com/api/edge-blobs"
   },
   "observability": {
     "enabled": true

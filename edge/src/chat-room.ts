@@ -32,6 +32,7 @@ import {
 } from "./chat-log";
 import { decodeFrame, encodeFrame, FRAME } from "./chat-frames";
 import { AUTH_USER_HEADER, type Env } from "./env";
+import { remoteBlobs } from "./vps-blobs";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 /** Inbound frame budget: one pushed row (+ header slack). */
@@ -556,7 +557,7 @@ export class ChatRoom implements DurableObject {
       }));
       const checkpoint = this.blobs.get(CHECKPOINT_BLOB);
       const frontier = this.blobs.get(FRONTIER_BLOB);
-      await this.env.BLOBS.put(
+      await remoteBlobs(this.env).put(
         `backup/chat2/${this.ctx.id.toString()}/latest.json`,
         JSON.stringify({
           at: Date.now(),

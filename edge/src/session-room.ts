@@ -51,6 +51,7 @@ import {
 import { createBlobStore, getJsonBlob, putJsonBlob, type BlobStore } from "./blobs";
 import { appendUpdateRow, ensureUpdateLog, readUpdateRows } from "./update-log";
 import { AUTH_USER_HEADER, ROOM_KIND_HEADER, type Env } from "./env";
+import { remoteBlobs } from "./vps-blobs";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const RETAIN_MS = RETAIN_DAYS * DAY_MS;
@@ -1276,7 +1277,7 @@ export class SessionRoom implements DurableObject {
         } finally {
           vv.free();
         }
-        await this.env.BLOBS.put(`backup/${chatId}/latest.loro`, snapshot);
+        await remoteBlobs(this.env).put(`backup/${chatId}/latest.loro`, snapshot);
         this.setMeta("backupVV", vvB64);
         this.setMeta("backupDirty", "0");
       }
