@@ -80,7 +80,7 @@ if $NOTARIZE; then
 fi
 
 # The auto-updater artifact.
-tar -czf "$APP_TARBALL" -C "$OUT_DIR" Axe Code.app
+tar -czf "$APP_TARBALL" -C "$OUT_DIR" "Axe Code.app"
 echo "packaged: $APP_TARBALL"
 
 # The dmg presents the classic drag-into-Applications layout over the
