@@ -41,7 +41,7 @@ jobs:
       - name: Open or update sync PR
         if: steps.merge.outputs.OUTCOME != 'uptodate'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.SYNC_GH_TOKEN || secrets.GITHUB_TOKEN }}
           OUTCOME: ${{ steps.merge.outputs.OUTCOME }}
           MERGED: ${{ steps.merge.outputs.MERGED }}
         run: |
