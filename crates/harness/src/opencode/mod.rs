@@ -4337,7 +4337,7 @@ const http = require('node:http');
 const version = '{major}.0.0';
 if (process.argv.includes('--version')) {{ console.log(version); process.exit(0); }}
 const config = JSON.parse(process.env.OPENCODE_CONFIG_CONTENT);
-const server = {major} === 1 ? config.mcp.zeron : config.mcp.servers.zeron;
+const server = {major} === 1 ? config.mcp.axecode : config.mcp.servers.axecode;
 if (!server || server.command[1] !== 'mcp') throw new Error('missing MCP config');
 const port = Number(process.argv[process.argv.indexOf('--port') + 1]);
 http.createServer((req, res) => {{
@@ -4457,7 +4457,7 @@ if (process.argv.includes('--version')) {{
   http.createServer((req, res) => {{
     res.setHeader('content-type', 'application/json');
     if (req.url === '/config-probe') {{
-      res.end(JSON.stringify({{server: config.mcp.servers.zeron, auth}})); return;
+      res.end(JSON.stringify({{server: config.mcp.servers.axecode, auth}})); return;
     }}
     if (req.url === '/api/info') {{ res.end(JSON.stringify({{version: '2.0.20'}})); return; }}
     res.statusCode = 404; res.end('{{}}');

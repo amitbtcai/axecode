@@ -704,10 +704,10 @@ impl Auth {
     /// carry no `org_id` — the workspace is the per-user `"personal"` segment
     /// the edge stamps on every verified bearer.
     fn token_org_id(&self, token: &str) -> Option<String> {
-        if self.is_axeai() {
-            return Some(crate::auth_axeai::PERSONAL_ORG_ID.to_string());
-        }
-        jwt_claims(token).and_then(|c| c.org_id)
+        jwt_claims(token).and_then(|c| c.org_id).or_else(|| {
+            self.is_axeai()
+                .then(|| crate::auth_axeai::PERSONAL_ORG_ID.to_string())
+        })
     }
 
     async fn exchange_code(&self, code: &str, pending: &PendingSignIn) -> Result<SignInResult, EngineError> {

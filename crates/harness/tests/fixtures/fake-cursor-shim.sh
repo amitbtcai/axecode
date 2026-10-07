@@ -23,7 +23,7 @@ case "$first" in
 
 *scenario:mcp*)
   case "$first" in
-    *'"mcp":{"args":["mcp"],"command":"/path with spaces/zeron","env":{"AXECODE_CHAT_ID":"origin-chat"},"name":"axecode"}'*) ;;
+    *'"mcp":{"args":["mcp"],"command":"/path with spaces/axecode","env":{"AXECODE_CHAT_ID":"origin-chat"},"name":"axecode"}'*) ;;
     *) exit 1 ;;
   esac
   emit '{"ev":"ready","agentId":"agent-1","model":"auto"}'
