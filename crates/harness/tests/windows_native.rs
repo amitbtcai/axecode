@@ -104,7 +104,7 @@ async fn native_launch_matches_tokio_argv_environment_cwd_and_path() {
             .env("zeron_launch_marker", "old")
             .env("AXECODE_LAUNCH_MARKER", "new 日本語")
             .env("AXECODE_LAUNCH_REMOVED", "old")
-            .env_remove("zeron_launch_removed")
+            .env_remove("axecode_launch_removed")
             .env("AXECODE_ä_KEY", "unicode value")
             .stdin(Stdio::null());
         baseline
@@ -115,7 +115,7 @@ async fn native_launch_matches_tokio_argv_environment_cwd_and_path() {
             .env("zeron_launch_marker", "old")
             .env("AXECODE_LAUNCH_MARKER", "new 日本語")
             .env("AXECODE_LAUNCH_REMOVED", "old")
-            .env_remove("zeron_launch_removed")
+            .env_remove("axecode_launch_removed")
             .env("AXECODE_ä_KEY", "unicode value")
             .stdin(std::process::Stdio::null())
             .creation_flags(0x08000000)
