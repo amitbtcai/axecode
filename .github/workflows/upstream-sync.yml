@@ -62,11 +62,11 @@ jobs:
             \`\`\`
             $conflicts
             \`\`\`"
-            existing=$(gh issue list --state open --search "Upstream sync needs manual merge" --json number --jq '.[0].number' || true)
+            existing=$(gh issue list -R "$GITHUB_REPOSITORY" --state open --search "Upstream sync needs manual merge" --json number --jq '.[0].number' || true)
             if [ -n "$existing" ]; then
-              gh issue edit "$existing" --title "$title" --body "$body"
+              gh issue edit -R "$GITHUB_REPOSITORY" "$existing" --title "$title" --body "$body"
             else
-              gh issue create --title "$title" --body "$body"
+              gh issue create -R "$GITHUB_REPOSITORY" --title "$title" --body "$body"
             fi
             exit 0
           fi
@@ -78,9 +78,9 @@ jobs:
 
           Review the diff and merge when green. Merge rules live in AGENTS.md."
 
-          existing=$(gh pr list --head sync/upstream --state open --json number --jq '.[0].number' || true)
+          existing=$(gh pr list -R "$GITHUB_REPOSITORY" --head sync/upstream --state open --json number --jq '.[0].number' || true)
           if [ -n "$existing" ]; then
-            gh pr edit "$existing" --title "$title" --body "$body"
+            gh pr edit -R "$GITHUB_REPOSITORY" "$existing" --title "$title" --body "$body"
           else
-            gh pr create --title "$title" --body "$body" --base main --head sync/upstream
+            gh pr create -R "$GITHUB_REPOSITORY" --title "$title" --body "$body" --base main --head sync/upstream
           fi
