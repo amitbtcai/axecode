@@ -1,19 +1,6 @@
 {
   "fill": {
-    "linear-gradient": [
-      "extended-srgb:0.07059,0.09804,1.00000,1.00000",
-      "extended-srgb:0.01569,0.03137,0.80000,1.00000"
-    ],
-    "orientation": {
-      "start": {
-        "x": 0.5,
-        "y": 0
-      },
-      "stop": {
-        "x": 0.5,
-        "y": 1
-      }
-    }
+    "solid": "extended-srgb:0.13333,0.16078,1.01000,1.00000"
   },
   "groups": [
     {
@@ -23,17 +10,7 @@
           "name": "Axe AI Mark",
           "glass": false
         }
-      ],
-      "name": "Mark",
-      "specular": true,
-      "shadow": {
-        "kind": "layer-color",
-        "opacity": 0.35
-      },
-      "translucency": {
-        "enabled": true,
-        "value": 0.3
-      }
+      ]
     }
   ],
   "supported-platforms": {
