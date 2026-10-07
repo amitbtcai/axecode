@@ -42,8 +42,17 @@ function Get-WindowsPackageArch([string]$Path) {
 
 Push-Location $root
 try {
+    # ort-sys copy_dylibs resolves the DLL destination via OUT_DIR.ancestors().nth(3),
+    # which lands on target/release/build under beta cargo's nested build-script dir
+    # layout (build/ort-sys/<hash>/out), then iterates {.,examples,deps} and fs::copy
+    # panics on a missing dir. Pre-create them.
+    New-Item -ItemType Directory -Force -Path 'target/release/build/examples','target/release/build/deps' | Out-Null
     cargo build --release --locked -p zeron
     if ($LASTEXITCODE -ne 0) { throw 'Windows build failed' }
+    # Hoist the ONNX Runtime DLLs from the misplaced build/ dir to sit next to
+    # axecode.exe so voice works at runtime.
+    Get-ChildItem './target/release/build/*.dll' -ErrorAction SilentlyContinue |
+        Copy-Item -Destination './target/release' -Force
     # Explicit pipes also work for the GUI-subsystem executable in CI. A
     # PowerShell collection match does not populate the scalar $Matches map.
     $probe = [Diagnostics.ProcessStartInfo]::new()
@@ -72,6 +81,8 @@ try {
     $stage = Join-Path $out "AxeCode-$version-windows-$arch"
     New-Item -ItemType Directory -Force -Path $stage | Out-Null
     Copy-Item -LiteralPath './target/release/axecode.exe' -Destination (Join-Path $stage 'axecode.exe')
+    Get-ChildItem './target/release/*.dll' -ErrorAction SilentlyContinue |
+        Copy-Item -Destination $stage -Force
     @{ releases_url = $ReleasesUrl } | ConvertTo-Json | Set-Content -Encoding utf8NoBOM -LiteralPath (Join-Path $stage 'axecode-update.json')
     Copy-Item -LiteralPath 'LICENSE','THIRD_PARTY_NOTICES.md' -Destination $stage
     $licenses = Join-Path $stage 'licenses/fonts'

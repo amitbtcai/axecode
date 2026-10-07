@@ -135,15 +135,8 @@ jobs:
           "GPUI_FXC_PATH=$($fxc.FullName)" >> $env:GITHUB_ENV
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
+          # bumped: drop cached target state from failed ort-sys build-script runs
           key: win-ort-dylibs-v1
-      # ort-sys's copy_dylibs iterates <profile>/{.,examples,deps} and fs::copy
-      # panics when a destination dir is absent (no DirEntry creation). Pre-create
-      # them; harmless when they already exist.
-      - name: pre-create ort-sys dylib destination dirs
-        run: |
-          @('target/release/examples', 'target/release/deps',
-            'target/release/build/examples', 'target/release/build/deps') |
-            ForEach-Object { New-Item -ItemType Directory -Force -Path $_ | Out-Null }
       - name: package installer and portable app
         run: ./scripts/package-windows.ps1 -ReleasesUrl "https://github.com/$env:GITHUB_REPOSITORY/releases/latest/download"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
