@@ -373,7 +373,7 @@ impl std::fmt::Display for UpdateBlocker {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Translocated | Self::DiskImage => f.write_str(
-                "Zeron is running from a temporary, read-only location. Move Axe Code to your \
+                "Axe Code is running from a temporary, read-only location. Move Axe Code to your \
                  Applications folder and reopen it to turn on updates.",
             ),
             Self::NotWritable(dir) => write!(
