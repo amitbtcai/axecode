@@ -14996,7 +14996,7 @@ mod tests {
             panic!("expected an output block")
         };
         assert_eq!(lines[0].as_ref(), "gh · issues");
-        assert!(lines.iter().any(|l| l.contains("\"repo\": \"zeron\"")));
+        assert!(lines.iter().any(|l| l.contains("\"repo\": \"axecode\"")));
 
         // Todos list one item per line with checkbox state.
         let Some(ToolDetail::Output { lines, .. }) = call_block(&ToolCall::Todo {

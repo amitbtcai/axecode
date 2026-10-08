@@ -12262,7 +12262,7 @@ mod tests {
         assert_eq!(workspace_command_for_text("/model", &rows), None);
         assert_eq!(workspace_command_for_text("/axecode:model", &rows), None);
         assert_eq!(
-            workspace_command_for_text("/axecode:zeron:model", &rows),
+            workspace_command_for_text("/axecode:axecode:model", &rows),
             Some(WorkspaceCommand::Model)
         );
         assert_eq!(with_workspace_commands(rows, true).len(), 11);
