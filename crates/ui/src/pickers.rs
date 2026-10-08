@@ -9306,8 +9306,8 @@ mod tests {
         assert_eq!(parent_path(r"D:\"), None);
         assert_eq!(parent_path("D:"), None);
         assert_eq!(child_path(r"D:\", "Random"), r"D:\Random");
-        assert_eq!(child_path(r"D:\Random", "axecode"), r"D:\Random\zeron");
-        let crumbs = breadcrumbs(r"D:\Random\zeron");
+        assert_eq!(child_path(r"D:\Random", "axecode"), r"D:\Random\axecode");
+        let crumbs = breadcrumbs(r"D:\Random\axecode");
         let labels: Vec<&str> = crumbs.iter().map(|(l, _)| l.as_str()).collect();
         assert_eq!(labels, [r"D:\", "Random", "axecode"]);
         assert_eq!(crumbs[0].1, r"D:\");
@@ -9322,7 +9322,7 @@ mod tests {
         // Case-insensitive; the length indexes into the NAME's bytes.
         assert_eq!(completion_prefix_len("Documents", "doc"), Some(3));
         assert_eq!(&"Documents"[3..], "uments");
-        assert_eq!(completion_prefix_len("axecode", "axecode"), Some(5));
+        assert_eq!(completion_prefix_len("axecode", "axecode"), Some(7));
         assert_eq!(completion_prefix_len("axecode", ""), Some(0));
         assert_eq!(completion_prefix_len("axecode", "dev"), None);
         // Longer than the name → not a prefix.
@@ -9376,13 +9376,13 @@ mod tests {
         assert_eq!(typed_path_target("D:", home), Some(r"D:\".into()));
         assert_eq!(typed_path_target("D:/", home), Some(r"D:\".into()));
         assert_eq!(
-            typed_path_target(r"D:\Random\zeron\", home),
-            Some(r"D:\Random\zeron".into())
+            typed_path_target(r"D:\Random\axecode\", home),
+            Some(r"D:\Random\axecode".into())
         );
         // Forward slashes normalise so the crumb trail can match the path.
         assert_eq!(
             typed_path_target("D:/Random/axecode", None),
-            Some(r"D:\Random\zeron".into())
+            Some(r"D:\Random\axecode".into())
         );
         assert!(is_typed_path(r"D:\x"));
         assert!(is_typed_path("/x") && is_typed_path("~"));

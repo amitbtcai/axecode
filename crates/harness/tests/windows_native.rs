@@ -104,7 +104,7 @@ async fn native_launch_matches_tokio_argv_environment_cwd_and_path() {
             .env("zeron_launch_marker", "old")
             .env("AXECODE_LAUNCH_MARKER", "new 日本語")
             .env("AXECODE_LAUNCH_REMOVED", "old")
-            .env_remove("zeron_launch_removed")
+            .env_remove("axecode_launch_removed")
             .env("AXECODE_ä_KEY", "unicode value")
             .stdin(Stdio::null());
         baseline
@@ -115,7 +115,7 @@ async fn native_launch_matches_tokio_argv_environment_cwd_and_path() {
             .env("zeron_launch_marker", "old")
             .env("AXECODE_LAUNCH_MARKER", "new 日本語")
             .env("AXECODE_LAUNCH_REMOVED", "old")
-            .env_remove("zeron_launch_removed")
+            .env_remove("axecode_launch_removed")
             .env("AXECODE_ä_KEY", "unicode value")
             .stdin(std::process::Stdio::null())
             .creation_flags(0x08000000)
@@ -226,6 +226,7 @@ async fn exercise(prompt: &str, resume: Option<&str>) {
     let (steer_tx, steering) = mpsc::channel(4);
     let interrupt = CancellationToken::new();
     let controls = RunControls {
+        realtime: None,
         execution_lease: None,
         request_input: Box::new(|_| {
             let (tx, rx) = oneshot::channel();
@@ -320,6 +321,7 @@ async fn exercise_tree(prompt: &str, drop_stream: bool) {
     let (_steer, steering) = mpsc::channel(1);
     let interrupt = CancellationToken::new();
     let controls = RunControls {
+        realtime: None,
         execution_lease: None,
         request_input: Box::new(|_| {
             let (_, rx) = oneshot::channel();
@@ -479,6 +481,7 @@ async fn batch_overrides_launch_through_cmd() {
         unsafe { std::env::set_var("AXECODE_TEST_BATCH_ARGS_FILE", &received) };
         let (_steer, steering) = mpsc::channel(1);
         let controls = RunControls {
+            realtime: None,
             execution_lease: None,
             request_input: Box::new(|_| {
                 let (tx, rx) = oneshot::channel();

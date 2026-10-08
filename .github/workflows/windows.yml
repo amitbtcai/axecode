@@ -114,9 +114,9 @@ jobs:
           $env:AXECODE_EDGE_TOKEN = $null
           $env:AXECODE_IPC_PORT = '0'
           $env:LOCALAPPDATA = Join-Path $env:RUNNER_TEMP "zeron smoke O'Brien 日本語"
-          $expected = Join-Path $env:LOCALAPPDATA 'Zeron'
+          $expected = Join-Path $env:LOCALAPPDATA 'Axe Code'
           $probe = [Diagnostics.ProcessStartInfo]::new()
-          $probe.FileName = (Resolve-Path -LiteralPath './target/release/zeron.exe').Path
+          $probe.FileName = (Resolve-Path -LiteralPath './target/release/axecode.exe').Path
           $probe.Arguments = 'status'
           $probe.UseShellExecute = $false
           $probe.CreateNoWindow = $true
@@ -135,7 +135,7 @@ jobs:
           } finally { $process.Dispose() }
           $output
           if (-not ($output -contains "Data dir: $expected")) {
-            throw 'Windows startup did not select LOCALAPPDATA/Zeron'
+            throw 'Windows startup did not select LOCALAPPDATA/Axe Code'
           }
           if (-not ($output -match '^Mode:\s+local only$')) {
             throw 'An isolated Windows startup must select local-only mode'
@@ -149,7 +149,7 @@ jobs:
         with:
           name: windows-gui-binaries
           path: |
-            target/release/zeron.exe
+            target/release/axecode.exe
             target/release/examples/windows-render-fixture.exe
           if-no-files-found: error
           retention-days: 1

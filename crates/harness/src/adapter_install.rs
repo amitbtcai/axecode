@@ -64,7 +64,7 @@ const INSTALL_TIMEOUT: Duration = Duration::from_secs(600);
 
 /// Managed adapter storage. `$AXECODE_ADAPTERS_DIR` wins, followed by
 /// `$AXECODE_DATA_DIR/adapters`. Windows defaults to
-/// `%LOCALAPPDATA%/Zeron/adapters` (or `%USERPROFILE%/AppData/Local/...`);
+/// `%LOCALAPPDATA%/Axe Code/adapters` (or `%USERPROFILE%/AppData/Local/...`);
 /// Unix keeps `~/.axecode/adapters`.
 pub(crate) fn adapters_root() -> Option<PathBuf> {
     adapters_root_with(
