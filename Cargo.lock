@@ -12963,7 +12963,7 @@ dependencies = [
 
 [[package]]
 name = "zeron-audio"
-version = "0.2.105"
+version = "0.2.106"
 dependencies = [
  "base64 0.22.1",
  "cpal 0.18.2",
@@ -13131,7 +13131,7 @@ dependencies = [
 
 [[package]]
 name = "zeron-orb"
-version = "0.2.105"
+version = "0.2.106"
 
 [[package]]
 name = "zeron-preview"
@@ -13371,7 +13371,7 @@ dependencies = [
 
 [[package]]
 name = "zeron-veil"
-version = "0.2.105"
+version = "0.2.106"
 
 [[package]]
 name = "zeron-voice"
@@ -13392,7 +13392,7 @@ dependencies = [
 
 [[package]]
 name = "zeron-voice-media"
-version = "0.2.105"
+version = "0.2.106"
 dependencies = [
  "async-trait",
  "semver",
@@ -13407,7 +13407,7 @@ dependencies = [
 
 [[package]]
 name = "zeron-voice-session"
-version = "0.2.105"
+version = "0.2.106"
 dependencies = [
  "async-trait",
  "futures",
