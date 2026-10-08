@@ -252,6 +252,7 @@ mod pinned_session_tests {
                 id: "user".into(),
                 email: "test@example.com".into(),
                 name: None,
+                avatar_data: None,
             },
             org_id: Some("org".into()),
         });
@@ -2241,7 +2242,10 @@ pub(super) enum SpacesMenuRow {
     AddSpace,
 }
 
-/// New project navigates devices, locations, then folders on a command-palette surface.
+/// New project browses devices, locations, then folders on a command-palette
+/// surface. It lands deep, not wide: a device pick opens that device's home
+/// folders (a single device needs no pick at all), while drives, other
+/// devices, and parent folders stay a ← or breadcrumb away.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum ProjectStep {
     Devices,
@@ -5540,34 +5544,33 @@ impl Shell {
             submit_task: None,
             _search_events: search_events,
         });
+        // One device is no choice at all — land on its home folders. The
+        // Devices step stays a ← / "New project" crumb away for picking a
+        // different device once more appear.
+        if let [device] = self.state.read(cx).devices.as_slice() {
+            let device = device.clone();
+            self.add_space_pick_device(device, cx);
+        }
         cx.notify();
     }
 
-    /// Selecting a device advances to its locations.
+    /// Selecting a device lands on its home folders — the common case is a
+    /// folder next to Documents/Downloads, so Home isn't a row to click
+    /// through. Drives still load in the background: ← or the device crumb
+    /// opens the Locations step with them ready.
     fn add_space_pick_device(&mut self, device: Device, cx: &mut Context<Self>) {
         let Some(flow) = self.add_space.as_mut() else {
             return;
         };
-        flow.focus_pending = true;
-        flow.step = ProjectStep::Locations;
-        flow.location = None;
         flow.load_task = None;
         flow.drives_task = None;
-        flow.list_scroll.set_offset(gpui::Point::default());
         flow.device = Some(device);
         flow.browser = Loadable::Idle;
         flow.drives = Loadable::Idle;
-        flow.browser_path = None;
         flow.home = None;
-        flow.browser_repo = false;
-        flow.active = 0;
         flow.error = None;
-        let search = flow.search.clone();
-        search.update(cx, |input, cx| {
-            input.set_placeholder("Search locations…", cx);
-            input.set_text("", cx);
-        });
         self.load_space_drives(cx);
+        self.add_space_goto_location("Home".into(), None, cx);
         cx.notify();
     }
 
@@ -7165,10 +7168,17 @@ mod project_flow_tests {
             search.update(cx, |input, cx| input.set_text("server", cx));
             assert_eq!(shell.add_space_devices(cx).len(), 1);
             shell.add_space_open_active(cx);
+            // A device pick lands on its home folders — Locations (drives)
+            // sits one ← away instead of gating the pick.
+            let flow = shell.add_space.as_mut().unwrap();
+            assert_eq!(flow.step, ProjectStep::Folders);
+            assert_eq!(flow.device.as_ref().unwrap().id, "remote");
+            assert_eq!(flow.location.as_ref().unwrap().0, "Home");
+            assert!(flow.browser_path.is_none());
+            assert!(flow.search.read(cx).is_empty());
+            shell.add_space_go_up(cx);
             let flow = shell.add_space.as_mut().unwrap();
             assert_eq!(flow.step, ProjectStep::Locations);
-            assert_eq!(flow.device.as_ref().unwrap().id, "remote");
-            assert!(flow.search.read(cx).is_empty());
             flow.drives = Loadable::Ready(vec![DriveEntry {
                 name: "Projects".into(),
                 path: "/projects".into(),
@@ -7198,6 +7208,19 @@ mod project_flow_tests {
             // Slash navigation only applies to folders, never device search.
             search.update(cx, |input, cx| input.set_text("/projects/", cx));
             assert!(!shell.add_space_slash_descend(cx));
+            // A lone device needs no pick: reopening lands on its home
+            // folders with the Devices step behind a crumb.
+            shell.state.update(cx, |state, _| {
+                state.devices = serde_json::from_value(serde_json::json!([
+                    {"id":"local","name":"Studio","platform":"macos","lastSeenAt":null}
+                ]))
+                .unwrap();
+            });
+            shell.open_add_space(cx);
+            let flow = shell.add_space.as_ref().unwrap();
+            assert_eq!(flow.step, ProjectStep::Folders);
+            assert_eq!(flow.device.as_ref().unwrap().id, "local");
+            assert_eq!(flow.location.as_ref().unwrap().0, "Home");
         });
     }
 }
