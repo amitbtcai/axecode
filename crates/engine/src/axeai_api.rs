@@ -180,9 +180,8 @@ impl AxeAiApi {
         bearer: &str,
         body: Option<serde_json::Value>,
     ) -> Result<(u16, serde_json::Value), AxeAiError> {
-        // Trading and wallet are web-only products — the agent surface is
-        // inference, media, voice, and the session routes.
-        const ALLOWED_PREFIXES: &[&str] = &["/v1/", "/api/voice/", "/api/auth/native/"];
+        const ALLOWED_PREFIXES: &[&str] =
+            &["/v1/", "/api/voice/", "/api/trade-intents", "/api/auth/native/"];
         if !ALLOWED_PREFIXES.iter().any(|p| path.starts_with(p)) {
             return Err(AxeAiError::Status(
                 400,
