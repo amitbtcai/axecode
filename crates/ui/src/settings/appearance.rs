@@ -311,6 +311,10 @@ pub struct AppearancePage {
     dark_theme_select: widgets::SelectState,
     surface_select: widgets::SelectState,
     background_effect_select: widgets::SelectState,
+    // axecode fork: the thread backdrop's own effect/blur selects live beside
+    // the hero's `background_effect_select`.
+    chat_effect_select: widgets::SelectState,
+    chat_blur_select: widgets::SelectState,
     reduce_motion_select: widgets::SelectState,
     import_dialog: Option<ImportDialog>,
     background_adjustment_dialog: Option<BackgroundAdjustmentDialog>,
@@ -575,6 +579,8 @@ impl AppearancePage {
             dark_theme_select: widgets::SelectState::default(),
             surface_select: widgets::SelectState::default(),
             background_effect_select: widgets::SelectState::default(),
+            chat_effect_select: widgets::SelectState::default(),
+            chat_blur_select: widgets::SelectState::default(),
             reduce_motion_select: widgets::SelectState::default(),
             import_dialog: None,
             background_adjustment_dialog: None,
@@ -3734,6 +3740,115 @@ impl Render for AppearancePage {
                 )
                 .into_any_element(),
         );
+        // axecode fork: opt the same artwork into live threads, dimmed. The
+        // toggle is meaningful without a background set — it takes effect as
+        // soon as one is installed.
+        let thread_backdrop = crate::settings::current(cx).chat_thread_background;
+        settings_rows.push(
+            widgets::card_row(&theme, false)
+                .child(div().flex_1().min_w_0()
+                    .child(widgets::row_title(&theme, "Wallpaper in threads"))
+                    .child(widgets::meta_line(&theme, vec![div()
+                        .child("Dim the wallpaper behind open chat threads.")
+                        .into_any_element()])))
+                .child(widgets::toggle_switch(&theme, thread_backdrop, "chat-thread-background")
+                    .id("chat-thread-background-toggle")
+                    .tab_index(0)
+                    .role(gpui::Role::Switch)
+                    .aria_label("Wallpaper in threads")
+                    .focus_visible(|s| s.border_2().border_color(theme.accent))
+                    .cursor_pointer()
+                    .aria_toggled(if thread_backdrop { gpui::Toggled::True } else { gpui::Toggled::False })
+                    .on_click(cx.listener(move |_, _, _, cx| {
+                        crate::settings::set_chat_thread_background(!thread_backdrop, cx);
+                        cx.notify();
+                    })))
+                .into_any_element(),
+        );
+        // axecode fork: the thread backdrop gets its own effect + blur — the
+        // hero keeps `new_thread_background_effect`, so transcripts can sit on
+        // Dither while the empty canvas stays photographic. Rows appear only
+        // once the backdrop is on.
+        if thread_backdrop {
+            use crate::settings::NewThreadBackgroundEffect;
+            const CHAT_BLUR_LEVELS: [(&str, f32); 4] = [
+                ("Off", 0.0),
+                ("Soft", 10.0),
+                ("Medium", 20.0),
+                ("Heavy", 32.0),
+            ];
+            let current_thread_effect =
+                crate::settings::current(cx).chat_thread_background_effect;
+            let thread_effect_control = widgets::select(
+                "chat-thread-background-effect",
+                "Thread effect",
+                &theme,
+                |page: &mut Self| &mut page.chat_effect_select,
+            )
+            .options(
+                NewThreadBackgroundEffect::ALL
+                    .into_iter()
+                    .map(|effect| widgets::SelectOption::new(effect.label())),
+                NewThreadBackgroundEffect::ALL
+                    .into_iter()
+                    .position(|effect| effect == current_thread_effect)
+                    .unwrap_or_default(),
+            )
+            .width(128.0)
+            .on_select(|_, ix, _, cx| {
+                crate::settings::set_chat_thread_background_effect(
+                    NewThreadBackgroundEffect::ALL[ix],
+                    cx,
+                );
+                cx.notify();
+            })
+            .render(&self.chat_effect_select, cx);
+            let current_thread_blur = crate::settings::current(cx).chat_thread_background_blur;
+            let thread_blur_control = widgets::select(
+                "chat-thread-background-blur",
+                "Thread blur",
+                &theme,
+                |page: &mut Self| &mut page.chat_blur_select,
+            )
+            .options(
+                CHAT_BLUR_LEVELS
+                    .into_iter()
+                    .map(|(label, _)| widgets::SelectOption::new(label)),
+                CHAT_BLUR_LEVELS
+                    .into_iter()
+                    .position(|(_, radius)| (radius - current_thread_blur).abs() < f32::EPSILON)
+                    .unwrap_or_default(),
+            )
+            .width(128.0)
+            .on_select(|_, ix, _, cx| {
+                crate::settings::set_chat_thread_background_blur(CHAT_BLUR_LEVELS[ix].1, cx);
+                cx.notify();
+            })
+            .render(&self.chat_blur_select, cx);
+            settings_rows.push(
+                widgets::card_row(&theme, false)
+                    .child(
+                        div()
+                            .flex_1()
+                            .min_w(px(160.0))
+                            .child(widgets::row_title(&theme, "Thread effect & blur"))
+                            .child(widgets::meta_line(
+                                &theme,
+                                vec![div()
+                                    .child(current_thread_effect.description())
+                                    .into_any_element()],
+                            )),
+                    )
+                    .child(
+                        div()
+                            .flex()
+                            .gap(px(8.0))
+                            .child(thread_effect_control)
+                            .child(thread_blur_control),
+                    )
+                    .into_any_element(),
+            );
+        }
         if background_available {
             use crate::settings::NewThreadBackgroundEffect;
             let effect_control = widgets::select(

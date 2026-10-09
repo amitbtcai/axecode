@@ -893,6 +893,11 @@ pub struct UserProfile {
     pub id: String,
     pub email: String,
     pub name: Option<String>,
+    /// axecode: base64 image bytes of the user's profile photo (sidebar
+    /// avatar). Bytes travel on the wire — not a URL — so remote UI clients
+    /// render it without fetching anything. `None` = show an initial.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub avatar_data: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
