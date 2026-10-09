@@ -171,6 +171,43 @@ impl AxeAiApi {
             .map_err(AxeAiError::Http)
     }
 
+    /// Authenticated pass-through for the RPC surface. `path` must match the
+    /// allowlist — the engine credential never proxies arbitrary upstreams.
+    pub async fn request(
+        &self,
+        method: &str,
+        path: &str,
+        bearer: &str,
+        body: Option<serde_json::Value>,
+    ) -> Result<(u16, serde_json::Value), AxeAiError> {
+        const ALLOWED_PREFIXES: &[&str] =
+            &["/v1/", "/api/voice/", "/api/trade-intents", "/api/auth/native/"];
+        if !ALLOWED_PREFIXES.iter().any(|p| path.starts_with(p)) {
+            return Err(AxeAiError::Status(
+                400,
+                format!("path {path} is not an allowlisted Axe AI API route"),
+            ));
+        }
+        let builder = match method.to_ascii_uppercase().as_str() {
+            "GET" => self.http.get(format!("{}{}", self.base, path)),
+            "POST" => self.http.post(format!("{}{}", self.base, path)),
+            "DELETE" => self.http.delete(format!("{}{}", self.base, path)),
+            other => {
+                return Err(AxeAiError::Status(400, format!("unsupported method {other}")))
+            }
+        };
+        let builder = builder.bearer_auth(bearer);
+        let builder = if let Some(body) = body {
+            builder.json(&body)
+        } else {
+            builder
+        };
+        let response = builder.send().await.map_err(AxeAiError::Http)?;
+        let status = response.status().as_u16();
+        let body = response.json().await.unwrap_or(serde_json::Value::Null);
+        Ok((status, body))
+    }
+
     async fn get_json(&self, path: &str, bearer: &str) -> Result<serde_json::Value, AxeAiError> {
         let response = self
             .http

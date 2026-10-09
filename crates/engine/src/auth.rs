@@ -272,6 +272,9 @@ struct AuthInner {
     retry_tx: watch::Sender<u64>,
     /// Loopback callback listener port, bound lazily on the first headed sign-in.
     loopback: tokio::sync::Mutex<Option<u16>>,
+    /// axecode: single-flight gate for lazy native-session mints (sessions
+    /// signed in before this code existed mint on first /v1 use).
+    native_mint: tokio::sync::Mutex<()>,
 }
 
 #[derive(Default)]
@@ -345,6 +348,7 @@ impl Auth {
                 refresh_retry: Mutex::new(RefreshRetry::default()),
                 retry_tx,
                 loopback: tokio::sync::Mutex::new(None),
+                native_mint: tokio::sync::Mutex::new(()),
             }),
         }
     }
@@ -877,7 +881,21 @@ impl Auth {
     /// when it's within 30 days of expiry. `None` when signed out, when the
     /// provider isn't axeai, or when the post-sign-in mint hasn't completed
     /// (or failed — e.g. endpoint not yet deployed).
+    ///
+    /// Sessions that predate this plumbing mint lazily here, single-flight:
+    /// concurrent callers serialize on the gate and re-check after it.
     pub async fn axeai_native_token(&self) -> Option<String> {
+        if self.is_axeai()
+            && self.state().is_signed_in()
+            && !self.has_axeai_native_session()
+        {
+            let _gate = self.inner.native_mint.lock().await;
+            if !self.has_axeai_native_session()
+                && let Ok(access) = self.access_token().await
+            {
+                self.mint_axeai_native(&access).await;
+            }
+        }
         let session = {
             let stored = lock(&self.inner.stored);
             let session = stored.as_ref()?.axeai_native.clone()?;
@@ -952,6 +970,12 @@ impl Auth {
         lock(&self.inner.stored)
             .as_ref()
             .is_some_and(|s| s.axeai_native.is_some())
+    }
+
+    /// axecode: the platform API client, present only in axeai auth mode.
+    pub fn axeai_api(&self) -> Option<crate::axeai_api::AxeAiApi> {
+        self.is_axeai()
+            .then(|| crate::axeai_api::AxeAiApi::new(self.axeai_base()))
     }
 
     /// Refresh the session (single-flight). `organization_id` migrates the WorkOS

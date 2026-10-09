@@ -133,6 +133,12 @@ pub mod methods {
     /// engine behind its windows would leave that process unusable.
     pub const STOP_ENGINE: &str = "StopEngine";
     pub const AUTH_STATUS: &str = "AuthStatus";
+    /// axecode: authenticated pass-through to the Axe AI platform API, engine-held
+    /// credential. Params `{ path, method?, body? }` — `path` must be an
+    /// allowlisted API prefix (`/v1/…`, `/api/voice/…`, `/api/trade-intents`,
+    /// `/api/auth/native/…`); the reply is `{ status, body }`. IPC-only: the
+    /// token never leaves the engine.
+    pub const AXEAI_REQUEST: &str = "AxeAiRequest";
     // AuthRpc mutations (feature-inventory §2 AuthRpc; IPC-only).
     pub const SIGN_IN: &str = "SignIn";
     pub const SIGN_IN_HEADLESS: &str = "SignInHeadless";

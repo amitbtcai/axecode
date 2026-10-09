@@ -1671,6 +1671,7 @@ impl AuthRpc {
                 | methods::LIST_ORGS
                 | methods::CREATE_ORG
                 | methods::SELECT_ORG
+                | methods::AXEAI_REQUEST
         )
     }
 }
@@ -1740,6 +1741,44 @@ impl RpcService for AuthRpc {
                     .await
                     .map_err(|e| RpcError::Failed(e.to_string()))?;
                 RpcReply::value(&serde_json::json!({ "ok": true }))
+            }
+            methods::AXEAI_REQUEST => {
+                #[derive(Deserialize)]
+                #[serde(rename_all = "camelCase")]
+                struct P {
+                    path: String,
+                    #[serde(default = "default_get")]
+                    method: String,
+                    #[serde(default)]
+                    body: Option<serde_json::Value>,
+                }
+                fn default_get() -> String {
+                    "GET".into()
+                }
+                let p: P = parse_params(params)?;
+                let api = self.auth.axeai_api().ok_or_else(|| {
+                    RpcError::Failed("the Axe AI API requires axeai auth mode".into())
+                })?;
+                let Some(token) = self.auth.axeai_native_token().await else {
+                    return Err(RpcError::Failed(
+                        "no Axe AI credential yet — sign in (the platform session \
+                         is minted in the background, retry in a moment)".into(),
+                    ));
+                };
+                let mut result = api.request(&p.method, &p.path, &token, p.body.clone()).await;
+                // A single 401 retry after rotation covers a token that died
+                // server-side before its recorded expiry.
+                if matches!(result, Ok((401, _))) && self.auth.refresh_axeai_native().await {
+                    if let Some(fresh) = self.auth.axeai_native_token().await {
+                        result = api.request(&p.method, &p.path, &fresh, p.body).await;
+                    }
+                }
+                match result {
+                    Ok((status, body)) => {
+                        RpcReply::value(&serde_json::json!({ "status": status, "body": body }))
+                    }
+                    Err(err) => Err(RpcError::Failed(err.to_string())),
+                }
             }
             _ => Err(RpcError::UnknownMethod(method.to_string())),
         }

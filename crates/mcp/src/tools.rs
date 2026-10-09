@@ -21,6 +21,7 @@ use zeron_proto::{
 
 use crate::transcript::{RenderOptions, RenderedMessage, render_entries};
 use crate::zeron::{HarnessInfo, TurnOutcome, Zeron, session_for, short};
+use zeron_rpc::methods;
 
 /// Default and ceiling for the blocking waits.
 const MAX_BATCH: usize = 32;
@@ -196,6 +197,59 @@ fn catalog() -> Vec<ToolDef> {
             input_schema: chat_key_schema(json!({
                 "archived": { "type": "boolean", "default": true }
             })),
+        },
+        // axecode: Axe AI platform tools — the engine holds the native
+        // session credential and proxies allowlisted /v1 paths; the token
+        // never reaches this process or the model.
+        ToolDef {
+            name: "axeai_models",
+            description: "Models available on the Axe AI platform (the signed-in user's /v1 catalog — text, image, video ids usable by the other axeai_* tools). Requires an Axe Code sign-in.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "account": { "type": "boolean", "default": false, "description": "true lists the account-scoped catalog (per-model availability/credits) instead of the public one." }
+                }
+            }),
+        },
+        ToolDef {
+            name: "axeai_account",
+            description: "The signed-in Axe AI account: credit balance and usage (GET /v1/account/usage). Requires an Axe Code sign-in.",
+            input_schema: json!({ "type": "object", "properties": {} }),
+        },
+        ToolDef {
+            name: "axeai_generate_image",
+            description: "Generate an image on Axe AI (POST /v1/images/generations) and return its asset record/URL. Billed to the signed-in account's credits.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "prompt": { "type": "string" },
+                    "model": { "type": "string", "description": "Image model id from axeai_models; omit for the platform default." }
+                },
+                "required": ["prompt"]
+            }),
+        },
+        ToolDef {
+            name: "axeai_generate_video",
+            description: "Queue a video generation job on Axe AI (POST /v1/videos/generations). Returns the job; poll with axeai_video_status. Billed to the signed-in account's credits.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "prompt": { "type": "string" },
+                    "model": { "type": "string", "description": "Video model id from axeai_models; omit for the platform default." }
+                },
+                "required": ["prompt"]
+            }),
+        },
+        ToolDef {
+            name: "axeai_video_status",
+            description: "Poll an Axe AI video generation job (GET /v1/videos/jobs/{id}); terminal states return the asset record/URL.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "job": { "type": "string", "description": "Job id from axeai_generate_video." }
+                },
+                "required": ["job"]
+            }),
         },
     ];
     for (name, single, description) in [
@@ -463,6 +517,23 @@ impl Tools {
             "interrupt_chat" => self.interrupt_chat(parse(args)?).await,
             "respond_to_input" => self.respond_to_input(parse(args)?).await,
             "archive_chat" => self.archive_chat(parse(args)?).await,
+            "axeai_models" => self.axeai_models(args).await,
+            "axeai_account" => self.axeai_request("GET", "/v1/account/usage", None).await,
+            "axeai_generate_image" => {
+                self.axeai_request("POST", "/v1/images/generations", Some(args)).await
+            }
+            "axeai_generate_video" => {
+                self.axeai_request("POST", "/v1/videos/generations", Some(args)).await
+            }
+            "axeai_video_status" => {
+                #[derive(Deserialize)]
+                struct P {
+                    job: String,
+                }
+                let p: P = parse(args)?;
+                self.axeai_request("GET", &format!("/v1/videos/jobs/{}", p.job), None)
+                    .await
+            }
             other => return Err(format!("unknown tool: {other}")),
         };
         result.map_err(|e| format!("{e:#}"))
@@ -597,6 +668,45 @@ impl Tools {
                 "reasoningLevels": m.reasoning_levels,
             })).collect::<Vec<_>>()
         }))
+    }
+
+    /// axecode: one authenticated hop through the engine's AxeAiRequest —
+    /// `{status, body}` comes back verbatim so callers see API errors as data.
+    async fn axeai_request(
+        &self,
+        method: &str,
+        path: &str,
+        body: Option<Value>,
+    ) -> anyhow::Result<Value> {
+        let reply = self
+            .zeron
+            .call(
+                methods::AXEAI_REQUEST,
+                json!({ "method": method, "path": path, "body": body }),
+            )
+            .await?;
+        let status = reply.get("status").and_then(Value::as_u64).unwrap_or(0);
+        let payload = reply.get("body").cloned().unwrap_or(Value::Null);
+        anyhow::ensure!(
+            (200..300).contains(&status),
+            "Axe AI {method} {path} returned {status}: {payload}"
+        );
+        Ok(payload)
+    }
+
+    async fn axeai_models(&self, args: Value) -> anyhow::Result<Value> {
+        #[derive(Deserialize)]
+        struct P {
+            #[serde(default)]
+            account: bool,
+        }
+        let p: P = serde_json::from_value(args)?;
+        self.axeai_request(
+            "GET",
+            if p.account { "/v1/account/models" } else { "/v1/models" },
+            None,
+        )
+        .await
     }
 
     async fn list_chats(&self, args: ListChatsArgs) -> anyhow::Result<Value> {
