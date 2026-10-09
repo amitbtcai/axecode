@@ -378,7 +378,7 @@ mod tests {
         let profile = EngineProfile::local(dir.path()).unwrap();
         let core = crate::EngineCore::assemble_with_profile(
             profile,
-            std::sync::Arc::new(crate::default_registry()),
+            std::sync::Arc::new(crate::default_registry(None)),
             zeron_proto::HarnessId::Mock,
             None,
         )
@@ -402,7 +402,7 @@ mod tests {
         let expected = EngineProfile::development(dir.path(), &org_id, &user_id);
         let core = crate::EngineCore::assemble(
             dir.path(),
-            std::sync::Arc::new(crate::default_registry()),
+            std::sync::Arc::new(crate::default_registry(None)),
             zeron_proto::HarnessId::Mock,
             None,
         )

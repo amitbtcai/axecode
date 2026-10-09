@@ -12,7 +12,7 @@ async fn catalog_child() {
     let dir = tempfile::tempdir().unwrap();
     let core = EngineCore::assemble(
         dir.path(),
-        default_registry().into(),
+        default_registry(None).into(),
         HarnessId::Codex,
         None,
     )

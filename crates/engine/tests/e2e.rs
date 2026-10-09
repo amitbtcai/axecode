@@ -2387,7 +2387,7 @@ async fn real_claude_sees_uploaded_image_inline() {
 
     let core = EngineCore::assemble(
         &dir,
-        Arc::new(zeron_engine::default_registry()),
+        Arc::new(zeron_engine::default_registry(None)),
         HarnessId::ClaudeCode,
         None,
     )

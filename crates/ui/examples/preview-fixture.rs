@@ -109,7 +109,7 @@ fn main() -> anyhow::Result<()> {
     let core = runtime.block_on(async {
         zeron_engine::EngineCore::assemble(
             &temp.path().join("engine"),
-            Arc::new(zeron_engine::default_registry()),
+            Arc::new(zeron_engine::default_registry(None)),
             zeron_proto::HarnessId::ClaudeCode,
             None,
         )

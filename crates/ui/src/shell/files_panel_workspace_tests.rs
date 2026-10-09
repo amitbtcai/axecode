@@ -111,7 +111,7 @@ fn files_panel_workspace_navigation_and_external_updates() {
         .block_on(async {
             zeron_engine::EngineCore::assemble(
                 &directory.path().join("engine"),
-                Arc::new(zeron_engine::default_registry()),
+                Arc::new(zeron_engine::default_registry(None)),
                 zeron_proto::HarnessId::Mock,
                 None,
             )

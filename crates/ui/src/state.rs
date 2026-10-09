@@ -3974,7 +3974,7 @@ mod tests {
         let daemon_dir = tempfile::tempdir().unwrap();
         let core = EngineCore::assemble(
             daemon_dir.path(),
-            Arc::new(default_registry()),
+            Arc::new(default_registry(None)),
             HarnessId::Mock,
             None,
         )
@@ -5304,6 +5304,7 @@ mod tests {
             id: "u".into(),
             email: "w@example.com".into(),
             name: None,
+            avatar_data: None,
         };
         assert!(state.apply_auth(AuthState::NeedsOrganization { user: user.clone() }));
         assert!(!state.apply_auth(AuthState::NeedsOrganization { user }));

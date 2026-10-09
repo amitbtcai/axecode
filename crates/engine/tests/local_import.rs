@@ -11,7 +11,7 @@ use zeron_engine::run_journal::journal_paths;
 use zeron_engine::{EngineCore, EngineProfile, HarnessId, default_registry};
 
 fn assemble(profile: EngineProfile) -> EngineCore {
-    EngineCore::assemble_with_profile(profile, Arc::new(default_registry()), HarnessId::Mock, None)
+    EngineCore::assemble_with_profile(profile, Arc::new(default_registry(None)), HarnessId::Mock, None)
         .expect("assemble profile")
 }
 
