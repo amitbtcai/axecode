@@ -885,6 +885,7 @@ mod tests {
                 HarnessId::Grok,
                 HarnessId::Hermes,
                 HarnessId::Pi,
+                HarnessId::AxeAi,
                 HarnessId::Opencode,
                 HarnessId::Antigravity
             ]

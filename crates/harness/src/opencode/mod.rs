@@ -698,7 +698,12 @@ impl Server {
                             "opencode version unknown; starting without the Axe Code MCP server"
                         );
                     }
-                    cmd.env("OPENCODE_CONFIG_CONTENT", base);
+                    // Only an explicit overlay needs writing — inherited config
+                    // reaches the child on its own, and an empty object would
+                    // shadow opencode's own config file.
+                    if overlay.is_some() {
+                        cmd.env("OPENCODE_CONFIG_CONTENT", base);
+                    }
                 }
             }
         }
