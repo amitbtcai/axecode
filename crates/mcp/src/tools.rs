@@ -202,7 +202,7 @@ fn catalog() -> Vec<ToolDef> {
         // session credential and proxies allowlisted /v1 paths; the token
         // never reaches this process or the model.
         ToolDef {
-            name: "axeai_models",
+            name: "axeai_list_models",
             description: "Models available on the Axe AI platform (the signed-in user's /v1 catalog — text, image, video ids usable by the other axeai_* tools). Requires an Axe Code sign-in.",
             input_schema: json!({
                 "type": "object",
@@ -212,7 +212,7 @@ fn catalog() -> Vec<ToolDef> {
             }),
         },
         ToolDef {
-            name: "axeai_account",
+            name: "axeai_credits",
             description: "The signed-in Axe AI account: credit balance and usage (GET /v1/account/usage). Requires an Axe Code sign-in.",
             input_schema: json!({ "type": "object", "properties": {} }),
         },
@@ -249,6 +249,36 @@ fn catalog() -> Vec<ToolDef> {
                     "job": { "type": "string", "description": "Job id from axeai_generate_video." }
                 },
                 "required": ["job"]
+            }),
+        },
+        ToolDef {
+            name: "axeai_propose_trade",
+            description: "Propose a trade for the user to review on axeai.com — the agent NEVER signs or executes; this creates a pending intent (15-minute expiry) and returns a review URL to hand the user. Params mirror the platform schema: kind swap|bridge|limit, chain, fromToken, fromAmount, toToken, toChain (bridge), slippageBps, limitPrice (limit), reason.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "kind": { "type": "string", "enum": ["swap", "bridge", "limit"] },
+                    "chain": { "type": ["integer", "string"], "description": "Chain id (e.g. 1, 8453, 42161, 792703809 for Solana)." },
+                    "fromToken": { "type": "string", "description": "Address or ticker." },
+                    "fromAmount": { "type": "string", "description": "Decimal amount string (≤18 dp)." },
+                    "toToken": { "type": "string", "description": "Address or ticker." },
+                    "toChain": { "type": ["integer", "string"], "description": "Destination chain — required for bridge." },
+                    "slippageBps": { "type": "integer", "minimum": 1, "maximum": 5000 },
+                    "limitPrice": { "type": "string", "description": "Required for limit." },
+                    "reason": { "type": "string", "description": "Why — shown to the user on the confirm page." }
+                },
+                "required": ["kind", "chain", "fromToken", "fromAmount", "toToken"]
+            }),
+        },
+        ToolDef {
+            name: "axeai_trade_status",
+            description: "Poll a proposed trade's lifecycle (GET /api/trade-intents/{id}): pending → confirming → submitted → confirmed|failed|expired.",
+            input_schema: json!({
+                "type": "object",
+                "properties": {
+                    "intent": { "type": "string", "description": "Intent id from axeai_propose_trade." }
+                },
+                "required": ["intent"]
             }),
         },
     ];
@@ -517,8 +547,8 @@ impl Tools {
             "interrupt_chat" => self.interrupt_chat(parse(args)?).await,
             "respond_to_input" => self.respond_to_input(parse(args)?).await,
             "archive_chat" => self.archive_chat(parse(args)?).await,
-            "axeai_models" => self.axeai_models(args).await,
-            "axeai_account" => self.axeai_request("GET", "/v1/account/usage", None).await,
+            "axeai_list_models" => self.axeai_models(args).await,
+            "axeai_credits" => self.axeai_request("GET", "/v1/account/usage", None).await,
             "axeai_generate_image" => {
                 self.axeai_request("POST", "/v1/images/generations", Some(args)).await
             }
@@ -532,6 +562,26 @@ impl Tools {
                 }
                 let p: P = parse(args)?;
                 self.axeai_request("GET", &format!("/v1/videos/jobs/{}", p.job), None)
+                    .await
+            }
+            "axeai_propose_trade" => {
+                let mut body = args;
+                // Stamp the originating chat so the web confirm page can say
+                // which agent proposed it.
+                if let Some(chat) = self.zeron.origin().chat_id.as_deref()
+                    && let Some(object) = body.as_object_mut()
+                {
+                    object.insert("agentChatId".into(), json!(chat));
+                }
+                self.axeai_request("POST", "/api/trade-intents", Some(body)).await
+            }
+            "axeai_trade_status" => {
+                #[derive(Deserialize)]
+                struct P {
+                    intent: String,
+                }
+                let p: P = parse(args)?;
+                self.axeai_request("GET", &format!("/api/trade-intents/{}", p.intent), None)
                     .await
             }
             other => return Err(format!("unknown tool: {other}")),
@@ -687,6 +737,11 @@ impl Tools {
             .await?;
         let status = reply.get("status").and_then(Value::as_u64).unwrap_or(0);
         let payload = reply.get("body").cloned().unwrap_or(Value::Null);
+        // not_connected is data the model should read — the hint tells it to
+        // ask the user to connect rather than retry.
+        if payload.get("error").and_then(Value::as_str) == Some("not_connected") {
+            return Ok(payload);
+        }
         anyhow::ensure!(
             (200..300).contains(&status),
             "Axe AI {method} {path} returned {status}: {payload}"

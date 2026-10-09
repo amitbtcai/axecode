@@ -1760,10 +1760,15 @@ impl RpcService for AuthRpc {
                     RpcError::Failed("the Axe AI API requires axeai auth mode".into())
                 })?;
                 let Some(token) = self.auth.axeai_native_token().await else {
-                    return Err(RpcError::Failed(
-                        "no Axe AI credential yet — sign in (the platform session \
-                         is minted in the background, retry in a moment)".into(),
-                    ));
+                    // Data, not a protocol error: the caller (MCP tool) relays
+                    // the hint so the agent can ask the user to connect.
+                    return RpcReply::value(&serde_json::json!({
+                        "status": 401,
+                        "body": {
+                            "error": "not_connected",
+                            "hint": "Connect AxeAI in the sidebar"
+                        }
+                    }));
                 };
                 let mut result = api.request(&p.method, &p.path, &token, p.body.clone()).await;
                 // A single 401 retry after rotation covers a token that died
