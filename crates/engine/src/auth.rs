@@ -197,6 +197,11 @@ struct StoredSession {
     user: AuthUser,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     org_id: Option<String>,
+    /// axecode: the Axe AI native refresh token (`axe_refresh_*`) minted after
+    /// OAuth sign-in — the bearer the platform's /v1 API accepts. Persisted in
+    /// session.json (0600) like the OAuth credential; rotated on use.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    axeai_native: Option<crate::axeai_api::NativeSession>,
 }
 
 /// Access-token cache. Expiry ages the token's own lifetime (`exp - iat`) by
@@ -568,6 +573,16 @@ impl Auth {
     fn clear_session(&self, sign_in: &mut SignInLifecycle) {
         sign_in.generation = sign_in.generation.wrapping_add(1);
         sign_in.pending.clear();
+        // axecode: revoke the platform native session so a stale
+        // `axe_refresh_*` can't outlive sign-out.
+        let axeai_token = lock(&self.inner.stored)
+            .as_ref()
+            .and_then(|s| s.axeai_native.as_ref())
+            .map(|n| n.refresh_token.clone());
+        if let Some(token) = axeai_token {
+            let api = crate::axeai_api::AxeAiApi::new(self.axeai_base());
+            tokio::spawn(async move { api.revoke_native_session(&token).await });
+        }
         *lock(&self.inner.stored) = None;
         *lock(&self.inner.access) = None;
         self.retry_refresh();
@@ -797,11 +812,17 @@ impl Auth {
             ));
         }
         let org_id = self.token_org_id(&result.access_token);
+        // axecode: in axeai mode, also mint the platform native session — the
+        // OAuth JWT proves identity to /api/auth/native/from-oauth, which
+        // returns the `axe_refresh_*` credential /v1 accepts. Best-effort: a
+        // mint failure leaves sign-in intact and axeai_native simply absent.
+        let mint_access = self.is_axeai().then(|| result.access_token.clone());
         *lock(&self.inner.access) = Some(AccessEntry::fresh(result.access_token));
         let session = StoredSession {
             refresh_token: result.refresh_token,
             user: result.user.clone(),
             org_id: org_id.clone(),
+            axeai_native: None,
         };
         self.persist(Some(&session));
         *lock(&self.inner.stored) = Some(session);
@@ -814,7 +835,123 @@ impl Auth {
         self.inner
             .token_tx
             .send_modify(|epoch| *epoch = epoch.wrapping_add(1));
+        if let Some(access) = mint_access {
+            let auth = self.clone();
+            tokio::spawn(async move { auth.mint_axeai_native(&access).await });
+        }
         Ok(())
+    }
+
+    /// axecode: exchange the fresh OAuth access token for a desktop native
+    /// session and merge it into the persisted session. Skipped silently when
+    /// the session changed (sign-out/renewal) during the request.
+    async fn mint_axeai_native(&self, oauth_access_token: &str) {
+        let api = crate::axeai_api::AxeAiApi::new(self.axeai_base());
+        match api.mint_native_session(oauth_access_token).await {
+            Ok(native) => {
+                let mut stored = lock(&self.inner.stored);
+                if let Some(session) = stored.as_mut() {
+                    session.axeai_native = Some(native);
+                    self.persist(stored.as_ref());
+                    tracing::info!("auth: axeai native session minted");
+                }
+            }
+            Err(err) => {
+                tracing::warn!(error = %err, "auth: axeai native session mint failed");
+            }
+        }
+    }
+
+    /// axecode: Axe AI API origin derived from the issuer
+    /// (`https://axeai.com/api/auth` → `https://axeai.com`).
+    fn axeai_base(&self) -> String {
+        self.inner
+            .config
+            .axeai_issuer
+            .trim_end_matches('/')
+            .trim_end_matches("/api/auth")
+            .to_string()
+    }
+
+    /// axecode: the Axe AI native credential for /v1 calls, rotating it first
+    /// when it's within 30 days of expiry. `None` when signed out, when the
+    /// provider isn't axeai, or when the post-sign-in mint hasn't completed
+    /// (or failed — e.g. endpoint not yet deployed).
+    pub async fn axeai_native_token(&self) -> Option<String> {
+        let session = {
+            let stored = lock(&self.inner.stored);
+            let session = stored.as_ref()?.axeai_native.clone()?;
+            session
+        };
+        // Rotate opportunistically when the expiry parses and is near. A bad
+        // timestamp just means "keep the token" — the API will 401 if it dies.
+        let near_expiry = chrono::DateTime::parse_from_rfc3339(&session.refresh_expires_at)
+            .map(|expiry| expiry.signed_duration_since(chrono::Utc::now()) < chrono::Duration::days(30))
+            .unwrap_or(false);
+        if near_expiry {
+            self.refresh_axeai_native().await;
+            return lock(&self.inner.stored)
+                .as_ref()
+                .and_then(|s| s.axeai_native.as_ref())
+                .map(|n| n.refresh_token.clone());
+        }
+        Some(session.refresh_token)
+    }
+
+    /// axecode: rotate the stored native session in place. Called proactively
+    /// by [`Self::axeai_native_token`] and by callers recovering from a 401.
+    pub async fn refresh_axeai_native(&self) -> bool {
+        let token = lock(&self.inner.stored)
+            .as_ref()
+            .and_then(|s| s.axeai_native.as_ref())
+            .map(|n| n.refresh_token.clone());
+        let Some(token) = token else { return false };
+        let api = crate::axeai_api::AxeAiApi::new(self.axeai_base());
+        match api.refresh_native_session(&token).await {
+            Ok(Some(native)) => {
+                let mut stored = lock(&self.inner.stored);
+                // The stored token must still be the one we rotated — a
+                // concurrent sign-in/out may have replaced it.
+                if stored
+                    .as_ref()
+                    .and_then(|s| s.axeai_native.as_ref())
+                    .is_some_and(|n| n.refresh_token == token)
+                {
+                    if let Some(session) = stored.as_mut() {
+                        session.axeai_native = Some(native);
+                    }
+                    self.persist(stored.as_ref());
+                    return true;
+                }
+                true
+            }
+            Ok(None) => {
+                // Token rejected — drop it so the UI can prompt reconnect.
+                let mut stored = lock(&self.inner.stored);
+                if stored
+                    .as_ref()
+                    .and_then(|s| s.axeai_native.as_ref())
+                    .is_some_and(|n| n.refresh_token == token)
+                {
+                    if let Some(session) = stored.as_mut() {
+                        session.axeai_native = None;
+                    }
+                    self.persist(stored.as_ref());
+                }
+                false
+            }
+            Err(err) => {
+                tracing::warn!(error = %err, "auth: axeai native refresh failed");
+                true
+            }
+        }
+    }
+
+    /// axecode: account surface — whether a usable Axe AI credential exists.
+    pub fn has_axeai_native_session(&self) -> bool {
+        lock(&self.inner.stored)
+            .as_ref()
+            .is_some_and(|s| s.axeai_native.is_some())
     }
 
     /// Refresh the session (single-flight). `organization_id` migrates the WorkOS

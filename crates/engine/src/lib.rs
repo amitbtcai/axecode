@@ -18,6 +18,7 @@ use zeron_sync::DocsStore;
 pub mod agent_accounts;
 pub mod auth;
 mod auth_axeai;
+pub mod axeai_api;
 pub mod change_requests;
 pub mod chat2_host;
 mod chat_persistence;
