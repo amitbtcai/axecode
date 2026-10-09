@@ -4463,6 +4463,7 @@ http.createServer((req, res) => {{
                 fixture.path().to_str(),
                 Duration::from_secs(5),
                 Some(&first),
+                None,
             )
             .await
             .unwrap();
@@ -4471,6 +4472,7 @@ http.createServer((req, res) => {{
                 fixture.path().to_str(),
                 Duration::from_secs(5),
                 Some(&second),
+                None,
             )
             .await
             .unwrap();
@@ -4519,6 +4521,7 @@ http.createServer((req, res) => {
             fixture.path().to_str(),
             Duration::from_secs(5),
             Some(&mcp),
+            None,
         )
         .await
         .expect("an unknown version must not fail the run");
@@ -4577,6 +4580,7 @@ if (process.argv.includes('--version')) {{
                 fixture.path().to_str(),
                 Duration::from_secs(10),
                 Some(&mcp),
+                None,
             )
             .await
             .expect("a slow first --version must not fail the run");
