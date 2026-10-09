@@ -275,6 +275,10 @@ struct AuthInner {
     /// axecode: single-flight gate for lazy native-session mints (sessions
     /// signed in before this code existed mint on first /v1 use).
     native_mint: tokio::sync::Mutex<()>,
+    /// axecode: the current `axe_refresh_*` credential broadcast for sync
+    /// consumers (the Axe harness injects it into spawned servers). None
+    /// while no native session exists.
+    native_token_tx: watch::Sender<Option<String>>,
 }
 
 #[derive(Default)]
@@ -328,6 +332,12 @@ impl Auth {
         let (state_tx, _) = watch::channel(initial);
         let (token_tx, _) = watch::channel(0);
         let (retry_tx, _) = watch::channel(0);
+        let (native_token_tx, _) = watch::channel(
+            stored
+                .as_ref()
+                .and_then(|s| s.axeai_native.as_ref())
+                .map(|n| n.refresh_token.clone()),
+        );
         let http = reqwest::Client::builder()
             .timeout(HTTP_TIMEOUT)
             .build()
@@ -349,6 +359,7 @@ impl Auth {
                 retry_tx,
                 loopback: tokio::sync::Mutex::new(None),
                 native_mint: tokio::sync::Mutex::new(()),
+                native_token_tx,
             }),
         }
     }
@@ -589,6 +600,7 @@ impl Auth {
         }
         *lock(&self.inner.stored) = None;
         *lock(&self.inner.access) = None;
+        self.inner.native_token_tx.send_replace(None);
         self.retry_refresh();
         self.persist::<&StoredSession>(None);
         self.inner.state_tx.send_replace(AuthState::SignedOut);
@@ -855,6 +867,9 @@ impl Auth {
             Ok(native) => {
                 let mut stored = lock(&self.inner.stored);
                 if let Some(session) = stored.as_mut() {
+                    self.inner
+                        .native_token_tx
+                        .send_replace(Some(native.refresh_token.clone()));
                     session.axeai_native = Some(native);
                     self.persist(stored.as_ref());
                     tracing::info!("auth: axeai native session minted");
@@ -936,6 +951,9 @@ impl Auth {
                     .is_some_and(|n| n.refresh_token == token)
                 {
                     if let Some(session) = stored.as_mut() {
+                        self.inner
+                            .native_token_tx
+                            .send_replace(Some(native.refresh_token.clone()));
                         session.axeai_native = Some(native);
                     }
                     self.persist(stored.as_ref());
@@ -951,6 +969,7 @@ impl Auth {
                     .and_then(|s| s.axeai_native.as_ref())
                     .is_some_and(|n| n.refresh_token == token)
                 {
+                    self.inner.native_token_tx.send_replace(None);
                     if let Some(session) = stored.as_mut() {
                         session.axeai_native = None;
                     }
@@ -970,6 +989,13 @@ impl Auth {
         lock(&self.inner.stored)
             .as_ref()
             .is_some_and(|s| s.axeai_native.is_some())
+    }
+
+    /// axecode: sync access to the live `axe_refresh_*` credential for
+    /// consumers that cannot await (harness spawn-time env injection). The
+    /// receiver tracks mint/refresh/sign-out; `None` means not connected.
+    pub fn watch_axeai_native_token(&self) -> watch::Receiver<Option<String>> {
+        self.inner.native_token_tx.subscribe()
     }
 
     /// axecode: the platform API client, present only in axeai auth mode.

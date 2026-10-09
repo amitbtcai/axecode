@@ -524,7 +524,12 @@ impl HarnessRegistry {
 /// The production registry: MockHarness (hidden from production pickers) plus a lazy
 /// `claude-code` slot resolved through `zeron_harness` on first use (subprocess
 /// discovery only happens when a run/model call actually needs it).
-pub fn default_registry() -> HarnessRegistry {
+///
+/// `native_token` is the live Axe AI credential broadcast — the `axe` harness
+/// injects its current value into every spawned server's provider config.
+pub fn default_registry(
+    native_token: Option<tokio::sync::watch::Receiver<Option<String>>>,
+) -> HarnessRegistry {
     // Warm the login-shell PATH snapshot in the background so the first
     // claude/codex resolve doesn't pay the shell-startup latency inline.
     zeron_harness::shell_env::prewarm();
@@ -713,6 +718,49 @@ pub fn default_registry() -> HarnessRegistry {
         Box::new(|| zeron_harness::PiHarness::new().installed()),
         Box::new(|| Ok(Arc::new(zeron_harness::PiHarness::new()) as Arc<dyn Harness>)),
     );
+    // axecode: the first-party Axe harness — the same opencode server
+    // protocol driven against axeai.com/v1, with the device's native
+    // credential injected per-spawn as the provider apiKey (never written to
+    // the user's opencode config). Uses the installed opencode binary.
+    registry.register_lazy(
+        HarnessDescriptor {
+            id: HarnessId::AxeAi,
+            name: "Axe".into(),
+            supports_steering: true,
+            steering_mode: SteeringMode::StepBoundary,
+            reasoning_levels: vec![
+                ReasoningLevel::Low,
+                ReasoningLevel::Medium,
+                ReasoningLevel::High,
+                ReasoningLevel::XHigh,
+                ReasoningLevel::Max,
+            ],
+            installed: true,
+            can_install: false,
+            enabled: None,
+        },
+        Box::new(|| zeron_harness::OpencodeHarness::new().installed()),
+        {
+            let token = native_token.clone();
+            let base = crate::env_or(
+                "AXECODE_AXEAI_ISSUER",
+                "https://axeai.com/api/auth",
+            )
+            .trim_end_matches('/')
+            .trim_end_matches("/api/auth")
+            .to_string();
+            Box::new(move || {
+                let token = token.clone();
+                let base = base.clone();
+                Ok(Arc::new(zeron_harness::OpencodeHarness::axeai(
+                    Arc::new(move || {
+                        token.as_ref().and_then(|rx| rx.borrow().clone())
+                    }),
+                    base,
+                )) as Arc<dyn Harness>)
+            }) as Factory
+        },
+    );
     // opencode over its NATIVE HTTP/SSE protocol (the one the opencode
     // desktop app speaks — `opencode serve` + the /global/event bus), same
     // lazy pattern: the static descriptor mirrors OpencodeHarness exactly.
@@ -824,7 +872,7 @@ mod tests {
 
     #[test]
     fn default_registry_lists_mock_claude_codex_and_grok_slots() {
-        let registry = default_registry();
+        let registry = default_registry(None);
         let ids: Vec<HarnessId> = registry.descriptors().iter().map(|d| d.id).collect();
         assert_eq!(
             ids,
@@ -1144,7 +1192,7 @@ mod tests {
     /// nothing runnable behind a guard that thinks it is covered.
     #[test]
     fn detection_never_enables_the_mock() {
-        let registry = default_registry();
+        let registry = default_registry(None);
         let enabled = registry.enabled_set();
         assert!(!enabled.contains(&HarnessId::Mock), "{enabled:?}");
         let mock = registry
@@ -1216,7 +1264,7 @@ mod tests {
     /// as-is here; flagged for its own pass.)
     #[test]
     fn codex_lazy_descriptor_matches_resolved_harness() {
-        let registry = default_registry();
+        let registry = default_registry(None);
         let before = registry
             .descriptors()
             .into_iter()

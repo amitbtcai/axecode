@@ -252,7 +252,7 @@ fn provider(id: HarnessId) -> ProviderSpec {
             update_args: Some(&["update", "--self"]),
             manual_command: "pi update --self",
         },
-        HarnessId::Opencode => ProviderSpec {
+        HarnessId::AxeAi | HarnessId::Opencode => ProviderSpec {
             version_args: &["--version"],
             latest: LatestSource::Opencode,
             update_args: Some(&["upgrade"]),

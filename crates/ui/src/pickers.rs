@@ -5834,6 +5834,8 @@ pub(crate) fn harness_brand_icon(harness: HarnessId) -> (&'static str, Option<gp
         HarnessId::Pi => (crate::icons::PI_MARK, None),
         // The pixel-"o" from opencode's wordmark (their favicon), monochrome.
         HarnessId::Opencode => (crate::icons::OPENCODE_MARK, None),
+        // The Axe AI harness is opencode under the hood; the app logo marks it.
+        HarnessId::AxeAi => (crate::icons::AXECODE_LOGO, None),
         HarnessId::Antigravity => (crate::icons::ANTIGRAVITY_MARK, None),
     }
 }

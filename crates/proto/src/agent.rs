@@ -23,6 +23,9 @@ pub enum HarnessId {
     /// google's antigravity agent over acp (`agy_acp_server`, installed from
     /// its pinned release archive).
     Antigravity,
+    /// Axe AI's first-party harness — the opencode server protocol driven
+    /// against axeai.com/v1 with the device's native session credential.
+    AxeAi,
     /// Test harness; never shown in production pickers.
     Mock,
 }

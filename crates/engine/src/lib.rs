@@ -790,17 +790,18 @@ impl Engine {
         });
 
         let preview_org = profile.org_id().to_string();
+        let native_token = auth.watch_axeai_native_token();
         let core = match lock {
             Some(lock) => EngineCore::assemble_with_profile_locked(
                 profile,
-                Arc::new(default_registry()),
+                Arc::new(default_registry(Some(native_token.clone()))),
                 config.default_harness,
                 edge.clone(),
                 lock,
             )?,
             None => EngineCore::assemble_with_profile(
                 profile,
-                Arc::new(default_registry()),
+                Arc::new(default_registry(Some(native_token))),
                 config.default_harness,
                 edge.clone(),
             )?,
@@ -1329,7 +1330,7 @@ mod device_name_tests {
 }
 
 /// Trimmed env var or the given default.
-fn env_or(key: &str, default: &str) -> String {
+pub(crate) fn env_or(key: &str, default: &str) -> String {
     std::env::var(key)
         .ok()
         .map(|s| s.trim().to_string())

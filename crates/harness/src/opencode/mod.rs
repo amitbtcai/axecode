@@ -218,6 +218,11 @@ fn free_localhost_port() -> Option<u16> {
 // Harness
 // ---------------------------------------------------------------------------
 
+/// Extra top-level keys merged into `OPENCODE_CONFIG_CONTENT` at every server
+/// boot — the axeai provider block rides this channel so the apiKey is minted
+/// fresh per spawn and never lands on disk or in a user config file.
+pub type ConfigOverlay = Arc<dyn Fn() -> Option<serde_json::Value> + Send + Sync>;
+
 pub struct OpencodeHarness {
     executable: Option<PathBuf>,
     /// Test seam: an already-running server (no spawn, no auth unless given).
@@ -230,6 +235,16 @@ pub struct OpencodeHarness {
     /// Coalesce concurrent picker/title probes: several cold opencode boots
     /// at once are slower than one.
     probe_lock: tokio::sync::Mutex<()>,
+    /// Wire/identity override — the Axe harness is this same protocol driver
+    /// pointed at axeai.com instead of the user's own provider config.
+    harness_id: HarnessId,
+    display: &'static str,
+    /// Produces the provider/config overlay merged into every spawned server.
+    /// Returning `None` means "not connected" — the caller fails the boot
+    /// with a sign-in hint instead of starting an unauthenticated server.
+    config_overlay: Option<ConfigOverlay>,
+    /// Error used when `config_overlay` yields `None`.
+    overlay_missing_hint: &'static str,
 }
 
 impl Default for OpencodeHarness {
@@ -243,6 +258,10 @@ impl Default for OpencodeHarness {
             models_cache: crate::catalog::Catalog::default(),
             commands_cache: tokio::sync::OnceCell::new(),
             probe_lock: tokio::sync::Mutex::new(()),
+            harness_id: HarnessId::Opencode,
+            display: "OpenCode",
+            config_overlay: None,
+            overlay_missing_hint: "config unavailable",
         }
     }
 }
@@ -250,6 +269,37 @@ impl Default for OpencodeHarness {
 impl OpencodeHarness {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    /// The Axe AI harness: opencode's server protocol against axeai.com /v1.
+    /// `token` yields the current native credential (None when signed out);
+    /// `api_base` is the axeai origin (e.g. `https://axeai.com`).
+    pub fn axeai(
+        token: std::sync::Arc<dyn Fn() -> Option<String> + Send + Sync>,
+        api_base: String,
+    ) -> Self {
+        let base = api_base.trim_end_matches('/').to_string();
+        Self {
+            harness_id: HarnessId::AxeAi,
+            display: "Axe",
+            overlay_missing_hint: "Connect Axe AI in the sidebar to use the Axe harness.",
+            config_overlay: Some(Arc::new(move || {
+                let key = token()?;
+                Some(serde_json::json!({
+                    "provider": {
+                        "axeai": {
+                            "npm": "@ai-sdk/openai-compatible",
+                            "name": "Axe AI",
+                            "options": {
+                                "baseURL": format!("{base}/v1"),
+                                "apiKey": key,
+                            }
+                        }
+                    }
+                }))
+            })),
+            ..Self::default()
+        }
     }
 
     /// Use a fixed binary instead of PATH/known-location resolution.
@@ -288,7 +338,14 @@ impl OpencodeHarness {
             return Ok(Server::attached(base.clone()));
         }
         let exe = self.resolve_executable()?;
-        Server::spawn(&exe, cwd, self.startup_timeout, mcp).await
+        let overlay = match &self.config_overlay {
+            Some(overlay) => Some(
+                overlay()
+                    .ok_or_else(|| HarnessError::Protocol(self.overlay_missing_hint.into()))?,
+            ),
+            None => None,
+        };
+        Server::spawn(&exe, cwd, self.startup_timeout, mcp, overlay).await
     }
 
     /// One short-lived server answers both discovery calls. Also primes the
@@ -340,11 +397,11 @@ impl OpencodeHarness {
 #[async_trait]
 impl Harness for OpencodeHarness {
     fn id(&self) -> HarnessId {
-        HarnessId::Opencode
+        self.harness_id
     }
     fn display_name(&self) -> &str {
         // Must match the registry's lazy descriptor.
-        "OpenCode"
+        self.display
     }
     fn supports_steering(&self) -> bool {
         true
@@ -595,6 +652,7 @@ impl Server {
         cwd: Option<&str>,
         startup: Duration,
         mcp: Option<&zeron_proto::McpServer>,
+        overlay: Option<Value>,
     ) -> Result<Self, HarnessError> {
         let port = free_localhost_port().ok_or_else(|| {
             HarnessError::Protocol("no free localhost port for opencode serve".into())
@@ -611,29 +669,37 @@ impl Server {
             .env("OPENCODE_PASSWORD", &password)
             .env("OPENCODE_SERVER_PASSWORD", &password)
             .env("OPENCODE_CLIENT", "axecode");
-        if let Some(mcp) = mcp {
-            // The config shape differs by generation. If even the cold probe
-            // can't tell, run without the Axe Code MCP server rather than fail.
+        if mcp.is_some() || overlay.is_some() {
+            // Provider/config overlays merge into the same generated config the
+            // MCP wiring uses — one OPENCODE_CONFIG_CONTENT carries both.
+            let base = merge_config_overlay(
+                std::env::var("OPENCODE_CONFIG_CONTENT").ok().as_deref(),
+                overlay.as_ref(),
+            )?;
             match opencode_version(exe).await {
                 Some(version) => {
+                    // The config shape differs by generation. If even the cold probe
+                    // can't tell, run without the Axe Code MCP server rather than fail.
                     let protocol = if version.major >= 2 {
                         Protocol::V2
                     } else {
                         Protocol::V1
                     };
-                    cmd.env(
-                        "OPENCODE_CONFIG_CONTENT",
-                        mcp_config(
-                            std::env::var("OPENCODE_CONFIG_CONTENT").ok().as_deref(),
-                            mcp,
-                            protocol,
-                        )?,
-                    );
+                    let content = match mcp {
+                        Some(mcp) => mcp_config(Some(&base), mcp, protocol)?,
+                        None => base,
+                    };
+                    cmd.env("OPENCODE_CONFIG_CONTENT", content);
                 }
-                None => tracing::warn!(
-                    binary_path = %exe.display(),
-                    "opencode version unknown; starting without the Axe Code MCP server"
-                ),
+                None => {
+                    if mcp.is_some() {
+                        tracing::warn!(
+                            binary_path = %exe.display(),
+                            "opencode version unknown; starting without the Axe Code MCP server"
+                        );
+                    }
+                    cmd.env("OPENCODE_CONFIG_CONTENT", base);
+                }
             }
         }
         crate::compose_child_path(&mut cmd, exe);
@@ -4280,6 +4346,37 @@ async fn opencode_version(exe: &std::path::Path) -> Option<semver::Version> {
 
 /// Inline config is the final user config layer. Preserve inherited overrides
 /// and other MCP servers; never write chat identity into a shared config file.
+/// Merge a provider/config overlay into the inherited OPENCODE_CONFIG_CONTENT
+/// (or an empty object). Top-level objects merge one level deep so a
+/// `provider` block composes with any inherited `mcp`/`provider` content.
+fn merge_config_overlay(
+    inherited: Option<&str>,
+    overlay: Option<&Value>,
+) -> Result<String, HarnessError> {
+    let mut config: Value = match inherited.filter(|s| !s.trim().is_empty()) {
+        Some(raw) => deser_hjson::from_str(raw).map_err(|_| {
+            HarnessError::Protocol("OPENCODE_CONFIG_CONTENT must be a valid config object".into())
+        })?,
+        None => json!({}),
+    };
+    let object = config.as_object_mut().ok_or_else(|| {
+        HarnessError::Protocol("OPENCODE_CONFIG_CONTENT must be an object".into())
+    })?;
+    if let Some(Value::Object(overlay)) = overlay {
+        for (key, value) in overlay {
+            match (object.get_mut(key), value) {
+                (Some(Value::Object(existing)), Value::Object(extra)) => {
+                    existing.extend(extra.clone());
+                }
+                (_, value) => {
+                    object.insert(key.clone(), value.clone());
+                }
+            }
+        }
+    }
+    Ok(config.to_string())
+}
+
 fn mcp_config(
     inherited: Option<&str>,
     mcp: &zeron_proto::McpServer,

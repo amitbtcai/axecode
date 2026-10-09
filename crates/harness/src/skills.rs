@@ -114,7 +114,9 @@ fn project_dirs(harness: HarnessId) -> &'static [&'static str] {
             ".agents/skills",
             ".cursor/skills",
         ],
-        HarnessId::Opencode => &[".claude/skills", ".agents/skills", ".opencode/skills"],
+        HarnessId::AxeAi | HarnessId::Opencode => {
+            &[".claude/skills", ".agents/skills", ".opencode/skills"]
+        }
         HarnessId::Grok => &[".agents/skills", ".claude/skills", ".grok/skills"],
         HarnessId::Hermes => &[".agents/skills"],
         HarnessId::Pi => &[".agents/skills", ".pi/skills"],
@@ -152,7 +154,7 @@ fn discover_at(harness: HarnessId, cwd: &Path, home: &Path) -> Result<Vec<Skill>
                 .join("skills"),
             String::new(),
         )),
-        HarnessId::Opencode => roots.push((
+        HarnessId::AxeAi | HarnessId::Opencode => roots.push((
             std::env::var_os("XDG_CONFIG_HOME")
                 .map(PathBuf::from)
                 .unwrap_or_else(|| home.join(".config"))
