@@ -509,39 +509,6 @@ pub fn remove_new_thread_composer_background(cx: &mut App) -> Result<(), String>
     Ok(())
 }
 
-/// axecode fork: toggle the dimmed artwork backdrop behind live chat threads.
-pub fn set_chat_thread_background(enabled: bool, cx: &mut App) {
-    if update(SavePolicy::Immediate, cx, |settings| {
-        settings.chat_thread_background = enabled;
-    }) {
-        cx.refresh_windows();
-    }
-}
-
-/// axecode fork: the thread backdrop may wear a different pixel effect than
-/// the new-thread hero — e.g. Dither behind transcripts while the hero stays
-/// photographic.
-pub fn set_chat_thread_background_effect(effect: NewThreadBackgroundEffect, cx: &mut App) {
-    if update(SavePolicy::Immediate, cx, |settings| {
-        settings.chat_thread_background_effect = effect;
-    }) {
-        cx.refresh_windows();
-    }
-}
-
-/// axecode fork: backdrop-blur radius (px) painted over the thread artwork.
-pub fn set_chat_thread_background_blur(radius: f32, cx: &mut App) {
-    if update(SavePolicy::Immediate, cx, |settings| {
-        settings.chat_thread_background_blur = if radius.is_finite() {
-            radius.clamp(0.0, 64.0)
-        } else {
-            0.0
-        };
-    }) {
-        cx.refresh_windows();
-    }
-}
-
 pub fn set_new_thread_background_effect(effect: NewThreadBackgroundEffect, cx: &mut App) {
     if update(SavePolicy::Immediate, cx, |settings| {
         settings.new_thread_background_effect = effect;
@@ -985,13 +952,6 @@ pub struct UiSettings {
     /// Optional device-local artwork behind the blank new-thread composer.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub new_thread_composer_background: Option<NewThreadComposerBackground>,
-    /// axecode fork: also dim the same artwork behind a live chat thread.
-    pub chat_thread_background: bool,
-    /// axecode fork: pixel effect for the thread backdrop — kept separate from
-    /// `new_thread_background_effect` so the two surfaces can differ.
-    pub chat_thread_background_effect: NewThreadBackgroundEffect,
-    /// axecode fork: backdrop-blur radius over the thread artwork; 0 = off.
-    pub chat_thread_background_blur: f32,
     /// Device-local folder used by the random wallpaper shortcut.
     pub wallpaper_folder: Option<PathBuf>,
     pub wallpaper_source: Option<PathBuf>,
@@ -1090,9 +1050,6 @@ impl Default for UiSettings {
             accent: zeron_theme::AccentSelection::default(),
             surface: zeron_theme::SurfacePreference::default(),
             new_thread_composer_background: None,
-            chat_thread_background: false,
-            chat_thread_background_effect: NewThreadBackgroundEffect::None,
-            chat_thread_background_blur: 0.0,
             wallpaper_folder: None,
             wallpaper_source: None,
             wallpaper_history: Vec::new(),
@@ -1734,9 +1691,6 @@ impl UiSettings {
             accent,
             surface,
             new_thread_composer_background,
-            chat_thread_background,
-            chat_thread_background_effect,
-            chat_thread_background_blur,
             wallpaper_folder,
             wallpaper_source,
             wallpaper_history,
@@ -1792,10 +1746,6 @@ impl UiSettings {
             crate::typography::FONT_SIZE_MAX,
             crate::typography::CODE_FONT_SIZE_DEFAULT,
         );
-        // axecode fork: a hand-edited or NaN blur radius would paint a broken
-        // backdrop every frame; heal it to the supported range on load.
-        self.chat_thread_background_blur =
-            clamp_or(self.chat_thread_background_blur, 0.0, 64.0, 0.0);
         self.git_history_column_widths = self.git_history_column_widths.clamped();
         self.git_history_column_order = self.git_history_column_order.normalized();
         self.ui_font_size = self.ui_font_size.normalized();
@@ -2795,9 +2745,6 @@ mod tests {
                     zoom: 1.8,
                 },
             }),
-            chat_thread_background: true,
-            chat_thread_background_effect: NewThreadBackgroundEffect::Halftone,
-            chat_thread_background_blur: 12.0,
             wallpaper_folder: Some("/tmp/wallpapers".into()),
             wallpaper_source: Some("/tmp/wallpapers/background.png".into()),
             wallpaper_history: vec!["/tmp/wallpapers/background.png".into()],
@@ -3114,7 +3061,6 @@ mod tests {
                 id: user_id.to_string(),
                 email: format!("{user_id}@example.com"),
                 name: None,
-                avatar_data: None,
             },
             org_id: org_id.map(str::to_string),
         }

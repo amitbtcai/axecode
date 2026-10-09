@@ -78,16 +78,6 @@ pub struct AuthUser {
     pub email: String,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// axecode: the provider's profile-photo URL (`picture` claim /
-    /// WorkOS `profilePictureUrl`). Kept so a later refresh can retry a
-    /// failed download; `None` when the provider has no photo.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub avatar_url: Option<String>,
-    /// axecode: base64 image bytes downloaded once from `avatar_url`
-    /// (Gravatar fallback when no provider photo). Persisted with the
-    /// session so the sidebar photo survives restarts offline.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub avatar_data: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -138,7 +128,6 @@ impl AuthState {
             id: user.id.clone(),
             email: user.email.clone(),
             name: user.name.clone(),
-            avatar_data: user.avatar_data.clone(),
         };
         match self {
             AuthState::SignedOut => zeron_proto::AuthState::SignedOut,
@@ -278,9 +267,6 @@ struct AuthInner {
     retry_tx: watch::Sender<u64>,
     /// Loopback callback listener port, bound lazily on the first headed sign-in.
     loopback: tokio::sync::Mutex<Option<u16>>,
-    /// axecode: avatar backfill runs at most once per process — a user who
-    /// simply has no photo shouldn't be re-probed on every token refresh.
-    avatar_backfill_done: std::sync::atomic::AtomicBool,
 }
 
 #[derive(Default)]
@@ -324,8 +310,6 @@ impl Auth {
                     id: config.dev_user_id.clone(),
                     email: config.dev_user_id.clone(),
                     name: None,
-                    avatar_url: None,
-                    avatar_data: None,
                 },
                 org_id: None,
             },
@@ -356,7 +340,6 @@ impl Auth {
                 refresh_retry: Mutex::new(RefreshRetry::default()),
                 retry_tx,
                 loopback: tokio::sync::Mutex::new(None),
-                avatar_backfill_done: std::sync::atomic::AtomicBool::new(false),
             }),
         }
     }
@@ -737,8 +720,6 @@ impl Auth {
             first_name: Option<String>,
             #[serde(default)]
             last_name: Option<String>,
-            #[serde(default)]
-            profile_picture_url: Option<String>,
         }
         #[derive(Deserialize)]
         #[serde(rename_all = "camelCase")]
@@ -794,24 +775,11 @@ impl Auth {
             .filter(|s| !s.is_empty())
             .collect::<Vec<_>>()
             .join(" ");
-        // axecode: grab the provider's profile photo while the network is
-        // already warm so the first AuthStatus frame carries it. No photo →
-        // the avatar backfill (kicked from `finish_sign_in`) tries Gravatar.
-        let avatar_url = body
-            .user
-            .profile_picture_url
-            .filter(|url| url.starts_with("https://"));
-        let avatar_data = match avatar_url.as_deref() {
-            Some(url) => fetch_avatar(&self.inner.http, url).await,
-            None => None,
-        };
         Ok(SignInResult {
             user: AuthUser {
                 id: body.user.id,
                 email: body.user.email,
                 name: (!name.is_empty()).then_some(name),
-                avatar_url,
-                avatar_data,
             },
             access_token: body.access_token,
             refresh_token: body.refresh_token,
@@ -829,7 +797,6 @@ impl Auth {
             ));
         }
         let org_id = self.token_org_id(&result.access_token);
-        let access_token = result.access_token.clone();
         *lock(&self.inner.access) = Some(AccessEntry::fresh(result.access_token));
         let session = StoredSession {
             refresh_token: result.refresh_token,
@@ -841,15 +808,9 @@ impl Auth {
         self.retry_refresh();
         tracing::info!(email = %result.user.email, org = org_id.as_deref().unwrap_or("<none>"),
             "auth: signed in");
-        let needs_avatar = result.user.avatar_data.is_none();
         self.inner
             .state_tx
             .send_replace(state_for(result.user, org_id));
-        // axecode: no provider photo (or its fetch failed) → try userinfo +
-        // Gravatar once; the frame swap above already renders the initial.
-        if needs_avatar && self.is_axeai() {
-            self.kick_avatar_backfill(access_token);
-        }
         self.inner
             .token_tx
             .send_modify(|epoch| *epoch = epoch.wrapping_add(1));
@@ -1056,16 +1017,8 @@ impl Auth {
             }
         };
         self.persist(lock(&self.inner.stored).as_ref());
-        // axecode: sessions that predate avatar support (or whose photo fetch
-        // failed at sign-in) pick it up on the next refresh — the axeai
-        // userinfo endpoint answers with the fresh access token. Detached;
-        // a late AuthStatus frame re-renders the sidebar pill.
-        let needs_avatar = self.is_axeai() && user.avatar_data.is_none();
         if org_changed {
             self.inner.state_tx.send_replace(state_for(user, org_id));
-        }
-        if needs_avatar {
-            self.kick_avatar_backfill(tokens.access_token.clone());
         }
         self.inner
             .token_tx
@@ -1150,117 +1103,6 @@ impl Auth {
         tracing::info!(port, "auth: sign-in callback listening");
         Ok(port)
     }
-
-    /// axecode: detached avatar backfill — at most once per process, so a
-    /// user who simply has no photo isn't re-probed on every refresh.
-    fn kick_avatar_backfill(&self, access_token: String) {
-        if self
-            .inner
-            .avatar_backfill_done
-            .swap(true, std::sync::atomic::Ordering::Relaxed)
-        {
-            return;
-        }
-        let weak = Arc::downgrade(&self.inner);
-        tokio::spawn(async move {
-            if let Some(inner) = weak.upgrade() {
-                Auth { inner }.backfill_avatar(&access_token).await;
-            }
-        });
-    }
-
-    /// axecode: fetch the photo for a session that lacks one. The fresh
-    /// access token answers Better Auth's `oauth2/userinfo` (the `picture`
-    /// claim); no claim → the email's Gravatar. Bytes merge into the stored
-    /// session and a fresh AuthStatus frame reaches every viewport.
-    async fn backfill_avatar(&self, access_token: &str) {
-        #[derive(Deserialize)]
-        struct Info {
-            sub: String,
-            email: Option<String>,
-            picture: Option<String>,
-        }
-        let url = format!(
-            "{}/oauth2/userinfo",
-            self.inner.config.axeai_issuer.trim_end_matches('/')
-        );
-        let Ok(res) = self
-            .inner
-            .http
-            .get(&url)
-            .bearer_auth(access_token)
-            .send()
-            .await
-        else {
-            return;
-        };
-        if !res.status().is_success() {
-            return;
-        }
-        let Ok(info) = res.json::<Info>().await else {
-            return;
-        };
-        let picture = info.picture.filter(|u| u.starts_with("https://"));
-        let source = picture
-            .clone()
-            .unwrap_or_else(|| gravatar_url(info.email.as_deref().unwrap_or_default()));
-        let Some(data) = fetch_avatar(&self.inner.http, &source).await else {
-            return;
-        };
-        // The session may have been replaced (sign-out/in) mid-flight — merge
-        // only when the userinfo identity still owns the stored session.
-        let committed = {
-            let mut stored = lock(&self.inner.stored);
-            match stored.as_mut() {
-                Some(session)
-                    if session.user.id == info.sub && session.user.avatar_data.is_none() =>
-                {
-                    session.user.avatar_url = picture;
-                    session.user.avatar_data = Some(data);
-                    Some((session.user.clone(), session.org_id.clone()))
-                }
-                _ => None,
-            }
-        };
-        let Some((user, org_id)) = committed else {
-            return;
-        };
-        self.persist(lock(&self.inner.stored).as_ref());
-        self.inner.state_tx.send_replace(state_for(user, org_id));
-        tracing::info!("auth: profile photo backfilled");
-    }
-}
-
-/// axecode: download a profile photo as base64. Restricting to `image/*`
-/// bodies and a 4 MiB cap keeps a user-controlled `picture` URL from being
-/// an arbitrary fetch; Gravatar's `d=404` reads as a plain non-success here.
-async fn fetch_avatar(http: &reqwest::Client, url: &str) -> Option<String> {
-    use base64::Engine as _;
-    let res = http.get(url).send().await.ok()?;
-    if !res.status().is_success() {
-        return None;
-    }
-    let is_image = res
-        .headers()
-        .get(reqwest::header::CONTENT_TYPE)
-        .and_then(|v| v.to_str().ok())
-        .is_some_and(|ct| ct.starts_with("image/"));
-    if !is_image {
-        return None;
-    }
-    let bytes = res.bytes().await.ok()?;
-    if bytes.is_empty() || bytes.len() > 4 * 1024 * 1024 {
-        return None;
-    }
-    Some(base64::engine::general_purpose::STANDARD.encode(bytes))
-}
-
-/// axecode: `https://gravatar.com/avatar/<sha256(email)>` — `d=404` returns
-/// a miss instead of an identicon, so callers fall back to the initial.
-fn gravatar_url(email: &str) -> String {
-    use sha2::{Digest as _, Sha256};
-    let digest = Sha256::digest(email.trim().to_lowercase().as_bytes());
-    format!("https://gravatar.com/avatar/{digest:x}?s=64&d=404")
 }
 
 struct SignInResult {
@@ -1621,8 +1463,6 @@ mod tests {
             id: "u1".into(),
             email: "u@x".into(),
             name: None,
-            avatar_url: None,
-            avatar_data: None,
         };
         let signed_in = AuthState::SignedIn {
             user: user.clone(),

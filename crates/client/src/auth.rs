@@ -127,10 +127,6 @@ pub struct AuthUser {
     pub first_name: Option<String>,
     #[serde(default)]
     pub last_name: Option<String>,
-    /// axecode: profile-photo URL the edge passes through (`picture` claim /
-    /// WorkOS `profilePictureUrl`). Captured for clients that render it.
-    #[serde(default)]
-    pub profile_picture_url: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

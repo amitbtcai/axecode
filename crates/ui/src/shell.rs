@@ -12,13 +12,12 @@
 //! dock. Double-clicking a handle resets that pane to its default width.
 
 use std::path::PathBuf;
-use std::sync::Arc;
 use std::time::Duration;
 
 use chrono::{DateTime, Utc};
 use gpui::{
     Action, AnyElement, App, ClipboardItem, Context, Empty, Entity, FocusHandle, Focusable as _,
-    Image, IntoElement, KeyBinding, Keystroke, ModifiersChangedEvent, MouseButton, MouseDownEvent,
+    IntoElement, KeyBinding, Keystroke, ModifiersChangedEvent, MouseButton, MouseDownEvent,
     MouseUpEvent, Pixels, Point, Render, SharedString, Subscription, Task, Window,
     WindowControlArea, actions, div, prelude::*, px,
 };
@@ -1066,9 +1065,6 @@ const GITHUB_REPO_URL: &str = "https://github.com/amitbtcai/axecode";
 const NEW_THREAD_BACKGROUND_FROSTED_OPACITY: f32 = 0.84;
 const NEW_THREAD_BACKGROUND_VIEWPORT_RATIO: f32 = 0.72;
 const NEW_THREAD_BACKGROUND_MAX_HEIGHT: f32 = 760.0;
-/// axecode fork: artwork is dimmed much harder behind a live thread than on
-/// the empty hero canvas — it reads as ambience there, not the subject.
-const CHAT_THREAD_BACKGROUND_OPACITY: f32 = 0.35;
 
 /// Drag marker for the sidebar resize handle.
 struct SidebarResize;
@@ -1748,13 +1744,8 @@ fn sidebar_account_identity(
     scope: Option<WorkspaceScope>,
     flow: SyncFlow,
     user: Option<&zeron_proto::UserProfile>,
-) -> (SharedString, SharedString, Option<Arc<Image>>) {
-    // axecode: the profile photo, decoded once per frame — small enough to
-    // not need caching.
-    let avatar = user
-        .and_then(|user| user.avatar_data.as_deref())
-        .and_then(crate::image_media::decode_avatar);
-    let (line, identity) = match scope {
+) -> (SharedString, SharedString) {
+    match scope {
         Some(WorkspaceScope::Local) => {
             let identity = if matches!(flow, SyncFlow::RestartPending { .. }) {
                 "Sync ready after restart"
@@ -1778,8 +1769,7 @@ fn sidebar_account_identity(
             }
             None => ("Local".into(), "Not signed in".into()),
         },
-    };
-    (line, identity, avatar)
+    }
 }
 
 fn sync_flow_after_auth(
@@ -1917,10 +1907,6 @@ pub struct Shell {
     /// Shared route clock and measured prepaint geometry for the persistent composer.
     composer_dock: crate::composer_dock::SharedDock,
     new_thread_artwork_ready: crate::new_thread_background_effects::Readiness,
-    /// axecode fork: a second crossfade clock for the thread backdrop — its
-    /// pixel effect can differ from the hero's, so the two need separate
-    /// previous/current tracks or they'd thrash the shared readiness.
-    chat_artwork_ready: crate::new_thread_background_effects::Readiness,
     /// Session-transient disclosure state, matching the Archived shelf.
     pub(super) pinned_open: bool,
     pub(super) sessions_open: bool,
@@ -2414,7 +2400,6 @@ impl Shell {
             bottom_stack_has_composer: std::rc::Rc::new(std::cell::Cell::new(false)),
             composer_dock: Default::default(),
             new_thread_artwork_ready: Default::default(),
-            chat_artwork_ready: Default::default(),
             archived_open: true,
             pinned_open: true,
             sessions_open: true,
@@ -8981,18 +8966,17 @@ impl Shell {
     /// sit in one position. Local runtimes advertise their storage boundary
     /// and offer sync; synced runtimes offer sign-out.
     fn render_sidebar_footer(&mut self, theme: &Theme, cx: &mut Context<Self>) -> AnyElement {
-        let (user_line, menu_identity, avatar) = {
+        let (user_line, menu_identity) = {
             let state = self.state.read(cx);
             sidebar_account_identity(state.workspace_scope, self.sync_flow, state.auth_user())
         };
-        self.render_user_menu(user_line, menu_identity, avatar, theme, cx)
+        self.render_user_menu(user_line, menu_identity, theme, cx)
     }
 
     fn render_user_menu(
         &mut self,
         user_line: SharedString,
         menu_identity: SharedString,
-        avatar: Option<Arc<Image>>,
         theme: &Theme,
         cx: &mut Context<Self>,
     ) -> AnyElement {
@@ -9061,17 +9045,9 @@ impl Shell {
                 }
                 cx.notify();
             }))
-            .child(match avatar {
-                // axecode: the provider/Gravatar photo; the initial disc is
-                // the fallback when the session carries no image.
-                Some(image) => gpui::img(image)
-                    .size(px(SIDEBAR_FOOTER_AVATAR_SIZE))
-                    .flex_none()
-                    .rounded_full()
-                    .object_fit(gpui::ObjectFit::Cover)
-                    .into_any_element(),
+            .child(
                 // Avatar: white circle, initial in near-black (axecode user-menu.tsx).
-                None => div()
+                div()
                     .size(px(SIDEBAR_FOOTER_AVATAR_SIZE))
                     .flex_none()
                     .rounded_full()
@@ -9084,9 +9060,8 @@ impl Shell {
                     .line_height(px(SIDEBAR_FOOTER_AVATAR_SIZE))
                     .font_weight(gpui::FontWeight::SEMIBOLD)
                     .text_color(theme.bg)
-                    .child(div().w_full().text_center().child(initial))
-                    .into_any_element(),
-            })
+                    .child(div().w_full().text_center().child(initial)),
+            )
             .child(sidebar_faded_label(
                 "user-menu-label".into(),
                 false,
@@ -10358,34 +10333,6 @@ impl Shell {
             self.reduced_motion,
             frame_time,
         );
-        // axecode fork: the thread backdrop can wear a different pixel effect
-        // than the hero. `prepare` shares the decoded source, so a differing
-        // effect costs one rasterize while an identical one reuses the same
-        // cached image — and `chat_artwork_ready` crossfades it separately so
-        // the hero's track never thrashes.
-        let chat_artwork = ui_settings
-            .chat_thread_background
-            .then(|| {
-                new_thread_background_setting.as_ref().and_then(|background| {
-                    crate::new_thread_background_effects::prepare(
-                        ui_settings.chat_thread_background_effect,
-                        theme,
-                        std::path::Path::new(&background.path),
-                        cx,
-                    )
-                })
-            })
-            .flatten();
-        let chat_artwork_frame = self.chat_artwork_ready.frame(
-            chat_artwork,
-            new_thread_background_setting
-                .as_ref()
-                .map(|background| std::path::Path::new(&background.path)),
-            new_thread_background_adjustment,
-            ui_settings.chat_thread_background && new_thread_background_setting.is_some(),
-            self.reduced_motion,
-            frame_time,
-        );
         let dock_frame =
             self.composer_dock
                 .borrow_mut()
@@ -10428,7 +10375,7 @@ impl Shell {
                 .absolute()
                 .inset_0()
                 .child(new_thread_background(
-                    artwork_frame.previous.clone(),
+                    artwork_frame.previous,
                     artwork_frame.previous_adjustment,
                     self.viewport_height,
                     width,
@@ -10437,7 +10384,7 @@ impl Shell {
                     (1.0 - artwork_frame.mix) * opacity,
                 ))
                 .child(new_thread_background(
-                    artwork_frame.current.clone(),
+                    artwork_frame.current,
                     artwork_frame.current_adjustment,
                     self.viewport_height,
                     width,
@@ -10445,66 +10392,6 @@ impl Shell {
                     dock_frame.dissolve(),
                     artwork_frame.mix * opacity,
                 ))
-                .into_any_element()
-        });
-        // axecode fork: the same artwork dimmed behind a live thread. Passing
-        // `1.0 - dissolve` reuses the hero's own tween as the clock: the
-        // backdrop eases in as the thread settles and dissolves back out on
-        // the way home, so the two layers crossfade for free. The transcript
-        // scrolls over it — it is ambience, so it sits at a fixed low alpha.
-        let chat_background_layer = (ui_settings.chat_thread_background
-            && (has_selection || dock_frame.active))
-        .then(|| {
-            if chat_artwork_frame.active {
-                window.request_animation_frame();
-            }
-            let width = (self.viewport_width - self.sidebar_now()).max(0.0);
-            let bounds = self.composer.read(cx).surface_bounds();
-            let opacity =
-                new_thread_background_opacity(theme.is_frost()) * CHAT_THREAD_BACKGROUND_OPACITY;
-            let dissolve = 1.0 - dock_frame.dissolve();
-            div()
-                .absolute()
-                .inset_0()
-                .child(new_thread_background(
-                    chat_artwork_frame.previous,
-                    chat_artwork_frame.previous_adjustment,
-                    self.viewport_height,
-                    width,
-                    bounds.clone(),
-                    dissolve,
-                    (1.0 - chat_artwork_frame.mix) * opacity,
-                ))
-                .child(new_thread_background(
-                    chat_artwork_frame.current,
-                    chat_artwork_frame.current_adjustment,
-                    self.viewport_height,
-                    width,
-                    bounds,
-                    dissolve,
-                    chat_artwork_frame.mix * opacity,
-                ))
-                // A backdrop-blur primitive blurs everything painted before
-                // it, so this child sits last — it softens the artwork above
-                // without touching the transcript, which paints after the
-                // whole layer. Scaling the radius by `dissolve` makes the
-                // blur breathe in with the fade instead of snapping on.
-                .when(ui_settings.chat_thread_background_blur > 0.0, |layer| {
-                    let radius = ui_settings.chat_thread_background_blur * dissolve;
-                    layer.child(
-                        gpui::canvas(
-                            |_, _, _| (),
-                            move |bounds, _, window, _| {
-                                window.paint_backdrop_blur(
-                                    bounds,
-                                    gpui::Corners::all(px(0.0)),
-                                    px(radius),
-                                );
-                            },
-                        )
-                        .size_full(),
-                    )
-                })
                 .into_any_element()
         });
 
@@ -10625,7 +10512,6 @@ impl Shell {
             // it must paint under the overlaid titlebar instead of becoming
             // fully transparent across the titlebar's inset band.
             .children(new_thread_background_layer)
-            .children(chat_background_layer)
             .child(
                 // Full-height underlay: the transcript viewport spans the
                 // whole column, scrolling UNDER the titlebar above and the
@@ -14206,7 +14092,6 @@ mod tests {
             id: "u".into(),
             email: "wing@example.com".into(),
             name: Some("Wing".into()),
-            avatar_data: None,
         };
         let unnamed = zeron_proto::UserProfile {
             name: Some("  ".into()),
@@ -14231,7 +14116,6 @@ mod tests {
                 id: "user-1".into(),
                 email: "user@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
             org_id: Some("org-1".into()),
         };
@@ -14344,7 +14228,6 @@ mod tests {
                 id: "user-1".into(),
                 email: "user@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
             org_id: Some("org-1".into()),
         };
@@ -14388,7 +14271,6 @@ mod tests {
                 id: "user-1".into(),
                 email: "user@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
             org_id: Some("org-1".into()),
         };
@@ -14424,7 +14306,6 @@ mod tests {
                 id: "user-2".into(),
                 email: "other@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
             org_id: Some("org-2".into()),
         };

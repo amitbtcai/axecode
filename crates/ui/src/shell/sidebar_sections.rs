@@ -874,7 +874,6 @@ mod tests {
                             id: "user".into(),
                             email: "test@example.test".into(),
                             name: None,
-                            avatar_data: None,
                         },
                         org_id: Some("org".into()),
                     });
@@ -1009,7 +1008,6 @@ mod tests {
                             id: "user".into(),
                             email: "test@example.test".into(),
                             name: None,
-                            avatar_data: None,
                         },
                         org_id: Some("org".into()),
                     });

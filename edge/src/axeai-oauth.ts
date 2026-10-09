@@ -61,8 +61,6 @@ interface WireUserInfo {
   name?: string;
   given_name?: string;
   family_name?: string;
-  // Standard OIDC profile claim — Better Auth serves it from user.image.
-  picture?: string;
 }
 
 /** `authorization_code` + PKCE verifier → tokens; the profile comes from
@@ -90,8 +88,7 @@ export const exchange = async (
       id: user.sub,
       email: user.email ?? "",
       firstName: user.given_name ?? user.name ?? null,
-      lastName: user.family_name ?? null,
-      profilePictureUrl: user.picture ?? null
+      lastName: user.family_name ?? null
     },
     accessToken: tokens.access_token,
     refreshToken: tokens.refresh_token

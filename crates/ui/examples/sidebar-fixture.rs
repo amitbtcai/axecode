@@ -39,11 +39,7 @@ fn main() -> anyhow::Result<()> {
             if std::env::var_os("AXECODE_SIDEBAR_ACCOUNT").is_some() {
                 s.workspace_scope = Some(zeron_proto::WorkspaceScope::Synced);
                 s.auth = Some(zeron_proto::AuthState::SignedIn {
-                    user: zeron_proto::UserProfile { id: "fixture-user".into(), email: "alex@example.test".into(), name: Some("Alex".into()),
-                        // AXECODE_SIDEBAR_AVATAR=<png path> exercises the photo branch.
-                        avatar_data: std::env::var("AXECODE_SIDEBAR_AVATAR").ok()
-                            .and_then(|path| std::fs::read(path).ok())
-                            .map(|bytes| base64::Engine::encode(&base64::engine::general_purpose::STANDARD, bytes)) },
+                    user: zeron_proto::UserProfile { id: "fixture-user".into(), email: "alex@example.test".into(), name: Some("Alex".into()) },
                     org_id: Some("fixture-org".into()),
                 });
             }

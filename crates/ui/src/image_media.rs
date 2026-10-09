@@ -220,18 +220,6 @@ pub(crate) fn decode_image(mime: &str, bytes: Vec<u8>) -> Result<MediaImage, Str
     decode_raster_image(bytes, zeron_proto::MAX_WORKSPACE_IMAGE_BYTES)
 }
 
-/// Sidebar avatar: base64 photo bytes (proto `UserProfile.avatar_data`) → a
-/// bounded 64px static raster for `img()`. `None` = show the initial disc.
-pub(crate) fn decode_avatar(encoded: &str) -> Option<Arc<Image>> {
-    use base64::Engine as _;
-    let bytes = base64::engine::general_purpose::STANDARD
-        .decode(encoded)
-        .ok()?;
-    decode_raster_image_bounded(bytes, 4 * 1024 * 1024, Some(64))
-        .ok()
-        .map(|media| media.image)
-}
-
 /// Repository icons retain only a small static thumbnail, even for large source logos.
 pub(crate) fn decode_project_icon(mime: &str, bytes: Vec<u8>) -> Result<MediaImage, String> {
     if mime == "image/svg+xml" {
@@ -319,21 +307,6 @@ fn decode_raster_image_bounded(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn avatar_decode_thumbnails_base64_photos_and_rejects_garbage() {
-        let mut png = Cursor::new(Vec::new());
-        image::RgbaImage::from_pixel(400, 400, image::Rgba([10, 20, 30, 255]))
-            .write_to(&mut png, image::ImageFormat::Png)
-            .unwrap();
-        use base64::Engine as _;
-        let encoded = base64::engine::general_purpose::STANDARD.encode(png.into_inner());
-        let avatar = decode_avatar(&encoded).expect("valid photo decodes");
-        let decoded = image::load_from_memory(&avatar.bytes).unwrap();
-        assert_eq!((decoded.width(), decoded.height()), (64, 64));
-        assert!(decode_avatar("not base64!!!").is_none());
-        assert!(decode_avatar("aGVsbG8=").is_none()); // "hello" isn't an image
-    }
 
     fn assert_svg_text_is_visible(family: &str) {
         let svg = format!(

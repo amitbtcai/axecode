@@ -23,9 +23,6 @@ export interface ExchangeResult {
     readonly email: string;
     readonly firstName: string | null;
     readonly lastName: string | null;
-    // axecode: the user's profile photo URL (sidebar avatar); null when the
-    // provider has none — clients fall back to an initial.
-    readonly profilePictureUrl: string | null;
   };
   readonly accessToken: string;
   readonly refreshToken: string;
@@ -47,7 +44,6 @@ interface WireUser {
   email: string;
   first_name: string | null;
   last_name: string | null;
-  profile_picture_url?: string | null;
 }
 
 interface WireAuthResponse {
@@ -102,8 +98,7 @@ export const exchange = async (env: Env, apiKey: string, code: string): Promise<
       id: r.user.id,
       email: r.user.email,
       firstName: r.user.first_name,
-      lastName: r.user.last_name,
-      profilePictureUrl: r.user.profile_picture_url ?? null
+      lastName: r.user.last_name
     },
     accessToken: r.access_token,
     refreshToken: r.refresh_token

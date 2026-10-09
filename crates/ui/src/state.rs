@@ -5597,7 +5597,6 @@ mod tests {
             id: "u".into(),
             email: "w@example.com".into(),
             name: None,
-            avatar_data: None,
         };
         assert_eq!(
             gate_phase(&ConnectionStatus::Connecting, None, None),
@@ -5656,7 +5655,6 @@ mod tests {
                 id: "u".into(),
                 email: "w@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
         });
         assert_eq!(state.workspace_scope, Some(WorkspaceScope::Local));
@@ -5667,7 +5665,6 @@ mod tests {
                 id: "u".into(),
                 email: "w@example.com".into(),
                 name: None,
-                avatar_data: None,
             },
             org_id: Some("org-1".into()),
         });
